@@ -33,7 +33,7 @@
 
 <p align="center">
   <a href="https://github.com/anuraghazra/github-readme-stats">
-    <img height="180" src="https://github-readme-stats.vercel.app/api?username=zelinewang&theme=tokyonight&show_icons=true&hide_border=true&include_all_commits=true&count_private=true&rank_icon=github" alt="GitHub stats" />
+    <img height="180" src="https://github-readme-stats.vercel.app/api?username=zelinewang&theme=tokyonight&show_icons=true&hide_border=true&include_all_commits=true&rank_icon=github" alt="GitHub stats" />
   </a>
   <a href="https://github.com/anuraghazra/github-readme-stats">
     <img height="180" src="https://github-readme-stats.vercel.app/api/top-langs/?username=zelinewang&theme=tokyonight&hide_border=true&layout=compact&langs_count=8" alt="Top languages" />
