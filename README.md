@@ -15,7 +15,6 @@
 - 👋 Hi, I'm **Zane Wang**
 - 💡 Interested in **Software · AI · Embedded · GIS** — and the seams between them
 - 📍 Based in **San Francisco, CA**
-- 📫 Reach me at **zelinwang10@gmail.com**
 - 🤝 Always down to chat — connect with me on LinkedIn!
 
 ---
@@ -42,7 +41,7 @@
 </p>
 
 <p align="center">
-  <img src="https://github-readme-streak-stats.herokuapp.com?user=zelinewang&theme=tokyonight&hide_border=true" alt="Streak stats" />
+  <img src="https://streak-stats.demolab.com?user=zelinewang&theme=tokyonight&hide_border=true" alt="Streak stats" />
 </p>
 
 ---
@@ -81,7 +80,6 @@
 
 <p align="center">
   <a href="https://www.linkedin.com/in/zane-wang7/"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" /></a>
-  <a href="mailto:zelinwang10@gmail.com"><img src="https://img.shields.io/badge/Email-EA4335?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" /></a>
   <a href="https://github.com/zelinewang"><img src="https://img.shields.io/github/followers/zelinewang?style=for-the-badge&logo=github&color=7B61FF&labelColor=0D1117&label=Follow" alt="GitHub follow" /></a>
 </p>
 
