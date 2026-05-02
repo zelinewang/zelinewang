@@ -1,11 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" role="img" aria-labelledby="heroTitle heroDesc" preserveAspectRatio="xMidYMid meet">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 360" role="img" aria-labelledby="heroTitle heroDesc" preserveAspectRatio="xMidYMid meet">
   <title id="heroTitle">Zane Wang — building useful systems for fuzzy problems</title>
-  <desc id="heroDesc">Editorial hero card (dark mode) with a quiet animated signal indicating the profile is live.</desc>
+  <desc id="heroDesc">Editorial hero card (dark mode). A small accent dot pulses to indicate the profile is live.</desc>
 
   <defs>
-    <!-- Dark variant: ink/paper swap, accent unchanged for OKLCH tone consistency -->
-    <!-- ink: oklch(20% 0.015 50) ≈ #1f1c17  /  paper-dark: oklch(20% 0.015 50) ≈ #14110d -->
-    <!-- text-on-dark: oklch(95% 0.008 80) ≈ #efebe2  /  mute-on-dark ≈ #807871 -->
     <linearGradient id="paperWashDark" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#14110d"/>
       <stop offset="60%" stop-color="#1a1612"/>
@@ -13,74 +10,50 @@
     </linearGradient>
 
     <radialGradient id="accentGlowDark" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#c0623c" stop-opacity="0.35"/>
+      <stop offset="0%" stop-color="#c0623c" stop-opacity="0.32"/>
       <stop offset="60%" stop-color="#c0623c" stop-opacity="0.08"/>
       <stop offset="100%" stop-color="#c0623c" stop-opacity="0"/>
     </radialGradient>
-
-    <style><![CDATA[
-      .display { font-family: ui-serif, "Iowan Old Style", "Hoefler Text", "Times New Roman", serif; font-weight: 500; letter-spacing: -0.015em; fill: #efebe2; }
-      .body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", system-ui, sans-serif; fill: #efebe2; }
-      .mute { fill: #807871; }
-      .mono { font-family: "SF Mono", ui-monospace, "JetBrains Mono", Menlo, Consolas, monospace; }
-      .accent { fill: #d97a52; }
-
-      .pulse { transform-origin: 64px 222px; animation: pulse 2.6s ease-in-out infinite; }
-      @keyframes pulse {
-        0%, 100% { transform: scale(1); opacity: 1; }
-        50% { transform: scale(1.55); opacity: 0.5; }
-      }
-
-      .pulse-ring { transform-origin: 64px 222px; animation: ring 2.6s ease-out infinite; opacity: 0; }
-      @keyframes ring {
-        0% { transform: scale(1); opacity: 0.55; }
-        70%, 100% { transform: scale(3.2); opacity: 0; }
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        .pulse, .pulse-ring { animation: none; }
-      }
-    ]]></style>
   </defs>
 
-  <rect width="1200" height="420" fill="url(#paperWashDark)"/>
-  <circle cx="1080" cy="360" r="220" fill="url(#accentGlowDark)"/>
+  <rect width="1200" height="360" fill="url(#paperWashDark)"/>
+  <circle cx="1080" cy="320" r="220" fill="url(#accentGlowDark)"/>
 
-  <g class="body" font-size="13" letter-spacing="0.18em">
-    <text x="64" y="62" class="mute"><tspan class="mono">00</tspan> &#160;&#160;PROFILE&#160;/&#160;ZANE&#160;WANG</text>
-    <text x="1136" y="62" text-anchor="end" class="mute mono">EST.&#160;2021</text>
-  </g>
+  <line x1="64" y1="68" x2="1136" y2="68" stroke="#efebe2" stroke-opacity="0.12" stroke-width="1"/>
 
-  <line x1="64" y1="84" x2="1136" y2="84" stroke="#efebe2" stroke-opacity="0.10" stroke-width="1"/>
+  <text x="64" y="50" fill="#807871"
+        font-family="'SF Mono', ui-monospace, 'JetBrains Mono', Menlo, Consolas, monospace"
+        font-size="12" letter-spacing="0.22em">PROFILE&#160;/&#160;ZANE&#160;WANG</text>
 
-  <g class="display">
-    <text x="64" y="170" font-size="78">Zane Wang</text>
-  </g>
+  <text x="64" y="170" fill="#efebe2"
+        font-family="Charter, 'Iowan Old Style', 'Source Serif Pro', Cambria, Georgia, serif"
+        font-size="84" font-weight="500" letter-spacing="-0.02em">Zane Wang</text>
 
-  <text x="64" y="210" class="body mute" font-size="15" letter-spacing="0.04em">
+  <text x="64" y="208" fill="#807871"
+        font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif"
+        font-size="15" letter-spacing="0.04em">
     AI agents · agent memory · maps · hardware-aware software · developer tools
   </text>
 
   <g>
-    <circle class="pulse-ring" cx="64" cy="222" r="6" fill="none" stroke="#d97a52" stroke-width="1"/>
-    <circle class="pulse" cx="64" cy="222" r="4" fill="#d97a52"/>
+    <circle cx="64" cy="244" r="6" fill="none" stroke="#d97a52" stroke-width="1" opacity="0">
+      <animate attributeName="r" from="6" to="20" dur="2.6s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.55;0;0" keyTimes="0;0.7;1" dur="2.6s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="64" cy="244" r="4" fill="#d97a52">
+      <animate attributeName="r" values="4;6.5;4" dur="2.6s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="1;0.55;1" dur="2.6s" repeatCount="indefinite"/>
+    </circle>
   </g>
-  <text x="78" y="226" class="body mute mono" font-size="11" letter-spacing="0.12em">SIGNAL&#160;LIVE</text>
+  <text x="80" y="248" fill="#807871"
+        font-family="'SF Mono', ui-monospace, 'JetBrains Mono', Menlo, Consolas, monospace"
+        font-size="11" letter-spacing="0.16em">SIGNAL&#160;LIVE</text>
 
-  <text x="64" y="290" class="body" font-size="22" font-weight="400" letter-spacing="-0.005em">
-    <tspan>I build useful systems for fuzzy problems —</tspan>
-  </text>
-  <text x="64" y="322" class="body" font-size="22" font-weight="400" letter-spacing="-0.005em">
-    <tspan>agents that remember, maps that explain, tools that remove friction,</tspan>
-  </text>
-  <text x="64" y="354" class="body" font-size="22" font-weight="400" letter-spacing="-0.005em">
-    <tspan>and prototypes with enough personality to make the demo worth finishing.</tspan>
+  <text x="64" y="300" fill="#efebe2"
+        font-family="Charter, 'Iowan Old Style', 'Source Serif Pro', Cambria, Georgia, serif"
+        font-size="22" font-style="italic" font-weight="400" letter-spacing="-0.005em">
+    I build useful systems for fuzzy problems.
   </text>
 
-  <line x1="64" y1="384" x2="1136" y2="384" stroke="#efebe2" stroke-opacity="0.10" stroke-width="1"/>
-  <g class="body mono" font-size="11" letter-spacing="0.18em">
-    <text x="64" y="404" class="mute">CURRENT&#160;MODE</text>
-    <text x="172" y="404" class="accent">SHIPPING</text>
-    <text x="1136" y="404" text-anchor="end" class="mute">SCROLL&#160;&#x2193;</text>
-  </g>
+  <line x1="64" y1="332" x2="1136" y2="332" stroke="#efebe2" stroke-opacity="0.12" stroke-width="1"/>
 </svg>
