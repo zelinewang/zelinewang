@@ -29,6 +29,7 @@ jobs:
         with:
           sparse-checkout: |
             ZANE_PERSONA.md
+            AGENTS.md
             .github/scripts
           sparse-checkout-cone-mode: false
 

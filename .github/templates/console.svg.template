@@ -254,7 +254,7 @@
 
     <text x="46" y="2556" fill="#a8b4c0">Open an issue with title prefix </text>
     <text x="396" y="2556" fill="#e8b063">"ZaneOS &lt;mode&gt;: &lt;your input&gt;"</text>
-    <text x="46" y="2576" fill="#a8b4c0">A workflow runs DeepSeek V4 Flash and replies in your issue (~30s).</text>
+    <text x="46" y="2576" fill="#a8b4c0">A workflow runs Zane's AI and replies in your issue (~30s).</text>
     <text x="46" y="2594" fill="#7d8a96">Limit: 3 questions per 24h per handle. 50 globally per 24h.</text>
 
     <text x="46" y="2630" fill="#e8b063">ask</text><text x="146" y="2630" fill="#a8b4c0">a question about Zane's work, stack, philosophy</text>
