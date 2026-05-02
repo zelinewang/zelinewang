@@ -19,10 +19,10 @@ The throughline: building things other people can pick up cold.
 
 ---
 
-## 02 &nbsp;&nbsp; Build quests
+## 02 &nbsp;&nbsp; Open projects
 
-A few public projects worth a click. Each one is the smallest useful version
-of an idea I wanted to keep working on.
+A few worth a click. Each one is the smallest useful version of an idea I
+wanted to keep working on.
 
 [**`dev-orchestrator`**](https://github.com/zelinewang/dev-orchestrator) &nbsp;·&nbsp; one-command AI development lifecycle. Investigate &rarr; plan &rarr; execute &rarr; verify &rarr; ship, with the gates a senior engineer would actually use.
 
@@ -43,18 +43,20 @@ of an idea I wanted to keep working on.
 ## 03 &nbsp;&nbsp; ZaneOS Sidekick
 
 This README cannot run JavaScript &mdash; but GitHub itself can be the runtime.
-Open one of the side quests below; a workflow with a real model on the other end
-will reply in the issue thread and close it.
+Open one of the four side quests; a workflow with a real model on the other
+end replies in the issue thread and closes it.
 
 The model is Claude Haiku, the prompt is in [`ZANE_PERSONA.md`](./ZANE_PERSONA.md),
-and the bot knows it is a bot. Public conversation is part of the design.
+and the bot knows it is a bot. Public conversation is part of the design &mdash;
+you can read past replies like a portfolio of small thoughts.
 
-| Side quest | What happens |
-| --- | --- |
-| [**Ask**](https://github.com/zelinewang/zelinewang/issues/new?title=ZaneOS%20ask%3A%20what%20should%20I%20talk%20to%20Zane%20about%3F&body=Replace%20the%20question%20in%20the%20title.%20The%20bot%20will%20reply%20in%20this%20issue%20and%20close%20it.) | A question about Zane's work, stack, philosophy, or how he thinks about something. |
-| [**Match**](https://github.com/zelinewang/zelinewang/issues/new?title=ZaneOS%20match%3A%20%40your-username&body=Replace%20%40your-username%20with%20your%20GitHub%20handle.%20The%20bot%20will%20look%20at%20your%20public%20surface%20and%20propose%20one%20overlap%20angle.) | Your GitHub handle in, one specific overlap angle out. |
-| [**Boop**](https://github.com/zelinewang/zelinewang/issues/new?title=ZaneOS%20boop%3A%20maps%20%2B%20agents%20%2B%20hardware&body=Replace%20the%20ingredients%20in%20the%20title.%20The%20bot%20will%20turn%20them%20into%20one%20useful-strange%20prototype%20idea.) | A few ingredients in, one useful-strange prototype idea out. |
-| [**Quest**](https://github.com/zelinewang/zelinewang/issues/new?title=ZaneOS%20quest%3A%20agent%20memory&body=Replace%20the%20topic%20in%20the%20title.%20The%20bot%20will%20generate%20a%20small%2C%20well-shaped%20technical%20challenge%20with%20a%20hidden%20lesson.) | A topic in, a small technical challenge card out. |
+[**Ask &rarr;**](https://github.com/zelinewang/zelinewang/issues/new?title=ZaneOS%20ask%3A%20what%20should%20I%20talk%20to%20Zane%20about%3F&body=Replace%20the%20question%20in%20the%20title.%20The%20bot%20will%20reply%20in%20this%20issue%20and%20close%20it.) &nbsp;&nbsp; a question about Zane's work, stack, philosophy, or how he thinks about something
+
+[**Match &rarr;**](https://github.com/zelinewang/zelinewang/issues/new?title=ZaneOS%20match%3A%20%40your-username&body=Replace%20%40your-username%20with%20your%20GitHub%20handle.%20The%20bot%20will%20look%20at%20your%20public%20surface%20and%20propose%20one%20overlap%20angle.) &nbsp;&nbsp; your GitHub handle in, one specific overlap angle out
+
+[**Boop &rarr;**](https://github.com/zelinewang/zelinewang/issues/new?title=ZaneOS%20boop%3A%20maps%20%2B%20agents%20%2B%20hardware&body=Replace%20the%20ingredients%20in%20the%20title.%20The%20bot%20will%20turn%20them%20into%20one%20useful-strange%20prototype%20idea.) &nbsp;&nbsp; a few ingredients in, one useful-strange prototype idea out
+
+[**Quest &rarr;**](https://github.com/zelinewang/zelinewang/issues/new?title=ZaneOS%20quest%3A%20agent%20memory&body=Replace%20the%20topic%20in%20the%20title.%20The%20bot%20will%20generate%20a%20small%2C%20well-shaped%20technical%20challenge%20with%20a%20hidden%20lesson.) &nbsp;&nbsp; a topic in, a small technical challenge card out
 
 ```text
 zaneos ask    "what should I talk to Zane about?"
@@ -63,20 +65,18 @@ zaneos boop   "maps + agents + hardware"
 zaneos quest  "agent memory"
 ```
 
-> The bot replies in the issue and closes it. Past conversations stay public,
-> which is the point &mdash; you can read them like a portfolio of small thoughts.
-
 &nbsp;
 
 ---
 
 ## 04 &nbsp;&nbsp; Working set
 
-`Python` &nbsp;·&nbsp; `Go` &nbsp;·&nbsp; `TypeScript` &nbsp;·&nbsp; `JavaScript` &nbsp;·&nbsp; `Java` &nbsp;·&nbsp; `C++` &nbsp;·&nbsp; `React` &nbsp;·&nbsp; `Node.js` &nbsp;·&nbsp; `Docker` &nbsp;·&nbsp; `Linux` &nbsp;·&nbsp; `QGIS` &nbsp;·&nbsp; `Raspberry Pi`
+Mostly Python, Go, and TypeScript. React on the front end. Docker and Linux
+underneath. QGIS and Raspberry Pi when the work has physical texture.
 
-I care less about logo walls and more about tool fit: quick prototypes when the
-idea is unstable, durable systems when the shape is clear, and automation
-whenever the same task appears twice.
+Tool fit over logo walls: quick prototypes when the idea is unstable,
+durable systems when the shape is clear, automation whenever the same
+task appears twice.
 
 &nbsp;
 
