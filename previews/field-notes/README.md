@@ -37,8 +37,6 @@ A multi-agent orchestration protocol. Each agent specializes (planner /
 implementer / reviewer / designer / conductor). The constellation does the
 work — no single one is enough.
 
-▸ [field notes (4)](#)
-
 &nbsp;
 
 **No. 041 &nbsp;·&nbsp; 2026-04-15 &nbsp;·&nbsp; [`claudemem`](https://github.com/zelinewang/claudemem)**
@@ -46,8 +44,6 @@ work — no single one is enough.
 Persistent memory for AI agents — SQLite + FTS5 + optional embeddings.
 Survives compaction, machine moves, process restarts. Now at ~570 notes
 across daily use.
-
-▸ [field notes (3)](#)
 
 &nbsp;
 
@@ -57,8 +53,6 @@ A `/dev` protocol that runs a senior-engineer workflow end-to-end:
 investigate, brainstorm, plan, execute with TDD, verify, ship. Zero
 checkpoints between phases unless something needs human judgment.
 
-▸ [field notes (5)](#)
-
 &nbsp;
 
 **No. 029 &nbsp;·&nbsp; 2025-11-12 &nbsp;·&nbsp; [`FireSight`](https://github.com/zelinewang/FireSight)**
@@ -66,16 +60,12 @@ checkpoints between phases unless something needs human judgment.
 NASA satellite passes + weather + a small classifier, mapped. Hobby project,
 but the kind that keeps AI, maps, and a real-world signal in the same room.
 
-▸ [field notes (2)](#)
-
 &nbsp;
 
 **No. 022 &nbsp;·&nbsp; 2025-08-04 &nbsp;·&nbsp; [`PulseConnect`](https://github.com/zelinewang/PulseConnect)**
 
 Computer-using AI for personalized outreach — with the human kept firmly in
 the approval loop. An exercise in restraint.
-
-▸ [field notes (1)](#)
 
 &nbsp;
 
@@ -85,40 +75,32 @@ Board game logic. Tiny rules, deep strategy — the right shape for practicing
 clean state machines.
 
 </td>
-<td width="35%" valign="top" style="padding-left: 24px;">
+<td width="35%" valign="top">
 
-<sub>
+*"Each star has a job;*
+*the work is the pattern."*
 
-> &nbsp;
-> *"Each star has a job; the work is the pattern."*
-> &nbsp;
-> &nbsp;
-> ─────
-> &nbsp;
-> &nbsp;
-> *Most agents that pretend to remember lose more than they save. claudemem is the antidote.*
-> &nbsp;
-> &nbsp;
-> ─────
-> &nbsp;
-> &nbsp;
-> *Senior engineers do not stop every fifteen minutes to ask permission.*
-> &nbsp;
-> *They escalate when escalation is the right answer.*
-> &nbsp;
-> &nbsp;
-> ─────
-> &nbsp;
-> &nbsp;
-> *AI + maps + real-world texture — three rooms; rarely the same room.*
-> &nbsp;
-> &nbsp;
-> ─────
-> &nbsp;
-> &nbsp;
-> *Restraint is the feature.*
+---
 
-</sub>
+*Most agents that pretend to remember lose more than they save.*
+
+*claudemem is the antidote.*
+
+---
+
+*Senior engineers do not stop every fifteen minutes to ask permission.*
+
+*They escalate when escalation is the right answer.*
+
+---
+
+*AI + maps + real-world texture —*
+
+*three rooms; rarely the same room.*
+
+---
+
+*Restraint is the feature.*
 
 </td>
 </tr>
