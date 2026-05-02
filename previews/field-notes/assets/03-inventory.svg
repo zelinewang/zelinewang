@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 480" role="img" aria-labelledby="title desc" preserveAspectRatio="xMidYMid meet">
+  <title id="title">Instrument inventory — the working set</title>
+  <desc id="desc">A field-journal page presenting the tech stack as instruments inventoried into categories with hand-numbered counts.</desc>
+
+  <defs>
+    <linearGradient id="paperWash" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"  stop-color="#fbf6e9"/>
+      <stop offset="60%" stop-color="#f6efde"/>
+      <stop offset="100%" stop-color="#efe6cf"/>
+    </linearGradient>
+    <pattern id="grain" x="0" y="0" width="160" height="160" patternUnits="userSpaceOnUse">
+      <circle cx="22"  cy="38"  r="0.5" fill="#1f1c14" opacity="0.04"/>
+      <circle cx="58"  cy="14"  r="0.4" fill="#1f1c14" opacity="0.05"/>
+      <circle cx="91"  cy="60"  r="0.5" fill="#1f1c14" opacity="0.03"/>
+      <circle cx="129" cy="29"  r="0.4" fill="#1f1c14" opacity="0.05"/>
+      <circle cx="14"  cy="93"  r="0.5" fill="#1f1c14" opacity="0.04"/>
+      <circle cx="73"  cy="111" r="0.4" fill="#1f1c14" opacity="0.05"/>
+      <circle cx="119" cy="86"  r="0.5" fill="#1f1c14" opacity="0.03"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="480" fill="url(#paperWash)"/>
+  <rect width="1200" height="480" fill="url(#grain)"/>
+
+  <!-- Top -->
+  <text x="64" y="42" fill="#7d7560"
+        font-family="ui-monospace, monospace" font-size="11" letter-spacing="0.32em">INSTRUMENT &#160;INVENTORY</text>
+  <text x="1136" y="42" fill="#7d7560" text-anchor="end"
+        font-family="ui-monospace, monospace" font-size="11" letter-spacing="0.18em">PAGE &#160;5</text>
+  <line x1="64" y1="58" x2="1136" y2="58" stroke="#1f1c14" stroke-opacity="0.18" stroke-width="0.6"/>
+
+  <!-- Title -->
+  <text x="64" y="108" fill="#1f1c14"
+        font-family="Charter, 'Iowan Old Style', Cambria, Georgia, serif"
+        font-size="36" font-weight="500" letter-spacing="-0.015em">Working set, by domain</text>
+  <text x="64" y="138" fill="#7d7560"
+        font-family="Charter, 'Iowan Old Style', Cambria, Georgia, serif"
+        font-style="italic" font-size="14">
+    What sits on the workbench. Counted by domain, not by hype.
+  </text>
+
+  <!-- 5 columns: LANG / WEB / INFRA / SPATIAL / HARDWARE -->
+
+  <!-- Column 1 - LANG -->
+  <g transform="translate(64, 200)">
+    <text x="0" y="0" fill="#a13a28"
+          font-family="ui-monospace, monospace" font-size="10" letter-spacing="0.22em">LANG</text>
+    <text x="0" y="22" fill="#1f1c14" font-family="Charter, Cambria, Georgia, serif" font-size="48" font-weight="500">6</text>
+    <line x1="0" y1="56" x2="180" y2="56" stroke="#1f1c14" stroke-opacity="0.18" stroke-width="0.4"/>
+    <text x="0" y="80" fill="#1f1c14" font-family="Charter, Cambria, Georgia, serif" font-size="14">python</text>
+    <text x="0" y="100" fill="#1f1c14" font-family="Charter, Cambria, Georgia, serif" font-size="14">go</text>
+    <text x="0" y="120" fill="#1f1c14" font-family="Charter, Cambria, Georgia, serif" font-size="14">typescript</text>
+    <text x="0" y="140" fill="#1f1c14" font-family="Charter, Cambria, Georgia, serif" font-size="14">javascript</text>
+    <text x="0" y="160" fill="#1f1c14" font-family="Charter, Cambria, Georgia, serif" font-size="14">java</text>
+    <text x="0" y="180" fill="#1f1c14" font-family="Charter, Cambria, Georgia, serif" font-size="14">c++</text>
+  </g>
+
+  <!-- Column 2 - WEB -->
+  <g transform="translate(282, 200)">
+    <text x="0" y="0" fill="#a13a28"
+          font-family="ui-monospace, monospace" font-size="10" letter-spacing="0.22em">WEB</text>
+    <text x="0" y="22" fill="#1f1c14" font-family="Charter, Cambria, Georgia, serif" font-size="48" font-weight="500">2</text>
+    <line x1="0" y1="56" x2="180" y2="56" stroke="#1f1c14" stroke-opacity="0.18" stroke-width="0.4"/>
+    <text x="0" y="80" fill="#1f1c14" font-family="Charter, Cambria, Georgia, serif" font-size="14">react</text>
+    <text x="0" y="100" fill="#1f1c14" font-family="Charter, Cambria, Georgia, serif" font-size="14">node.js</text>
+  </g>
+
+  <!-- Column 3 - INFRA -->
+  <g transform="translate(500, 200)">
+    <text x="0" y="0" fill="#a13a28"
+          font-family="ui-monospace, monospace" font-size="10" letter-spacing="0.22em">INFRA</text>
+    <text x="0" y="22" fill="#1f1c14" font-family="Charter, Cambria, Georgia, serif" font-size="48" font-weight="500">2</text>
+    <line x1="0" y1="56" x2="180" y2="56" stroke="#1f1c14" stroke-opacity="0.18" stroke-width="0.4"/>
+    <text x="0" y="80" fill="#1f1c14" font-family="Charter, Cambria, Georgia, serif" font-size="14">docker</text>
+    <text x="0" y="100" fill="#1f1c14" font-family="Charter, Cambria, Georgia, serif" font-size="14">linux</text>
+  </g>
+
+  <!-- Column 4 - SPATIAL -->
+  <g transform="translate(718, 200)">
+    <text x="0" y="0" fill="#a13a28"
+          font-family="ui-monospace, monospace" font-size="10" letter-spacing="0.22em">SPATIAL</text>
+    <text x="0" y="22" fill="#1f1c14" font-family="Charter, Cambria, Georgia, serif" font-size="48" font-weight="500">1</text>
+    <line x1="0" y1="56" x2="180" y2="56" stroke="#1f1c14" stroke-opacity="0.18" stroke-width="0.4"/>
+    <text x="0" y="80" fill="#1f1c14" font-family="Charter, Cambria, Georgia, serif" font-size="14">qgis</text>
+  </g>
+
+  <!-- Column 5 - HARDWARE -->
+  <g transform="translate(936, 200)">
+    <text x="0" y="0" fill="#a13a28"
+          font-family="ui-monospace, monospace" font-size="10" letter-spacing="0.22em">HARDWARE</text>
+    <text x="0" y="22" fill="#1f1c14" font-family="Charter, Cambria, Georgia, serif" font-size="48" font-weight="500">1</text>
+    <line x1="0" y1="56" x2="180" y2="56" stroke="#1f1c14" stroke-opacity="0.18" stroke-width="0.4"/>
+    <text x="0" y="80" fill="#1f1c14" font-family="Charter, Cambria, Georgia, serif" font-size="14">raspberry pi</text>
+  </g>
+
+  <!-- Footer note -->
+  <line x1="64" y1="430" x2="1136" y2="430" stroke="#1f1c14" stroke-opacity="0.18" stroke-width="0.6"/>
+  <text x="64" y="454" fill="#7d7560"
+        font-family="Charter, 'Iowan Old Style', Cambria, Georgia, serif"
+        font-style="italic" font-size="14">
+    Tool fit over logo walls — quick prototypes when the idea is unstable, durable systems when the shape is clear.
+  </text>
+  <text x="1136" y="454" fill="#7d7560" text-anchor="end"
+        font-family="ui-monospace, monospace" font-size="10" letter-spacing="0.18em">5 DOMAINS &#160;·&#160; 12 LEAVES</text>
+</svg>
