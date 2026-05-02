@@ -58,6 +58,15 @@ note here under "Roll-ups."
 
 - 2026-05-01 — Camo correction synced into `vibe-readme/SKILL.md` §2 and §3.1.
   Renamed "live tier" → "scheduled-refresh tier."
+- 2026-05-02 — **§0.1 single mega-SVG pattern + §0.2 stats integration via cron**
+  added to `vibe-readme/SKILL.md`. User feedback after seeing v2 multi-SVG previews:
+  "they are separate, there are still markdown gaps between different SVG which is
+  breaking the design." Confirmed root cause: GitHub wraps each `<img>` in `<p>`
+  with margin-bottom; even with `&nbsp;` separators, every panel boundary leaks a
+  visible vertical break. Fix: collapse to ONE composite SVG per direction. Also
+  documented the GitHub stats integration approach (cron Action queries gh api,
+  fills SVG template placeholders, commits) — separates "design" from "data" so
+  the SVG can age gracefully without manual edits.
 - 2026-05-01 — **SVG-first principle added as new §0 in `vibe-readme/SKILL.md`.**
   User feedback after seeing v1 of the three previews: "only the headers feel
   designed; the markdown body is bland." Confirmed root cause: GitHub's
@@ -84,3 +93,8 @@ note here under "Roll-ups."
 | 2026-05-01 | **The "alpha-star = brightest = highest-priority" mapping is honest hierarchy.** When a project genuinely matters more than others (dev-orchestrator vs santorini), giving it the brightest visual treatment (largest star, amber accent, bold weight) is signal, not decoration. Visual hierarchy that maps to actual importance is rare and worth doing. | Constellation v2 starmap and observation-log cards |
 | 2026-05-01 | **A "Voyager Golden Record" plate with axioms arranged radially is a strong way to present principles.** Instead of a numbered list, a circular composition with axioms at clock positions communicates "these are co-equal, none more important than another." Different from a stacked list which implies priority order. | Constellation v2 doctrine plate |
 | 2026-05-01 | **Spectroscopic visualization beats badge wall for "tech stack."** Same content (12 tools across 5 domains), but presented as ticks on a colored spectrum rather than a row of vendor logos. Reads as analysis instead of advertising. | Constellation v2 stack panel |
+| 2026-05-02 | **Multi-SVG always has the markdown-gap problem on GitHub.** Each `<img>` wraps in `<p>` with default margin-bottom; even `&nbsp;` between them leaves a visible break. The only way to get continuous design flow is to collapse the panels into ONE composite SVG. Gives total control of vertical rhythm (hairlines, labels, generous gutters all live inside the SVG) and shrinks the README to literally one `<img>` tag. Trade-off: loses per-section anchor jumps and per-row click targets — mitigated by a small markdown links strip below the SVG. | Slice 5 v3 redesign of all 3 previews after user feedback |
+| 2026-05-02 | **Mega-SVG composition rule: don't reuse panel chrome.** When fusing 6 panels into one SVG, keep ONE shared status bar / outer frame. Don't repeat status bars per section — that just makes it look like multi-SVG fused together (six little "windows" stacked). Use internal hairlines + small gutter labels (`§ 02 PROJECTS`) for section transitions. The whole thing should read as ONE designed page, not a vertical comic strip of windows. | Console v3 mega-SVG; reused for Const + Field Notes |
+| 2026-05-02 | **Honest stats framing: lead with breadth/cadence, not stars.** Real GitHub data: 34 repos, 4.7 yrs tenure, 37 pushes / 27 PRs in last 100 events, total stars = 1. The honest path is to show repos + tenure + activity (which read as "this person ships") and skip stars (which would read as theatrical given the actual count). The stats panel ends up flattering the actual shape of the work without lying. | Console v3 §04 STATS, Const v3 §03 DISCOVERY LOG, Field Notes v3 PAGE 3 RUNNING TALLY |
+| 2026-05-02 | **Stats vocabulary should match the aesthetic frame.** Same numbers presented as: Console "PUBLIC REPOS / RECENT PUSHES" / Constellation "CATALOGUED STARS / RECENT TRANSITS" / Field Notes "REPOSITORIES / RECENT PUSHES (with hand-tally serif numerals)". Same data, three different framings — keeps each preview's metaphor coherent through the stats panel. | All 3 v3 previews |
+| 2026-05-02 | **Stats integration architecture = cron-baked SVG, not external widget.** Daily Action: `gh api` for live numbers → fill `*.svg.template` placeholders → write rendered SVG → commit if changed. Camo eventually re-fetches and shows updated numbers. No 3rd-party rate limits, no fighting other people's design language. (Documented in skill §0.2; cron workflow itself deferred as Phase 2 — currently stats are baked statically at commit time, refresh requires manual re-render.) | Skill §0.2 added; implementation deferred but architecture documented |
