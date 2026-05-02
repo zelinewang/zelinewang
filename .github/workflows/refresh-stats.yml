@@ -1,0 +1,56 @@
+name: Refresh profile stats + snake
+
+on:
+  schedule:
+    - cron: "0 4 * * *"  # daily at 04:00 UTC (after snake.yml at 00:00 UTC)
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["Generate Snake"]
+    types:
+      - completed
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-stats
+  cancel-in-progress: false
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v6
+        with:
+          ref: main
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+
+      - name: Render all 3 mega-SVGs from templates
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node .github/scripts/render-profile.mjs
+
+      - name: Commit and push if anything changed
+        run: |
+          set -eo pipefail
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add previews/console/assets/01-profile.svg \
+                  previews/constellation/assets/01-profile.svg \
+                  previews/field-notes/assets/01-profile.svg
+
+          if git diff --staged --quiet; then
+            echo "No changes; skipping commit."
+            exit 0
+          fi
+
+          git commit -m "chore: refresh profile stats + snake ($(date -u +%Y-%m-%d))"
+          git push origin main

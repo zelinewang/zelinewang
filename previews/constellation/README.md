@@ -1,7 +1,12 @@
 <!--
   Constellation preview v3 — single integrated mega-SVG per vibe-readme skill §0.1.
   Everything visual lives in 01-profile.svg. Six fields-of-view scrolled together
-  as one composition. Stats baked in via §0.2 pattern.
+  as one composition. Stats baked in nightly via .github/workflows/refresh-stats.yml.
+  Snake fetched from output branch + spliced into §07.
+
+  Why no <map>/<area> image-map? GitHub re-renders the <img> at container width
+  while <area coords> are pixel-absolute — coords drift on different viewports
+  and break entirely on mobile. So nav lives in the strip below as plain links.
 -->
 
 <p>
@@ -10,7 +15,7 @@
 
 <sub>
 
-`stars:`
+`§ 02 stars:`&nbsp;
 [α constellix](https://github.com/zelinewang/constellix) ·
 [β claudemem](https://github.com/zelinewang/claudemem) ·
 [γ dev-orchestrator](https://github.com/zelinewang/dev-orchestrator) ·
@@ -18,8 +23,18 @@
 [ε PulseConnect](https://github.com/zelinewang/PulseConnect) ·
 [ζ santorini](https://github.com/zelinewang/santorini)
 
-`transmit:`
+`§ 03 discovery log:`&nbsp;
+live counts refreshed nightly via [refresh-stats.yml](../../.github/workflows/refresh-stats.yml)
+&nbsp;·&nbsp; [render-profile.mjs](../../.github/scripts/render-profile.mjs)
+&nbsp;·&nbsp; [constellation.svg.template](../../.github/templates/constellation.svg.template)
+
+`§ 07 sky trajectory:`&nbsp;
+365-day contribution snake from [Platane/snk](https://github.com/Platane/snk), regenerated daily
+
+`§ 06 transmit:`&nbsp;
 [send a signal →](https://github.com/zelinewang/zelinewang/issues/new?title=ZaneOS%20ask%3A%20your%20question%20here&body=Replace%20the%20question%20in%20the%20title.%20A%20workflow%20with%20DeepSeek%20V4%20Flash%20will%20reply%20in%20this%20issue%20in%20about%2030%20seconds%20and%20close%20it.)
+
+---
 
 `Constellation v3` is one of three vibe-coded directions explored in this repo. ([← back to showcase](../../README.md))
 &nbsp;·&nbsp; [Console](../console/) &nbsp;·&nbsp; [Field Notes](../field-notes/)
