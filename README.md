@@ -1,8 +1,12 @@
 <!--
   Zane Wang's GitHub profile, as a single integrated mega-SVG.
-  All design lives in assets/profile.svg (one composition, eight sections).
-  Stats baked in nightly via .github/workflows/refresh-stats.yml.
-  Snake fetched from output branch + spliced into §05.
+  All design lives in assets/profile.svg (one composition, eight sections),
+  rendered nightly by .github/workflows/refresh-stats.yml.
+
+  The rendered SVG is published to the `stats-output` branch (not main) so
+  the cron bot doesn't touch main's branch-protection ruleset. The README
+  references it via raw.githubusercontent — same pattern Platane snake uses.
+  Snake itself is fetched from the `output` branch and spliced into §05.
 
   Why no <map>/<area> image-map? GitHub re-renders the <img> at container width
   while <area coords> are pixel-absolute — coords drift on different viewports
@@ -13,7 +17,7 @@
 -->
 
 <p>
-  <img src="./assets/profile.svg" alt="Zane Wang's profile as a continuous terminal session" width="100%" />
+  <img src="https://raw.githubusercontent.com/zelinewang/zelinewang/stats-output/profile.svg" alt="Zane Wang's profile as a continuous terminal session" width="100%" />
 </p>
 
 <sub>

@@ -10,7 +10,7 @@
 -->
 
 <p>
-  <img src="./assets/01-profile.svg" alt="Constellation — Zane Wang's project and agent constellation" width="100%" />
+  <img src="https://raw.githubusercontent.com/zelinewang/zelinewang/stats-output/drafts/constellation.svg" alt="Constellation — Zane Wang's project and agent constellation" width="100%" />
 </p>
 
 <sub>
