@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./assets/zaneos-hero.svg" alt="ZaneOS Arcade profile hero for Zane Wang" width="100%" />
+  <img src="./assets/zaneos-dashboard.svg" alt="ZaneOS Arcade dashboard for Zane Wang" width="100%" />
 </p>
 
 <h1 align="center">Zane Wang</h1>
@@ -25,37 +25,19 @@
 
 ## ZaneOS Sidekick
 
-`ZaneOS Sidekick` is the profile-native helper concept for this README: fast, public-signal-only, useful, and a little mischievous.
+README files cannot run JavaScript, but they can still be interactive when GitHub itself is the runtime.
 
-| Mode | Prompt | Output |
-|---|---|---|
-| `ask` | “What is Zane weirdly good at?” | A short answer grounded in public projects and visible build signals. |
-| `match` | “Compare `@username` with Zane.” | Shared interests, complementary skills, and one fun collaboration angle. |
-| `quest` | “Turn this repo into a mission card.” | A project summary with proof, flavor, and a reason to click. |
-| `boop` | “Give me one useful strange idea.” | A tiny prototype pitch with enough personality to try. |
+| Side quest | What happens |
+|---|---|
+| [Ask ZaneOS](https://github.com/zelinewang/zelinewang/issues/new?title=ZaneOS%20ask%3A%20what%20should%20I%20talk%20to%20Zane%20about%3F&body=Keep%20the%20title%20starting%20with%20%60ZaneOS%20ask%60.%20A%20GitHub%20Action%20will%20reply%20with%20a%20small%20public-signal%20answer.) | Opens a pre-filled issue; the Sidekick Action replies with a compact answer and closes it. |
+| [Match your GitHub](https://github.com/zelinewang/zelinewang/issues/new?title=ZaneOS%20match%3A%20%40your-username&body=Replace%20%40your-username%20in%20the%20title%20with%20your%20GitHub%20handle.%20The%20bot%20will%20generate%20a%20deterministic%20overlap%20score%20and%20collaboration%20hook.) | Replace `@your-username`; the bot returns overlap, shared energy, and a useful collaboration hook. |
+| [Request a boop](https://github.com/zelinewang/zelinewang/issues/new?title=ZaneOS%20boop%3A%20maps%20%2B%20agents%20%2B%20hardware&body=Change%20the%20ingredients%20in%20the%20title.%20The%20bot%20will%20turn%20them%20into%20one%20useful-strange%20prototype%20idea.) | Turns a few ingredients into one tiny prototype idea with personality. |
 
 ```text
 zaneos ask "what should I talk to Zane about?"
 zaneos match @octocat
-zaneos quest dev-orchestrator
 zaneos boop "maps + agents + hardware"
 ```
-
----
-
-## Capability Map
-
-<p align="center">
-  <img src="./assets/zaneos-capability-map.svg" alt="ZaneOS capability map: agents, maps, hardware-aware software, developer orchestration, and playful systems" width="100%" />
-</p>
-
-| Range | What it means |
-|---|---|
-| Agent memory | Persistent context, retrieval, tools, evaluation loops, and systems that keep moving when the problem gets messy. |
-| Maps + signals | GIS, satellite data, environmental context, and interfaces that make real-world complexity easier to reason about. |
-| Hardware-aware software | Code that respects sensors, devices, latency, failure modes, and the physical world outside the browser tab. |
-| Dev orchestration | CLIs, automation, review loops, and workflow glue that makes builders noticeably faster. |
-| Playful systems | Useful prototypes with story, motion, humor, and a small amount of suspicious charm. |
 
 ---
 
@@ -79,11 +61,7 @@ I care less about logo walls and more about tool fit: quick prototypes when the 
 
 ---
 
-## Live Signals
-
-<p align="center">
-  <img src="https://github-readme-activity-graph.vercel.app/graph?username=zelinewang&theme=github-light&hide_border=true&radius=16&area=true&custom_title=Zane%27s%20build%20signal" alt="Zane Wang's GitHub activity graph" width="100%" />
-</p>
+## Live Signal
 
 <p align="center">
   <picture>
@@ -94,7 +72,7 @@ I care less about logo walls and more about tool fit: quick prototypes when the 
 </p>
 
 <p align="center">
-  <sub>No fragile top-language card here: if a widget returns errors, it does not get to steer the design.</sub>
+  <sub>No fragile stats or top-language widgets in the critical path. If a third-party SVG flakes, it does not get to own the page.</sub>
 </p>
 
 ---

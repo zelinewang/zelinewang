@@ -1,0 +1,92 @@
+name: ZaneOS Sidekick
+
+on:
+  issues:
+    types:
+      - opened
+
+permissions:
+  issues: write
+
+jobs:
+  reply:
+    if: startsWith(github.event.issue.title, 'ZaneOS ')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v8
+        with:
+          script: |
+            const issue = context.payload.issue;
+            const title = issue.title.trim();
+
+            const hash = [...title].reduce((sum, char) => sum + char.charCodeAt(0), 0);
+            const score = 61 + (hash % 37);
+            const handle = title.match(/@[\w-]+/)?.[0] ?? "@visitor";
+            const lower = title.toLowerCase();
+
+            const palettes = [
+              {
+                signal: "agents + maps + useful chaos",
+                hook: "Build a tiny map-aware agent that explains one messy real-world signal."
+              },
+              {
+                signal: "memory + developer tools + low-friction workflows",
+                hook: "Turn a repetitive workflow into a small command that feels obvious after using it once."
+              },
+              {
+                signal: "hardware instincts + interface taste + sharp defaults",
+                hook: "Prototype a sensor-to-dashboard loop with one delightful constraint."
+              },
+              {
+                signal: "playful systems + practical automation + curiosity",
+                hook: "Make a tool that is useful first, then add one joke that only builders notice."
+              }
+            ];
+            const pick = palettes[hash % palettes.length];
+
+            let mode = "ask";
+            if (lower.includes("match")) mode = "match";
+            if (lower.includes("boop")) mode = "boop";
+            if (lower.includes("quest")) mode = "quest";
+
+            const intros = {
+              ask: "Here is the compact public-signal read:",
+              match: `Match scan for ${handle}:`,
+              boop: "One useful-strange prototype idea:",
+              quest: "Quest card generated:"
+            };
+
+            const body = [
+              "## ZaneOS Sidekick",
+              "",
+              intros[mode],
+              "",
+              `- **Overlap score:** ${score}%`,
+              `- **Shared signal:** ${pick.signal}`,
+              `- **Collaboration hook:** ${pick.hook}`,
+              "- **Operating note:** Zane is best represented here through public work, systems taste, agent/tooling instincts, maps, hardware-aware thinking, and playful execution.",
+              "",
+              "_This is a deterministic GitHub Actions side quest, not a private-data AI lookup. It keeps the README fast while still making the profile interactive._"
+            ].join("\n");
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue.number,
+              body
+            });
+
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue.number,
+              labels: ["zaneos-sidequest"]
+            }).catch(() => {});
+
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue.number,
+              state: "closed",
+              state_reason: "completed"
+            });
