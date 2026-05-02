@@ -24,9 +24,9 @@
 [santorini](https://github.com/zelinewang/santorini)
 
 `page 3 — running tally:`&nbsp;
-hand-tally numerals refreshed nightly via [refresh-stats.yml](../../.github/workflows/refresh-stats.yml)
-&nbsp;·&nbsp; [render-profile.mjs](../../.github/scripts/render-profile.mjs)
-&nbsp;·&nbsp; [field-notes.svg.template](../../.github/templates/field-notes.svg.template)
+hand-tally numerals refreshed nightly via [refresh-stats.yml](../../../.github/workflows/refresh-stats.yml)
+&nbsp;·&nbsp; [render-profile.mjs](../../../.github/scripts/render-profile.mjs)
+&nbsp;·&nbsp; [field-notes.svg.template](../../../.github/templates/field-notes.svg.template)
 
 `page 7 — strip of days:`&nbsp;
 365-day contribution snake from [Platane/snk](https://github.com/Platane/snk), regenerated daily
@@ -36,7 +36,9 @@ hand-tally numerals refreshed nightly via [refresh-stats.yml](../../.github/work
 
 ---
 
-`Field Notes v3` is one of three vibe-coded directions explored in this repo. ([← back to showcase](../../README.md))
-&nbsp;·&nbsp; [Console](../console/) &nbsp;·&nbsp; [Constellation](../constellation/)
+`Field Notes v3` — currently a parked draft. The active profile design is the
+[**Console** view at the repo root](../../../README.md).
+&nbsp;·&nbsp; sibling draft: [Constellation](../constellation/)
+&nbsp;·&nbsp; [drafts overview](../README.md)
 
 </sub>

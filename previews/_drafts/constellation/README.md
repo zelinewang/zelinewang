@@ -24,9 +24,9 @@
 [ζ santorini](https://github.com/zelinewang/santorini)
 
 `§ 03 discovery log:`&nbsp;
-live counts refreshed nightly via [refresh-stats.yml](../../.github/workflows/refresh-stats.yml)
-&nbsp;·&nbsp; [render-profile.mjs](../../.github/scripts/render-profile.mjs)
-&nbsp;·&nbsp; [constellation.svg.template](../../.github/templates/constellation.svg.template)
+live counts refreshed nightly via [refresh-stats.yml](../../../.github/workflows/refresh-stats.yml)
+&nbsp;·&nbsp; [render-profile.mjs](../../../.github/scripts/render-profile.mjs)
+&nbsp;·&nbsp; [constellation.svg.template](../../../.github/templates/constellation.svg.template)
 
 `§ 07 sky trajectory:`&nbsp;
 365-day contribution snake from [Platane/snk](https://github.com/Platane/snk), regenerated daily
@@ -36,7 +36,9 @@ live counts refreshed nightly via [refresh-stats.yml](../../.github/workflows/re
 
 ---
 
-`Constellation v3` is one of three vibe-coded directions explored in this repo. ([← back to showcase](../../README.md))
-&nbsp;·&nbsp; [Console](../console/) &nbsp;·&nbsp; [Field Notes](../field-notes/)
+`Constellation v3` — currently a parked draft. The active profile design is the
+[**Console** view at the repo root](../../../README.md).
+&nbsp;·&nbsp; sibling draft: [Field Notes](../field-notes/)
+&nbsp;·&nbsp; [drafts overview](../README.md)
 
 </sub>
