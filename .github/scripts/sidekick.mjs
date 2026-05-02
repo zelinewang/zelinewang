@@ -1,27 +1,31 @@
 // .github/scripts/sidekick.mjs
 //
-// ZaneOS Sidekick — replies to GitHub issues with a real Claude Haiku model.
+// ZaneOS Sidekick — replies to GitHub issues with DeepSeek V4 Flash.
 //
 // Invoked from .github/workflows/zaneos-sidekick.yml when an issue is opened
 // whose title starts with "ZaneOS ".
 //
 // Inputs (env):
-//   ANTHROPIC_API_KEY   — required, set as a repo secret
+//   DEEPSEEK_API_KEY    — required, set as a repo secret
 //   ZANEOS_DEBUG        — optional, "1" prints the rendered prompt instead of calling the API
 //
 // Inputs (CLI args, JSON-encoded):
 //   { issueTitle, issueBody, issueNumber, issueAuthor, repoOwner, repoName }
 //
 // Output (stdout): the reply markdown body. The workflow takes this and posts it.
+//
+// NOTE: rate-limit checks happen in the workflow (gh search/issues), BEFORE this
+// script runs. By the time we get here, we are already approved to spend tokens.
 
 import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 
 // SDK is lazy-imported inside generateReply so DEBUG mode and unit tests can run
-// without the @anthropic-ai/sdk package installed.
+// without the openai package installed.
 
-const MODEL = "claude-haiku-4-5-20251001"; // small, fast, cheap; matches "fast responses with great latency" brief
+const MODEL = "deepseek-v4-flash"; // verified via https://api.deepseek.com/v1/models on 2026-05-01
+const BASE_URL = "https://api.deepseek.com";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(here, "..", "..");
@@ -94,30 +98,29 @@ export async function generateReply(payload) {
   if (process.env.ZANEOS_DEBUG === "1") {
     return {
       mode,
-      reply: `[DEBUG MODE — would have called ${MODEL}]\n\n--- SYSTEM ---\n${system}\n\n--- USER ---\n${userMessage}`,
+      reply: `[DEBUG MODE — would have called ${MODEL} at ${BASE_URL}]\n\n--- SYSTEM ---\n${system}\n\n--- USER ---\n${userMessage}`,
     };
   }
 
-  const apiKey = process.env.ANTHROPIC_API_KEY;
+  const apiKey = process.env.DEEPSEEK_API_KEY;
   if (!apiKey) {
-    throw new Error("ANTHROPIC_API_KEY not set. Configure as a repo secret.");
+    throw new Error("DEEPSEEK_API_KEY not set. Configure as a repo secret.");
   }
 
-  const { default: Anthropic } = await import("@anthropic-ai/sdk");
-  const client = new Anthropic({ apiKey });
+  // DeepSeek API is OpenAI-compatible; use the openai SDK with a custom baseURL.
+  const { default: OpenAI } = await import("openai");
+  const client = new OpenAI({ apiKey, baseURL: BASE_URL });
 
-  const response = await client.messages.create({
+  const response = await client.chat.completions.create({
     model: MODEL,
     max_tokens: 1024,
-    system,
-    messages: [{ role: "user", content: userMessage }],
+    messages: [
+      { role: "system", content: system },
+      { role: "user",   content: userMessage },
+    ],
   });
 
-  const text = response.content
-    .filter((block) => block.type === "text")
-    .map((block) => block.text)
-    .join("\n")
-    .trim();
+  const text = response.choices?.[0]?.message?.content?.trim();
 
   if (!text) {
     throw new Error("Model returned empty content");
