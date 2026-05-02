@@ -19,7 +19,7 @@
 // SECURITY: uses execFileSync (no shell) with hardcoded argv arrays. No user
 // input is ever passed as a shell-interpreted string.
 
-import { readFile, writeFile } from "node:fs/promises";
+import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 import { execFileSync } from "node:child_process";
@@ -154,6 +154,7 @@ async function renderTemplate(templatePath, outPath, replacements, snakeInner, d
     throw new Error(`Template ${templatePath} has unfilled tokens: ${[...new Set(unfilled)].join(", ")}`);
   }
 
+  await mkdir(dirname(outPath), { recursive: true });
   await writeFile(outPath, rendered);
   console.log(`Rendered ${outPath} (${rendered.length} chars)`);
 }
