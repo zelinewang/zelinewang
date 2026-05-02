@@ -1,0 +1,60 @@
+<svg width="1200" height="360" viewBox="0 0 1200 360" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">ZaneOS capability map</title>
+  <desc id="desc">A capability map showing Zane Wang's public builder range across agents, maps, hardware-aware software, developer orchestration, and playful systems.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="360" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF9ED"/>
+      <stop offset="1" stop-color="#EEF3E8"/>
+    </linearGradient>
+    <style>
+      .serif{font-family:ui-serif,Georgia,'Times New Roman',serif}
+      .sans{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+      .mono{font-family:'SFMono-Regular',Consolas,'Liberation Mono',monospace}
+      .ink{fill:#18211F}
+      .muted{fill:#66716B}
+      .small{font-size:13px;font-weight:700}
+    </style>
+  </defs>
+  <rect width="1200" height="360" rx="28" fill="url(#bg)"/>
+  <path d="M92 92 C214 64 346 124 470 92 C640 48 755 104 865 82 C980 60 1060 74 1120 118" stroke="#1B7C76" stroke-width="4" stroke-linecap="round" opacity=".34"/>
+  <path d="M120 252 C236 198 374 286 520 232 C694 168 774 262 936 208 C1028 178 1082 192 1120 220" stroke="#B45B38" stroke-width="4" stroke-linecap="round" opacity=".28"/>
+
+  <g transform="translate(70 62)">
+    <text x="0" y="0" class="mono small" fill="#B45B38" letter-spacing="1.4">OPERATING RANGE</text>
+    <text x="0" y="54" class="serif ink" font-size="50" font-weight="650" letter-spacing="-3">Useful systems with texture.</text>
+    <text x="2" y="92" class="sans muted" font-size="18">The signal is not one language or badge. It is how the pieces connect.</text>
+  </g>
+
+  <g transform="translate(70 190)">
+    <rect width="226" height="96" rx="22" fill="#18211F"/>
+    <text x="22" y="38" class="mono small" fill="#D6A73D">AGENT MEMORY</text>
+    <text x="22" y="65" class="sans" fill="#FFF9ED" font-size="16">context, recall, tools</text>
+  </g>
+  <g transform="translate(318 156)">
+    <rect width="250" height="116" rx="24" fill="#FFF9ED" stroke="#D8D0C2"/>
+    <text x="22" y="42" class="mono small ink">MAPS + SIGNALS</text>
+    <text x="22" y="70" class="sans muted" font-size="16">GIS, satellite data,</text>
+    <text x="22" y="94" class="sans muted" font-size="16">real-world constraints</text>
+  </g>
+  <g transform="translate(592 196)">
+    <rect width="220" height="92" rx="22" fill="#F4E6DD" stroke="#D8D0C2"/>
+    <text x="22" y="36" class="mono small ink">HARDWARE AWARE</text>
+    <text x="22" y="64" class="sans muted" font-size="16">sensors, devices, edges</text>
+  </g>
+  <g transform="translate(836 128)">
+    <rect width="278" height="128" rx="26" fill="#EEF3E8" stroke="#D8D0C2"/>
+    <text x="24" y="42" class="mono small ink">DEV ORCHESTRATION</text>
+    <text x="24" y="72" class="sans muted" font-size="16">automation, reviews,</text>
+    <text x="24" y="96" class="sans muted" font-size="16">sharp defaults, velocity</text>
+  </g>
+
+  <g transform="translate(520 52)">
+    <rect width="212" height="70" rx="20" fill="#EFE7C9" stroke="#D8D0C2"/>
+    <text x="22" y="31" class="mono small ink">PLAYFUL SYSTEMS</text>
+    <text x="22" y="53" class="sans muted" font-size="14">useful, funny, memorable</text>
+  </g>
+
+  <circle cx="302" cy="238" r="9" fill="#D6A73D"/>
+  <circle cx="580" cy="210" r="9" fill="#1B7C76"/>
+  <circle cx="825" cy="214" r="9" fill="#B45B38"/>
+</svg>
