@@ -13,6 +13,11 @@ concurrency:
   group: sidekick-${{ github.event.issue.number }}
   cancel-in-progress: true
 
+env:
+  PER_USER_DAILY_LIMIT: 3       # max ZaneOS issues per author per 24h
+  GLOBAL_DAILY_LIMIT: 50        # max ZaneOS issues across all authors per 24h
+  AUTHOR_ALLOWLIST: "zelinewang" # space-separated handles bypass per-user limit (NOT global)
+
 jobs:
   reply:
     if: startsWith(github.event.issue.title, 'ZaneOS ')
@@ -27,21 +32,118 @@ jobs:
             .github/scripts
           sparse-checkout-cone-mode: false
 
+      # ── RATE LIMIT GATE ─────────────────────────────────────────────────────
+      # Counts ZaneOS-titled issues opened in the last 24h. Two checks: per-user
+      # (with allowlist bypass) + global. Either trip = abort before model call.
+      - name: Check rate limits
+        id: rate-limit
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_AUTHOR: ${{ github.event.issue.user.login }}
+          REPO_FULL: ${{ github.repository }}
+        run: |
+          set -eo pipefail
+
+          SINCE=$(date -u -d '24 hours ago' '+%Y-%m-%dT%H:%M:%SZ' 2>/dev/null \
+               || date -u -v-24H '+%Y-%m-%dT%H:%M:%SZ')
+
+          ALLOW_HIT=0
+          for h in $AUTHOR_ALLOWLIST; do
+            if [ "$h" = "$ISSUE_AUTHOR" ]; then ALLOW_HIT=1; break; fi
+          done
+
+          if [ "$ALLOW_HIT" = "1" ]; then
+            echo "Author $ISSUE_AUTHOR is on allowlist — skipping per-user limit check"
+            USER_COUNT=0
+          else
+            USER_COUNT=$(gh search issues \
+              --repo "$REPO_FULL" \
+              --author "$ISSUE_AUTHOR" \
+              --created ">$SINCE" \
+              "ZaneOS in:title" \
+              --json number --limit 100 \
+              | jq 'length')
+            echo "Author $ISSUE_AUTHOR opened $USER_COUNT ZaneOS issues in last 24h (limit: $PER_USER_DAILY_LIMIT)"
+          fi
+
+          GLOBAL_COUNT=$(gh search issues \
+            --repo "$REPO_FULL" \
+            --created ">$SINCE" \
+            "ZaneOS in:title" \
+            --json number --limit 100 \
+            | jq 'length')
+          echo "Global ZaneOS issues in last 24h: $GLOBAL_COUNT (limit: $GLOBAL_DAILY_LIMIT)"
+
+          REASON=""
+          if [ "$USER_COUNT" -ge "$PER_USER_DAILY_LIMIT" ] && [ "$ALLOW_HIT" != "1" ]; then
+            REASON="user_limit"
+          elif [ "$GLOBAL_COUNT" -ge "$GLOBAL_DAILY_LIMIT" ]; then
+            REASON="global_limit"
+          fi
+
+          echo "user_count=$USER_COUNT" >> "$GITHUB_OUTPUT"
+          echo "global_count=$GLOBAL_COUNT" >> "$GITHUB_OUTPUT"
+          echo "limit_reason=$REASON" >> "$GITHUB_OUTPUT"
+
+      - name: Post rate-limit refusal (if limited)
+        if: steps.rate-limit.outputs.limit_reason != ''
+        uses: actions/github-script@v9
+        env:
+          REASON: ${{ steps.rate-limit.outputs.limit_reason }}
+          USER_COUNT: ${{ steps.rate-limit.outputs.user_count }}
+          GLOBAL_COUNT: ${{ steps.rate-limit.outputs.global_count }}
+        with:
+          script: |
+            const { REASON, USER_COUNT, GLOBAL_COUNT } = process.env;
+            const messages = {
+              user_limit:
+                `_Daily limit reached for your handle (3 ZaneOS questions per 24h, you've opened ${USER_COUNT})._\n\n` +
+                "This keeps the bot affordable and responsive for everyone. Try again tomorrow, " +
+                "or check the FAQ on the [main profile](https://github.com/zelinewang/zelinewang) — " +
+                "it likely covers what you're looking for.",
+              global_limit:
+                `_Daily quota reached across all askers today (${GLOBAL_COUNT}/50)._\n\n` +
+                "The bot is rate-limited to protect against abuse and keep API costs predictable. " +
+                "Try again tomorrow, or browse closed ZaneOS issues to read past replies.",
+            };
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              body: messages[REASON],
+            });
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              labels: ["zaneos-rate-limited"],
+            }).catch(() => {});
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              state: "closed",
+              state_reason: "completed",
+            });
+
       - name: Setup Node
+        if: steps.rate-limit.outputs.limit_reason == ''
         uses: actions/setup-node@v6
         with:
           node-version: "22"
 
-      - name: Install Anthropic SDK
-        run: npm install --no-save --no-fund @anthropic-ai/sdk@0.92.0
+      - name: Install OpenAI SDK
+        if: steps.rate-limit.outputs.limit_reason == ''
+        run: npm install --no-save --no-fund openai@^4.79.0
 
       # SECURITY: all user-controlled inputs (issue title/body/author) flow via env vars
       # so they are passed as data to the shell, never interpolated into command strings.
       # See https://github.blog/security/vulnerability-research/how-to-catch-github-actions-workflow-injections-before-attackers-do/
       - name: Generate reply
         id: generate
+        if: steps.rate-limit.outputs.limit_reason == ''
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
           ISSUE_TITLE: ${{ github.event.issue.title }}
           ISSUE_BODY: ${{ github.event.issue.body }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
@@ -74,6 +176,7 @@ jobs:
           } >> "$GITHUB_OUTPUT"
 
       - name: Comment, label, and close
+        if: steps.rate-limit.outputs.limit_reason == ''
         uses: actions/github-script@v9
         env:
           REPLY_BODY: ${{ steps.generate.outputs.reply }}
@@ -105,7 +208,7 @@ jobs:
             });
 
       - name: On failure, post a graceful error
-        if: failure()
+        if: failure() && steps.rate-limit.outputs.limit_reason == ''
         uses: actions/github-script@v9
         with:
           script: |

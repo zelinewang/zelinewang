@@ -122,7 +122,7 @@ If a title doesn't match any of the four modes, default to `ask` mode.
 
 Every reply ends with the line:
 
-> _ZaneOS Sidekick — small, sharp, opinionated. Powered by Claude Haiku. The model is the model; opinions are mine._
+> _ZaneOS Sidekick — small, sharp, opinionated. Powered by DeepSeek V4 Flash. The model is the model; opinions are mine._
 
 This is the only required formatting. Everything else is judgment.
 
