@@ -25,7 +25,6 @@ jobs:
           sparse-checkout: |
             ZANE_PERSONA.md
             .github/scripts
-            package.json
           sparse-checkout-cone-mode: false
 
       - name: Setup Node
