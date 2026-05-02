@@ -1,88 +1,126 @@
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="./assets/hero-signal-dark.svg" />
-  <source media="(prefers-color-scheme: light)" srcset="./assets/hero-signal.svg" />
-  <img alt="Zane Wang — building useful systems for fuzzy problems" src="./assets/hero-signal.svg" width="100%" />
-</picture>
+<p align="center">
+  <img src="./assets/showcase-hero.svg" alt="One profile, three vibe-coded directions" width="100%" />
+</p>
 
 &nbsp;
 
-## 01 &nbsp;&nbsp; Working on
+# Zane Wang
 
-Agent systems that don't pretend to remember.
-Developer tools that disappear into the work.
-Maps that explain something the spreadsheet can't.
-Small prototypes with enough personality to make the demo worth finishing.
+I build useful systems for fuzzy problems &mdash; agents that remember,
+maps that explain, tools that remove friction, and prototypes with
+enough personality to make the demo worth finishing.
 
-The throughline: building things other people can pick up cold.
-
-&nbsp;
-
----
-
-## 02 &nbsp;&nbsp; Open projects
-
-A few worth a click. Each one is the smallest useful version of an idea I
-wanted to keep working on.
-
-[**`dev-orchestrator`**](https://github.com/zelinewang/dev-orchestrator) &nbsp;·&nbsp; one-command AI development lifecycle. Investigate &rarr; plan &rarr; execute &rarr; verify &rarr; ship, with the gates a senior engineer would actually use.
-
-[**`claudemem`**](https://github.com/zelinewang/claudemem) &nbsp;·&nbsp; persistent searchable memory for AI agents. Survives sessions, machines, and compaction.
-
-[**`constellix`**](https://github.com/zelinewang/constellix) &nbsp;·&nbsp; multi-agent orchestration protocol. Each agent is a star; the constellation does the work.
-
-[**`FireSight`**](https://github.com/zelinewang/FireSight) &nbsp;·&nbsp; wildfire intelligence layered on NASA satellite data. AI, maps, and a real-world signal in the same room.
-
-[**`PulseConnect`**](https://github.com/zelinewang/PulseConnect) &nbsp;·&nbsp; computer-using AI outreach concept. Personalized workflow without turning the interface into a chore.
-
-[**`santorini`**](https://github.com/zelinewang/santorini) &nbsp;·&nbsp; board-game logic. Small rules, big systems thinking, clean interactions.
+> This profile is currently a **showcase repo**. Three different
+> README directions live under `previews/`, each a complete take on
+> the same content. Pick one to read, or read all three to see the
+> trade-offs.
 
 &nbsp;
 
----
+## The three directions
 
-## 03 &nbsp;&nbsp; ZaneOS Sidekick
+<table>
+<tr>
+<td width="33%" valign="top">
 
-This README cannot run JavaScript &mdash; but GitHub itself can be the runtime.
-Open one of the four side quests; a workflow with a real model on the other
-end replies in the issue thread and closes it.
+### [A &mdash; Field Notes](./previews/field-notes/)
 
-The model is Claude Haiku, the prompt is in [`ZANE_PERSONA.md`](./ZANE_PERSONA.md),
-and the bot knows it is a bot. Public conversation is part of the design &mdash;
-you can read past replies like a portfolio of small thoughts.
+Editorial · restrained · scientific
 
-[**Ask &rarr;**](https://github.com/zelinewang/zelinewang/issues/new?title=ZaneOS%20ask%3A%20what%20should%20I%20talk%20to%20Zane%20about%3F&body=Replace%20the%20question%20in%20the%20title.%20The%20bot%20will%20reply%20in%20this%20issue%20and%20close%20it.) &nbsp;&nbsp; a question about Zane's work, stack, philosophy, or how he thinks about something
+A naturalist's research journal. Paper, ink stamp, marginalia gutter.
+Slow, considered, asymmetric.
 
-[**Match &rarr;**](https://github.com/zelinewang/zelinewang/issues/new?title=ZaneOS%20match%3A%20%40your-username&body=Replace%20%40your-username%20with%20your%20GitHub%20handle.%20The%20bot%20will%20look%20at%20your%20public%20surface%20and%20propose%20one%20overlap%20angle.) &nbsp;&nbsp; your GitHub handle in, one specific overlap angle out
+*Best if you want this profile to feel like it was edited by hand.*
 
-[**Boop &rarr;**](https://github.com/zelinewang/zelinewang/issues/new?title=ZaneOS%20boop%3A%20maps%20%2B%20agents%20%2B%20hardware&body=Replace%20the%20ingredients%20in%20the%20title.%20The%20bot%20will%20turn%20them%20into%20one%20useful-strange%20prototype%20idea.) &nbsp;&nbsp; a few ingredients in, one useful-strange prototype idea out
+[Read the preview &rarr;](./previews/field-notes/)
 
-[**Quest &rarr;**](https://github.com/zelinewang/zelinewang/issues/new?title=ZaneOS%20quest%3A%20agent%20memory&body=Replace%20the%20topic%20in%20the%20title.%20The%20bot%20will%20generate%20a%20small%2C%20well-shaped%20technical%20challenge%20with%20a%20hidden%20lesson.) &nbsp;&nbsp; a topic in, a small technical challenge card out
+</td>
+<td width="33%" valign="top">
 
-```text
-zaneos ask    "what should I talk to Zane about?"
-zaneos match  @octocat
-zaneos boop   "maps + agents + hardware"
-zaneos quest  "agent memory"
-```
+### [B &mdash; Constellation](./previews/constellation/) ⭐
 
-&nbsp;
+Each agent is a star. The constellation does the work.
 
----
+A dark-sky starmap with named stars for projects and agents. Subtle
+SMIL twinkle. Anchored navigation by Greek letter.
 
-## 04 &nbsp;&nbsp; Working set
+*Best if you want the brand to do the talking.*
 
-Mostly Python, Go, and TypeScript. React on the front end. Docker and Linux
-underneath. QGIS and Raspberry Pi when the work has physical texture.
+[Read the preview &rarr;](./previews/constellation/)
 
-Tool fit over logo walls: quick prototypes when the idea is unstable,
-durable systems when the shape is clear, automation whenever the same
-task appears twice.
+</td>
+<td width="33%" valign="top">
+
+### [C &mdash; Console](./previews/console/)
+
+`$ man zane`
+
+Refined PROD-radar terminal. Dim phosphor green, single amber accent,
+blinking cursor. `man page` documentation per project.
+
+*Best if you want the medium to be the message.*
+
+[Read the preview &rarr;](./previews/console/)
+
+</td>
+</tr>
+</table>
 
 &nbsp;
 
 ---
 
-## 05 &nbsp;&nbsp; Live signal
+## Why a showcase
+
+A GitHub README has unusually tight constraints &mdash; no JavaScript, no full
+CSS, no real interactivity, an HTML sanitizer that strips most of what you'd
+reach for elsewhere. Working inside those constraints is its own design
+discipline.
+
+This repo experiments with three opinionated takes, all built from the same
+content and all respecting the same constraints. The goal is to surface
+what's actually possible &mdash; and what's not &mdash; so the next person
+designing one of these has a reference, not a blank page.
+
+The methodology is in [`~/.claude/skills/vibe-readme/SKILL.md`](https://github.com/zelinewang/zelinewang/blob/main/SKILL.md)
+(coming soon as an open-source artifact). The lessons we collect from these
+previews go into [`LEARNINGS.md`](./LEARNINGS.md).
+
+&nbsp;
+
+---
+
+## Build quests
+
+A few public projects worth a click.
+
+[**`dev-orchestrator`**](https://github.com/zelinewang/dev-orchestrator) &nbsp;·&nbsp; one-command AI development lifecycle (`/dev` &rarr; investigate, plan, execute, verify, ship).
+
+[**`claudemem`**](https://github.com/zelinewang/claudemem) &nbsp;·&nbsp; persistent searchable memory for AI agents.
+
+[**`constellix`**](https://github.com/zelinewang/constellix) &nbsp;·&nbsp; multi-agent orchestration protocol.
+
+[**`FireSight`**](https://github.com/zelinewang/FireSight) &nbsp;·&nbsp; wildfire intelligence layered on NASA satellite data.
+
+[**`PulseConnect`**](https://github.com/zelinewang/PulseConnect) &nbsp;·&nbsp; computer-using AI outreach concept.
+
+[**`santorini`**](https://github.com/zelinewang/santorini) &nbsp;·&nbsp; board-game logic; small rules, big systems thinking.
+
+&nbsp;
+
+---
+
+## Working set
+
+`Python` &nbsp;·&nbsp; `Go` &nbsp;·&nbsp; `TypeScript` &nbsp;·&nbsp; `JavaScript`
+&nbsp;·&nbsp; `React` &nbsp;·&nbsp; `Node.js` &nbsp;·&nbsp; `Docker`
+&nbsp;·&nbsp; `Linux` &nbsp;·&nbsp; `QGIS` &nbsp;·&nbsp; `Raspberry Pi`
+
+&nbsp;
+
+---
+
+## Live signal
 
 <p>
   <picture>
@@ -92,30 +130,24 @@ task appears twice.
   </picture>
 </p>
 
-No third-party stats cards in the critical path. If a widget flakes, it does not
-get to own the page. The snake is regenerated on a daily cron and lives on a
-separate branch &mdash; the only dynamic surface earns its place by being
-actually about the work.
-
 &nbsp;
 
 ---
 
-## 06 &nbsp;&nbsp; Good conversation starters
+<sub>
 
-Bring a messy workflow; I will probably try to automate the boring part.
-Send a map, sensor stream, or strange dataset; I like systems with real-world texture.
-Ask about agent memory and how to make AI tools feel less forgetful.
-Pitch a tiny tool with personality &mdash; useful and funny is the best combination.
+**Want to ask something the FAQ doesn't cover?** &nbsp; The
+[**ZaneOS Sidekick**](https://github.com/zelinewang/zelinewang/issues/new?title=ZaneOS%20ask%3A%20your%20question%20here&body=Replace%20the%20question%20in%20the%20title.%20A%20workflow%20with%20DeepSeek%20V4%20Flash%20will%20reply%20in%20this%20issue%20in%20about%2030%20seconds%20and%20close%20it.)
+is a real AI bot (DeepSeek V4 Flash) that replies in a GitHub issue thread
+in about 30 seconds. Per-user limit: 3 questions per 24h. Persona is in
+[`ZANE_PERSONA.md`](./ZANE_PERSONA.md) — public on purpose.
 
-If you would rather try the bot first, see <a href="#03--zaneos-sidekick">section 03</a>.
-
-&nbsp;
+</sub>
 
 <sub>
-&nbsp;
-&nbsp;
-<a href="https://github.com/zelinewang">github</a> &nbsp;·&nbsp;
-<a href="https://www.linkedin.com/in/zane-wang7/">linkedin</a> &nbsp;·&nbsp;
-<a href="https://x.com/zanewang102">x</a>
+
+[github](https://github.com/zelinewang) &nbsp;·&nbsp;
+[linkedin](https://www.linkedin.com/in/zane-wang7/) &nbsp;·&nbsp;
+[x](https://x.com/zanewang102)
+
 </sub>
