@@ -47,12 +47,19 @@ export function detectMode(title) {
 const MODE_INSTRUCTIONS = {
   ask: `The asker has used ASK mode. Answer their question about Zane's work, stack, or thinking. Reference public projects when relevant. Stay grounded in the persona file.`,
   match: `The asker has used MATCH mode. Their GitHub handle should appear in the title (look for an @-mention). Generate a thoughtful, specific overlap analysis: shared territories, complementary skills, one collaboration angle. Score between 35-90% — never 100, never below 30. Be earnest, not horoscope-vague.`,
-  boop: `The asker has used BOOP mode. Take the ingredients (topics) from the title and propose ONE small prototype idea that combines them with a useful-strange angle. The angle is the point. Keep it under 80 words. End with a one-line "what would be hard about it" honesty note.`,
+  boop: `The asker has used BOOP mode. Take the ingredients (topics) from the title and propose ONE small prototype idea that combines them with a useful-strange angle. The angle is the point. Keep the body around 60 words; you may add one short "what would be hard about it" honesty note (one sentence).`,
   quest: `The asker has used QUEST mode. Generate a "side quest card" — a small, well-shaped technical challenge in the topic area. Include: the quest, the hidden lesson, the time-box, and one stretch goal. Keep it tight. Around 120 words.`,
 };
 
 export async function buildPrompt({ issueTitle, issueBody, issueAuthor }) {
-  const persona = await readFile(resolve(repoRoot, "ZANE_PERSONA.md"), "utf8");
+  const personaPath = resolve(repoRoot, "ZANE_PERSONA.md");
+  const persona = await readFile(personaPath, "utf8").catch((err) => {
+    throw new Error(
+      `Cannot load persona file at ${personaPath}. ` +
+      `Likely cause: workflow sparse-checkout did not include ZANE_PERSONA.md. ` +
+      `Underlying error: ${err.code ?? err.message}`,
+    );
+  });
   const mode = detectMode(issueTitle);
   const modeInstruction = MODE_INSTRUCTIONS[mode];
 
@@ -121,7 +128,9 @@ export async function generateReply(payload) {
 
 // ── CLI entrypoint (workflow calls this) ──────────────────────────────────────
 
-const isCli = import.meta.url === `file://${process.argv[1]}`;
+// Robust to symlinks and platform-specific path quirks; uses fileURLToPath
+// rather than string concat (which breaks on Windows and on symlinked installs).
+const isCli = process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1];
 
 if (isCli) {
   const rawPayload = process.argv[2];

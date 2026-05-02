@@ -11,7 +11,7 @@ permissions:
 
 concurrency:
   group: sidekick-${{ github.event.issue.number }}
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   reply:
@@ -20,7 +20,7 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           sparse-checkout: |
             ZANE_PERSONA.md
@@ -28,12 +28,12 @@ jobs:
           sparse-checkout-cone-mode: false
 
       - name: Setup Node
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
           node-version: "22"
 
       - name: Install Anthropic SDK
-        run: npm install --no-save --no-audit --no-fund @anthropic-ai/sdk@^0.32.0
+        run: npm install --no-save --no-fund @anthropic-ai/sdk@0.92.0
 
       # SECURITY: all user-controlled inputs (issue title/body/author) flow via env vars
       # so they are passed as data to the shell, never interpolated into command strings.
@@ -54,7 +54,7 @@ jobs:
           PAYLOAD=$(jq -n \
             --arg t "$ISSUE_TITLE" \
             --arg b "$ISSUE_BODY" \
-            --arg n "$ISSUE_NUMBER" \
+            --argjson n "$ISSUE_NUMBER" \
             --arg a "$ISSUE_AUTHOR" \
             --arg ro "$REPO_OWNER" \
             --arg rn "$REPO_NAME" \
@@ -63,15 +63,18 @@ jobs:
           REPLY_BODY=$(node .github/scripts/sidekick.mjs "$PAYLOAD" 2> mode.txt)
           MODE=$(grep '^MODE=' mode.txt | sed 's/^MODE=//')
 
+          # Random heredoc delimiter avoids collision if model output ever contains
+          # the literal marker text on a line by itself.
+          EOF_MARKER="REPLY_EOF_$(openssl rand -hex 8)"
           {
-            echo "reply<<REPLY_EOF"
-            echo "$REPLY_BODY"
-            echo "REPLY_EOF"
-            echo "mode=$MODE"
+            printf 'reply<<%s\n' "$EOF_MARKER"
+            printf '%s\n' "$REPLY_BODY"
+            printf '%s\n' "$EOF_MARKER"
+            printf 'mode=%s\n' "$MODE"
           } >> "$GITHUB_OUTPUT"
 
       - name: Comment, label, and close
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         env:
           REPLY_BODY: ${{ steps.generate.outputs.reply }}
           MODE: ${{ steps.generate.outputs.mode }}
@@ -103,7 +106,7 @@ jobs:
 
       - name: On failure, post a graceful error
         if: failure()
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           script: |
             await github.rest.issues.createComment({
