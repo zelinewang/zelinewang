@@ -7,86 +7,118 @@ on:
 
 permissions:
   issues: write
+  contents: read
+
+concurrency:
+  group: sidekick-${{ github.event.issue.number }}
+  cancel-in-progress: true
 
 jobs:
   reply:
     if: startsWith(github.event.issue.title, 'ZaneOS ')
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
-      - uses: actions/github-script@v8
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          sparse-checkout: |
+            ZANE_PERSONA.md
+            .github/scripts
+          sparse-checkout-cone-mode: false
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+
+      - name: Install Anthropic SDK
+        run: npm install --no-save --no-fund @anthropic-ai/sdk@0.92.0
+
+      # SECURITY: all user-controlled inputs (issue title/body/author) flow via env vars
+      # so they are passed as data to the shell, never interpolated into command strings.
+      # See https://github.blog/security/vulnerability-research/how-to-catch-github-actions-workflow-injections-before-attackers-do/
+      - name: Generate reply
+        id: generate
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_AUTHOR: ${{ github.event.issue.user.login }}
+          REPO_OWNER: ${{ github.event.repository.owner.login }}
+          REPO_NAME: ${{ github.event.repository.name }}
+        run: |
+          set -eo pipefail
+
+          PAYLOAD=$(jq -n \
+            --arg t "$ISSUE_TITLE" \
+            --arg b "$ISSUE_BODY" \
+            --argjson n "$ISSUE_NUMBER" \
+            --arg a "$ISSUE_AUTHOR" \
+            --arg ro "$REPO_OWNER" \
+            --arg rn "$REPO_NAME" \
+            '{issueTitle: $t, issueBody: $b, issueNumber: $n, issueAuthor: $a, repoOwner: $ro, repoName: $rn}')
+
+          REPLY_BODY=$(node .github/scripts/sidekick.mjs "$PAYLOAD" 2> mode.txt)
+          MODE=$(grep '^MODE=' mode.txt | sed 's/^MODE=//')
+
+          # Random heredoc delimiter avoids collision if model output ever contains
+          # the literal marker text on a line by itself.
+          EOF_MARKER="REPLY_EOF_$(openssl rand -hex 8)"
+          {
+            printf 'reply<<%s\n' "$EOF_MARKER"
+            printf '%s\n' "$REPLY_BODY"
+            printf '%s\n' "$EOF_MARKER"
+            printf 'mode=%s\n' "$MODE"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Comment, label, and close
+        uses: actions/github-script@v9
+        env:
+          REPLY_BODY: ${{ steps.generate.outputs.reply }}
+          MODE: ${{ steps.generate.outputs.mode }}
         with:
           script: |
-            const issue = context.payload.issue;
-            const title = issue.title.trim();
-
-            const hash = [...title].reduce((sum, char) => sum + char.charCodeAt(0), 0);
-            const score = 61 + (hash % 37);
-            const handle = title.match(/@[\w-]+/)?.[0] ?? "@visitor";
-            const lower = title.toLowerCase();
-
-            const palettes = [
-              {
-                signal: "agents + maps + useful chaos",
-                hook: "Build a tiny map-aware agent that explains one messy real-world signal."
-              },
-              {
-                signal: "memory + developer tools + low-friction workflows",
-                hook: "Turn a repetitive workflow into a small command that feels obvious after using it once."
-              },
-              {
-                signal: "hardware instincts + interface taste + sharp defaults",
-                hook: "Prototype a sensor-to-dashboard loop with one delightful constraint."
-              },
-              {
-                signal: "playful systems + practical automation + curiosity",
-                hook: "Make a tool that is useful first, then add one joke that only builders notice."
-              }
-            ];
-            const pick = palettes[hash % palettes.length];
-
-            let mode = "ask";
-            if (lower.includes("match")) mode = "match";
-            if (lower.includes("boop")) mode = "boop";
-            if (lower.includes("quest")) mode = "quest";
-
-            const intros = {
-              ask: "Here is the compact public-signal read:",
-              match: `Match scan for ${handle}:`,
-              boop: "One useful-strange prototype idea:",
-              quest: "Quest card generated:"
-            };
-
-            const body = [
-              "## ZaneOS Sidekick",
-              "",
-              intros[mode],
-              "",
-              `- **Overlap score:** ${score}%`,
-              `- **Shared signal:** ${pick.signal}`,
-              `- **Collaboration hook:** ${pick.hook}`,
-              "- **Operating note:** Zane is best represented here through public work, systems taste, agent/tooling instincts, maps, hardware-aware thinking, and playful execution.",
-              "",
-              "_This is a deterministic GitHub Actions side quest, not a private-data AI lookup. It keeps the README fast while still making the profile interactive._"
-            ].join("\n");
+            const { REPLY_BODY, MODE } = process.env;
 
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              issue_number: issue.number,
-              body
+              issue_number: context.payload.issue.number,
+              body: REPLY_BODY,
             });
 
             await github.rest.issues.addLabels({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              issue_number: issue.number,
-              labels: ["zaneos-sidequest"]
+              issue_number: context.payload.issue.number,
+              labels: ["zaneos-sidequest", `mode-${MODE}`],
             }).catch(() => {});
 
             await github.rest.issues.update({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              issue_number: issue.number,
+              issue_number: context.payload.issue.number,
               state: "closed",
-              state_reason: "completed"
+              state_reason: "completed",
+            });
+
+      - name: On failure, post a graceful error
+        if: failure()
+        uses: actions/github-script@v9
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              body: [
+                "_ZaneOS Sidekick hit a snag and could not generate a reply._",
+                "",
+                "If this looks like a real bug rather than a transient API hiccup,",
+                "feel free to comment with what you tried and Zane will look at it.",
+                "",
+                `Run log: ${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`,
+              ].join("\n"),
             });

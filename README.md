@@ -1,89 +1,121 @@
-<p align="center">
-  <img src="./assets/zaneos-dashboard.svg" alt="ZaneOS Arcade dashboard for Zane Wang" width="100%" />
-</p>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/hero-signal-dark.svg" />
+  <source media="(prefers-color-scheme: light)" srcset="./assets/hero-signal.svg" />
+  <img alt="Zane Wang — building useful systems for fuzzy problems" src="./assets/hero-signal.svg" width="100%" />
+</picture>
 
-<h1 align="center">Zane Wang</h1>
+&nbsp;
 
-<p align="center">
-  <strong>AI systems · agent memory · maps · hardware-aware software · developer tools · playful prototypes</strong>
-</p>
+## 01 &nbsp;&nbsp; Working on
 
-<p align="center">
-  I build useful systems for fuzzy problems: agents that remember, maps that explain,
-  tools that remove friction, and prototypes with enough personality to make the demo worth finishing.
-</p>
+Agent systems that don't pretend to remember.
+Developer tools that disappear into the work.
+Maps that explain something the spreadsheet can't.
+Small prototypes with enough personality to make the demo worth finishing.
 
-<p align="center">
-  <a href="https://github.com/zelinewang">GitHub</a>
-  ·
-  <a href="https://www.linkedin.com/in/zane-wang7/">LinkedIn</a>
-  ·
-  <a href="https://x.com/zanewang102">X</a>
-</p>
+The throughline: building things other people can pick up cold.
+
+&nbsp;
 
 ---
 
-## ZaneOS Sidekick
+## 02 &nbsp;&nbsp; Open projects
 
-README files cannot run JavaScript, but they can still be interactive when GitHub itself is the runtime.
+A few worth a click. Each one is the smallest useful version of an idea I
+wanted to keep working on.
 
-| Side quest | What happens |
-|---|---|
-| [Ask ZaneOS](https://github.com/zelinewang/zelinewang/issues/new?title=ZaneOS%20ask%3A%20what%20should%20I%20talk%20to%20Zane%20about%3F&body=Keep%20the%20title%20starting%20with%20%60ZaneOS%20ask%60.%20A%20GitHub%20Action%20will%20reply%20with%20a%20small%20public-signal%20answer.) | Opens a pre-filled issue; the Sidekick Action replies with a compact answer and closes it. |
-| [Match your GitHub](https://github.com/zelinewang/zelinewang/issues/new?title=ZaneOS%20match%3A%20%40your-username&body=Replace%20%40your-username%20in%20the%20title%20with%20your%20GitHub%20handle.%20The%20bot%20will%20generate%20a%20deterministic%20overlap%20score%20and%20collaboration%20hook.) | Replace `@your-username`; the bot returns overlap, shared energy, and a useful collaboration hook. |
-| [Request a boop](https://github.com/zelinewang/zelinewang/issues/new?title=ZaneOS%20boop%3A%20maps%20%2B%20agents%20%2B%20hardware&body=Change%20the%20ingredients%20in%20the%20title.%20The%20bot%20will%20turn%20them%20into%20one%20useful-strange%20prototype%20idea.) | Turns a few ingredients into one tiny prototype idea with personality. |
+[**`dev-orchestrator`**](https://github.com/zelinewang/dev-orchestrator) &nbsp;·&nbsp; one-command AI development lifecycle. Investigate &rarr; plan &rarr; execute &rarr; verify &rarr; ship, with the gates a senior engineer would actually use.
+
+[**`claudemem`**](https://github.com/zelinewang/claudemem) &nbsp;·&nbsp; persistent searchable memory for AI agents. Survives sessions, machines, and compaction.
+
+[**`constellix`**](https://github.com/zelinewang/constellix) &nbsp;·&nbsp; multi-agent orchestration protocol. Each agent is a star; the constellation does the work.
+
+[**`FireSight`**](https://github.com/zelinewang/FireSight) &nbsp;·&nbsp; wildfire intelligence layered on NASA satellite data. AI, maps, and a real-world signal in the same room.
+
+[**`PulseConnect`**](https://github.com/zelinewang/PulseConnect) &nbsp;·&nbsp; computer-using AI outreach concept. Personalized workflow without turning the interface into a chore.
+
+[**`santorini`**](https://github.com/zelinewang/santorini) &nbsp;·&nbsp; board-game logic. Small rules, big systems thinking, clean interactions.
+
+&nbsp;
+
+---
+
+## 03 &nbsp;&nbsp; ZaneOS Sidekick
+
+This README cannot run JavaScript &mdash; but GitHub itself can be the runtime.
+Open one of the four side quests; a workflow with a real model on the other
+end replies in the issue thread and closes it.
+
+The model is Claude Haiku, the prompt is in [`ZANE_PERSONA.md`](./ZANE_PERSONA.md),
+and the bot knows it is a bot. Public conversation is part of the design &mdash;
+you can read past replies like a portfolio of small thoughts.
+
+[**Ask &rarr;**](https://github.com/zelinewang/zelinewang/issues/new?title=ZaneOS%20ask%3A%20what%20should%20I%20talk%20to%20Zane%20about%3F&body=Replace%20the%20question%20in%20the%20title.%20The%20bot%20will%20reply%20in%20this%20issue%20and%20close%20it.) &nbsp;&nbsp; a question about Zane's work, stack, philosophy, or how he thinks about something
+
+[**Match &rarr;**](https://github.com/zelinewang/zelinewang/issues/new?title=ZaneOS%20match%3A%20%40your-username&body=Replace%20%40your-username%20with%20your%20GitHub%20handle.%20The%20bot%20will%20look%20at%20your%20public%20surface%20and%20propose%20one%20overlap%20angle.) &nbsp;&nbsp; your GitHub handle in, one specific overlap angle out
+
+[**Boop &rarr;**](https://github.com/zelinewang/zelinewang/issues/new?title=ZaneOS%20boop%3A%20maps%20%2B%20agents%20%2B%20hardware&body=Replace%20the%20ingredients%20in%20the%20title.%20The%20bot%20will%20turn%20them%20into%20one%20useful-strange%20prototype%20idea.) &nbsp;&nbsp; a few ingredients in, one useful-strange prototype idea out
+
+[**Quest &rarr;**](https://github.com/zelinewang/zelinewang/issues/new?title=ZaneOS%20quest%3A%20agent%20memory&body=Replace%20the%20topic%20in%20the%20title.%20The%20bot%20will%20generate%20a%20small%2C%20well-shaped%20technical%20challenge%20with%20a%20hidden%20lesson.) &nbsp;&nbsp; a topic in, a small technical challenge card out
 
 ```text
-zaneos ask "what should I talk to Zane about?"
-zaneos match @octocat
-zaneos boop "maps + agents + hardware"
+zaneos ask    "what should I talk to Zane about?"
+zaneos match  @octocat
+zaneos boop   "maps + agents + hardware"
+zaneos quest  "agent memory"
 ```
 
----
-
-## Build Quests
-
-| Quest | Public signal | Why it matters |
-|---|---|---|
-| [`dev-orchestrator`](https://github.com/zelinewang/dev-orchestrator) | One-command AI development lifecycle | Turns “please help” into investigate → plan → execute → verify → ship. |
-| [`claudemem`](https://github.com/zelinewang/claudemem) | Persistent memory for agents | Keeps long-running engineering context searchable instead of evaporating. |
-| [`FireSight`](https://github.com/zelinewang/FireSight) | Wildfire intelligence with NASA satellite data | Connects AI, maps, and real-world signals. |
-| [`PulseConnect`](https://github.com/zelinewang/PulseConnect) | Computer-using AI outreach concept | Explores personalized workflows without turning the interface into a chore. |
-| [`santorini`](https://github.com/zelinewang/santorini) | Board-game logic | Small rules, big systems thinking, clean interactions. |
+&nbsp;
 
 ---
 
-## Working Set
+## 04 &nbsp;&nbsp; Working set
 
-`Python` · `Go` · `TypeScript` · `JavaScript` · `Java` · `C++` · `React` · `Node.js` · `Docker` · `Linux` · `QGIS` · `Raspberry Pi`
+Mostly Python, Go, and TypeScript. React on the front end. Docker and Linux
+underneath. QGIS and Raspberry Pi when the work has physical texture.
 
-I care less about logo walls and more about tool fit: quick prototypes when the idea is unstable, durable systems when the shape is clear, and automation whenever the same task appears twice.
+Tool fit over logo walls: quick prototypes when the idea is unstable,
+durable systems when the shape is clear, automation whenever the same
+task appears twice.
+
+&nbsp;
 
 ---
 
-## Live Signal
+## 05 &nbsp;&nbsp; Live signal
 
-<p align="center">
+<p>
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/zelinewang/zelinewang/output/github-snake-dark.svg" />
     <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/zelinewang/zelinewang/output/github-snake.svg" />
-    <img alt="Contribution snake animation for Zane Wang" src="https://raw.githubusercontent.com/zelinewang/zelinewang/output/github-snake.svg" width="100%" />
+    <img alt="Daily contribution snake animation" src="https://raw.githubusercontent.com/zelinewang/zelinewang/output/github-snake.svg" width="100%" />
   </picture>
 </p>
 
-<p align="center">
-  <sub>No fragile stats or top-language widgets in the critical path. If a third-party SVG flakes, it does not get to own the page.</sub>
-</p>
+No third-party stats cards in the critical path. If a widget flakes, it does not
+get to own the page. The snake is regenerated on a daily cron and lives on a
+separate branch &mdash; the only dynamic surface earns its place by being
+actually about the work.
+
+&nbsp;
 
 ---
 
-## Good Conversation Starters
+## 06 &nbsp;&nbsp; Good conversation starters
 
-- Ask about agent memory, context, and how to make AI tools feel less forgetful.
-- Bring a messy workflow; I will probably try to automate the boring part.
-- Send a map, sensor stream, or strange dataset; I like systems with real-world texture.
-- Pitch a tiny tool with personality. Useful and funny is the best combination.
+Bring a messy workflow; I will probably try to automate the boring part.
+Send a map, sensor stream, or strange dataset; I like systems with real-world texture.
+Ask about agent memory and how to make AI tools feel less forgetful.
+Pitch a tiny tool with personality &mdash; useful and funny is the best combination.
 
-<p align="center">
-  <strong>Current mode:</strong> shipping practical AI systems, polishing weird edges, and keeping the signal high.
-</p>
+If you would rather try the bot first, see <a href="#03--zaneos-sidekick">section 03</a>.
+
+&nbsp;
+
+<sub>
+&nbsp;
+&nbsp;
+<a href="https://github.com/zelinewang">github</a> &nbsp;·&nbsp;
+<a href="https://www.linkedin.com/in/zane-wang7/">linkedin</a> &nbsp;·&nbsp;
+<a href="https://x.com/zanewang102">x</a>
+</sub>
