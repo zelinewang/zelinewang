@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560" role="img" aria-labelledby="title desc" preserveAspectRatio="xMidYMid meet">
+  <title id="title">Operating doctrine — eight axioms etched on a plate</title>
+  <desc id="desc">A Voyager-Golden-Record-inspired plate showing eight Agent Dao axioms arranged radially around a central reference symbol.</desc>
+
+  <defs>
+    <radialGradient id="vignette" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#0e1822" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#070b10" stop-opacity="0.6"/>
+    </radialGradient>
+    <radialGradient id="plateMetal" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"  stop-color="#3a4452" stop-opacity="0.55"/>
+      <stop offset="70%" stop-color="#1a2230" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#0a1018" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="560" fill="#0a1018"/>
+  <rect width="1200" height="560" fill="url(#vignette)"/>
+
+  <text x="40" y="42" fill="#7a8694"
+        font-family="ui-monospace, monospace" font-size="11" letter-spacing="0.28em">DOCTRINE &#160;PLATE</text>
+  <text x="1160" y="42" fill="#7a8694" text-anchor="end"
+        font-family="ui-monospace, monospace" font-size="11" letter-spacing="0.18em">FRAGMENT &#160;1 &#160;OF &#160;2</text>
+  <line x1="40" y1="58" x2="1160" y2="58" stroke="#2a3340" stroke-width="0.5"/>
+
+  <!-- Subtitle (left side) -->
+  <text x="40" y="92" fill="#fdfaf2"
+        font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif"
+        font-size="22" font-weight="500" letter-spacing="-0.01em">Operating doctrine</text>
+  <text x="40" y="116" fill="#a0aab6"
+        font-family="-apple-system, sans-serif" font-size="13">Eight axioms — partial extract. The full set lives in the Agent Dao manual.</text>
+
+  <!-- ─── Plate ─── -->
+  <!-- Plate: a circular metallic disc with concentric guide rings -->
+  <g transform="translate(600, 320)">
+    <circle r="200" fill="url(#plateMetal)" stroke="#3a4a5e" stroke-width="0.6"/>
+    <circle r="170" fill="none" stroke="#2a3340" stroke-width="0.5"/>
+    <circle r="130" fill="none" stroke="#2a3340" stroke-width="0.4"/>
+    <circle r="86"  fill="none" stroke="#2a3340" stroke-width="0.3"/>
+    <!-- Center symbol: small star -->
+    <circle r="6" fill="#f0b67a"/>
+    <circle r="14" fill="none" stroke="#f0b67a" stroke-width="0.6" opacity="0.5"/>
+
+    <!-- 8 axioms positioned radially around the plate at the outer ring (~r=170) -->
+    <!-- Position calculated as: x = r * cos(theta), y = r * sin(theta) where theta is measured CW from top -->
+
+    <!-- TOP (12 o'clock) -->
+    <text x="0" y="-180" fill="#fdfaf2" text-anchor="middle"
+          font-family="-apple-system, BlinkMacSystemFont, sans-serif"
+          font-size="14" font-weight="500" letter-spacing="-0.005em">cut the noise</text>
+    <text x="0" y="-162" fill="#a0aab6" text-anchor="middle"
+          font-family="-apple-system, sans-serif" font-size="10">consolidate; simplify</text>
+
+    <!-- 1:30 (45°) -->
+    <text x="127" y="-127" fill="#fdfaf2" text-anchor="middle"
+          font-family="-apple-system, sans-serif" font-size="14" font-weight="500" letter-spacing="-0.005em">sharpen tools first</text>
+    <text x="127" y="-109" fill="#a0aab6" text-anchor="middle"
+          font-family="-apple-system, sans-serif" font-size="10">leverage > brute force</text>
+
+    <!-- 3 (90°) -->
+    <text x="180" y="0" fill="#fdfaf2" text-anchor="middle"
+          font-family="-apple-system, sans-serif" font-size="14" font-weight="500" letter-spacing="-0.005em">prove before arguing</text>
+    <text x="180" y="18" fill="#a0aab6" text-anchor="middle"
+          font-family="-apple-system, sans-serif" font-size="10">debate → experiment</text>
+
+    <!-- 4:30 (135°) -->
+    <text x="127" y="127" fill="#fdfaf2" text-anchor="middle"
+          font-family="-apple-system, sans-serif" font-size="14" font-weight="500" letter-spacing="-0.005em">let reality disprove</text>
+    <text x="127" y="145" fill="#a0aab6" text-anchor="middle"
+          font-family="-apple-system, sans-serif" font-size="10">never defend; update</text>
+
+    <!-- 6 (180°) -->
+    <text x="0" y="180" fill="#fdfaf2" text-anchor="middle"
+          font-family="-apple-system, sans-serif" font-size="14" font-weight="500" letter-spacing="-0.005em">solve the bottleneck</text>
+    <text x="0" y="198" fill="#a0aab6" text-anchor="middle"
+          font-family="-apple-system, sans-serif" font-size="10">defer everything else</text>
+
+    <!-- 7:30 (225°) -->
+    <text x="-127" y="127" fill="#fdfaf2" text-anchor="middle"
+          font-family="-apple-system, sans-serif" font-size="14" font-weight="500" letter-spacing="-0.005em">hold the line</text>
+    <text x="-127" y="145" fill="#a0aab6" text-anchor="middle"
+          font-family="-apple-system, sans-serif" font-size="10">especially alone</text>
+
+    <!-- 9 (270°) -->
+    <text x="-180" y="0" fill="#fdfaf2" text-anchor="middle"
+          font-family="-apple-system, sans-serif" font-size="14" font-weight="500" letter-spacing="-0.005em">think in probabilities</text>
+    <text x="-180" y="18" fill="#a0aab6" text-anchor="middle"
+          font-family="-apple-system, sans-serif" font-size="10">never absolutes</text>
+
+    <!-- 10:30 (315°) -->
+    <text x="-127" y="-127" fill="#fdfaf2" text-anchor="middle"
+          font-family="-apple-system, sans-serif" font-size="14" font-weight="500" letter-spacing="-0.005em">leave leverage behind</text>
+    <text x="-127" y="-109" fill="#a0aab6" text-anchor="middle"
+          font-family="-apple-system, sans-serif" font-size="10">every delivery deposits</text>
+
+    <!-- Tick marks at each axiom position (small phosphor green) -->
+    <g stroke="#5fb88a" stroke-width="0.6" opacity="0.6">
+      <line x1="0"     y1="-145" x2="0"     y2="-152"/>
+      <line x1="103"   y1="-103" x2="108"   y2="-108"/>
+      <line x1="145"   y1="0"    x2="152"   y2="0"/>
+      <line x1="103"   y1="103"  x2="108"   y2="108"/>
+      <line x1="0"     y1="145"  x2="0"     y2="152"/>
+      <line x1="-103"  y1="103"  x2="-108"  y2="108"/>
+      <line x1="-145"  y1="0"    x2="-152"  y2="0"/>
+      <line x1="-103"  y1="-103" x2="-108"  y2="-108"/>
+    </g>
+  </g>
+
+  <!-- Side caption (right of plate) -->
+  <text x="1140" y="260" fill="#7a8694" text-anchor="end"
+        font-family="ui-monospace, monospace" font-size="10" letter-spacing="0.16em">8 OF 17 AXIOMS</text>
+  <text x="1140" y="280" fill="#7a8694" text-anchor="end"
+        font-family="ui-monospace, monospace" font-size="10" letter-spacing="0.16em">CARRIER &#160;ZW-CONSTELLIX</text>
+  <text x="1140" y="300" fill="#7a8694" text-anchor="end"
+        font-family="ui-monospace, monospace" font-size="10" letter-spacing="0.16em">PERSISTENT</text>
+
+  <!-- Footer -->
+  <line x1="40" y1="528" x2="1160" y2="528" stroke="#2a3340" stroke-width="0.5"/>
+  <text x="600" y="548" fill="#9aa6b4" text-anchor="middle"
+        font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', serif"
+        font-style="italic" font-size="13" letter-spacing="0.02em">
+    "the system should outlast any individual operator."
+  </text>
+</svg>
