@@ -16,9 +16,9 @@ The active design is the **Console** view, served from the
 
 If you want to switch which one is active, the simplest path is:
 
-1. Move the active SVG output back to `previews/console/assets/01-profile.svg` and root README to point there
-2. Move the desired draft's `*.svg.template` output to `assets/profile.svg`
-3. Replace the root README content with that direction's preview README content
-4. Update [`render-profile.mjs`](../../.github/scripts/render-profile.mjs) `directions` array to swap the `outPath` mappings
+1. In [`render-profile.mjs`](../../.github/scripts/render-profile.mjs), swap which template name is "console" and which is the draft (the workflow renders all three and publishes them to the `stats-output` branch as `profile.svg` + `drafts/<name>.svg`).
+2. Replace the root [`README.md`](../../README.md) content with the desired draft's preview README content.
+3. Update the `<img src>` URL in the new root README to point at `https://raw.githubusercontent.com/zelinewang/zelinewang/stats-output/profile.svg`.
 
-The templates and stats integration are direction-agnostic — only paths change.
+The templates and stats integration are direction-agnostic — only the
+template-to-output mapping changes.

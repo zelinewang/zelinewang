@@ -25,6 +25,7 @@ jobs:
         uses: actions/checkout@v6
         with:
           ref: main
+          fetch-depth: 0  # need history to switch branches below
 
       - name: Setup Node
         uses: actions/setup-node@v6
@@ -36,21 +37,48 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: node .github/scripts/render-profile.mjs
 
-      - name: Commit and push if anything changed
+      - name: Stash rendered SVGs
+        run: |
+          set -eo pipefail
+          mkdir -p /tmp/rendered
+          mv assets/profile.svg /tmp/rendered/profile.svg
+          mv previews/_drafts/constellation/assets/01-profile.svg /tmp/rendered/constellation.svg
+          mv previews/_drafts/field-notes/assets/01-profile.svg /tmp/rendered/field-notes.svg
+
+      - name: Switch to stats-output branch + commit + push
         run: |
           set -eo pipefail
 
-          git config user.name "github-actions[bot]"
+          git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add assets/profile.svg \
-                  previews/_drafts/constellation/assets/01-profile.svg \
-                  previews/_drafts/field-notes/assets/01-profile.svg
+          # Clean working tree so the branch switch is clean (orphan path
+          # needs an empty working tree).
+          git reset --hard HEAD
+          git clean -fdx
+
+          # Switch to stats-output (create as orphan if first run)
+          if git ls-remote --exit-code origin stats-output >/dev/null 2>&1; then
+            git fetch origin stats-output:stats-output
+            git checkout stats-output
+            git rm -rf . 2>/dev/null || true
+          else
+            git checkout --orphan stats-output
+            git rm -rf . 2>/dev/null || true
+          fi
+
+          # Place fresh SVGs at their published paths
+          mkdir -p drafts
+          mv /tmp/rendered/profile.svg       profile.svg
+          mv /tmp/rendered/constellation.svg drafts/constellation.svg
+          mv /tmp/rendered/field-notes.svg   drafts/field-notes.svg
+
+          git add profile.svg drafts/
 
           if git diff --staged --quiet; then
             echo "No changes; skipping commit."
             exit 0
           fi
 
-          git commit -m "chore: refresh profile stats + snake ($(date -u +%Y-%m-%d))"
-          git push origin main
+          git commit -m "chore: refresh profile stats ($(date -u +%Y-%m-%d))"
+          git push origin stats-output

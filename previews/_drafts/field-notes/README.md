@@ -10,7 +10,7 @@
 -->
 
 <p>
-  <img src="./assets/01-profile.svg" alt="Field Notes — Zane Wang's research journal" width="100%" />
+  <img src="https://raw.githubusercontent.com/zelinewang/zelinewang/stats-output/drafts/field-notes.svg" alt="Field Notes — Zane Wang's research journal" width="100%" />
 </p>
 
 <sub>
