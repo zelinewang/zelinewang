@@ -52,9 +52,13 @@ live counts refreshed nightly via [refresh-stats.yml](./.github/workflows/refres
 
 <sub>
 
-Methodology: [`vibe-readme/SKILL.md`](https://github.com/zelinewang/zelinewang/blob/main/SKILL.md) (coming soon as an open artifact).
-Lessons: [`LEARNINGS.md`](./LEARNINGS.md). Two earlier directions kept under
-[`previews/_drafts/`](./previews/_drafts/) — same content, different aesthetic.
+Built with the `vibe-readme` skill (a personal Claude Code skill, not yet
+public). The empirical lessons it grew from are open in
+[`LEARNINGS.md`](./LEARNINGS.md). Two earlier design directions are
+parked under [`previews/_drafts/`](./previews/_drafts/) — same content,
+different aesthetic. Single dark theme is intentional: the terminal
+metaphor only reads correctly on a dark background, so no
+`<picture>` / light variant.
 
 </sub>
 
