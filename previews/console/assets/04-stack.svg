@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 380" role="img" aria-labelledby="title desc" preserveAspectRatio="xMidYMid meet">
+  <title id="title">Working set — categorized stack</title>
+  <desc id="desc">A terminal panel showing the working set as a tree-style listing.</desc>
+
+  <defs>
+    <pattern id="scanlines" x="0" y="0" width="2" height="3" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="2" y2="0" stroke="#0e1418" stroke-width="0.5" opacity="0.6"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="380" fill="#0a0e12"/>
+  <rect width="1200" height="380" fill="url(#scanlines)" opacity="0.4"/>
+  <rect x="20" y="20" width="1160" height="340" fill="#0d1217" stroke="#1c2530" stroke-width="0.5"/>
+
+  <rect x="20" y="20" width="1160" height="32" fill="#11181f"/>
+  <line x1="20" y1="52" x2="1180" y2="52" stroke="#1c2530" stroke-width="0.5"/>
+  <circle cx="42" cy="36" r="5" fill="#3a4a5a"/>
+  <circle cx="60" cy="36" r="5" fill="#3a4a5a"/>
+  <circle cx="78" cy="36" r="5" fill="#3a4a5a"/>
+  <text x="106" y="40" fill="#7d8a96"
+        font-family="ui-monospace, monospace" font-size="11" letter-spacing="0.04em">~/zelinewang/stack &#8212; zsh</text>
+  <text x="1160" y="40" fill="#7d8a96" text-anchor="end"
+        font-family="ui-monospace, monospace" font-size="11" letter-spacing="0.04em">[panel: stack]</text>
+
+  <g font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', monospace" font-size="14">
+
+    <text x="46" y="92" fill="#5fb88a">~/zelinewang</text>
+    <text x="170" y="92" fill="#7d8a96"> $</text>
+    <text x="190" y="92" fill="#cdd5dd"> tree -L 1 stack/</text>
+
+    <text x="46" y="120" fill="#7d8a96">stack</text>
+
+    <!-- LANG -->
+    <text x="46"  y="150" fill="#7d8a96">├── </text>
+    <text x="106" y="150" fill="#5fb88a">lang/</text>
+    <text x="240" y="150" fill="#cdd5dd">python</text>
+    <text x="350" y="150" fill="#7d8a96">·</text>
+    <text x="370" y="150" fill="#cdd5dd">go</text>
+    <text x="430" y="150" fill="#7d8a96">·</text>
+    <text x="450" y="150" fill="#cdd5dd">typescript</text>
+    <text x="610" y="150" fill="#7d8a96">·</text>
+    <text x="630" y="150" fill="#cdd5dd">javascript</text>
+    <text x="790" y="150" fill="#7d8a96">·</text>
+    <text x="810" y="150" fill="#cdd5dd">java</text>
+    <text x="890" y="150" fill="#7d8a96">·</text>
+    <text x="910" y="150" fill="#cdd5dd">c++</text>
+
+    <!-- WEB -->
+    <text x="46"  y="180" fill="#7d8a96">├── </text>
+    <text x="106" y="180" fill="#5fb88a">web/</text>
+    <text x="240" y="180" fill="#cdd5dd">react</text>
+    <text x="350" y="180" fill="#7d8a96">·</text>
+    <text x="370" y="180" fill="#cdd5dd">node.js</text>
+
+    <!-- INFRA -->
+    <text x="46"  y="210" fill="#7d8a96">├── </text>
+    <text x="106" y="210" fill="#5fb88a">infra/</text>
+    <text x="240" y="210" fill="#cdd5dd">docker</text>
+    <text x="350" y="210" fill="#7d8a96">·</text>
+    <text x="370" y="210" fill="#cdd5dd">linux</text>
+
+    <!-- SPATIAL -->
+    <text x="46"  y="240" fill="#7d8a96">├── </text>
+    <text x="106" y="240" fill="#5fb88a">spatial/</text>
+    <text x="240" y="240" fill="#cdd5dd">qgis</text>
+
+    <!-- HARDWARE (last branch) -->
+    <text x="46"  y="270" fill="#7d8a96">└── </text>
+    <text x="106" y="270" fill="#5fb88a">hardware/</text>
+    <text x="240" y="270" fill="#cdd5dd">raspberry pi</text>
+
+    <text x="46" y="306" fill="#7d8a96">5 directories, 12 leaves &#8212; tool fit over logo walls</text>
+
+    <text x="46" y="340" fill="#5fb88a">~/zelinewang</text>
+    <text x="170" y="340" fill="#7d8a96"> $</text>
+    <rect x="190" y="328" width="9" height="14" fill="#e8b063">
+      <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.5;0.5;1" dur="1.0s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+</svg>

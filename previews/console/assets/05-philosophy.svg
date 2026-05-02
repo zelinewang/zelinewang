@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 580" role="img" aria-labelledby="title desc" preserveAspectRatio="xMidYMid meet">
+  <title id="title">philosophy.txt — operating doctrine excerpt</title>
+  <desc id="desc">A terminal panel showing cat philosophy.txt, an extract of Zane's Agent Dao operating principles.</desc>
+
+  <defs>
+    <pattern id="scanlines" x="0" y="0" width="2" height="3" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="2" y2="0" stroke="#0e1418" stroke-width="0.5" opacity="0.6"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="580" fill="#0a0e12"/>
+  <rect width="1200" height="580" fill="url(#scanlines)" opacity="0.4"/>
+  <rect x="20" y="20" width="1160" height="540" fill="#0d1217" stroke="#1c2530" stroke-width="0.5"/>
+
+  <rect x="20" y="20" width="1160" height="32" fill="#11181f"/>
+  <line x1="20" y1="52" x2="1180" y2="52" stroke="#1c2530" stroke-width="0.5"/>
+  <circle cx="42" cy="36" r="5" fill="#3a4a5a"/>
+  <circle cx="60" cy="36" r="5" fill="#3a4a5a"/>
+  <circle cx="78" cy="36" r="5" fill="#3a4a5a"/>
+  <text x="106" y="40" fill="#7d8a96"
+        font-family="ui-monospace, monospace" font-size="11" letter-spacing="0.04em">~/zelinewang/doctrine/philosophy.txt</text>
+  <text x="1160" y="40" fill="#7d8a96" text-anchor="end"
+        font-family="ui-monospace, monospace" font-size="11" letter-spacing="0.04em">[panel: philosophy]</text>
+
+  <g font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', monospace" font-size="14">
+
+    <text x="46" y="92" fill="#5fb88a">~/zelinewang</text>
+    <text x="170" y="92" fill="#7d8a96"> $</text>
+    <text x="190" y="92" fill="#cdd5dd"> cat doctrine/philosophy.txt | head -22</text>
+
+    <!-- Header comment -->
+    <text x="46" y="130" fill="#7d8a96"># Operating doctrine — partial extract</text>
+    <text x="46" y="150" fill="#7d8a96"># Run "man agent-dao" for the full set.</text>
+
+    <!-- Lines, two-column: rule + elaboration -->
+    <text x="46"  y="190" fill="#cdd5dd">cut the noise.</text>
+    <text x="306" y="190" fill="#a8b4c0">consolidate what overlaps;</text>
+    <text x="306" y="208" fill="#a8b4c0">simplify what is tangled.</text>
+
+    <text x="46"  y="246" fill="#cdd5dd">sharpen the tools first.</text>
+    <text x="306" y="246" fill="#a8b4c0">leverage beats brute force.</text>
+
+    <text x="46"  y="284" fill="#cdd5dd">prove before you argue.</text>
+    <text x="306" y="284" fill="#a8b4c0">replace debate with experiment.</text>
+
+    <text x="46"  y="322" fill="#cdd5dd">let reality disprove.</text>
+    <text x="306" y="322" fill="#a8b4c0">never defend a position; update it.</text>
+
+    <text x="46"  y="360" fill="#cdd5dd">solve the bottleneck.</text>
+    <text x="306" y="360" fill="#a8b4c0">defer everything else.</text>
+
+    <text x="46"  y="398" fill="#cdd5dd">hold the line.</text>
+    <text x="306" y="398" fill="#a8b4c0">especially alone.</text>
+
+    <text x="46"  y="436" fill="#cdd5dd">think in probabilities.</text>
+    <text x="306" y="436" fill="#a8b4c0">never deal in absolutes.</text>
+
+    <text x="46"  y="474" fill="#cdd5dd">leave leverage behind.</text>
+    <text x="306" y="474" fill="#a8b4c0">every delivery deposits something reusable.</text>
+
+    <line x1="46" y1="500" x2="1154" y2="500" stroke="#1c2530" stroke-width="0.5"/>
+
+    <text x="46" y="528" fill="#7d8a96"># EOF — 8 lines shown of 17.  Run "less doctrine/philosophy.txt" for the rest.</text>
+
+    <text x="46" y="558" fill="#5fb88a">~/zelinewang</text>
+    <text x="170" y="558" fill="#7d8a96"> $</text>
+    <rect x="190" y="546" width="9" height="14" fill="#e8b063">
+      <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.5;0.5;1" dur="1.0s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+</svg>
