@@ -32,7 +32,7 @@ hand-tally numerals refreshed nightly via [refresh-stats.yml](../../../.github/w
 365-day contribution snake from [Platane/snk](https://github.com/Platane/snk), regenerated daily
 
 `page 6 — correspondence:`&nbsp;
-[send a letter →](https://github.com/zelinewang/zelinewang/issues/new?title=ZaneOS%20ask%3A%20your%20question%20here&body=Replace%20the%20question%20in%20the%20title.%20A%20workflow%20with%20DeepSeek%20V4%20Flash%20will%20reply%20in%20this%20issue%20in%20about%2030%20seconds%20and%20close%20it.)
+[send a letter →](https://github.com/zelinewang/zelinewang/issues/new?title=ZaneOS%20ask%3A%20your%20question%20here&body=Replace%20the%20question%20in%20the%20title.%20A%20workflow%20with%20Zane%27s%20AI%20will%20reply%20in%20this%20issue%20in%20about%2030%20seconds%20and%20close%20it.)
 
 ---
 
