@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 480" role="img" aria-labelledby="title desc" preserveAspectRatio="xMidYMid meet">
+  <title id="title">Console — Zane Wang's terminal session</title>
+  <desc id="desc">A refined terminal-window aesthetic: chassis dark with phosphor green accents and a single amber accent. Cursor blinks. Restrained density.</desc>
+
+  <defs>
+    <!-- Subtle scanline overlay (very faint, decorative texture) -->
+    <pattern id="scanlines" x="0" y="0" width="2" height="3" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="2" y2="0" stroke="#0e1418" stroke-width="0.5" opacity="0.6"/>
+    </pattern>
+  </defs>
+
+  <!-- Terminal chassis -->
+  <rect width="1200" height="480" fill="#0a0e12"/>
+  <rect width="1200" height="480" fill="url(#scanlines)" opacity="0.4"/>
+
+  <!-- Inner frame (a "screen" inside the chassis) -->
+  <rect x="20" y="20" width="1160" height="440" fill="#0d1217" stroke="#1c2530" stroke-width="0.5"/>
+
+  <!-- ───── TOP STATUS BAR ───── -->
+  <rect x="20" y="20" width="1160" height="32" fill="#11181f"/>
+  <line x1="20" y1="52" x2="1180" y2="52" stroke="#1c2530" stroke-width="0.5"/>
+
+  <!-- Window controls (mac-style dots, but dim phosphor) -->
+  <circle cx="42" cy="36" r="5" fill="#3a4a5a"/>
+  <circle cx="60" cy="36" r="5" fill="#3a4a5a"/>
+  <circle cx="78" cy="36" r="5" fill="#3a4a5a"/>
+
+  <text x="106" y="40" fill="#7d8a96"
+        font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace"
+        font-size="11" letter-spacing="0.04em">~/zelinewang &#8212; zsh &#8212; 142&#215;36</text>
+
+  <text x="1160" y="40" fill="#7d8a96" text-anchor="end"
+        font-family="ui-monospace, monospace" font-size="11" letter-spacing="0.04em">[load: &#9619;&#9619;&#9617; 0.7]   [build: constellix]   [tz: PT]</text>
+
+  <!-- ───── MAIN TERMINAL CONTENT ───── -->
+  <g font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace" font-size="14">
+
+    <!-- Command 1 -->
+    <text x="46" y="92" fill="#5fb88a">~/zelinewang</text>
+    <text x="170" y="92" fill="#7d8a96"> $</text>
+    <text x="190" y="92" fill="#cdd5dd"> whoami</text>
+
+    <text x="46" y="116" fill="#cdd5dd">zane wang</text>
+    <text x="46" y="140" fill="#7d8a96">AI agents · agent memory · maps · hardware-aware software</text>
+
+    <!-- Command 2 -->
+    <text x="46" y="180" fill="#5fb88a">~/zelinewang</text>
+    <text x="170" y="180" fill="#7d8a96"> $</text>
+    <text x="190" y="180" fill="#cdd5dd"> ls -la projects/</text>
+
+    <text x="46" y="206" fill="#7d8a96">drwx</text>
+    <text x="106" y="206" fill="#cdd5dd">constellix       </text>
+    <text x="290" y="206" fill="#7d8a96">multi-agent orchestration protocol</text>
+
+    <text x="46" y="226" fill="#7d8a96">drwx</text>
+    <text x="106" y="226" fill="#cdd5dd">claudemem        </text>
+    <text x="290" y="226" fill="#7d8a96">persistent memory for AI agents</text>
+
+    <text x="46" y="246" fill="#7d8a96">drwx</text>
+    <text x="106" y="246" fill="#cdd5dd">dev-orchestrator </text>
+    <text x="290" y="246" fill="#7d8a96">one-command AI development lifecycle</text>
+
+    <text x="46" y="266" fill="#7d8a96">drwx</text>
+    <text x="106" y="266" fill="#cdd5dd">FireSight        </text>
+    <text x="290" y="266" fill="#7d8a96">wildfire intelligence + NASA satellite data</text>
+
+    <text x="46" y="286" fill="#7d8a96">drwx</text>
+    <text x="106" y="286" fill="#cdd5dd">PulseConnect     </text>
+    <text x="290" y="286" fill="#7d8a96">computer-using AI outreach concept</text>
+
+    <text x="46" y="306" fill="#7d8a96">drwx</text>
+    <text x="106" y="306" fill="#cdd5dd">santorini        </text>
+    <text x="290" y="306" fill="#7d8a96">board-game logic, clean state machines</text>
+
+    <!-- Command 3 -->
+    <text x="46" y="346" fill="#5fb88a">~/zelinewang</text>
+    <text x="170" y="346" fill="#7d8a96"> $</text>
+    <text x="190" y="346" fill="#cdd5dd"> man zane | head</text>
+
+    <text x="46" y="372" fill="#7d8a96">NAME</text>
+    <text x="120" y="372" fill="#cdd5dd">zane &#8212; build useful systems for fuzzy problems</text>
+
+    <text x="46" y="392" fill="#7d8a96">SYNOPSIS</text>
+    <text x="120" y="392" fill="#cdd5dd">zane [options] &lt;problem&gt;</text>
+
+    <text x="46" y="412" fill="#7d8a96">SECTIONS</text>
+    <text x="120" y="412" fill="#cdd5dd">NAME · SYNOPSIS · DESCRIPTION · EXAMPLES · BUGS</text>
+
+    <!-- Final blinking cursor prompt -->
+    <text x="46" y="448" fill="#5fb88a">~/zelinewang</text>
+    <text x="170" y="448" fill="#7d8a96"> $</text>
+    <text x="190" y="448" fill="#cdd5dd">_</text>
+
+    <!-- Cursor block, blinks -->
+    <rect x="200" y="436" width="9" height="14" fill="#e8b063">
+      <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.5;0.5;1" dur="1.0s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+
+  <!-- Bottom bezel reflection (decorative) -->
+  <rect x="20" y="458" width="1160" height="2" fill="#1c2530" opacity="0.5"/>
+</svg>
