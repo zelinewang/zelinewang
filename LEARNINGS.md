@@ -58,3 +58,29 @@ note here under "Roll-ups."
 
 - 2026-05-01 — Camo correction synced into `vibe-readme/SKILL.md` §2 and §3.1.
   Renamed "live tier" → "scheduled-refresh tier."
+- 2026-05-01 — **SVG-first principle added as new §0 in `vibe-readme/SKILL.md`.**
+  User feedback after seeing v1 of the three previews: "only the headers feel
+  designed; the markdown body is bland." Confirmed root cause: GitHub's
+  markdown CSS renders all profiles in GitHub's house style; no amount of
+  prose-craft escapes that. SVG is the only escape. New skill section
+  documents: the 4 jobs markdown should still do (embed, anchor, wrap-link,
+  details), the design-token cohesion approach (no fixed templates, but
+  define palette/type/frame/motion/grid up front), and a starter file layout
+  convention (`previews/<dir>/assets/01-hero.svg` etc.).
+- 2026-05-01 — All three previews redesigned as v2 under the new principle.
+  Confirmed: markdown count dropped from ~250 lines per preview → ~50 lines
+  (-80%). SVG count went from 1 hero per preview → 5-6 cohesive panels per
+  preview (17 total across 3 directions). Each preview now reads as a
+  designed multi-panel composition rather than a markdown wall with a
+  decorative header.
+
+### New confirmed lessons (from v2 build)
+
+| Date | Lesson | Source |
+|---|---|---|
+| 2026-05-01 | **`[![alt](svg)](url)` is the cleanest way to make an SVG panel clickable.** SVG-internal `<a href>` doesn't work via `<img>`-loaded SVG, so wrapping the markdown image in a markdown link is the workaround. The whole panel becomes a link target. | Used for projects/fleet/sidekick panels in all 3 v2 previews |
+| 2026-05-01 | **Cohesion within a preview comes from design tokens, not visual repetition.** Each panel can have a different composition (terminal listing vs process panel vs tree output) but must share the same palette, type stack, frame style, and motion language. The reader perceives "one designed thing" across visually different compositions. | Built into v2 of all 3 previews; each direction has 5-6 different layouts but feels coherent |
+| 2026-05-01 | **Numbered file prefixes (`01-hero.svg`, `02-projects.svg`) make reading order explicit.** Both for editors (the file listing matches the page flow) and for reviewers (you can audit one panel at a time without losing the sequence). Filed into the skill as a convention. | Adopted from typical design system / chapter-numbering practice |
+| 2026-05-01 | **The "alpha-star = brightest = highest-priority" mapping is honest hierarchy.** When a project genuinely matters more than others (dev-orchestrator vs santorini), giving it the brightest visual treatment (largest star, amber accent, bold weight) is signal, not decoration. Visual hierarchy that maps to actual importance is rare and worth doing. | Constellation v2 starmap and observation-log cards |
+| 2026-05-01 | **A "Voyager Golden Record" plate with axioms arranged radially is a strong way to present principles.** Instead of a numbered list, a circular composition with axioms at clock positions communicates "these are co-equal, none more important than another." Different from a stacked list which implies priority order. | Constellation v2 doctrine plate |
+| 2026-05-01 | **Spectroscopic visualization beats badge wall for "tech stack."** Same content (12 tools across 5 domains), but presented as ticks on a colored spectrum rather than a row of vendor logos. Reads as analysis instead of advertising. | Constellation v2 stack panel |
