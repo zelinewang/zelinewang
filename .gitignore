@@ -2,3 +2,15 @@
 design-options/
 node_modules/
 .DS_Store
+
+# Secrets — never commit. Real secrets live in ~/.config/secrets.env
+# (outside repo) and as GitHub Actions repo secrets. These globs are
+# belt-and-suspenders in case a future script ever writes one in-repo.
+.env
+.env.*
+!.env.example
+*.secret
+*.secrets
+secrets.env
+*.pem
+*.key
