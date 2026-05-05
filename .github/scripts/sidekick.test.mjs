@@ -102,6 +102,15 @@ test("sanitizeReply: filters raw HTML and authorization claims", () => {
   assert.ok(auth.includes("tripped the safety filter"));
 });
 
+test("sanitizeReply: filters contact-shaped private details", () => {
+  const email = sanitizeReply("Zane's email is zane@example.com.");
+  const phone = sanitizeReply("Zane's phone is (415) 555-1212.");
+  const address = sanitizeReply("Zane works from 123 Main Street.");
+  assert.ok(email.includes("tripped the safety filter"));
+  assert.ok(phone.includes("tripped the safety filter"));
+  assert.ok(address.includes("tripped the safety filter"));
+});
+
 // ── Run ───────────────────────────────────────────────────────────────────────
 
 let passed = 0;
