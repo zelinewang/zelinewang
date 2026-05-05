@@ -1,0 +1,9 @@
+# Code owner review is required by the repository ruleset.
+# Keep the AI prompt, security docs, and automation surface under explicit review.
+
+* @zelinewang
+
+/AGENTS.md @zelinewang
+/ZANE_PERSONA.md @zelinewang
+/SECURITY.md @zelinewang
+/.github/ @zelinewang

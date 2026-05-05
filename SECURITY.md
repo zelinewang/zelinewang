@@ -6,9 +6,10 @@ the bot is and isn't designed to defend against, so curious readers
 and serious adversaries both know where the surface is small and
 where it's accepted-risk.
 
-If you find a real vulnerability not described here, please open an
-issue with title `ZaneOS security:` and a brief description. Do **not**
-include exploit details in the title.
+If you find a real vulnerability not described here, use GitHub's
+private vulnerability reporting flow for this repository. If that is
+unavailable, open an issue with title `Security:` and a brief
+description. Do **not** include exploit details in the title or body.
 
 ## Trust boundary
 
@@ -133,7 +134,8 @@ The architecture above assumes:
 
 ## Reporting a vulnerability
 
-Open an issue with title `ZaneOS security:` followed by a one-line
-summary of the surface (e.g. `ZaneOS security: trigger discovery`).
-Do not include exploit details in the public issue body. Zane will
-move the conversation to a private channel and follow up.
+Use the repository's private vulnerability reporting flow. If you
+must use a public issue, use title `Security:` followed by a one-line
+summary of the surface (e.g. `Security: trigger discovery`). Do not
+include exploit details in the public title or body. Zane will move
+the conversation to a private channel and follow up.

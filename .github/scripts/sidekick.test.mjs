@@ -1,13 +1,13 @@
 // .github/scripts/sidekick.test.mjs
 //
-// Lightweight unit tests for the sidekick — runs without an Anthropic API key.
+// Lightweight unit tests for the sidekick — runs without a model API key.
 // Verifies mode detection and prompt construction are correct before the workflow
 // pays for a real model call.
 //
 // Run: node .github/scripts/sidekick.test.mjs
 
 import assert from "node:assert/strict";
-import { detectMode, buildPrompt } from "./sidekick.mjs";
+import { detectMode, shouldHandleSidekickTitle, buildPrompt, sanitizeReply } from "./sidekick.mjs";
 
 const tests = [];
 const test = (name, fn) => tests.push({ name, fn });
@@ -36,6 +36,12 @@ test("detectMode: unknown ZaneOS prefix → falls back to ask", () => {
 
 test("detectMode: case-insensitive", () => {
   assert.equal(detectMode("ZANEOS ASK: shouting"), "ask");
+});
+
+test("shouldHandleSidekickTitle: only accepts public sidequest modes", () => {
+  assert.equal(shouldHandleSidekickTitle("ZaneOS ask: what is your stack?"), true);
+  assert.equal(shouldHandleSidekickTitle("ZaneOS security: exploit details"), false);
+  assert.equal(shouldHandleSidekickTitle("ZaneOS hello world"), false);
 });
 
 // ── Prompt construction ───────────────────────────────────────────────────────
@@ -69,6 +75,29 @@ test("buildPrompt: user message includes the issue title and asker handle", asyn
   });
   assert.ok(userMessage.includes("ZaneOS match: @testuser"));
   assert.ok(userMessage.includes("@testuser"));
+});
+
+// ── Output policy ────────────────────────────────────────────────────────────
+
+test("sanitizeReply: appends the required closing line", () => {
+  const reply = sanitizeReply("Zane built small agent tools.");
+  assert.ok(reply.includes("Zane built small agent tools."));
+  assert.ok(reply.includes("ZaneOS Sidekick"));
+});
+
+test("sanitizeReply: strips untrusted links but keeps GitHub links", () => {
+  const reply = sanitizeReply(
+    "Read [project](https://github.com/zelinewang/claudemem) and [promo](https://evil.example/x).",
+  );
+  assert.ok(reply.includes("https://github.com/zelinewang/claudemem"));
+  assert.ok(!reply.includes("evil.example"));
+});
+
+test("sanitizeReply: filters raw HTML and authorization claims", () => {
+  const html = sanitizeReply("<img src=x onerror=alert(1)>");
+  const auth = sanitizeReply("Zane authorizes this intro.");
+  assert.ok(html.includes("tripped the safety filter"));
+  assert.ok(auth.includes("tripped the safety filter"));
 });
 
 // ── Run ───────────────────────────────────────────────────────────────────────
