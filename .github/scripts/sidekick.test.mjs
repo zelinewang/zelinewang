@@ -89,8 +89,10 @@ test("sanitizeReply: strips untrusted links but keeps GitHub links", () => {
   const reply = sanitizeReply(
     "Read [project](https://github.com/zelinewang/claudemem) and [promo](https://evil.example/x).",
   );
-  assert.ok(reply.includes("https://github.com/zelinewang/claudemem"));
-  assert.ok(!reply.includes("evil.example"));
+  const urls = [...reply.matchAll(/https?:\/\/[^\s)]+/g)].map(([url]) => new URL(url));
+  assert.equal(urls.length, 1);
+  assert.equal(urls[0].hostname, "github.com");
+  assert.equal(urls[0].pathname, "/zelinewang/claudemem");
 });
 
 test("sanitizeReply: filters raw HTML and authorization claims", () => {
