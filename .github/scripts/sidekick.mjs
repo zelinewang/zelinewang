@@ -201,6 +201,9 @@ function violatesOutputPolicy(text) {
   return [
     /<\/?[a-z][^>]*>/i,
     /!\[[^\]]*]\([^)]*\)/,
+    /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i,
+    /(?:^|[^\d])(?:\+?1[\s.-]?)?(?:\([2-9]\d{2}\)|[2-9]\d{2})[\s.-]?[2-9]\d{2}[\s.-]?\d{4}\b/,
+    /\b\d{1,6}\s+[A-Za-z0-9][A-Za-z0-9 .'-]{2,}\s+(?:Avenue|Ave|Boulevard|Blvd|Court|Ct|Drive|Dr|Lane|Ln|Parkway|Pkwy|Place|Pl|Road|Rd|Street|St|Suite|Ste)\b/i,
     /\b(?:Zane|I)\s+(?:authorize|authorizes|approve|approves|promise|promises|commit|commits)\b/i,
     /\b(?:email|dm|direct message|call|text)\s+(?:Zane|me|him)\b/i,
     /@(?:everyone|here)\b/i,
