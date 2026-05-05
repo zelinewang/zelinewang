@@ -10,8 +10,11 @@ permissions:
   contents: read
 
 concurrency:
-  group: sidekick-${{ github.event.issue.number }}
-  cancel-in-progress: true
+  # Global serialization makes the issue-search quota gate best-effort but
+  # not bursty: a pile of simultaneous issues cannot all pass before labels
+  # and counts become visible.
+  group: zaneos-sidekick
+  cancel-in-progress: false
 
 env:
   PER_USER_DAILY_LIMIT: 3       # max ZaneOS issues per author per 24h
@@ -20,12 +23,20 @@ env:
 
 jobs:
   reply:
-    if: startsWith(github.event.issue.title, 'ZaneOS ')
+    if: |
+      startsWith(github.event.issue.title, 'ZaneOS ask:') ||
+      startsWith(github.event.issue.title, 'ZaneOS ask ') ||
+      startsWith(github.event.issue.title, 'ZaneOS match:') ||
+      startsWith(github.event.issue.title, 'ZaneOS match ') ||
+      startsWith(github.event.issue.title, 'ZaneOS boop:') ||
+      startsWith(github.event.issue.title, 'ZaneOS boop ') ||
+      startsWith(github.event.issue.title, 'ZaneOS quest:') ||
+      startsWith(github.event.issue.title, 'ZaneOS quest ')
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
         with:
           sparse-checkout: |
             ZANE_PERSONA.md
@@ -88,7 +99,7 @@ jobs:
 
       - name: Post rate-limit refusal (if limited)
         if: steps.rate-limit.outputs.limit_reason != ''
-        uses: actions/github-script@v9
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
         env:
           REASON: ${{ steps.rate-limit.outputs.limit_reason }}
           USER_COUNT: ${{ steps.rate-limit.outputs.user_count }}
@@ -129,13 +140,9 @@ jobs:
 
       - name: Setup Node
         if: steps.rate-limit.outputs.limit_reason == ''
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
         with:
           node-version: "22"
-
-      - name: Install OpenAI SDK
-        if: steps.rate-limit.outputs.limit_reason == ''
-        run: npm install --no-save --no-fund openai@^4.79.0
 
       # SECURITY: all user-controlled inputs (issue title/body/author) flow via env vars
       # so they are passed as data to the shell, never interpolated into command strings.
@@ -178,7 +185,7 @@ jobs:
 
       - name: Comment, label, and close
         if: steps.rate-limit.outputs.limit_reason == ''
-        uses: actions/github-script@v9
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
         env:
           REPLY_BODY: ${{ steps.generate.outputs.reply }}
           MODE: ${{ steps.generate.outputs.mode }}
@@ -210,7 +217,7 @@ jobs:
 
       - name: On failure, post a graceful error
         if: failure() && steps.rate-limit.outputs.limit_reason == ''
-        uses: actions/github-script@v9
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
         with:
           script: |
             await github.rest.issues.createComment({

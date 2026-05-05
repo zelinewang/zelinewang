@@ -1,16 +1,9 @@
 # Dependabot config — version + security updates for the small surface
 # this profile repo actually has.
 #
-# Three ecosystems are tracked:
-#  1. github-actions  — pin/upgrade actions/checkout, github/codeql-action,
-#                       actions/setup-node, etc. Drift here can introduce
-#                       supply-chain risk if a newer action version is
-#                       compromised, OR keep us on an EOL version.
-#  2. npm             — sidekick.mjs uses the `openai` SDK at runtime
-#                       (DeepSeek's OpenAI-compatible endpoint). A
-#                       package.json + lockfile would activate this; if
-#                       neither exists, this section is a no-op.
-#  3. bundler / pip / etc. — not used in this repo.
+# Only GitHub Actions are tracked. Sidekick uses Node 22's built-in fetch
+# instead of a runtime npm dependency, so there is no package lock to keep
+# fresh and no install step in the secret-bearing workflow.
 #
 # Cadence: weekly. Per-PR-limit kept low (2) so unattended updates don't
 # pile up. Security updates are unlimited via the separate
@@ -33,17 +26,3 @@ updates:
     labels:
       - "dependencies"
       - "github-actions"
-
-  - package-ecosystem: "npm"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-      day: "monday"
-      time: "09:00"
-      timezone: "America/Los_Angeles"
-    open-pull-requests-limit: 2
-    commit-message:
-      prefix: "chore(npm)"
-    labels:
-      - "dependencies"
-      - "npm"

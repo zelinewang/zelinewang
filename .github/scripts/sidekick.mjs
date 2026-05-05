@@ -3,7 +3,7 @@
 // ZaneOS Sidekick — replies to GitHub issues using a hosted LLM.
 //
 // Invoked from .github/workflows/zaneos-sidekick.yml when an issue is opened
-// whose title starts with "ZaneOS ".
+// whose title starts with one of the public ZaneOS mode prefixes.
 //
 // System prompt = ZANE_PERSONA.md (voice + content) ++ AGENTS.md (hard
 // boundaries: privacy, anti-impersonation, prompt-injection resistance).
@@ -26,11 +26,18 @@ import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 
-// SDK is lazy-imported inside generateReply so DEBUG mode and unit tests can run
-// without the openai package installed.
-
 const MODEL = "deepseek-v4-flash"; // verified via https://api.deepseek.com/v1/models on 2026-05-01
 const BASE_URL = "https://api.deepseek.com";
+const CHAT_COMPLETIONS_URL = `${BASE_URL}/chat/completions`;
+const MAX_REPLY_CHARS = 2400;
+const CLOSING_LINE =
+  "_ZaneOS Sidekick — small, sharp, opinionated. Zane's AI, fed Zane's persona file. The model is the model; opinions are mine._";
+const FILTERED_REPLY = [
+  "I keep this endpoint to Zane's public work, and this generated reply tripped the safety filter.",
+  "Try a narrower ZaneOS prompt without private-data requests, off-platform contact requests, or unfamiliar links.",
+  "",
+  CLOSING_LINE,
+].join("\n");
 
 const here = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(here, "..", "..");
@@ -49,6 +56,10 @@ export function detectMode(title) {
     if (re.test(title)) return name;
   }
   return "ask"; // fallback: treat unknown ZaneOS-prefixed titles as ask
+}
+
+export function shouldHandleSidekickTitle(title) {
+  return MODE_PATTERNS.some(({ re }) => re.test(title));
 }
 
 // ── Prompt construction ───────────────────────────────────────────────────────
@@ -124,11 +135,7 @@ export async function generateReply(payload) {
     throw new Error("DEEPSEEK_API_KEY not set. Configure as a repo secret.");
   }
 
-  // DeepSeek API is OpenAI-compatible; use the openai SDK with a custom baseURL.
-  const { default: OpenAI } = await import("openai");
-  const client = new OpenAI({ apiKey, baseURL: BASE_URL });
-
-  const response = await client.chat.completions.create({
+  const response = await callChatCompletions(apiKey, {
     model: MODEL,
     max_tokens: 1024,
     messages: [
@@ -143,7 +150,86 @@ export async function generateReply(payload) {
     throw new Error("Model returned empty content");
   }
 
-  return { mode, reply: text };
+  return { mode, reply: sanitizeReply(text) };
+}
+
+async function callChatCompletions(apiKey, payload) {
+  const res = await fetch(CHAT_COMPLETIONS_URL, {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${apiKey}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+
+  const raw = await res.text();
+  let data;
+  try {
+    data = raw ? JSON.parse(raw) : {};
+  } catch {
+    throw new Error(`DeepSeek API returned non-JSON response (HTTP ${res.status})`);
+  }
+
+  if (!res.ok) {
+    const message = data?.error?.message || data?.message || `HTTP ${res.status}`;
+    throw new Error(`DeepSeek API request failed: ${message}`);
+  }
+
+  return data;
+}
+
+export function sanitizeReply(reply) {
+  const normalized = String(reply || "").trim();
+  if (!normalized) return FILTERED_REPLY;
+
+  if (violatesOutputPolicy(normalized)) {
+    return FILTERED_REPLY;
+  }
+
+  const withoutUnsafeLinks = stripUntrustedLinks(normalized);
+  const bounded = withoutUnsafeLinks.length > MAX_REPLY_CHARS
+    ? `${withoutUnsafeLinks.slice(0, MAX_REPLY_CHARS).trimEnd()}\n\n[trimmed for length]`
+    : withoutUnsafeLinks;
+
+  return bounded.includes(CLOSING_LINE)
+    ? bounded
+    : `${bounded}\n\n${CLOSING_LINE}`;
+}
+
+function violatesOutputPolicy(text) {
+  return [
+    /<\/?[a-z][^>]*>/i,
+    /!\[[^\]]*]\([^)]*\)/,
+    /\b(?:Zane|I)\s+(?:authorize|authorizes|approve|approves|promise|promises|commit|commits)\b/i,
+    /\b(?:email|dm|direct message|call|text)\s+(?:Zane|me|him)\b/i,
+    /@(?:everyone|here)\b/i,
+  ].some((re) => re.test(text));
+}
+
+function stripUntrustedLinks(text) {
+  return text
+    .replace(/\[([^\]]+)]\((https?:\/\/[^)\s]+)\)/g, (match, label, url) =>
+      isAllowedUrl(url) ? match : label,
+    )
+    .replace(/https?:\/\/[^\s)]+/g, (url) =>
+      isAllowedUrl(url) ? url : "[link omitted]",
+    );
+}
+
+function isAllowedUrl(url) {
+  try {
+    const { hostname } = new URL(url);
+    return [
+      "github.com",
+      "raw.githubusercontent.com",
+      "linkedin.com",
+      "www.linkedin.com",
+      "x.com",
+    ].some((allowed) => hostname === allowed || hostname.endsWith(`.${allowed}`));
+  } catch {
+    return false;
+  }
 }
 
 // ── CLI entrypoint (workflow calls this) ──────────────────────────────────────
