@@ -228,7 +228,7 @@
 
     <rect x="570" y="0" width="265" height="120" fill="#0e1620" stroke="#2a3340" stroke-width="0.5"/>
     <text x="590" y="28" fill="#f0b67a" font-family="ui-monospace, monospace" font-size="10" letter-spacing="0.22em">RECENT TRANSITS</text>
-    <text x="590" y="78" fill="#fdfaf2" font-family="-apple-system, sans-serif" font-size="48" font-weight="500" letter-spacing="-0.02em">31</text>
+    <text x="590" y="78" fill="#fdfaf2" font-family="-apple-system, sans-serif" font-size="48" font-weight="500" letter-spacing="-0.02em">30</text>
     <text x="590" y="104" fill="#7a8694" font-family="-apple-system, sans-serif" font-size="11">push events, last 100</text>
 
     <rect x="855" y="0" width="265" height="120" fill="#0e1620" stroke="#2a3340" stroke-width="0.5"/>
@@ -243,9 +243,9 @@
 
     <text x="0"   y="32" fill="#a0aab6" font-family="ui-monospace, monospace" font-size="13">PushEvent</text>
     <rect x="180" y="20" width="0" height="14" fill="#f0b67a" opacity="0.85">
-      <animate attributeName="width" from="0" to="564" dur="1.4s" begin="0s" fill="freeze"/>
+      <animate attributeName="width" from="0" to="545" dur="1.4s" begin="0s" fill="freeze"/>
     </rect>
-    <text x="754" y="32" fill="#fdfaf2" font-family="ui-monospace, monospace" font-size="13">31</text>
+    <text x="735" y="32" fill="#fdfaf2" font-family="ui-monospace, monospace" font-size="13">30</text>
 
     <text x="0"   y="56" fill="#a0aab6" font-family="ui-monospace, monospace" font-size="13">PullRequestEvent</text>
     <rect x="180" y="44" width="0" height="14" fill="#f0b67a" opacity="0.85">
@@ -267,9 +267,9 @@
 
     <text x="0"   y="128" fill="#a0aab6" font-family="ui-monospace, monospace" font-size="13">IssueCommentEvent</text>
     <rect x="180" y="116" width="0" height="14" fill="#f0b67a" opacity="0.5">
-      <animate attributeName="width" from="0" to="91" dur="1.4s" begin="0.60s" fill="freeze"/>
+      <animate attributeName="width" from="0" to="109" dur="1.4s" begin="0.60s" fill="freeze"/>
     </rect>
-    <text x="281" y="128" fill="#fdfaf2" font-family="ui-monospace, monospace" font-size="13">5</text>
+    <text x="299" y="128" fill="#fdfaf2" font-family="ui-monospace, monospace" font-size="13">6</text>
   </g>
 
   <text x="40" y="1738" fill="#7a8694" font-family="ui-monospace, monospace" font-size="11">last transit: 2026-05-06 · cadence over count.</text>
