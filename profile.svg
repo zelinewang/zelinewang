@@ -124,7 +124,7 @@
 
       <rect x="855" y="0" width="253" height="120" fill="#11181f" stroke="#1c2530" stroke-width="0.5"/>
       <text x="875" y="28" fill="#5fb88a" font-size="10" letter-spacing="0.22em">RECENT PRs</text>
-      <text x="875" y="78" fill="#cdd5dd" font-size="48" font-weight="500" letter-spacing="-0.02em">40</text>
+      <text x="875" y="78" fill="#cdd5dd" font-size="48" font-weight="500" letter-spacing="-0.02em">38</text>
       <text x="875" y="104" fill="#7d8a96" font-size="11">opened recently</text>
     </g>
 
@@ -134,21 +134,21 @@
 
       <text x="0"   y="32" fill="#a8b4c0">PushEvent</text>
       <rect x="180" y="20" width="0" height="14" fill="#5fb88a" opacity="0.85">
-        <animate attributeName="width" from="0" to="45" dur="1.4s" begin="0s" fill="freeze"/>
+        <animate attributeName="width" from="0" to="47" dur="1.4s" begin="0s" fill="freeze"/>
       </rect>
-      <text x="235" y="32" fill="#cdd5dd">3</text>
+      <text x="237" y="32" fill="#cdd5dd">3</text>
 
       <text x="0"   y="56" fill="#a8b4c0">PullRequestEvent</text>
       <rect x="180" y="44" width="0" height="14" fill="#5fb88a" opacity="0.85">
         <animate attributeName="width" from="0" to="600" dur="1.4s" begin="0.15s" fill="freeze"/>
       </rect>
-      <text x="790" y="56" fill="#cdd5dd">40</text>
+      <text x="790" y="56" fill="#cdd5dd">38</text>
 
       <text x="0"   y="80" fill="#a8b4c0">CreateEvent</text>
       <rect x="180" y="68" width="0" height="14" fill="#5fb88a" opacity="0.7">
-        <animate attributeName="width" from="0" to="30" dur="1.4s" begin="0.30s" fill="freeze"/>
+        <animate attributeName="width" from="0" to="32" dur="1.4s" begin="0.30s" fill="freeze"/>
       </rect>
-      <text x="220" y="80" fill="#cdd5dd">2</text>
+      <text x="222" y="80" fill="#cdd5dd">2</text>
 
       <text x="0"   y="104" fill="#a8b4c0">DeleteEvent</text>
       <rect x="180" y="92" width="0" height="14" fill="#5fb88a" opacity="0.55">
@@ -158,15 +158,15 @@
 
       <text x="0"   y="128" fill="#a8b4c0">IssueCommentEvent</text>
       <rect x="180" y="116" width="0" height="14" fill="#5fb88a" opacity="0.5">
-        <animate attributeName="width" from="0" to="120" dur="1.4s" begin="0.60s" fill="freeze"/>
+        <animate attributeName="width" from="0" to="126" dur="1.4s" begin="0.60s" fill="freeze"/>
       </rect>
-      <text x="310" y="128" fill="#cdd5dd">8</text>
+      <text x="316" y="128" fill="#cdd5dd">8</text>
 
       <text x="0"   y="152" fill="#a8b4c0">WatchEvent</text>
       <rect x="180" y="140" width="0" height="14" fill="#5fb88a" opacity="0.4">
-        <animate attributeName="width" from="0" to="90" dur="1.4s" begin="0.75s" fill="freeze"/>
+        <animate attributeName="width" from="0" to="95" dur="1.4s" begin="0.75s" fill="freeze"/>
       </rect>
-      <text x="280" y="152" fill="#cdd5dd">6</text>
+      <text x="285" y="152" fill="#cdd5dd">6</text>
     </g>
 
     <text x="46" y="1394" fill="#7d8a96" font-size="11"># refresh: nightly via .github/workflows/refresh-stats.yml. cadence over count.</text>
