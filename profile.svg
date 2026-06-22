@@ -158,9 +158,9 @@
 
       <text x="0"   y="128" fill="#a8b4c0">IssueCommentEvent</text>
       <rect x="180" y="116" width="0" height="14" fill="#5fb88a" opacity="0.5">
-        <animate attributeName="width" from="0" to="600" dur="1.4s" begin="0.60s" fill="freeze"/>
+        <animate attributeName="width" from="0" to="480" dur="1.4s" begin="0.60s" fill="freeze"/>
       </rect>
-      <text x="790" y="128" fill="#cdd5dd">5</text>
+      <text x="670" y="128" fill="#cdd5dd">4</text>
 
       <text x="0"   y="152" fill="#a8b4c0">WatchEvent</text>
       <rect x="180" y="140" width="0" height="14" fill="#5fb88a" opacity="0.4">
