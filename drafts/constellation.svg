@@ -228,7 +228,7 @@
 
     <rect x="570" y="0" width="265" height="120" fill="#0e1620" stroke="#2a3340" stroke-width="0.5"/>
     <text x="590" y="28" fill="#f0b67a" font-family="ui-monospace, monospace" font-size="10" letter-spacing="0.22em">RECENT TRANSITS</text>
-    <text x="590" y="78" fill="#fdfaf2" font-family="-apple-system, sans-serif" font-size="48" font-weight="500" letter-spacing="-0.02em">0</text>
+    <text x="590" y="78" fill="#fdfaf2" font-family="-apple-system, sans-serif" font-size="48" font-weight="500" letter-spacing="-0.02em">1</text>
     <text x="590" y="104" fill="#7a8694" font-family="-apple-system, sans-serif" font-size="11">push events, last 100</text>
 
     <rect x="855" y="0" width="265" height="120" fill="#0e1620" stroke="#2a3340" stroke-width="0.5"/>
@@ -243,9 +243,9 @@
 
     <text x="0"   y="32" fill="#a0aab6" font-family="ui-monospace, monospace" font-size="13">PushEvent</text>
     <rect x="180" y="20" width="0" height="14" fill="#f0b67a" opacity="0.85">
-      <animate attributeName="width" from="0" to="0" dur="1.4s" begin="0s" fill="freeze"/>
+      <animate attributeName="width" from="0" to="86" dur="1.4s" begin="0s" fill="freeze"/>
     </rect>
-    <text x="190" y="32" fill="#fdfaf2" font-family="ui-monospace, monospace" font-size="13">0</text>
+    <text x="276" y="32" fill="#fdfaf2" font-family="ui-monospace, monospace" font-size="13">1</text>
 
     <text x="0"   y="56" fill="#a0aab6" font-family="ui-monospace, monospace" font-size="13">PullRequestEvent</text>
     <rect x="180" y="44" width="0" height="14" fill="#f0b67a" opacity="0.85">
@@ -255,9 +255,9 @@
 
     <text x="0"   y="80" fill="#a0aab6" font-family="ui-monospace, monospace" font-size="13">CreateEvent</text>
     <rect x="180" y="68" width="0" height="14" fill="#f0b67a" opacity="0.7">
-      <animate attributeName="width" from="0" to="0" dur="1.4s" begin="0.30s" fill="freeze"/>
+      <animate attributeName="width" from="0" to="86" dur="1.4s" begin="0.30s" fill="freeze"/>
     </rect>
-    <text x="190" y="80" fill="#fdfaf2" font-family="ui-monospace, monospace" font-size="13">0</text>
+    <text x="276" y="80" fill="#fdfaf2" font-family="ui-monospace, monospace" font-size="13">1</text>
 
     <text x="0"   y="104" fill="#a0aab6" font-family="ui-monospace, monospace" font-size="13">DeleteEvent</text>
     <rect x="180" y="92" width="0" height="14" fill="#f0b67a" opacity="0.5">
