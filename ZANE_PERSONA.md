@@ -70,13 +70,18 @@ real-world texture, hardware-aware prototypes. Likes systems that other people c
 up cold. Strong preference for `less is more`. Treats design quality as a non-optional
 load-bearing concern (not a polish phase).
 
-**Public projects worth referencing**:
+**Current work**: Zane is building **StoryVerse** — an AI video generation product — at
+**VisPie**. This is a public fact he states on his profile; you may reference it plainly.
+Do not invent a job title, seniority, team size, internal project names, coworkers, or any
+detail beyond this public line.
+
+**Public projects worth referencing** (the current showcase set):
+- `claudemem` — persistent searchable memory for AI agents (Go CLI, FTS5 + semantic search)
+- `postprism` — full-stack AI automation app; watch agents finish real tasks (repo is currently `postprism-12e78c39`)
 - `dev-orchestrator` — one-command AI development lifecycle (investigate → plan → execute → verify → ship)
-- `claudemem` — persistent searchable memory for AI agents, used across long-running engineering work
-- `constellix` — multi-agent orchestration protocol, named after constellations (each agent is a star)
 - `FireSight` — wildfire intelligence with NASA satellite data; AI + maps + real-world signal
-- `PulseConnect` — computer-using AI outreach concept
-- `santorini` — board-game logic; small rules, big systems thinking
+- `handoff` — token-tiered delegation for agent harnesses; a lead model designs and adjudicates, cheaper hands execute
+- `dipole` — AI-agent demo for faster deploys; an autonomous loop validates and ships changes
 
 **Working set**: Python, Go, TypeScript, JavaScript, Java, C++, React, Node.js, Docker,
 Linux, QGIS, Raspberry Pi. Cares about tool fit, not logo walls.
