@@ -36,52 +36,18 @@ Currently building **StoryVerse** (AI video generation) at **VisPie** · based i
 Open-source agent infrastructure: **[claudemem](https://github.com/zelinewang/claudemem)** · **[handoff](https://github.com/zelinewang/handoff)** · **[dev-orchestrator](https://github.com/zelinewang/dev-orchestrator)**  
 [GitHub](https://github.com/zelinewang) · [LinkedIn](https://www.linkedin.com/in/zane-wang7/) · [X](https://x.com/zanewang102)
 
-<sub>
+`§ 02 projects:` [claudemem](https://github.com/zelinewang/claudemem) · [postprism](https://github.com/zelinewang/postprism-12e78c39) · [dev-orchestrator](https://github.com/zelinewang/dev-orchestrator) · [FireSight](https://github.com/zelinewang/FireSight) · [handoff](https://github.com/zelinewang/handoff) · [dipole](https://github.com/zelinewang/dipole)
 
-`§ 02 projects:`&nbsp;
-[claudemem](https://github.com/zelinewang/claudemem) ·
-[postprism](https://github.com/zelinewang/postprism-12e78c39) ·
-[dev-orchestrator](https://github.com/zelinewang/dev-orchestrator) ·
-[FireSight](https://github.com/zelinewang/FireSight) ·
-[handoff](https://github.com/zelinewang/handoff) ·
-[dipole](https://github.com/zelinewang/dipole)
+`§ 03 how i work:` [dev-orchestrator](https://github.com/zelinewang/dev-orchestrator) — investigate → plan → execute → verify → ship · [handoff](https://github.com/zelinewang/handoff) — one brain plans and adjudicates, cheaper hands execute
 
-`§ 03 how i work:`&nbsp;
-[dev-orchestrator](https://github.com/zelinewang/dev-orchestrator) — investigate → plan → execute → verify → ship
-&nbsp;·&nbsp;
-[handoff](https://github.com/zelinewang/handoff) — one brain plans and adjudicates, cheaper hands execute
+`§ 04 stats:` live counts refreshed nightly via [refresh-stats.yml](./.github/workflows/refresh-stats.yml) · [render-profile.mjs](./.github/scripts/render-profile.mjs) · [console.svg.template](./.github/templates/console.svg.template)
 
-`§ 04 stats:`&nbsp;
-live counts refreshed nightly via [refresh-stats.yml](./.github/workflows/refresh-stats.yml)
-&nbsp;·&nbsp; [render-profile.mjs](./.github/scripts/render-profile.mjs)
-&nbsp;·&nbsp; [console.svg.template](./.github/templates/console.svg.template)
+`§ 05 trajectory:` 365-day contribution snake from [Platane/snk](https://github.com/Platane/snk), regenerated daily
 
-`§ 05 trajectory:`&nbsp;
-365-day contribution snake from [Platane/snk](https://github.com/Platane/snk), regenerated daily
-
-`§ 08 sidekick:`&nbsp;
-[ask the bot →](https://github.com/zelinewang/zelinewang/issues/new?title=ZaneOS%20ask%3A%20your%20question%20here&body=Replace%20the%20question%20in%20the%20title.%20A%20workflow%20with%20Zane%27s%20AI%20will%20reply%20in%20this%20issue%20in%20about%2030%20seconds%20and%20close%20it.)
-
-</sub>
+`§ 08 sidekick:` [ask the bot →](https://github.com/zelinewang/zelinewang/issues/new?title=ZaneOS%20ask%3A%20your%20question%20here&body=Replace%20the%20question%20in%20the%20title.%20A%20workflow%20with%20Zane%27s%20AI%20will%20reply%20in%20this%20issue%20in%20about%2030%20seconds%20and%20close%20it.)
 
 ---
 
-<sub>
+[github](https://github.com/zelinewang) · [linkedin](https://www.linkedin.com/in/zane-wang7/) · [x](https://x.com/zanewang102)
 
-[github](https://github.com/zelinewang) &nbsp;·&nbsp;
-[linkedin](https://www.linkedin.com/in/zane-wang7/) &nbsp;·&nbsp;
-[x](https://x.com/zanewang102)
-
-</sub>
-
-<sub>
-
-Built with the `vibe-readme` skill (a personal Claude Code skill, not yet
-public). The empirical lessons it grew from are open in
-[`LEARNINGS.md`](./LEARNINGS.md). Two earlier design directions are
-parked under [`previews/_drafts/`](./previews/_drafts/) — same content,
-different aesthetic. Single dark theme is intentional: the terminal
-metaphor only reads correctly on a dark background, so no
-`<picture>` / light variant.
-
-</sub>
+Built with the `vibe-readme` skill (a personal Claude Code skill, not yet public). The empirical lessons it grew from are open in [`LEARNINGS.md`](./LEARNINGS.md). Two earlier design directions are parked under [`previews/_drafts/`](./previews/_drafts/) — same content, different aesthetic. Single dark theme is intentional: the terminal metaphor only reads correctly on a dark background, so no `<picture>` / light variant.
