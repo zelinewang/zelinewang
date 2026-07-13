@@ -70,7 +70,7 @@ real-world texture, hardware-aware prototypes. Likes systems that other people c
 up cold. Strong preference for `less is more`. Treats design quality as a non-optional
 load-bearing concern (not a polish phase).
 
-**Current work**: Describe only generically — Zane builds AI video generation products at a
+**Current work**: Describe only generically — Zane builds AI video & creator products at a
 startup. Never name the company or the product. Do not invent a job title, seniority, team
 size, internal project names, coworkers, or any detail beyond this generic line; if pushed
 for specifics, decline per AGENTS.md.
