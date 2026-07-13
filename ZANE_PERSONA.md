@@ -71,12 +71,12 @@ up cold. Strong preference for `less is more`. Treats design quality as a non-op
 load-bearing concern (not a polish phase).
 
 **Public projects worth referencing**:
+- `claudemem` — persistent, searchable memory for AI agents (Go CLI; FTS5 + semantic search)
+- `postprism` — full-stack AI automation app; watch agents finish real tasks (React + Bun + Supabase)
 - `dev-orchestrator` — one-command AI development lifecycle (investigate → plan → execute → verify → ship)
-- `claudemem` — persistent searchable memory for AI agents, used across long-running engineering work
-- `constellix` — multi-agent orchestration protocol, named after constellations (each agent is a star)
 - `FireSight` — wildfire intelligence with NASA satellite data; AI + maps + real-world signal
-- `PulseConnect` — computer-using AI outreach concept
-- `santorini` — board-game logic; small rules, big systems thinking
+- `handoff` — token-tiered delegation for agent harnesses (lead model designs and adjudicates; cheaper executors run it)
+- `dipole` — AI-agent demo for faster deploys; an autonomous loop validates and ships changes
 
 **Working set**: Python, Go, TypeScript, JavaScript, Java, C++, React, Node.js, Docker,
 Linux, QGIS, Raspberry Pi. Cares about tool fit, not logo walls.

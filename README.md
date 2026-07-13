@@ -1,69 +1,54 @@
 <!--
-  Zane Wang's GitHub profile, as a single integrated mega-SVG.
-  All design lives in assets/profile.svg (one composition, eight sections),
-  rendered nightly by .github/workflows/refresh-stats.yml.
+  Zane Wang — GitHub profile README (Professional direction).
+  Fully static and text-first: every load-bearing line is real markdown, so
+  recruiters and AI resume screeners read it directly (not from pixels).
 
-  The rendered SVG is published to the `stats-output` branch (not main) so
-  the cron bot doesn't touch main's branch-protection ruleset. The README
-  references it via raw.githubusercontent — same pattern Platane snake uses.
-  Snake itself is fetched from the `output` branch and spliced into §05.
-
-  Why no <map>/<area> image-map? GitHub re-renders the <img> at container width
-  while <area coords> are pixel-absolute — coords drift on different viewports
-  and break entirely on mobile. So nav lives in the strip below as plain links.
-
-  Two earlier directions (Field Notes, Constellation) are kept under
-  previews/_drafts/ — same content, different aesthetic, not currently promoted.
+  The single visual is an editorial hero card (assets/hero-signal{,-dark}.svg),
+  theme-switched with <picture> + prefers-color-scheme (officially supported by
+  GitHub). Asset paths are relative, so they resolve on any branch and survive a
+  merge to main untouched. This README is fully static and pulls nothing from the
+  nightly cron branches — it does not depend on the scheduled profile render.
 -->
 
-<p>
-  <img src="https://raw.githubusercontent.com/zelinewang/zelinewang/stats-output/profile.svg" alt="Zane Wang's profile as a continuous terminal session" width="100%" />
-</p>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/hero-signal-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="assets/hero-signal.svg">
+  <img src="assets/hero-signal.svg" alt="Zane Wang — building AI video-generation products and open-source infrastructure for AI agents" width="100%">
+</picture>
 
-<sub>
+**Zane Wang** — building AI video-generation products, and open-source infrastructure for AI agents.
 
-`§ 02 projects:`&nbsp;
-[constellix](https://github.com/zelinewang/constellix) ·
-[claudemem](https://github.com/zelinewang/claudemem) ·
-[dev-orchestrator](https://github.com/zelinewang/dev-orchestrator) ·
-[FireSight](https://github.com/zelinewang/FireSight) ·
-[PulseConnect](https://github.com/zelinewang/PulseConnect) ·
-[santorini](https://github.com/zelinewang/santorini)
+I ship AI products and the open-source tooling that makes coding agents reliable: durable
+memory, token-tiered delegation, and a one-command development lifecycle. Based in San Francisco.
 
-`§ 03 fleet:`&nbsp;
-[orchestrator overview](https://github.com/zelinewang/dev-orchestrator) — the same five agents the panel above lists, in real code
+> **Now** · building `claudemem`, `handoff`, and `dev-orchestrator` in public · shipping AI video-generation products · San Francisco
 
-`§ 04 stats:`&nbsp;
-live counts refreshed nightly via [refresh-stats.yml](./.github/workflows/refresh-stats.yml)
-&nbsp;·&nbsp; [render-profile.mjs](./.github/scripts/render-profile.mjs)
-&nbsp;·&nbsp; [console.svg.template](./.github/templates/console.svg.template)
+## Projects
 
-`§ 05 trajectory:`&nbsp;
-365-day contribution snake from [Platane/snk](https://github.com/Platane/snk), regenerated daily
+**AI products**
 
-`§ 08 sidekick:`&nbsp;
-[ask the bot →](https://github.com/zelinewang/zelinewang/issues/new?title=ZaneOS%20ask%3A%20your%20question%20here&body=Replace%20the%20question%20in%20the%20title.%20A%20workflow%20with%20Zane%27s%20AI%20will%20reply%20in%20this%20issue%20in%20about%2030%20seconds%20and%20close%20it.)
+- **[postprism](https://github.com/zelinewang/postprism-12e78c39)** · TypeScript — full-stack AI automation app; watch agents finish real tasks. React + Bun + Supabase, deploy-ready.
+- **[FireSight](https://github.com/zelinewang/FireSight)** · Python — real-time wildfire intelligence on NASA satellite data, with live risk mapping.
+- **[dipole](https://github.com/zelinewang/dipole)** · JavaScript — AI-agent demo for faster deploys: an autonomous loop validates and ships changes.
+
+**Agent infrastructure**
+
+- **[claudemem](https://github.com/zelinewang/claudemem)** · Go — agent memory for Claude Code: notes and session summaries, FTS5 + semantic search, zero-network CLI.
+- **[dev-orchestrator](https://github.com/zelinewang/dev-orchestrator)** · Shell — one-command AI dev lifecycle: investigation-first tiering, TDD, seven-rule verification.
+- **[handoff](https://github.com/zelinewang/handoff)** · Shell — token-tiered delegation for agent harnesses: the lead model designs and adjudicates, cheaper executors run it.
+
+## How I work
+
+- **Prove before arguing.** A twenty-line spike settles a design debate faster than a meeting.
+- **Fix the actual bottleneck, defer the rest.** One root cause per change, not a refactor-everything PR.
+- **Let measurements overturn my assumptions.** When a load test contradicts my "optimized" query, I revert instead of rationalizing.
+- **Keep it simple enough to hand off.** Code a new teammate reads in thirty seconds beats a clever abstraction only I understand.
+- **Leave leverage behind.** Every delivery drops something reusable — a utility, a runbook, a lesson written down — so the next task is cheaper.
+
+## Contact
+
+[GitHub](https://github.com/zelinewang) · [LinkedIn](https://www.linkedin.com/in/zane-wang7/) · [X](https://x.com/zanewang102)
 
 ---
 
-<sub>
-
-[github](https://github.com/zelinewang) &nbsp;·&nbsp;
-[linkedin](https://www.linkedin.com/in/zane-wang7/) &nbsp;·&nbsp;
-[x](https://x.com/zanewang102)
-
-</sub>
-
-<sub>
-
-Built with the `vibe-readme` skill (a personal Claude Code skill, not yet
-public). The empirical lessons it grew from are open in
-[`LEARNINGS.md`](./LEARNINGS.md). Two earlier design directions are
-parked under [`previews/_drafts/`](./previews/_drafts/) — same content,
-different aesthetic. Single dark theme is intentional: the terminal
-metaphor only reads correctly on a dark background, so no
-`<picture>` / light variant.
-
-</sub>
-
-</sub>
+_Curious how I think? [Ask my AI sidekick anything &rarr;](https://github.com/zelinewang/zelinewang/issues/new?title=ZaneOS%20ask%3A%20your%20question%20here&body=Replace%20the%20question%20in%20the%20title.%20A%20workflow%20with%20Zane%27s%20AI%20will%20reply%20in%20this%20issue%20in%20about%2030%20seconds%20and%20close%20it.) — it opens a GitHub issue, replies in about 30 seconds, and closes it._

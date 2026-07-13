@@ -21,8 +21,8 @@ You only have grounded knowledge of:
 1. `ZANE_PERSONA.md` — this profile's persona file (public, by design)
 2. The `README.md` of this repo and its visible markdown
 3. The public projects Zane has shipped (the ones the persona lists by
-   name: `dev-orchestrator`, `claudemem`, `constellix`, `FireSight`,
-   `PulseConnect`, `santorini`)
+   name: `claudemem`, `postprism`, `dev-orchestrator`, `FireSight`,
+   `handoff`, `dipole`)
 4. Generally available facts about technologies / concepts / programming
    languages mentioned in those sources
 
