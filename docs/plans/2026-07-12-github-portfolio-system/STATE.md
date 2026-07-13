@@ -22,9 +22,11 @@ startup-work line. The user-provided resume supports the production experience
 as past work through March 2026, not a current July 2026 employment claim. The
 feature branch has been rebased onto that live main and now separates
 resume-confirmed production background from GitHub-verified current public
-focus. The updated copy, sidekick guardrail, three design sources, generated
-studies, and tests pass locally; the rebased head still needs publication and
-fresh remote CI/rendering verification.
+focus. Implementation head `61a908e` is published; fresh CodeQL passed. GitHub's
+branch renderer shows the complete bridge and current-focus section, and the
+375x812 check remains overflow-free (`scrollWidth=clientWidth=375`, article and
+hero width 309). The account bio and repository description now use the same
+evaluation-and-agent-infrastructure positioning.
 
 ## Done
 
@@ -53,7 +55,7 @@ fresh remote CI/rendering verification.
 - [x] 04-profile-verification — profile tests, SVG/XML safety, anonymous links, GFM rendering, and branch-wide privacy sweep pass; live GitHub rendering follows the push.
 - [x] 05-flagship-repositories — dispatches 04-11 accepted; original and corrective follow-up PRs published with post-merge observation.
 - [x] 06-github-surface — safe metadata, topics, homepages, professional bio/status, and six-pin selection updated through live API/UI.
-- [ ] 07-ship — rebased branch requires a force-with-lease update and fresh CI; merge and post-merge observation still await the required independent review.
+- [ ] 07-ship — rebased branch is published with green CI and live rendering; merge and post-merge observation await the required independent review.
 
 ## Blockers / Problems
 
@@ -61,7 +63,7 @@ fresh remote CI/rendering verification.
 - Destructive cleanup of remaining public forks is a separate account-level decision. Several forks have no unique commits, while others are ahead of upstream; deletion must be based on the refreshed compare inventory and explicit approval.
 - The profile branch was successfully rebased from the obsolete merge topology at `611110a` onto current `origin/main@afea95f`; no old Console merge history is being republished.
 - PostPrism's Lovable deployment still exposes generic `prism-stream-publish` / `Lovable Generated Project` metadata. The GitHub repository is honest and canonical, but the Lovable URL is deliberately not used as repository homepage evidence.
-- Before this rebase, profile PR #29 was `CONFLICTING` because `origin/main` had advanced. The rebased head must be pushed and re-checked; the required-review rule still applies, with no owner bypass or self-approval.
+- Profile PR #29 is `MERGEABLE` and `BLOCKED` only by `REVIEW_REQUIRED`; no owner bypass or self-approval is permitted.
 - Account cleanup still needs explicit decisions for the three no-unique-code course forks, nine fork exports/provenance cases, `FutureOfUsWeb`, and `personalWebpage`; see `plan.md`.
 
 ## Decisions Log
@@ -85,9 +87,9 @@ fresh remote CI/rendering verification.
 
 ## Next Session Entry Point
 
-First: verify the rebased resume-alignment head and fresh CI on
-<https://github.com/zelinewang/zelinewang/pull/29>, then obtain an independent
-approval, re-check that the base has not moved, merge without bypass, and
-observe the main-branch CodeQL/profile render. Do not perform destructive
-fork/history cleanup or publish the private resume PDF without the explicit
-decisions listed in the final handoff.
+First: obtain an independent approval for
+<https://github.com/zelinewang/zelinewang/pull/29>, re-check that the base has
+not moved and CI remains green, merge without bypass, and observe the
+main-branch CodeQL/profile render. Do not perform destructive fork/history
+cleanup or publish the private resume PDF without the explicit decisions listed
+in the final handoff.
