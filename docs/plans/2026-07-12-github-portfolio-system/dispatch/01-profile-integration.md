@@ -1,9 +1,9 @@
 # DISPATCH: 01-profile-integration
 
-> Status: running
+> Status: returned
 > Channel: agent-opus
 > Dispatched: 2026-07-12 17:28 PT | Spec: `docs/plans/2026-07-12-github-portfolio-system/plan.md`
-> Workspace: `/Users/zane/worktrees/zelinewang-public-profile`
+> Workspace: `<profile-worktree>`
 
 ## Context
 
@@ -46,7 +46,7 @@ Implement the canonical profile and design gallery in this worktree. Port and re
 ## Verify (run these; paste real output)
 
 ```bash
-cd /Users/zane/worktrees/zelinewang-public-profile
+cd <profile-worktree>
 node --test .github/scripts/sidekick.test.mjs
 node .github/scripts/render-profile.mjs
 find . -type f -name '*.svg' -not -path './.git/*' -print0 | xargs -0 -n1 xmllint --noout
@@ -54,7 +54,7 @@ test -z "$(find . -type f -name '*.svg' -not -path './.git/*' -size +2M -print)"
 ! rg -n -i 'constellix|PulseConnect|santorini|★[0-9]|world.s first|revolutionary|visitor count' README.md previews .github/templates AGENTS.md ZANE_PERSONA.md
 ! rg -n -i '<script|<foreignObject|javascript:|on(click|load|error)=' --glob '*.svg' .
 git diff --check
-bash /Users/zane/.claude/scripts/pre-public-sweep.sh .
+bash "$HOME/.claude/scripts/pre-public-sweep.sh" .
 git status --short
 git diff --stat
 ```
@@ -73,7 +73,94 @@ Persist evidence below before returning. Do not return full files or long logs.
 
 ## Returned Evidence 1
 
-Pending.
+### 1. Acceptance checklist
+
+- [x] Theme-aware hero plus semantic Markdown for identity, positioning, selected work, principles, contact, sidekick, and gallery.
+- [x] First screen includes identity, AI-systems positioning, linked public proof, and LinkedIn/GitHub contact paths.
+- [x] All six selected public projects are linked and described from their public README evidence.
+- [x] Canonical and gallery contain no stale private project, fake star, employer/product name, or unsupported vanity metric.
+- [x] `previews/README.md` presents complete Console, Constellation, and Field Notes studies with rationale and canonical backlinks.
+- [x] Gallery visuals use the six-project public set, state that image rows are inert, and carry dated public GitHub data.
+- [x] `AGENTS.md` and `ZANE_PERSONA.md` use the same six-project whitelist as the canonical README.
+- [x] All tracked SVGs are well-formed, below 2 MB, and contain none of the prohibited active-content patterns.
+- [x] Sidekick tests, profile-content tests, and renderer pass without new dependencies.
+- [x] Implementation commit contains only profile, gallery, automation, and test files.
+
+### 2. Decisive verify output
+
+```text
+✔ canonical profile keeps load-bearing content in semantic Markdown
+✔ public profile surfaces exclude stale projects and unsupported vanity copy
+✔ renderer writes all studies into the discoverable gallery
+14 passed, 0 failed
+ℹ tests 4
+ℹ pass 4
+ℹ fail 0
+
+Fetching live GitHub stats...
+Stats fetched: 22 tokens
+Fetching daily snake...
+Snake content: 91642 chars
+Rendered <profile-worktree>/previews/console/assets/01-profile.svg (111324 chars)
+Rendered <profile-worktree>/previews/constellation/assets/01-profile.svg (120750 chars)
+Rendered <profile-worktree>/previews/field-notes/assets/01-profile.svg (117881 chars)
+All 3 mega-SVGs rendered.
+
+<themed-picture data-catalyst-inline="true"><picture>
+<h2 dir="auto">Selected work</h2>
+<h2 dir="auto">How I work</h2>
+<h2 dir="auto">Design studies</h2>
+<h2 dir="auto">Contact</h2>
+<details>
+
+claudemem anonymous_http=200
+handoff anonymous_http=200
+dev-orchestrator anonymous_http=200
+postprism-12e78c39 anonymous_http=200
+FireSight anonymous_http=200
+dipole anonymous_http=200
+```
+
+`xmllint --noout`, SVG size gate, forbidden-copy gate, active-content gate,
+and `git diff --check` all exited 0 with no output.
+
+### 3. Diff stat and commit
+
+Commit: `3b41552 feat(profile): publish evidence-ledger profile and design gallery`
+
+```text
+24 files changed, 1279 insertions(+), 796 deletions(-)
+```
+
+The implementation adds one profile-content test, rewrites the canonical
+README, updates all three templates and the renderer workflow, removes the
+obsolete root mega-SVG/draft archive, and publishes three complete study
+READMEs plus rendered SVGs.
+
+### 4. Deviations and discoveries
+
+- Live `origin/main` advanced from `467f430` to `611110a` through merged
+  PR #28 during execution. The integration branch was rebased before
+  implementation; the original plan commit `0351630` was preserved as
+  rebased commit `aeb3e27`.
+- PR #28 supplied the truthful Console-v2 project structure. The canonical
+  still moved to the Professional/Evidence Ledger direction because its
+  theme-aware hero and semantic Markdown satisfy mobile, accessibility, and
+  recruiter-screening requirements.
+- The renderer now publishes gallery studies under `stats-output/studies/`;
+  the tracked renders remain branch-reviewable snapshots.
+- GitHub's Markdown API retained the theme-aware `<picture>` as
+  `<themed-picture>` and retained the `<details>` sidekick disclosure.
+
+### 5. Blockers
+
+- The profile implementation has no code or content blocker.
+- The repository-wide pre-public sweep still reports one Layer 3 blocker from
+  absolute personal paths in the shared portfolio plan/STATE and sibling
+  dispatch files. Those are orchestration artifacts outside this implementation
+  commit and must be normalized before the parent branch is pushed.
+- Sidekick end-to-end behavior was intentionally not triggered because the
+  dispatch forbids creating a public issue or other GitHub write.
 
 ## Adjudication
 
