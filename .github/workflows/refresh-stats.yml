@@ -41,9 +41,9 @@ jobs:
         run: |
           set -eo pipefail
           mkdir -p /tmp/rendered
-          mv assets/profile.svg /tmp/rendered/profile.svg
-          mv previews/_drafts/constellation/assets/01-profile.svg /tmp/rendered/constellation.svg
-          mv previews/_drafts/field-notes/assets/01-profile.svg /tmp/rendered/field-notes.svg
+          mv previews/console/assets/01-profile.svg /tmp/rendered/console.svg
+          mv previews/constellation/assets/01-profile.svg /tmp/rendered/constellation.svg
+          mv previews/field-notes/assets/01-profile.svg /tmp/rendered/field-notes.svg
 
       - name: Switch to stats-output branch + commit + push
         run: |
@@ -68,12 +68,12 @@ jobs:
           fi
 
           # Place fresh SVGs at their published paths
-          mkdir -p drafts
-          mv /tmp/rendered/profile.svg       profile.svg
-          mv /tmp/rendered/constellation.svg drafts/constellation.svg
-          mv /tmp/rendered/field-notes.svg   drafts/field-notes.svg
+          mkdir -p studies
+          mv /tmp/rendered/console.svg       studies/console.svg
+          mv /tmp/rendered/constellation.svg studies/constellation.svg
+          mv /tmp/rendered/field-notes.svg   studies/field-notes.svg
 
-          git add profile.svg drafts/
+          git add studies/
 
           if git diff --staged --quiet; then
             echo "No changes; skipping commit."

@@ -170,14 +170,12 @@ async function main() {
   const snake = await fetchSnake();
   console.log(`Snake content: ${snake.length} chars`);
 
-  // Console is the active profile design — output goes to root assets/.
-  // Constellation + Field Notes are kept under previews/_drafts/ as
-  // alternate aesthetics (still regenerated nightly so they don't bit-rot,
-  // but the root README does not promote them).
+  // The canonical profile is semantic Markdown with a compact editorial hero.
+  // These three complete visual studies live in the public design gallery.
   const directions = [
-    { name: "console",       templatePath: "console.svg.template",       outPath: "assets/profile.svg" },
-    { name: "constellation", templatePath: "constellation.svg.template", outPath: "previews/_drafts/constellation/assets/01-profile.svg" },
-    { name: "field-notes",   templatePath: "field-notes.svg.template",   outPath: "previews/_drafts/field-notes/assets/01-profile.svg" },
+    { name: "console",       templatePath: "console.svg.template",       outPath: "previews/console/assets/01-profile.svg" },
+    { name: "constellation", templatePath: "constellation.svg.template", outPath: "previews/constellation/assets/01-profile.svg" },
+    { name: "field-notes",   templatePath: "field-notes.svg.template",   outPath: "previews/field-notes/assets/01-profile.svg" },
   ];
 
   for (const { name, templatePath, outPath } of directions) {

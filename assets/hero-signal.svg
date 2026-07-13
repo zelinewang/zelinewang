@@ -43,7 +43,7 @@
   <text x="64" y="208" fill="#8a807a"
         font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif"
         font-size="15" letter-spacing="0.04em">
-    AI agents · agent memory · maps · hardware-aware software · developer tools
+    AI systems · agent memory · delegation · product experiments
   </text>
 
   <!-- Live signal cluster — uses native SVG <animate> so it renders inside <img> on GitHub -->
