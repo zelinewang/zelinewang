@@ -8,14 +8,20 @@
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/hero-signal-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="assets/hero-signal.svg">
-  <img src="assets/hero-signal.svg" alt="Zane Wang — AI systems builder working on agent memory, delegation, development workflows, and product experiments" width="100%">
+  <img src="assets/hero-signal.svg" alt="Zane Wang — AI systems builder focused on evaluation, agent infrastructure, and evidence-driven workflows" width="100%">
 </picture>
 
-**AI systems builder based in San Francisco.** I work on agent memory, delegation, development workflows, and product experiments—systems that turn ambiguous work into observable evidence.
-
-**Current public proof:** [claudemem](https://github.com/zelinewang/claudemem) preserves context across coding-agent sessions, while [handoff](https://github.com/zelinewang/handoff) tests when delegated execution helps and when its coordination cost does not.
+**AI systems builder based in San Francisco.** My production background spans multimodal evaluation, high-volume data systems, workflow automation, and enterprise agents. My current public focus is the infrastructure underneath reliable agents: memory, delegation, and evidence-driven development.
 
 [Explore the work ↓](#selected-work) · [LinkedIn](https://www.linkedin.com/in/zane-wang7/) · [GitHub](https://github.com/zelinewang)
+
+## Current focus
+
+I turn lessons from production AI systems into smaller, public, inspectable tools. The current thread is reliable agent execution across sessions and teams: durable context, bounded delegation, and workflows that keep evidence close to decisions.
+
+**Current public proof:** [claudemem](https://github.com/zelinewang/claudemem) preserves context across coding-agent sessions, [handoff](https://github.com/zelinewang/handoff) measures when delegated execution helps and when coordination cost outweighs the benefit, and [dev-orchestrator](https://github.com/zelinewang/dev-orchestrator) keeps investigation, tests, verification, and shipping in one resumable workflow.
+
+The product experiments below apply the same standard to computer use, real-time data, and deployment without presenting prototypes as production systems.
 
 <a id="selected-work"></a>
 ## Selected work

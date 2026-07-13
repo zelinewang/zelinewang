@@ -23,6 +23,8 @@ const forbiddenPublicCopy = [
   /constellix/i,
   /PulseConnect/i,
   /santorini/i,
+  /currently building AI video\s*&\s*creator products/i,
+  /current work.{0,120}at a startup/is,
   /★\s*\d/i,
   /world.?s first/i,
   /revolutionary/i,
@@ -34,12 +36,46 @@ test("canonical profile keeps load-bearing content in semantic Markdown", async 
 
   assert.match(readme, /<picture>/);
   assert.match(readme, /prefers-color-scheme: dark/);
+  assert.match(readme, /## Current focus/);
+  assert.match(readme, /production background/i);
+  assert.match(readme, /current public focus/i);
   assert.match(readme, /## Selected work/);
   assert.match(readme, /## Contact/);
   assert.match(readme, /<details>/);
 
   for (const target of publicTargets) {
     assert.match(readme, new RegExp(target, "i"), `missing public target: ${target}`);
+  }
+});
+
+test("resume bridge separates past production background from current public focus", async () => {
+  const semanticPaths = [
+    "README.md",
+    "ZANE_PERSONA.md",
+    "previews/README.md",
+    "previews/console/README.md",
+    "previews/constellation/README.md",
+    "previews/field-notes/README.md",
+  ];
+
+  for (const path of semanticPaths) {
+    const source = await read(path);
+    assert.match(source, /production background/i, `${path} missing production background`);
+    assert.match(source, /current public focus/i, `${path} missing current public focus`);
+  }
+
+  const visualPaths = [
+    "assets/hero-signal.svg",
+    "assets/hero-signal-dark.svg",
+    ".github/templates/console.svg.template",
+    ".github/templates/constellation.svg.template",
+    ".github/templates/field-notes.svg.template",
+  ];
+
+  for (const path of visualPaths) {
+    const source = await read(path);
+    assert.match(source, /evaluation/i, `${path} missing evaluation through-line`);
+    assert.match(source, /agent/i, `${path} missing current agent focus`);
   }
 });
 
@@ -53,6 +89,8 @@ test("public profile surfaces exclude stale projects and unsupported vanity copy
     ".github/templates/console.svg.template",
     ".github/templates/constellation.svg.template",
     ".github/templates/field-notes.svg.template",
+    "assets/hero-signal.svg",
+    "assets/hero-signal-dark.svg",
     "AGENTS.md",
     "ZANE_PERSONA.md",
   ];

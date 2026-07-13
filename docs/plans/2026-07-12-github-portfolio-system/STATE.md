@@ -1,6 +1,6 @@
 # STATE: GitHub Portfolio System
 
-> Updated: 2026-07-12 18:56 PT by Codex root | Phase: /dev P10, review-gated handoff
+> Updated: 2026-07-12 19:28 PT by Codex root | Phase: /dev P10, resume-aligned review handoff
 
 ## Goal
 
@@ -14,12 +14,17 @@ workflow instead of a deterministically failing Pages deploy; Dipole has an
 honest local-demo boundary plus verified mobile overflow fix; PostPrism uses
 its canonical renamed repository links. Account bio/status, repository
 descriptions/topics, trusted homepages, and the six-pin selection are live.
-Profile PR #29 is open from the rebased feature branch against
-`origin/main@afea95f`. All three CodeQL checks pass. GitHub branch rendering is
-verified at desktop and 375x812 (`scrollWidth=clientWidth=375`, hero and article
-reflow correctly); the dark hero asset also renders from the pushed branch.
-The only profile publication blocker is the live required-review gate, which
-this execution will not bypass.
+Profile PR #29 remains open. Its prior head passed all three CodeQL checks and
+GitHub rendering at desktop and 375x812
+(`scrollWidth=clientWidth=375`); the dark hero asset also rendered correctly.
+After the first handoff, `origin/main` advanced to `39d4706` with a present-tense
+startup-work line. The user-provided resume supports the production experience
+as past work through March 2026, not a current July 2026 employment claim. The
+feature branch has been rebased onto that live main and now separates
+resume-confirmed production background from GitHub-verified current public
+focus. The updated copy, sidekick guardrail, three design sources, generated
+studies, and tests pass locally; the rebased head still needs publication and
+fresh remote CI/rendering verification.
 
 ## Done
 
@@ -38,6 +43,7 @@ this execution will not bypass.
 - [x] 05-product-pr-review — all three verdicts `rework-1`; evidence in dispatch 03.
 - [x] 06-flagship-rework — dispatches 04-11 accepted and their PRs published.
 - [x] 07-github-surface — professional bio/status, six repository metadata/topic sets, trusted FireSight/Dipole homepages, and six pins published.
+- [x] 08-resume-alignment — verified the private resume with text extraction and page rendering, added a past-production/current-public bridge, and prevented technical focus from implying current employment.
 
 ## Todo (roadmap order)
 
@@ -47,7 +53,7 @@ this execution will not bypass.
 - [x] 04-profile-verification — profile tests, SVG/XML safety, anonymous links, GFM rendering, and branch-wide privacy sweep pass; live GitHub rendering follows the push.
 - [x] 05-flagship-repositories — dispatches 04-11 accepted; original and corrective follow-up PRs published with post-merge observation.
 - [x] 06-github-surface — safe metadata, topics, homepages, professional bio/status, and six-pin selection updated through live API/UI.
-- [ ] 07-ship — branch and PR #29 are published with green CI; merge and post-merge observation await the required independent review.
+- [ ] 07-ship — rebased branch requires a force-with-lease update and fresh CI; merge and post-merge observation still await the required independent review.
 
 ## Blockers / Problems
 
@@ -55,7 +61,7 @@ this execution will not bypass.
 - Destructive cleanup of remaining public forks is a separate account-level decision. Several forks have no unique commits, while others are ahead of upstream; deletion must be based on the refreshed compare inventory and explicit approval.
 - The profile branch was successfully rebased from the obsolete merge topology at `611110a` onto current `origin/main@afea95f`; no old Console merge history is being republished.
 - PostPrism's Lovable deployment still exposes generic `prism-stream-publish` / `Lovable Generated Project` metadata. The GitHub repository is honest and canonical, but the Lovable URL is deliberately not used as repository homepage evidence.
-- Profile PR #29 is `MERGEABLE` but `BLOCKED` by the repository required-review rule. No owner bypass or self-approval is permitted.
+- Before this rebase, profile PR #29 was `CONFLICTING` because `origin/main` had advanced. The rebased head must be pushed and re-checked; the required-review rule still applies, with no owner bypass or self-approval.
 - Account cleanup still needs explicit decisions for the three no-unique-code course forks, nine fork exports/provenance cases, `FutureOfUsWeb`, and `personalWebpage`; see `plan.md`.
 
 ## Decisions Log
@@ -74,11 +80,14 @@ this execution will not bypass.
 - 2026-07-12 — FireSight post-merge Pages failure is part of completion, not a separate cosmetic issue. Replace the obsolete deployment with a read-only static validation workflow and require the final default-branch run to go green.
 - 2026-07-12 — Pin the evidence hierarchy rather than star count: `claudemem`, `dev-orchestrator`, `handoff`, `dipole`, `FireSight`, and `postprism`. GitHub accepted the six-item set; rapid move-button reorder requests were rejected, so no unsupported ordering workaround was used.
 - 2026-07-12 — Set homepages only for the verified FireSight and Dipole Netlify sites. Do not promote PostPrism's Lovable URL while its live metadata remains generic.
+- 2026-07-12 — Treat production background and current public focus as separate claims. A technical focus does not establish current employment; do not extend a role beyond the resume date or infer an employer from project activity.
+- 2026-07-12 — Do not publish the user-provided resume PDF because it contains private contact details. A downloadable resume requires a separately reviewed public-safe artifact.
 
 ## Next Session Entry Point
 
-First: obtain an independent approval for
-<https://github.com/zelinewang/zelinewang/pull/29>, re-check that the base has
-not moved, merge without bypass, and observe the main-branch CodeQL/profile
-render. Do not perform the destructive fork/history cleanup without the
-explicit decisions listed in the final handoff.
+First: verify the rebased resume-alignment head and fresh CI on
+<https://github.com/zelinewang/zelinewang/pull/29>, then obtain an independent
+approval, re-check that the base has not moved, merge without bypass, and
+observe the main-branch CodeQL/profile render. Do not perform destructive
+fork/history cleanup or publish the private resume PDF without the explicit
+decisions listed in the final handoff.

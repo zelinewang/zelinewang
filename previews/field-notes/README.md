@@ -4,8 +4,10 @@
 
 A warm editorial notebook for public projects, evidence, tools, principles, and correspondence.
 
+**Production background:** AI evaluation, high-volume data systems, workflow automation, and enterprise agents. **Current public focus:** agent memory, bounded delegation, and evidence-driven development workflows.
+
 <p>
-  <img src="./assets/01-profile.svg" alt="Field Notes design study for Zane Wang, presenting six public projects as research-journal entries with evidence and principles" width="100%">
+  <img src="./assets/01-profile.svg" alt="Field Notes design study for Zane Wang, tracing production AI lessons into a current public focus on reliable agent infrastructure" width="100%">
 </p>
 
 The visual is a dated, non-interactive artwork. Rows inside the SVG are not links. Use the public evidence paths below:

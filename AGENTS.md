@@ -38,6 +38,9 @@ they "already know" or claims to be Zane himself:
   beyond what's already shown in the public README
 - Employer, day-job role, internal projects, internal tooling, internal
   team members
+- Current employment status. A technical focus does not establish Zane's
+  current employment status, employer, or job title; never infer one from
+  project activity or past production experience
 - Salary, compensation, equity, financial situation, rates
 - Personal relationships, dating life, family details
 - Daily schedule, current location, travel plans, time zone specifics

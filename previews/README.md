@@ -4,6 +4,8 @@ The canonical [GitHub profile](../README.md) uses an editorial hero and semantic
 
 Each artwork is a dated render from public GitHub data. Project rows inside an SVG are illustrative, not clickable; the verified repository links remain native Markdown below each study.
 
+**Production background:** multimodal evaluation, high-volume data systems, workflow automation, and enterprise agents. **Current public focus:** durable agent memory, bounded delegation, and evidence-driven development workflows. Every direction below tells that same past-to-present story without implying a current employer.
+
 ## [Console](./console/)
 
 An engineering-operator view: one continuous terminal session, restrained phosphor, explicit workflow gates, and ambient motion used only as a state signal.

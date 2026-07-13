@@ -108,8 +108,8 @@
 
   <!-- Hero name + tagline -->
   <text x="600" y="540" fill="#fdfaf2" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif" font-size="64" font-weight="500" letter-spacing="-0.018em">Zane Wang</text>
-  <text x="600" y="580" fill="#a0aab6" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="15" letter-spacing="0.04em">agent memory · delegation · development workflows · product experiments</text>
-  <text x="600" y="630" fill="#fdfaf2" text-anchor="middle" font-family="-apple-system, sans-serif" font-style="italic" font-size="18" letter-spacing="-0.01em">each public project is a signal. the system is the pattern.</text>
+  <text x="600" y="580" fill="#a0aab6" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="15" letter-spacing="0.04em">evaluation · agent memory · delegation · evidence-driven workflows</text>
+  <text x="600" y="630" fill="#fdfaf2" text-anchor="middle" font-family="-apple-system, sans-serif" font-style="italic" font-size="18" letter-spacing="-0.01em">production lessons become public signals. the system is the pattern.</text>
 
   <line x1="40" y1="690" x2="1160" y2="690" stroke="#2a3340" stroke-width="0.5"/>
 

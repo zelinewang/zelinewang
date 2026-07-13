@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 360" role="img" aria-labelledby="heroTitle heroDesc" preserveAspectRatio="xMidYMid meet">
-  <title id="heroTitle">Zane Wang — building useful systems for fuzzy problems</title>
-  <desc id="heroDesc">Editorial hero card. A small accent dot pulses to indicate the profile is live.</desc>
+  <title id="heroTitle">Zane Wang — turning fuzzy AI workflows into observable systems</title>
+  <desc id="heroDesc">Editorial hero connecting production evaluation with public agent infrastructure. A small accent dot pulses to indicate the profile is live.</desc>
 
   <defs>
     <!-- Warm OKLCH-derived palette, baked into hex for SVG image-tag compatibility -->
@@ -43,7 +43,7 @@
   <text x="64" y="208" fill="#8a807a"
         font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif"
         font-size="15" letter-spacing="0.04em">
-    AI systems · agent memory · delegation · product experiments
+    AI systems · evaluation · agent infrastructure · product experiments
   </text>
 
   <!-- Live signal cluster — uses native SVG <animate> so it renders inside <img> on GitHub -->
@@ -67,7 +67,7 @@
   <text x="64" y="300" fill="#1f1c17"
         font-family="Charter, 'Iowan Old Style', 'Source Serif Pro', Cambria, Georgia, serif"
         font-size="22" font-style="italic" font-weight="400" letter-spacing="-0.005em">
-    I build useful systems for fuzzy problems.
+    I turn fuzzy AI workflows into observable, testable systems.
   </text>
 
   <!-- Bottom hairline -->

@@ -115,6 +115,21 @@ Dispatch: `dispatch/03-product-pr-review.md`
 - GitHub UI accepted the six-pin selection, but rejected rapid move-button reorder actions; the selected evidence set is verified even though its order remains GitHub's saved order.
 - FireSight and Dipole received real browser checks. PostPrism's source/build and simulation boundary are verified, but its Lovable deployment still has generic metadata and is not used as homepage evidence.
 
+## Resume alignment addendum
+
+A user-provided private resume was verified with both text extraction and page
+rendering. It supports a past production background in multimodal evaluation,
+high-volume data systems, workflow automation, and enterprise agents. The most
+recent listed role ends in March 2026, so the profile must not infer a current
+employer or extend that role into the present.
+
+The current public focus is independently supported by live GitHub activity:
+agent memory, bounded delegation, evidence-driven development workflows, and
+the three public product experiments. The canonical profile and all three
+design studies now express this production-to-public through-line. The raw
+resume is not part of the public repository because it contains private contact
+details.
+
 ## Account-level cleanup queue (explicit approval required)
 
 The current public surface is 9 originals plus 12 archived forks. No destructive

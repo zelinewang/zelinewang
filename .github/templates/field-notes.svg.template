@@ -30,10 +30,10 @@
   <line x1="64" y1="58" x2="1136" y2="58" stroke="#1f1c14" stroke-opacity="0.18" stroke-width="0.6"/>
 
   <text x="64" y="158" fill="#1f1c14" font-family="Charter, 'Iowan Old Style', 'Source Serif Pro', Cambria, Georgia, serif" font-size="86" font-weight="500" letter-spacing="-0.018em">Zane Wang</text>
-  <text x="64" y="195" fill="#7d7560" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="14" letter-spacing="0.06em">a working notebook · memory · delegation · maps · product experiments</text>
+  <text x="64" y="195" fill="#7d7560" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="14" letter-spacing="0.06em">current public focus · evaluation · agent memory · delegation · workflows</text>
 
-  <text x="64" y="262" fill="#1f1c14" font-family="Charter, Cambria, Georgia, serif" font-style="italic" font-size="24" font-weight="400">I am a researcher of fuzzy systems.</text>
-  <text x="64" y="296" fill="#1f1c14" font-family="Charter, Cambria, Georgia, serif" font-size="20" font-weight="400">These pages are observations from the field.</text>
+  <text x="64" y="262" fill="#1f1c14" font-family="Charter, Cambria, Georgia, serif" font-style="italic" font-size="24" font-weight="400">I turn fuzzy AI workflows into observable, testable systems.</text>
+  <text x="64" y="296" fill="#1f1c14" font-family="Charter, Cambria, Georgia, serif" font-size="20" font-weight="400">Production lessons become public observations from the field.</text>
 
   <!-- Stamp — ink-pulse breath, 4.4s cycle, like a slowly drying ink stamp -->
   <g transform="translate(1010, 220) rotate(-8)">

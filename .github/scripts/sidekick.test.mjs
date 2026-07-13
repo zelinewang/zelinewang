@@ -53,6 +53,13 @@ test("buildPrompt: includes persona content as system prompt", async () => {
     issueAuthor: "octocat",
   });
   assert.ok(system.includes("ZaneOS Sidekick"), "system prompt must include persona identity");
+  assert.ok(system.includes("Production background"), "system prompt must include the resume-safe background");
+  assert.ok(system.includes("Current public focus"), "system prompt must include the current public focus");
+  assert.match(
+    system,
+    /does not establish Zane's\s+current employment status/,
+    "system prompt must not infer employment from technical focus",
+  );
   assert.ok(system.includes("Mode detected: ASK"), "system prompt must surface the detected mode");
 });
 

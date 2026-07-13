@@ -39,11 +39,11 @@
 
     <text x="46" y="208" font-size="15"><tspan fill="#5fb88a">builds AI systems</tspan><tspan fill="#5a6573">&#160;&#160;·&#160;&#160;</tspan><tspan fill="#5fb88a">builds open-source agent infrastructure</tspan></text>
 
-    <text x="46" y="244" font-size="14"><tspan fill="#7d8a96">&#8594; building </tspan><tspan fill="#cdd5dd">product experiments: PostPrism · FireSight · Dipole</tspan></text>
+    <text x="46" y="244" font-size="14"><tspan fill="#7d8a96">&#8594; current focus: </tspan><tspan fill="#cdd5dd">memory · delegation · evidence-driven workflows</tspan></text>
 
     <text x="46" y="270" font-size="14"><tspan fill="#7d8a96">&#8594; open-source: </tspan><tspan fill="#cdd5dd">claudemem</tspan><tspan fill="#5a6573"> · </tspan><tspan fill="#cdd5dd">handoff</tspan><tspan fill="#5a6573"> · </tspan><tspan fill="#cdd5dd">dev-orchestrator</tspan></text>
 
-    <text x="46" y="306" fill="#7d8a96" font-size="13">San Francisco &#160;&#160;·&#160;&#160; agent memory · delegation · public product experiments</text>
+    <text x="46" y="306" fill="#7d8a96" font-size="13">production background: AI evaluation · high-volume data · workflow automation</text>
 
     <line x1="46" y1="340" x2="1154" y2="340" stroke="#1c2530" stroke-width="0.5"/>
   </g>
