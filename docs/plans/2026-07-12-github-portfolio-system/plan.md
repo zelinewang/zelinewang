@@ -12,7 +12,7 @@ The public profile must communicate Zane's positioning in under 30 seconds and l
 ## Verified Starting Point
 
 - The current canonical profile is a `1200x2740` Console mega-SVG. Its project table contains a private repository, two implementation-empty repositories, and hard-coded star counts that conflict with the live GitHub API.
-- The account has 36 public owned repositories: 24 originals and 12 forks. Only two repositories are pinned.
+- At initial audit, the account had 36 public owned repositories: 24 originals and 12 forks. Only two repositories were pinned.
 - Six flagship polish PRs already exist and must be reviewed, not duplicated:
   - `zelinewang/claudemem#8`
   - `zelinewang/dev-orchestrator#2`
@@ -22,6 +22,13 @@ The public profile must communicate Zane's positioning in under 30 seconds and l
   - `zelinewang/postprism-12e78c39#2`
 - Two unmerged profile design branches already exist: `feat/professional-v1` and `feat/console-v2`. Their final states are useful references, but their intermediate public commit history contains copy that must not be brought into this branch.
 - GitHub officially supports semantic Markdown, `<picture>` theme switching, and `<details>`. SVG animation is not a guaranteed capability and may only be progressive enhancement.
+
+### Live drift discovered during execution
+
+- A concurrent account-level visibility batch reduced the public surface to 21 repositories: 9 originals and 12 forks. This branch did not change visibility.
+- `postprism-12e78c39` was concurrently renamed to `postprism`; GitHub redirects the old URL, but canonical links must use the current name.
+- The six original flagship PRs were merged in one concurrent batch. Four contained their accepted rework heads; FireSight and Dipole were merged before dispatches 08-09 completed and therefore require narrow follow-up PRs.
+- Profile `origin/main` was force-updated from the PR-merge topology to an equivalent squash-based Console v2 line plus dependency updates. Final integration must rebase against that current live base.
 
 ## Design Options Considered
 
@@ -80,7 +87,7 @@ Dispatch: `dispatch/03-product-pr-review.md`
 
 - Replace the current bio/status with author-centered professional positioning.
 - Add truthful descriptions, homepages, and topics to the six flagship repositories.
-- Pin the six flagship repositories only after their evidence gates pass. If GitHub exposes no supported API mutation, use the authenticated UI; otherwise record the exact manual action.
+- Pin the six selected repositories only after their evidence gates pass. GitHub exposes no supported pin mutation in its public API, so use the authenticated UI and verify the resulting GraphQL selection.
 
 ### Task 05: Publish and observe
 
@@ -88,7 +95,7 @@ Dispatch: `dispatch/03-product-pr-review.md`
 - Commit one logical unit at a time.
 - Push feature branches and use PRs; never commit directly to a default branch.
 - Merge an existing flagship PR only after independent verification, green checks where available, and a clean public/privacy sweep.
-- Do not change visibility, delete repositories, rewrite history, or rename `postprism-12e78c39` in this change. Those actions have integration and provenance consequences and remain a separate reviewed queue.
+- Do not change visibility, delete repositories, rewrite history, or rename repositories in this change. Those actions have integration and provenance consequences and remain a separate reviewed queue. Concurrent account mutations are recorded as live facts, not attributed to this branch.
 
 ## Acceptance Criteria
 
@@ -98,13 +105,12 @@ Dispatch: `dispatch/03-product-pr-review.md`
 - Console, Constellation, and Field Notes are complete, discoverable design studies with a canonical backlink.
 - Every numerical claim is traceable to a test, release, GitHub API response, or reproducible evaluation.
 - Profile-side scripts/tests pass; SVG and Markdown render cleanly; public sweep reports no blocker.
-- Existing flagship PRs have independent evidence-based verdicts before merge.
-- Visibility-changing actions remain explicitly unperformed and documented.
+- Existing flagship PRs and required follow-up PRs have independent evidence-based verdicts before merge.
+- Visibility-changing actions remain unperformed by this branch; concurrent external changes are explicitly documented and re-audited.
 
-## Unverified Until Execution
+## Remaining limits after execution
 
-- Final mobile and dark/light rendering on GitHub, not only QuickLook.
-- Sidekick end-to-end behavior on a new public issue.
-- Whether the authenticated GitHub UI is available for pin ordering.
-- Full interaction quality of the three live product demos.
-
+- Final mobile and dark/light rendering of the profile branch still needs the live GitHub PR surface after push.
+- Sidekick end-to-end behavior on a new public issue remains outside this publishing unit because it creates a public artifact and was not needed to validate the profile copy.
+- GitHub UI accepted the six-pin selection, but rejected rapid move-button reorder actions; the selected evidence set is verified even though its order remains GitHub's saved order.
+- FireSight and Dipole received real browser checks. PostPrism's source/build and simulation boundary are verified, but its Lovable deployment still has generic metadata and is not used as homepage evidence.

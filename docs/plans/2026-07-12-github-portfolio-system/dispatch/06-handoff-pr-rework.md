@@ -1,6 +1,6 @@
 # DISPATCH: 06-handoff-pr-rework
 
-> Status: complete
+> Status: accepted
 > Channel: agent-opus
 > Dispatched: 2026-07-12 17:50 PT | Spec: `../plan.md`
 > Workspace: `$HOME/worktrees/portfolio-handoff`
@@ -123,6 +123,9 @@ the commit with the same zero-blocker result.
 
 ## Adjudication
 
-Pass. Both review findings are corrected in place, the complete published
-evaluation remains intact, and the existing PR branch is ready for final human
-review without a merge action from this dispatch.
+Accepted by the brain on 2026-07-12 18:05 PT. Independent review inspected the
+README-only correction, confirmed the no-reply commit and live PR head, reran
+both test suites (23/23 and 11/11), and reran the diff check. The public checkout
+now distinguishes inspectable derived artifacts from transcript-dependent raw
+accounting and preserves the documented inline/read-only exceptions. PR #1
+remains unmerged pending the portfolio publish gate.

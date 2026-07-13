@@ -1,6 +1,6 @@
 # DISPATCH: 01-profile-integration
 
-> Status: returned
+> Status: accepted
 > Channel: agent-opus
 > Dispatched: 2026-07-12 17:28 PT | Spec: `docs/plans/2026-07-12-github-portfolio-system/plan.md`
 > Workspace: `<profile-worktree>`
@@ -164,4 +164,9 @@ READMEs plus rendered SVGs.
 
 ## Adjudication
 
-Pending.
+- 2026-07-12 18:12 PT — verdict: accepted — root re-ran the combined profile
+  and sidekick tests (`18/18` effective assertions, zero failures),
+  `git diff --check`, and the repository-wide public sweep after path
+  normalization. Layer 1-4 blockers are zero. Visual spot-checks covered both
+  hero themes and all three rendered design studies. Commit `3b41552` is
+  accepted; evidence commit `9252fac` records the full implementation run.

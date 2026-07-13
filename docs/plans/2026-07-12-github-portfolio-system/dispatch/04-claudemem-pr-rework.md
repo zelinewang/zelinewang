@@ -1,6 +1,6 @@
 # DISPATCH: 04-claudemem-pr-rework
 
-> Status: complete
+> Status: accepted
 > Channel: agent-opus
 > Dispatched: 2026-07-12 18:05 PT | Spec: `../plan.md`
 > Workspace: `$HOME/worktrees/portfolio-claudemem`
@@ -130,6 +130,9 @@ help evidence because this CLI interprets it as an install.
 
 ## Adjudication
 
-Rework complete. All three review findings are corrected with no application,
-test, workflow, release-automation, metadata, or merge change. PR #8 is ready
-for a narrow independent re-review; this dispatch did not merge it.
+Accepted by the brain on 2026-07-12 17:50 PT. Independent review inspected the
+full `README.md` / `SECURITY.md` correction, confirmed the no-reply commit and
+live PR head, reran `go test ./...`, and reran `git diff --check` against
+`origin/master`. The install, CI-trigger, and manual-security-scan claims now
+match the tracked implementation and live installer behavior. PR #8 remains
+unmerged pending the portfolio publish gate.

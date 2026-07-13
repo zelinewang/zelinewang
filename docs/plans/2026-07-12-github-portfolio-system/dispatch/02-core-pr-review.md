@@ -1,6 +1,6 @@
 # DISPATCH: 02-core-pr-review
 
-> Status: complete — rework verdicts returned
+> Status: rework-1
 > Channel: agent-opus
 > Dispatched: 2026-07-12 17:28 PT | Spec: `docs/plans/2026-07-12-github-portfolio-system/plan.md`
 > Workspace: read-only temporary clones; durable evidence belongs in this file
@@ -37,9 +37,9 @@ root="$(mktemp -d /tmp/github-portfolio-core-review.XXXXXX)"
 gh repo clone zelinewang/claudemem "$root/claudemem"
 gh repo clone zelinewang/dev-orchestrator "$root/dev-orchestrator"
 gh repo clone zelinewang/handoff "$root/handoff"
-cd "$root/claudemem" && gh pr checkout 8 && go build ./... && go test ./... -cover && make e2e-test && make feature-test && bash /Users/zane/.claude/scripts/pre-public-sweep.sh .
-cd "$root/dev-orchestrator" && gh pr checkout 2 && bash scripts/verify-dev.sh . && bash /Users/zane/.claude/scripts/pre-public-sweep.sh .
-cd "$root/handoff" && gh pr checkout 1 && bash skill/tests/adjudicate.test.sh && bash skill/tests/dispatch-gate.test.sh && bash /Users/zane/.claude/scripts/pre-public-sweep.sh .
+cd "$root/claudemem" && gh pr checkout 8 && go build ./... && go test ./... -cover && make e2e-test && make feature-test && bash "$HOME/.claude/scripts/pre-public-sweep.sh" .
+cd "$root/dev-orchestrator" && gh pr checkout 2 && bash scripts/verify-dev.sh . && bash "$HOME/.claude/scripts/pre-public-sweep.sh" .
+cd "$root/handoff" && gh pr checkout 1 && bash skill/tests/adjudicate.test.sh && bash skill/tests/dispatch-gate.test.sh && bash "$HOME/.claude/scripts/pre-public-sweep.sh" .
 gh pr checks 8 --repo zelinewang/claudemem
 gh pr checks 2 --repo zelinewang/dev-orchestrator
 gh pr checks 1 --repo zelinewang/handoff
@@ -148,6 +148,12 @@ GitHub:    all three PRs OPEN + MERGEABLE; no PR checks reported
 ```
 
 ## Adjudication
+
+- 2026-07-12 18:05 PT — verdict: rework — evidence accepted; all executable
+  product/test claims that could be reproduced passed, but each README retains
+  at least one load-bearing contradiction. Corrections are dispatched in
+  `04-claudemem-pr-rework.md`, `05-dev-orchestrator-pr-rework.md`, and
+  `06-handoff-pr-rework.md`.
 
 Do not merge any of the three heads yet. All executable product/test claims
 that could be reproduced passed; the rework verdicts are limited to concrete,
