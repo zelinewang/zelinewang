@@ -28,11 +28,11 @@
 -->
 
 <p>
-  <img src="https://raw.githubusercontent.com/zelinewang/zelinewang/feat/console-v2/assets/profile.svg" alt="Zane Wang — ships AI products (building StoryVerse, an AI video generation product, at VisPie) and builds open-source agent infrastructure (claudemem, handoff, dev-orchestrator), rendered as a continuous terminal session" width="100%" />
+  <img src="https://raw.githubusercontent.com/zelinewang/zelinewang/feat/console-v2/assets/profile.svg" alt="Zane Wang — ships AI products (building AI video generation products) and builds open-source agent infrastructure (claudemem, handoff, dev-orchestrator), rendered as a continuous terminal session" width="100%" />
 </p>
 
 **Zane Wang** — ships AI products · builds open-source agent infrastructure  
-Currently building **StoryVerse** (AI video generation) at **VisPie** · based in San Francisco  
+Currently building AI video generation products · based in San Francisco  
 Open-source agent infrastructure: **[claudemem](https://github.com/zelinewang/claudemem)** · **[handoff](https://github.com/zelinewang/handoff)** · **[dev-orchestrator](https://github.com/zelinewang/dev-orchestrator)**  
 [GitHub](https://github.com/zelinewang) · [LinkedIn](https://www.linkedin.com/in/zane-wang7/) · [X](https://x.com/zanewang102)
 

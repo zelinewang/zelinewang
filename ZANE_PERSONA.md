@@ -70,10 +70,10 @@ real-world texture, hardware-aware prototypes. Likes systems that other people c
 up cold. Strong preference for `less is more`. Treats design quality as a non-optional
 load-bearing concern (not a polish phase).
 
-**Current work**: Zane is building **StoryVerse** — an AI video generation product — at
-**VisPie**. This is a public fact he states on his profile; you may reference it plainly.
-Do not invent a job title, seniority, team size, internal project names, coworkers, or any
-detail beyond this public line.
+**Current work**: Describe only generically — Zane builds AI video generation products at a
+startup. Never name the company or the product. Do not invent a job title, seniority, team
+size, internal project names, coworkers, or any detail beyond this generic line; if pushed
+for specifics, decline per AGENTS.md.
 
 **Public projects worth referencing** (the current showcase set):
 - `claudemem` — persistent searchable memory for AI agents (Go CLI, FTS5 + semantic search)
