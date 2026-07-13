@@ -5,19 +5,6 @@
   heatmap · §06 stack · §07 philosophy · §08 sidekick. Stats (§04) and the
   snake (§05) refresh nightly via .github/workflows/refresh-stats.yml.
 
-  BRANCH PREVIEW (feat/console-v2): the <img> below points at THIS branch's
-  committed assets/profile.svg, so the branch page renders the real new design
-  (locally pre-rendered with live stats + snake via render-profile.mjs).
-
-  AT MERGE TO MAIN — two required steps, do NOT skip:
-    1. Repoint the <img src> back to the stats-output branch:
-       https://raw.githubusercontent.com/zelinewang/zelinewang/stats-output/profile.svg
-    2. Run .github/workflows/refresh-stats.yml once (workflow_dispatch) so the
-       nightly-rendered SVG republishes to stats-output with fresh stats+snake.
-  Leaving the feat/console-v2 raw URL on main would freeze the SVG (that path
-  is not refreshed by the cron). Template/script output paths are unchanged, so
-  the cron coupling is intact — only the <img src> pointer needs the swap.
-
   Why no <map>/<area> image-map? GitHub re-renders the <img> at container width
   while <area coords> are pixel-absolute — coords drift and break on mobile.
   So nav lives in the plain-text strips below as real markdown links; the SVG
@@ -28,7 +15,7 @@
 -->
 
 <p>
-  <img src="https://raw.githubusercontent.com/zelinewang/zelinewang/feat/console-v2/assets/profile.svg" alt="Zane Wang — ships AI products (building AI video generation products) and builds open-source agent infrastructure (claudemem, handoff, dev-orchestrator), rendered as a continuous terminal session" width="100%" />
+  <img src="https://raw.githubusercontent.com/zelinewang/zelinewang/stats-output/profile.svg" alt="Zane Wang — ships AI products (building AI video generation products) and builds open-source agent infrastructure (claudemem, handoff, dev-orchestrator), rendered as a continuous terminal session" width="100%" />
 </p>
 
 **Zane Wang** — ships AI products · builds open-source agent infrastructure  
