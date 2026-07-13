@@ -14,7 +14,7 @@ const publicTargets = [
   "claudemem",
   "handoff",
   "dev-orchestrator",
-  "postprism-12e78c39",
+  "postprism",
   "FireSight",
   "dipole",
 ];

@@ -91,8 +91,8 @@
   <g>
     <text x="64" y="838" fill="#a13a28" font-family="ui-monospace, monospace" font-size="11" letter-spacing="0.18em">PRODUCT / OBSERVATORY</text>
     <text x="240" y="840" fill="#1f1c14" font-family="Charter, Cambria, Georgia, serif" font-size="22" font-weight="600">PostPrism</text>
-    <text x="240" y="868" fill="#1f1c14" font-family="Charter, Cambria, Georgia, serif" font-size="14">A hackathon prototype for observing coordinated AI agents working</text>
-    <text x="240" y="886" fill="#1f1c14" font-family="Charter, Cambria, Georgia, serif" font-size="14">through a cross-platform publishing flow.</text>
+    <text x="240" y="868" fill="#1f1c14" font-family="Charter, Cambria, Georgia, serif" font-size="14">A hackathon prototype with a front-end simulation and experimental</text>
+    <text x="240" y="886" fill="#1f1c14" font-family="Charter, Cambria, Georgia, serif" font-size="14">backend for parallel computer-use agents.</text>
     <text x="900" y="868" fill="#7d7560" font-family="Charter, Cambria, Georgia, serif" font-style="italic" font-size="13">show the work,</text>
     <text x="900" y="884" fill="#7d7560" font-family="Charter, Cambria, Georgia, serif" font-style="italic" font-size="13">not just the output.</text>
     <line x1="64" y1="918" x2="1136" y2="918" stroke="#1f1c14" stroke-opacity="0.10" stroke-width="0.4"/>
@@ -127,7 +127,7 @@
   <!-- 4 stat tiles, hand-tally style — live data via render-profile.mjs -->
   <g transform="translate(64, 1320)">
     <text x="0" y="0" fill="#a13a28" font-family="ui-monospace, monospace" font-size="10" letter-spacing="0.22em">REPOSITORIES</text>
-    <text x="0" y="78" fill="#1f1c14" font-family="Charter, Cambria, Georgia, serif" font-size="86" font-weight="500" letter-spacing="-0.025em">36</text>
+    <text x="0" y="78" fill="#1f1c14" font-family="Charter, Cambria, Georgia, serif" font-size="86" font-weight="500" letter-spacing="-0.025em">21</text>
     <text x="0" y="110" fill="#7d7560" font-family="Charter, Cambria, Georgia, serif" font-style="italic" font-size="13">public, across topics</text>
     <line x1="0" y1="130" x2="240" y2="130" stroke="#1f1c14" stroke-opacity="0.18" stroke-width="0.4"/>
   </g>

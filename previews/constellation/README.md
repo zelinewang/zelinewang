@@ -12,7 +12,7 @@ The visual is a dated, non-interactive artwork. Rows inside the SVG are not link
 
 **Agent infrastructure:** [claudemem](https://github.com/zelinewang/claudemem) · [handoff](https://github.com/zelinewang/handoff) · [dev-orchestrator](https://github.com/zelinewang/dev-orchestrator)
 
-**Product experiments:** [PostPrism](https://github.com/zelinewang/postprism-12e78c39) · [FireSight](https://github.com/zelinewang/FireSight) · [Dipole](https://github.com/zelinewang/dipole)
+**Product experiments:** [PostPrism](https://github.com/zelinewang/postprism) · [FireSight](https://github.com/zelinewang/FireSight) · [Dipole](https://github.com/zelinewang/dipole)
 
 **Design rationale:** Brightness expresses hierarchy while native Markdown carries every clickable and load-bearing claim.
 

@@ -28,7 +28,7 @@
 
 ### Product experiments
 
-- **[PostPrism](https://github.com/zelinewang/postprism-12e78c39)** — a hackathon prototype for observing AI agents coordinate cross-platform publishing.
+- **[PostPrism](https://github.com/zelinewang/postprism)** — a hackathon prototype with a front-end simulation and an experimental backend for parallel computer-use agents.
 - **[FireSight](https://github.com/zelinewang/FireSight)** — a client-side wildfire map built around NASA FIRMS feeds and Leaflet.
 - **[Dipole](https://github.com/zelinewang/dipole)** — a conversational deployment assistant for Netlify and Vercel with streamed progress and diagnostics.
 
