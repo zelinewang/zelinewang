@@ -1,6 +1,6 @@
 # STATE: GitHub Portfolio System
 
-> Updated: 2026-07-12 18:53 PT by Codex root | Phase: /dev P9, profile publish
+> Updated: 2026-07-12 18:56 PT by Codex root | Phase: /dev P10, review-gated handoff
 
 ## Goal
 
@@ -14,10 +14,12 @@ workflow instead of a deterministically failing Pages deploy; Dipole has an
 honest local-demo boundary plus verified mobile overflow fix; PostPrism uses
 its canonical renamed repository links. Account bio/status, repository
 descriptions/topics, trusted homepages, and the six-pin selection are live.
-The profile branch is rebased onto current `origin/main@afea95f`. Profile tests,
-SVG/XML safety, six anonymous repository links, GitHub GFM rendering, and the
-branch privacy sweep pass after replacing the final local workspace path. The
-remaining publishing unit is push + PR + live GitHub branch rendering and CI.
+Profile PR #29 is open from the rebased feature branch against
+`origin/main@afea95f`. All three CodeQL checks pass. GitHub branch rendering is
+verified at desktop and 375x812 (`scrollWidth=clientWidth=375`, hero and article
+reflow correctly); the dark hero asset also renders from the pushed branch.
+The only profile publication blocker is the live required-review gate, which
+this execution will not bypass.
 
 ## Done
 
@@ -45,7 +47,7 @@ remaining publishing unit is push + PR + live GitHub branch rendering and CI.
 - [x] 04-profile-verification — profile tests, SVG/XML safety, anonymous links, GFM rendering, and branch-wide privacy sweep pass; live GitHub rendering follows the push.
 - [x] 05-flagship-repositories — dispatches 04-11 accepted; original and corrective follow-up PRs published with post-merge observation.
 - [x] 06-github-surface — safe metadata, topics, homepages, professional bio/status, and six-pin selection updated through live API/UI.
-- [ ] 07-ship — push cohesive branches, open PRs, inspect CI, and publish a durable handoff.
+- [ ] 07-ship — branch and PR #29 are published with green CI; merge and post-merge observation await the required independent review.
 
 ## Blockers / Problems
 
@@ -53,6 +55,7 @@ remaining publishing unit is push + PR + live GitHub branch rendering and CI.
 - Destructive cleanup of remaining public forks is a separate account-level decision. Several forks have no unique commits, while others are ahead of upstream; deletion must be based on the refreshed compare inventory and explicit approval.
 - The profile branch was successfully rebased from the obsolete merge topology at `611110a` onto current `origin/main@afea95f`; no old Console merge history is being republished.
 - PostPrism's Lovable deployment still exposes generic `prism-stream-publish` / `Lovable Generated Project` metadata. The GitHub repository is honest and canonical, but the Lovable URL is deliberately not used as repository homepage evidence.
+- Profile PR #29 is `MERGEABLE` but `BLOCKED` by the repository required-review rule. No owner bypass or self-approval is permitted.
 
 ## Decisions Log
 
@@ -73,6 +76,8 @@ remaining publishing unit is push + PR + live GitHub branch rendering and CI.
 
 ## Next Session Entry Point
 
-First: commit the final path sanitization/state evidence, run the sweep once
-more, push `feat/public-profile-portfolio-system`, open the profile PR, and
-verify its live GitHub mobile/dark/light rendering plus Actions.
+First: obtain an independent approval for
+<https://github.com/zelinewang/zelinewang/pull/29>, re-check that the base has
+not moved, merge without bypass, and observe the main-branch CodeQL/profile
+render. Do not perform the destructive fork/history cleanup without the
+explicit decisions listed in the final handoff.

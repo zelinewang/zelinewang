@@ -110,7 +110,7 @@ Dispatch: `dispatch/03-product-pr-review.md`
 
 ## Remaining limits after execution
 
-- Final mobile and dark/light rendering of the profile branch still needs the live GitHub PR surface after push.
+- Live GitHub branch rendering passes at desktop and 375x812 with no horizontal overflow; both light and dark hero assets render from the pushed branch. The public profile surface awaits PR #29 merge.
 - Sidekick end-to-end behavior on a new public issue remains outside this publishing unit because it creates a public artifact and was not needed to validate the profile copy.
 - GitHub UI accepted the six-pin selection, but rejected rapid move-button reorder actions; the selected evidence set is verified even though its order remains GitHub's saved order.
 - FireSight and Dipole received real browser checks. PostPrism's source/build and simulation boundary are verified, but its Lovable deployment still has generic metadata and is not used as homepage evidence.
