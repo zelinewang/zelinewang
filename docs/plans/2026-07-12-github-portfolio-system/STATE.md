@@ -56,6 +56,7 @@ this execution will not bypass.
 - The profile branch was successfully rebased from the obsolete merge topology at `611110a` onto current `origin/main@afea95f`; no old Console merge history is being republished.
 - PostPrism's Lovable deployment still exposes generic `prism-stream-publish` / `Lovable Generated Project` metadata. The GitHub repository is honest and canonical, but the Lovable URL is deliberately not used as repository homepage evidence.
 - Profile PR #29 is `MERGEABLE` but `BLOCKED` by the repository required-review rule. No owner bypass or self-approval is permitted.
+- Account cleanup still needs explicit decisions for the three no-unique-code course forks, nine fork exports/provenance cases, `FutureOfUsWeb`, and `personalWebpage`; see `plan.md`.
 
 ## Decisions Log
 

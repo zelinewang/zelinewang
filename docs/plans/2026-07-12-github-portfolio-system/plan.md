@@ -114,3 +114,26 @@ Dispatch: `dispatch/03-product-pr-review.md`
 - Sidekick end-to-end behavior on a new public issue remains outside this publishing unit because it creates a public artifact and was not needed to validate the profile copy.
 - GitHub UI accepted the six-pin selection, but rejected rapid move-button reorder actions; the selected evidence set is verified even though its order remains GitHub's saved order.
 - FireSight and Dipole received real browser checks. PostPrism's source/build and simulation boundary are verified, but its Lovable deployment still has generic metadata and is not used as homepage evidence.
+
+## Account-level cleanup queue (explicit approval required)
+
+The current public surface is 9 originals plus 12 archived forks. No destructive
+action is part of profile PR #29.
+
+- Three archived course/prework forks have no unique default commit, fork-only
+  ahead branch, tag, issue, PR, or release and are the lowest-risk deletion
+  candidates: `17514-f23-lab03-zelinwan`, `f2023-17514-lab08`, and
+  `web102_prework`. Deletion still requires explicit approval.
+- Three archived forks have unique default-branch history and must not be
+  deleted without export: `f23-lab02-zelinwan` (14 ahead), `k8s-mastery`
+  (8 ahead), and `Video-WatermarkRemover-Enhancer` (1 ahead).
+- Six archived forks have no default divergence but do have fork-only branch
+  tips and require a bare mirror/export before any deletion: `autoresearch`,
+  `bragi-canvas`, `claude-hud`, `everything-claude-code`, `spectrum-ts`, and
+  `tuichat`.
+- `FutureOfUsWeb` is archived but current GitHub contributor/package evidence
+  does not establish Zane's authorship of its 755-commit history. Confirm the
+  real role/provenance before deciding private vs delete.
+- `personalWebpage` is a valid historical archive, but it contains an outdated
+  student bio and old resume/social links. Decide whether that history should
+  remain public; do not delete it by inference.
