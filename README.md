@@ -1,69 +1,40 @@
 <!--
   Zane Wang's GitHub profile, as a single integrated mega-SVG.
-  All design lives in assets/profile.svg (one composition, eight sections),
-  rendered nightly by .github/workflows/refresh-stats.yml.
-
-  The rendered SVG is published to the `stats-output` branch (not main) so
-  the cron bot doesn't touch main's branch-protection ruleset. The README
-  references it via raw.githubusercontent — same pattern Platane snake uses.
-  Snake itself is fetched from the `output` branch and spliced into §05.
+  All design lives in assets/profile.svg (one composition, eight sections):
+  §01 whoami · §02 projects · §03 how I work · §04 stats · §05 contribution
+  heatmap · §06 stack · §07 philosophy · §08 sidekick. Stats (§04) and the
+  snake (§05) refresh nightly via .github/workflows/refresh-stats.yml.
 
   Why no <map>/<area> image-map? GitHub re-renders the <img> at container width
-  while <area coords> are pixel-absolute — coords drift on different viewports
-  and break entirely on mobile. So nav lives in the strip below as plain links.
+  while <area coords> are pixel-absolute — coords drift and break on mobile.
+  So nav lives in the plain-text strips below as real markdown links; the SVG
+  rows are inert (it is an <img>), and these links are the clickable layer.
 
   Two earlier directions (Field Notes, Constellation) are kept under
   previews/_drafts/ — same content, different aesthetic, not currently promoted.
 -->
 
 <p>
-  <img src="https://raw.githubusercontent.com/zelinewang/zelinewang/stats-output/profile.svg" alt="Zane Wang's profile as a continuous terminal session" width="100%" />
+  <img src="https://raw.githubusercontent.com/zelinewang/zelinewang/stats-output/profile.svg" alt="Zane Wang — ships AI products (building AI video generation products) and builds open-source agent infrastructure (claudemem, handoff, dev-orchestrator), rendered as a continuous terminal session" width="100%" />
 </p>
 
-<sub>
+**Zane Wang** — ships AI products · builds open-source agent infrastructure  
+Currently building AI video generation products · based in San Francisco  
+Open-source agent infrastructure: **[claudemem](https://github.com/zelinewang/claudemem)** · **[handoff](https://github.com/zelinewang/handoff)** · **[dev-orchestrator](https://github.com/zelinewang/dev-orchestrator)**  
+[GitHub](https://github.com/zelinewang) · [LinkedIn](https://www.linkedin.com/in/zane-wang7/) · [X](https://x.com/zanewang102)
 
-`§ 02 projects:`&nbsp;
-[constellix](https://github.com/zelinewang/constellix) ·
-[claudemem](https://github.com/zelinewang/claudemem) ·
-[dev-orchestrator](https://github.com/zelinewang/dev-orchestrator) ·
-[FireSight](https://github.com/zelinewang/FireSight) ·
-[PulseConnect](https://github.com/zelinewang/PulseConnect) ·
-[santorini](https://github.com/zelinewang/santorini)
+`§ 02 projects:` [claudemem](https://github.com/zelinewang/claudemem) · [postprism](https://github.com/zelinewang/postprism-12e78c39) · [dev-orchestrator](https://github.com/zelinewang/dev-orchestrator) · [FireSight](https://github.com/zelinewang/FireSight) · [handoff](https://github.com/zelinewang/handoff) · [dipole](https://github.com/zelinewang/dipole)
 
-`§ 03 fleet:`&nbsp;
-[orchestrator overview](https://github.com/zelinewang/dev-orchestrator) — the same five agents the panel above lists, in real code
+`§ 03 how i work:` [dev-orchestrator](https://github.com/zelinewang/dev-orchestrator) — investigate → plan → execute → verify → ship · [handoff](https://github.com/zelinewang/handoff) — one brain plans and adjudicates, cheaper hands execute
 
-`§ 04 stats:`&nbsp;
-live counts refreshed nightly via [refresh-stats.yml](./.github/workflows/refresh-stats.yml)
-&nbsp;·&nbsp; [render-profile.mjs](./.github/scripts/render-profile.mjs)
-&nbsp;·&nbsp; [console.svg.template](./.github/templates/console.svg.template)
+`§ 04 stats:` live counts refreshed nightly via [refresh-stats.yml](./.github/workflows/refresh-stats.yml) · [render-profile.mjs](./.github/scripts/render-profile.mjs) · [console.svg.template](./.github/templates/console.svg.template)
 
-`§ 05 trajectory:`&nbsp;
-365-day contribution snake from [Platane/snk](https://github.com/Platane/snk), regenerated daily
+`§ 05 trajectory:` 365-day contribution snake from [Platane/snk](https://github.com/Platane/snk), regenerated daily
 
-`§ 08 sidekick:`&nbsp;
-[ask the bot →](https://github.com/zelinewang/zelinewang/issues/new?title=ZaneOS%20ask%3A%20your%20question%20here&body=Replace%20the%20question%20in%20the%20title.%20A%20workflow%20with%20Zane%27s%20AI%20will%20reply%20in%20this%20issue%20in%20about%2030%20seconds%20and%20close%20it.)
+`§ 08 sidekick:` [ask the bot →](https://github.com/zelinewang/zelinewang/issues/new?title=ZaneOS%20ask%3A%20your%20question%20here&body=Replace%20the%20question%20in%20the%20title.%20A%20workflow%20with%20Zane%27s%20AI%20will%20reply%20in%20this%20issue%20in%20about%2030%20seconds%20and%20close%20it.)
 
 ---
 
-<sub>
+[github](https://github.com/zelinewang) · [linkedin](https://www.linkedin.com/in/zane-wang7/) · [x](https://x.com/zanewang102)
 
-[github](https://github.com/zelinewang) &nbsp;·&nbsp;
-[linkedin](https://www.linkedin.com/in/zane-wang7/) &nbsp;·&nbsp;
-[x](https://x.com/zanewang102)
-
-</sub>
-
-<sub>
-
-Built with the `vibe-readme` skill (a personal Claude Code skill, not yet
-public). The empirical lessons it grew from are open in
-[`LEARNINGS.md`](./LEARNINGS.md). Two earlier design directions are
-parked under [`previews/_drafts/`](./previews/_drafts/) — same content,
-different aesthetic. Single dark theme is intentional: the terminal
-metaphor only reads correctly on a dark background, so no
-`<picture>` / light variant.
-
-</sub>
-
-</sub>
+Built with the `vibe-readme` skill (a personal Claude Code skill, not yet public). The empirical lessons it grew from are open in [`LEARNINGS.md`](./LEARNINGS.md). Two earlier design directions are parked under [`previews/_drafts/`](./previews/_drafts/) — same content, different aesthetic. Single dark theme is intentional: the terminal metaphor only reads correctly on a dark background, so no `<picture>` / light variant.
