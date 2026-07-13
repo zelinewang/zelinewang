@@ -54,7 +54,7 @@ Return checklist, decisive install/test/sweep output, diff stat + commit, deviat
 
 ## Returned Evidence 1
 
-Workspace: `/Users/zane/worktrees/portfolio-claudemem`
+Workspace: `$HOME/worktrees/portfolio-claudemem`
 
 ### Checklist
 

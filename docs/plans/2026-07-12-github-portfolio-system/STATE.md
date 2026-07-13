@@ -1,6 +1,6 @@
 # STATE: GitHub Portfolio System
 
-> Updated: 2026-07-12 18:48 PT by Codex root | Phase: /dev P8, final profile verification
+> Updated: 2026-07-12 18:53 PT by Codex root | Phase: /dev P9, profile publish
 
 ## Goal
 
@@ -14,9 +14,10 @@ workflow instead of a deterministically failing Pages deploy; Dipole has an
 honest local-demo boundary plus verified mobile overflow fix; PostPrism uses
 its canonical renamed repository links. Account bio/status, repository
 descriptions/topics, trusted homepages, and the six-pin selection are live.
-The remaining publishing unit is the profile branch: freeze evidence, rebase
-onto current `origin/main`, run final multi-viewport/privacy verification, push,
-and open its PR.
+The profile branch is rebased onto current `origin/main@afea95f`. Profile tests,
+SVG/XML safety, six anonymous repository links, GitHub GFM rendering, and the
+branch privacy sweep pass after replacing the final local workspace path. The
+remaining publishing unit is push + PR + live GitHub branch rendering and CI.
 
 ## Done
 
@@ -41,7 +42,7 @@ and open its PR.
 - [x] 01-account-audit — adjudicated the public repository inventory and flagship set.
 - [x] 02-profile-architecture — specified the recruiter/CTO information architecture and three complete design directions.
 - [x] 03-profile-implementation — integrated the canonical text-first profile and design gallery.
-- [ ] 04-profile-verification — run final branch-wide privacy sweep and live multi-viewport checks after dispatch evidence paths are sanitized.
+- [x] 04-profile-verification — profile tests, SVG/XML safety, anonymous links, GFM rendering, and branch-wide privacy sweep pass; live GitHub rendering follows the push.
 - [x] 05-flagship-repositories — dispatches 04-11 accepted; original and corrective follow-up PRs published with post-merge observation.
 - [x] 06-github-surface — safe metadata, topics, homepages, professional bio/status, and six-pin selection updated through live API/UI.
 - [ ] 07-ship — push cohesive branches, open PRs, inspect CI, and publish a durable handoff.
@@ -50,7 +51,7 @@ and open its PR.
 
 - `dev-progress-update.sh` cannot run on this macOS host because it requires the unavailable `flock` binary. This ledger is the continuity fallback; the global helper is out of scope for this public-profile change.
 - Destructive cleanup of remaining public forks is a separate account-level decision. Several forks have no unique commits, while others are ahead of upstream; deletion must be based on the refreshed compare inventory and explicit approval.
-- `origin/main` for the profile was force-updated from merge commit `611110a` to a squash-based line ending at `3aaba8e` while this branch was active. Rebase only after all shared dispatch evidence is stable.
+- The profile branch was successfully rebased from the obsolete merge topology at `611110a` onto current `origin/main@afea95f`; no old Console merge history is being republished.
 - PostPrism's Lovable deployment still exposes generic `prism-stream-publish` / `Lovable Generated Project` metadata. The GitHub repository is honest and canonical, but the Lovable URL is deliberately not used as repository homepage evidence.
 
 ## Decisions Log
@@ -72,7 +73,6 @@ and open its PR.
 
 ## Next Session Entry Point
 
-First: freeze the accepted dispatch evidence, commit the live-drift/profile
-alignment, rebase onto current `origin/main`, and run final profile tests,
-pre-public sweep, link checks, and GitHub branch rendering before opening the
-profile PR.
+First: commit the final path sanitization/state evidence, run the sweep once
+more, push `feat/public-profile-portfolio-system`, open the profile PR, and
+verify its live GitHub mobile/dark/light rendering plus Actions.
