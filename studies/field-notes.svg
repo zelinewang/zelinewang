@@ -141,7 +141,7 @@
 
   <g transform="translate(610, 1320)">
     <text x="0" y="0" fill="#a13a28" font-family="ui-monospace, monospace" font-size="10" letter-spacing="0.22em">RECENT PUSHES</text>
-    <text x="0" y="78" fill="#1f1c14" font-family="Charter, Cambria, Georgia, serif" font-size="86" font-weight="500" letter-spacing="-0.025em">24</text>
+    <text x="0" y="78" fill="#1f1c14" font-family="Charter, Cambria, Georgia, serif" font-size="86" font-weight="500" letter-spacing="-0.025em">23</text>
     <text x="0" y="110" fill="#7d7560" font-family="Charter, Cambria, Georgia, serif" font-style="italic" font-size="13">last 100 events</text>
     <line x1="0" y1="130" x2="240" y2="130" stroke="#1f1c14" stroke-opacity="0.18" stroke-width="0.4"/>
   </g>
