@@ -38,6 +38,16 @@ The product experiments below apply the same standard to computer use, real-time
 - **[FireSight](https://github.com/zelinewang/FireSight)** — a client-side wildfire map built around NASA FIRMS feeds and Leaflet.
 - **[Dipole](https://github.com/zelinewang/dipole)** — a conversational deployment assistant for Netlify and Vercel with streamed progress and diagnostics.
 
+## Open source contributions
+
+Upstream work in other people's repositories:
+
+- **[jarrodwatts/claude-hud](https://github.com/jarrodwatts/claude-hud)** — three merged PRs in the 26k-star Claude Code HUD: configurable model display ([#354](https://github.com/jarrodwatts/claude-hud/pull/354)), effort-level display in the model bracket ([#471](https://github.com/jarrodwatts/claude-hud/pull/471)), and a schema-compatibility fix for newer Claude Code releases ([#491](https://github.com/jarrodwatts/claude-hud/pull/491)).
+- **[modelcontextprotocol/typescript-sdk](https://github.com/modelcontextprotocol/typescript-sdk)** — a reproducible bug report on v2 declaration source maps ([#2491](https://github.com/modelcontextprotocol/typescript-sdk/issues/2491)), built from published-tarball forensics.
+- **[letta-ai/letta](https://github.com/letta-ai/letta)** — three tested fixes staged on [a public fork](https://github.com/zelinewang/letta) and linked from issues [#3310](https://github.com/letta-ai/letta/issues/3310), [#3399](https://github.com/letta-ai/letta/issues/3399), and [#3390](https://github.com/letta-ai/letta/issues/3390): provider rate-limit attribution, slash-label routing with route-shadow regression tests, and a missing client timeout.
+- **[bhimamalbhage/lightup](https://github.com/bhimamalbhage/lightup)** — merged multi-chain agent design work ([#3](https://github.com/bhimamalbhage/lightup/pull/3), [#4](https://github.com/bhimamalbhage/lightup/pull/4)).
+- **[nextbound/bragi-canvas](https://github.com/nextbound/bragi-canvas)** — an Obsidian canvas plugin; merged upstream bugfix ([#26](https://github.com/nextbound/bragi-canvas/pull/26)).
+
 ## How I work
 
 - **Prove before arguing.** A small experiment should be able to overturn the plan.
@@ -56,7 +66,7 @@ The canonical profile stays text-first. Three complete visual interpretations li
 <details>
 <summary><strong>Ask Zane's AI about the public work</strong></summary>
 
-The sidekick answers from this README, the public persona, and the six repositories above. It replies in a public GitHub issue and does not speak on Zane's behalf.
+The sidekick answers from this README, the public persona, the six flagship repositories, and the open source contributions above. It replies in a public GitHub issue and does not speak on Zane's behalf.
 
 [Open a public question →](https://github.com/zelinewang/zelinewang/issues/new?title=ZaneOS%20ask%3A%20your%20question%20here&body=Replace%20the%20question%20in%20the%20title.%20Zane%27s%20AI%20will%20reply%20from%20the%20public%20profile%20context.)
 </details>

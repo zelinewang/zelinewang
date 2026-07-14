@@ -143,9 +143,8 @@ action is part of profile PR #29.
   deleted without export: `f23-lab02-zelinwan` (14 ahead), `k8s-mastery`
   (8 ahead), and `Video-WatermarkRemover-Enhancer` (1 ahead).
 - Six archived forks have no default divergence but do have fork-only branch
-  tips and require a bare mirror/export before any deletion: `autoresearch`,
-  `bragi-canvas`, `claude-hud`, `everything-claude-code`, `spectrum-ts`, and
-  `tuichat`.
+  tips and require a bare mirror/export before any deletion (per-fork inventory
+  kept in the private working notes).
 - `FutureOfUsWeb` is archived but current GitHub contributor/package evidence
   does not establish Zane's authorship of its 755-commit history. Confirm the
   real role/provenance before deciding private vs delete.

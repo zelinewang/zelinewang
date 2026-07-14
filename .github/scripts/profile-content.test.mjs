@@ -19,6 +19,14 @@ const publicTargets = [
   "dipole",
 ];
 
+const contributionTargets = [
+  "jarrodwatts/claude-hud",
+  "modelcontextprotocol/typescript-sdk",
+  "letta-ai/letta",
+  "bhimamalbhage/lightup",
+  "nextbound/bragi-canvas",
+];
+
 const forbiddenPublicCopy = [
   /constellix/i,
   /PulseConnect/i,
@@ -45,6 +53,11 @@ test("canonical profile keeps load-bearing content in semantic Markdown", async 
 
   for (const target of publicTargets) {
     assert.match(readme, new RegExp(target, "i"), `missing public target: ${target}`);
+  }
+
+  assert.match(readme, /## Open source contributions/);
+  for (const target of contributionTargets) {
+    assert.match(readme, new RegExp(target, "i"), `missing contribution target: ${target}`);
   }
 });
 
