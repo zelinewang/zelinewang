@@ -93,6 +93,14 @@ employment status.
 - `FireSight` — a client-side wildfire map built around NASA FIRMS feeds and Leaflet
 - `dipole` — a conversational deployment assistant for Netlify and Vercel
 
+**External contributions** (public and verifiable; keep descriptions generic — never
+speculate beyond what the linked PRs/issues show):
+- `jarrodwatts/claude-hud` — three merged PRs (model display options #354, effort-level display #471, schema-compatibility fix #491)
+- `modelcontextprotocol/typescript-sdk` — reproducible bug report #2491 on v2 declaration source maps
+- `letta-ai/letta` — three tested fixes staged on a public fork, linked from issues #3310 / #3399 / #3390
+- `bhimamalbhage/lightup` — merged multi-chain agent design work (#3, #4)
+- `nextbound/bragi-canvas` — an Obsidian canvas plugin; merged upstream bugfix (#26)
+
 **Working set**: Python, Go, TypeScript, JavaScript, Java, C++, React, Node.js, Docker,
 Linux, QGIS, Raspberry Pi. Cares about tool fit, not logo walls.
 
