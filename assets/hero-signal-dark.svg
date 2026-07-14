@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 360" role="img" aria-labelledby="heroTitle heroDesc" preserveAspectRatio="xMidYMid meet">
-  <title id="heroTitle">Zane Wang — building useful systems for fuzzy problems</title>
-  <desc id="heroDesc">Editorial hero card (dark mode). A small accent dot pulses to indicate the profile is live.</desc>
+  <title id="heroTitle">Zane Wang — turning fuzzy AI workflows into observable systems</title>
+  <desc id="heroDesc">Dark editorial hero connecting production evaluation with public agent infrastructure. A small accent dot pulses to indicate the profile is live.</desc>
 
   <defs>
     <linearGradient id="paperWashDark" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -32,7 +32,7 @@
   <text x="64" y="208" fill="#807871"
         font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif"
         font-size="15" letter-spacing="0.04em">
-    AI agents · agent memory · maps · hardware-aware software · developer tools
+    AI systems · evaluation · agent infrastructure · product experiments
   </text>
 
   <g>
@@ -52,7 +52,7 @@
   <text x="64" y="300" fill="#efebe2"
         font-family="Charter, 'Iowan Old Style', 'Source Serif Pro', Cambria, Georgia, serif"
         font-size="22" font-style="italic" font-weight="400" letter-spacing="-0.005em">
-    I build useful systems for fuzzy problems.
+    I turn fuzzy AI workflows into observable, testable systems.
   </text>
 
   <line x1="64" y1="332" x2="1136" y2="332" stroke="#efebe2" stroke-opacity="0.12" stroke-width="1"/>

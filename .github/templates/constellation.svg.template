@@ -37,8 +37,8 @@
   <rect width="1200" height="2900" fill="url(#vignette)"/>
 
   <!-- ═══════ § 01 — STARMAP HERO ═══════ -->
-  <text x="40" y="42" fill="#7a8694" font-family="ui-monospace, monospace" font-size="11" letter-spacing="0.28em">CONSTELLIX &#160;·&#160; FIELD &#160;OF &#160;VIEW &#160;01</text>
-  <text x="1160" y="42" fill="#7a8694" text-anchor="end" font-family="ui-monospace, monospace" font-size="11" letter-spacing="0.18em">RA 06h · DEC −05°</text>
+  <text x="40" y="42" fill="#7a8694" font-family="ui-monospace, monospace" font-size="11" letter-spacing="0.28em">SYSTEMS &#160;MAP &#160;·&#160; FIELD &#160;OF &#160;VIEW &#160;01</text>
+  <text x="1160" y="42" fill="#7a8694" text-anchor="end" font-family="ui-monospace, monospace" font-size="11" letter-spacing="0.18em">PUBLIC SYSTEMS · SIX PROJECTS</text>
   <line x1="40" y1="58" x2="1160" y2="58" stroke="#2a3340" stroke-width="0.5"/>
 
   <!-- Background dust stars -->
@@ -72,7 +72,7 @@
     </circle>
     <circle cx="270" cy="240" r="3.5" fill="#fdfaf2"/>
   </g>
-  <text x="270" y="212" fill="#fdfaf2" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif" font-size="14" font-weight="500" letter-spacing="0.05em">constellix</text>
+  <text x="270" y="212" fill="#fdfaf2" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif" font-size="14" font-weight="500" letter-spacing="0.05em">claudemem</text>
 
   <g>
     <circle cx="450" cy="310" r="20" fill="url(#starGlow)">
@@ -80,7 +80,7 @@
     </circle>
     <circle cx="450" cy="310" r="3.2" fill="#fdfaf2"/>
   </g>
-  <text x="450" y="285" fill="#fdfaf2" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="13" font-weight="500" letter-spacing="0.05em">claudemem</text>
+  <text x="450" y="285" fill="#fdfaf2" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="13" font-weight="500" letter-spacing="0.05em">handoff</text>
 
   <g>
     <circle cx="600" cy="360" r="28" fill="url(#starGlowAmber)">
@@ -96,7 +96,7 @@
     </circle>
     <circle cx="750" cy="310" r="3.2" fill="#fdfaf2"/>
   </g>
-  <text x="750" y="285" fill="#fdfaf2" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="13" font-weight="500" letter-spacing="0.05em">FireSight</text>
+  <text x="750" y="285" fill="#fdfaf2" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="13" font-weight="500" letter-spacing="0.05em">PostPrism</text>
 
   <g>
     <circle cx="930" cy="240" r="18" fill="url(#starGlow)">
@@ -104,12 +104,12 @@
     </circle>
     <circle cx="930" cy="240" r="3" fill="#fdfaf2"/>
   </g>
-  <text x="930" y="215" fill="#fdfaf2" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="13" font-weight="500" letter-spacing="0.05em">PulseConnect</text>
+  <text x="930" y="215" fill="#fdfaf2" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="13" font-weight="500" letter-spacing="0.05em">FireSight</text>
 
   <!-- Hero name + tagline -->
   <text x="600" y="540" fill="#fdfaf2" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif" font-size="64" font-weight="500" letter-spacing="-0.018em">Zane Wang</text>
-  <text x="600" y="580" fill="#a0aab6" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="15" letter-spacing="0.04em">AI agents · agent memory · maps · hardware-aware software · developer tools</text>
-  <text x="600" y="630" fill="#fdfaf2" text-anchor="middle" font-family="-apple-system, sans-serif" font-style="italic" font-size="18" letter-spacing="-0.01em">each agent is a star. the constellation does the work.</text>
+  <text x="600" y="580" fill="#a0aab6" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="15" letter-spacing="0.04em">evaluation · agent memory · delegation · evidence-driven workflows</text>
+  <text x="600" y="630" fill="#fdfaf2" text-anchor="middle" font-family="-apple-system, sans-serif" font-style="italic" font-size="18" letter-spacing="-0.01em">production lessons become public signals. the system is the pattern.</text>
 
   <line x1="40" y1="690" x2="1160" y2="690" stroke="#2a3340" stroke-width="0.5"/>
 
@@ -117,35 +117,33 @@
   <text x="40" y="722" fill="#7a8694" font-family="ui-monospace, monospace" font-size="11" letter-spacing="0.28em">OBSERVATION &#160;LOGS &#160;·&#160; FIELD &#160;OF &#160;VIEW &#160;02</text>
   <text x="1160" y="722" fill="#7a8694" text-anchor="end" font-family="ui-monospace, monospace" font-size="11" letter-spacing="0.18em">6 STARS</text>
 
-  <!-- 6 cards in 3×2 grid -->
+  <!-- Six public projects in a 3×2 observation grid. Metadata is categorical,
+       not invented astronomy or social proof. -->
   <g transform="translate(40, 760)">
-    <!-- ROW 1 -->
     <g transform="translate(0, 0)">
       <rect width="370" height="240" fill="#0e1620" stroke="#2a3340" stroke-width="0.5"/>
-      <text x="20" y="28" fill="#7a8694" font-family="ui-monospace, monospace" font-size="10" letter-spacing="0.3em">α &#160;CONSTELLIX</text>
+      <text x="20" y="28" fill="#7a8694" font-family="ui-monospace, monospace" font-size="10" letter-spacing="0.3em">α &#160;CLAUDEMEM</text>
       <line x1="20" y1="40" x2="350" y2="40" stroke="#2a3340" stroke-width="0.5"/>
       <circle cx="60" cy="100" r="28" fill="url(#starGlow)" opacity="0.9"/>
       <circle cx="60" cy="100" r="5" fill="#fdfaf2"/>
-      <text x="120" y="80" fill="#7a8694" font-family="ui-monospace, monospace" font-size="10" letter-spacing="0.18em">RA &#160;06h 14m</text>
-      <text x="120" y="98" fill="#7a8694" font-family="ui-monospace, monospace" font-size="10" letter-spacing="0.18em">MAG &#160;1.2 (variable)</text>
-      <text x="120" y="116" fill="#7a8694" font-family="ui-monospace, monospace" font-size="10" letter-spacing="0.18em">DISC &#160;2026-04-30</text>
-      <text x="20" y="170" fill="#fdfaf2" font-family="-apple-system, sans-serif" font-size="14" font-weight="500">multi-agent orchestration protocol</text>
-      <text x="20" y="195" fill="#a0aab6" font-family="-apple-system, sans-serif" font-size="12">each agent specializes; the constellation</text>
-      <text x="20" y="211" fill="#a0aab6" font-family="-apple-system, sans-serif" font-size="12">does the work.</text>
+      <text x="120" y="80" fill="#7a8694" font-family="ui-monospace, monospace" font-size="10">TRACK &#160;AGENT INFRA</text>
+      <text x="120" y="100" fill="#7a8694" font-family="ui-monospace, monospace" font-size="10">FORM &#160;GO CLI</text>
+      <text x="20" y="170" fill="#fdfaf2" font-family="-apple-system, sans-serif" font-size="14" font-weight="500">persistent memory for coding agents</text>
+      <text x="20" y="195" fill="#a0aab6" font-family="-apple-system, sans-serif" font-size="12">portable Markdown records plus</text>
+      <text x="20" y="211" fill="#a0aab6" font-family="-apple-system, sans-serif" font-size="12">searchable indexing across sessions.</text>
     </g>
 
     <g transform="translate(380, 0)">
       <rect width="370" height="240" fill="#0e1620" stroke="#2a3340" stroke-width="0.5"/>
-      <text x="20" y="28" fill="#7a8694" font-family="ui-monospace, monospace" font-size="10" letter-spacing="0.3em">β &#160;CLAUDEMEM</text>
+      <text x="20" y="28" fill="#7a8694" font-family="ui-monospace, monospace" font-size="10" letter-spacing="0.3em">β &#160;HANDOFF</text>
       <line x1="20" y1="40" x2="350" y2="40" stroke="#2a3340" stroke-width="0.5"/>
       <circle cx="60" cy="100" r="24" fill="url(#starGlow)" opacity="0.9"/>
       <circle cx="60" cy="100" r="4.5" fill="#fdfaf2"/>
-      <text x="120" y="80" fill="#7a8694" font-family="ui-monospace, monospace" font-size="10" letter-spacing="0.18em">RA &#160;06h 32m</text>
-      <text x="120" y="98" fill="#7a8694" font-family="ui-monospace, monospace" font-size="10" letter-spacing="0.18em">MAG &#160;1.7</text>
-      <text x="120" y="116" fill="#7a8694" font-family="ui-monospace, monospace" font-size="10" letter-spacing="0.18em">DISC &#160;2026-04-15</text>
-      <text x="20" y="170" fill="#fdfaf2" font-family="-apple-system, sans-serif" font-size="14" font-weight="500">persistent searchable memory</text>
-      <text x="20" y="195" fill="#a0aab6" font-family="-apple-system, sans-serif" font-size="12">SQLite + FTS5 + optional embeddings.</text>
-      <text x="20" y="211" fill="#a0aab6" font-family="-apple-system, sans-serif" font-size="12">~570 notes across daily use.</text>
+      <text x="120" y="80" fill="#7a8694" font-family="ui-monospace, monospace" font-size="10">TRACK &#160;DELEGATION</text>
+      <text x="120" y="100" fill="#7a8694" font-family="ui-monospace, monospace" font-size="10">FORM &#160;PROTOCOL</text>
+      <text x="20" y="170" fill="#fdfaf2" font-family="-apple-system, sans-serif" font-size="14" font-weight="500">spec-and-ledger delegation protocol</text>
+      <text x="20" y="195" fill="#a0aab6" font-family="-apple-system, sans-serif" font-size="12">token-tiered execution with an open</text>
+      <text x="20" y="211" fill="#a0aab6" font-family="-apple-system, sans-serif" font-size="12">evaluation and failure direction.</text>
     </g>
 
     <g transform="translate(760, 0)">
@@ -154,54 +152,50 @@
       <line x1="20" y1="40" x2="350" y2="40" stroke="#3a3a2a" stroke-width="0.5"/>
       <circle cx="60" cy="100" r="34" fill="url(#starGlowAmber)" opacity="0.95"/>
       <circle cx="60" cy="100" r="6" fill="#f0b67a"/>
-      <text x="120" y="80" fill="#7a8694" font-family="ui-monospace, monospace" font-size="10" letter-spacing="0.18em">RA &#160;06h 24m</text>
-      <text x="120" y="98" fill="#c08858" font-family="ui-monospace, monospace" font-size="10" letter-spacing="0.18em">MAG &#160;0.5 (brightest)</text>
-      <text x="120" y="116" fill="#7a8694" font-family="ui-monospace, monospace" font-size="10" letter-spacing="0.18em">DISC &#160;2026-03-01</text>
-      <text x="20" y="170" fill="#fdfaf2" font-family="-apple-system, sans-serif" font-size="14" font-weight="600">one-command AI dev lifecycle</text>
-      <text x="20" y="195" fill="#a0aab6" font-family="-apple-system, sans-serif" font-size="12">/dev — investigate, plan, execute,</text>
-      <text x="20" y="211" fill="#a0aab6" font-family="-apple-system, sans-serif" font-size="12">verify, ship. zero approval checkpoints.</text>
+      <text x="120" y="80" fill="#7a8694" font-family="ui-monospace, monospace" font-size="10">TRACK &#160;WORKFLOW</text>
+      <text x="120" y="100" fill="#c08858" font-family="ui-monospace, monospace" font-size="10">FORM &#160;PLUGIN</text>
+      <text x="20" y="170" fill="#fdfaf2" font-family="-apple-system, sans-serif" font-size="14" font-weight="600">end-to-end development workflow</text>
+      <text x="20" y="195" fill="#a0aab6" font-family="-apple-system, sans-serif" font-size="12">investigation, tests, verification,</text>
+      <text x="20" y="211" fill="#a0aab6" font-family="-apple-system, sans-serif" font-size="12">hooks, and file-backed state.</text>
     </g>
 
-    <!-- ROW 2 -->
     <g transform="translate(0, 260)">
       <rect width="370" height="240" fill="#0e1620" stroke="#2a3340" stroke-width="0.5"/>
-      <text x="20" y="28" fill="#7a8694" font-family="ui-monospace, monospace" font-size="10" letter-spacing="0.3em">δ &#160;FIRESIGHT</text>
+      <text x="20" y="28" fill="#7a8694" font-family="ui-monospace, monospace" font-size="10" letter-spacing="0.3em">δ &#160;POSTPRISM</text>
       <line x1="20" y1="40" x2="350" y2="40" stroke="#2a3340" stroke-width="0.5"/>
       <circle cx="60" cy="100" r="24" fill="url(#starGlow)" opacity="0.9"/>
       <circle cx="60" cy="100" r="4.5" fill="#fdfaf2"/>
-      <text x="120" y="80" fill="#7a8694" font-family="ui-monospace, monospace" font-size="10" letter-spacing="0.18em">RA &#160;06h 50m</text>
-      <text x="120" y="98" fill="#7a8694" font-family="ui-monospace, monospace" font-size="10" letter-spacing="0.18em">MAG &#160;1.8</text>
-      <text x="120" y="116" fill="#7a8694" font-family="ui-monospace, monospace" font-size="10" letter-spacing="0.18em">DISC &#160;2025-11-12</text>
-      <text x="20" y="170" fill="#fdfaf2" font-family="-apple-system, sans-serif" font-size="14" font-weight="500">wildfire intelligence + NASA data</text>
-      <text x="20" y="195" fill="#a0aab6" font-family="-apple-system, sans-serif" font-size="12">FIRMS satellite passes + weather +</text>
-      <text x="20" y="211" fill="#a0aab6" font-family="-apple-system, sans-serif" font-size="12">classifier on a map.</text>
+      <text x="120" y="80" fill="#7a8694" font-family="ui-monospace, monospace" font-size="10">TRACK &#160;PRODUCT EXPERIMENT</text>
+      <text x="120" y="100" fill="#7a8694" font-family="ui-monospace, monospace" font-size="10">FORM &#160;WEB APP</text>
+      <text x="20" y="170" fill="#fdfaf2" font-family="-apple-system, sans-serif" font-size="14" font-weight="500">parallel computer-use prototype</text>
+      <text x="20" y="195" fill="#a0aab6" font-family="-apple-system, sans-serif" font-size="12">front-end simulation with an experimental</text>
+      <text x="20" y="211" fill="#a0aab6" font-family="-apple-system, sans-serif" font-size="12">credentialed agent backend.</text>
     </g>
 
     <g transform="translate(380, 260)">
       <rect width="370" height="240" fill="#0e1620" stroke="#2a3340" stroke-width="0.5"/>
-      <text x="20" y="28" fill="#7a8694" font-family="ui-monospace, monospace" font-size="10" letter-spacing="0.3em">ε &#160;PULSECONNECT</text>
+      <text x="20" y="28" fill="#7a8694" font-family="ui-monospace, monospace" font-size="10" letter-spacing="0.3em">ε &#160;FIRESIGHT</text>
       <line x1="20" y1="40" x2="350" y2="40" stroke="#2a3340" stroke-width="0.5"/>
       <circle cx="60" cy="100" r="22" fill="url(#starGlow)" opacity="0.9"/>
       <circle cx="60" cy="100" r="4" fill="#fdfaf2"/>
-      <text x="120" y="80" fill="#7a8694" font-family="ui-monospace, monospace" font-size="10" letter-spacing="0.18em">RA &#160;07h 02m</text>
-      <text x="120" y="98" fill="#7a8694" font-family="ui-monospace, monospace" font-size="10" letter-spacing="0.18em">MAG &#160;2.1</text>
-      <text x="120" y="116" fill="#7a8694" font-family="ui-monospace, monospace" font-size="10" letter-spacing="0.18em">DISC &#160;2025-08-04</text>
-      <text x="20" y="170" fill="#fdfaf2" font-family="-apple-system, sans-serif" font-size="14" font-weight="500">computer-using AI outreach</text>
-      <text x="20" y="195" fill="#a0aab6" font-family="-apple-system, sans-serif" font-size="12">personalized outreach with the human</text>
-      <text x="20" y="211" fill="#a0aab6" font-family="-apple-system, sans-serif" font-size="12">firmly in the approval loop.</text>
+      <text x="120" y="80" fill="#7a8694" font-family="ui-monospace, monospace" font-size="10">TRACK &#160;PRODUCT EXPERIMENT</text>
+      <text x="120" y="100" fill="#7a8694" font-family="ui-monospace, monospace" font-size="10">FORM &#160;MAP</text>
+      <text x="20" y="170" fill="#fdfaf2" font-family="-apple-system, sans-serif" font-size="14" font-weight="500">client-side wildfire map</text>
+      <text x="20" y="195" fill="#a0aab6" font-family="-apple-system, sans-serif" font-size="12">NASA FIRMS feeds and Leaflet,</text>
+      <text x="20" y="211" fill="#a0aab6" font-family="-apple-system, sans-serif" font-size="12">kept inspectable in the browser.</text>
     </g>
 
     <g transform="translate(760, 260)">
       <rect width="370" height="240" fill="#0e1620" stroke="#2a3340" stroke-width="0.5"/>
-      <text x="20" y="28" fill="#7a8694" font-family="ui-monospace, monospace" font-size="10" letter-spacing="0.3em">ζ &#160;SANTORINI</text>
+      <text x="20" y="28" fill="#7a8694" font-family="ui-monospace, monospace" font-size="10" letter-spacing="0.3em">ζ &#160;DIPOLE</text>
       <line x1="20" y1="40" x2="350" y2="40" stroke="#2a3340" stroke-width="0.5"/>
       <circle cx="60" cy="100" r="18" fill="url(#starGlow)" opacity="0.7"/>
       <circle cx="60" cy="100" r="3" fill="#dde6f0"/>
-      <text x="120" y="80" fill="#7a8694" font-family="ui-monospace, monospace" font-size="10" letter-spacing="0.18em">RA &#160;05h 41m</text>
-      <text x="120" y="98" fill="#7a8694" font-family="ui-monospace, monospace" font-size="10" letter-spacing="0.18em">MAG &#160;3.2</text>
-      <text x="120" y="116" fill="#7a8694" font-family="ui-monospace, monospace" font-size="10" letter-spacing="0.18em">DISC &#160;2024-09-22</text>
-      <text x="20" y="170" fill="#c0c8d2" font-family="-apple-system, sans-serif" font-size="14" font-weight="500">board-game logic, clean rules</text>
-      <text x="20" y="195" fill="#a0aab6" font-family="-apple-system, sans-serif" font-size="12">tiny ruleset, deep strategy.</text>
+      <text x="120" y="80" fill="#7a8694" font-family="ui-monospace, monospace" font-size="10">TRACK &#160;PRODUCT EXPERIMENT</text>
+      <text x="120" y="100" fill="#7a8694" font-family="ui-monospace, monospace" font-size="10">FORM &#160;ASSISTANT</text>
+      <text x="20" y="170" fill="#c0c8d2" font-family="-apple-system, sans-serif" font-size="14" font-weight="500">conversational deployment assistant</text>
+      <text x="20" y="195" fill="#a0aab6" font-family="-apple-system, sans-serif" font-size="12">Netlify and Vercel flows with</text>
+      <text x="20" y="211" fill="#a0aab6" font-family="-apple-system, sans-serif" font-size="12">streamed progress and diagnostics.</text>
     </g>
   </g>
 
@@ -362,7 +356,7 @@
   <text x="40" y="2552" fill="#fdfaf2" font-family="-apple-system, sans-serif" font-size="22" font-weight="500" letter-spacing="-0.01em">Send a signal to the constellation.</text>
   <text x="40" y="2576" fill="#a0aab6" font-family="-apple-system, sans-serif" font-size="13">Open an issue with title prefix </text>
   <text x="290" y="2576" fill="#f0b67a" font-family="ui-monospace, monospace" font-size="13">"ZaneOS &lt;mode&gt;: &lt;input&gt;"</text>
-  <text x="630" y="2576" fill="#a0aab6" font-family="-apple-system, sans-serif" font-size="13">— a model decodes and replies (~30s).</text>
+  <text x="630" y="2576" fill="#a0aab6" font-family="-apple-system, sans-serif" font-size="13">— Zane's AI replies from public context.</text>
 
   <!-- Pulsing transmit ring (right side) -->
   <g transform="translate(1080, 2560)">
