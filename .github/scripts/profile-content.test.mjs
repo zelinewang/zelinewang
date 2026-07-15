@@ -42,8 +42,10 @@ const forbiddenPublicCopy = [
 test("canonical profile keeps load-bearing content in semantic Markdown", async () => {
   const readme = await read("README.md");
 
-  assert.match(readme, /<picture>/);
-  assert.match(readme, /prefers-color-scheme: dark/);
+  // Hero = the Console-v2 mega-SVG served fresh from the stats-output branch
+  // (one theme-aware <img>, not a <picture> pair). The scannable/searchable
+  // layer is the "Full profile" <details> block (asserted below).
+  assert.match(readme, /raw\.githubusercontent\.com\/zelinewang\/zelinewang\/stats-output\/profile\.svg/);
   assert.match(readme, /## Current focus/);
   assert.match(readme, /production background/i);
   assert.match(readme, /current public focus/i);
@@ -116,10 +118,15 @@ test("public profile surfaces exclude stale projects and unsupported vanity copy
   }
 });
 
-test("renderer writes all studies into the discoverable gallery", async () => {
+test("renderer wires console to the active hero and studies to the gallery", async () => {
   const renderer = await read(".github/scripts/render-profile.mjs");
 
-  for (const direction of ["console", "constellation", "field-notes"]) {
+  // Console is the ACTIVE profile design → renders to root assets/profile.svg,
+  // which refresh-stats.yml publishes to the stats-output branch nightly.
+  assert.match(renderer, /outPath: "assets\/profile\.svg"/);
+
+  // Constellation + Field Notes stay as design-gallery previews.
+  for (const direction of ["constellation", "field-notes"]) {
     assert.match(
       renderer,
       new RegExp(`previews/${direction}/assets/01-profile\\.svg`),
@@ -128,5 +135,4 @@ test("renderer writes all studies into the discoverable gallery", async () => {
   }
 
   assert.doesNotMatch(renderer, /previews\/_drafts/);
-  assert.doesNotMatch(renderer, /outPath: "assets\/profile\.svg"/);
 });

@@ -3,6 +3,11 @@ design-options/
 node_modules/
 .DS_Store
 
+# Rendered profile hero — a build artifact. render-profile.mjs writes it and
+# refresh-stats.yml publishes it to the stats-output branch, which the README
+# hero <img> is served from; it is never committed to main.
+assets/profile.svg
+
 # Secrets — never commit. Real secrets live in ~/.config/secrets.env
 # (outside repo) and as GitHub Actions repo secrets. These globs are
 # belt-and-suspenders in case a future script ever writes one in-repo.
