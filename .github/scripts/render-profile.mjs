@@ -9,7 +9,7 @@
 //   GH_TOKEN  — required (any token with read access; Action's GITHUB_TOKEN works)
 //
 // Outputs:
-//   previews/console/assets/01-profile.svg
+//   assets/profile.svg                           (active hero; published to stats-output nightly)
 //   previews/constellation/assets/01-profile.svg
 //   previews/field-notes/assets/01-profile.svg
 //
@@ -170,10 +170,12 @@ async function main() {
   const snake = await fetchSnake();
   console.log(`Snake content: ${snake.length} chars`);
 
-  // The canonical profile is semantic Markdown with a compact editorial hero.
-  // These three complete visual studies live in the public design gallery.
+  // Console is the active profile design — its render goes to root assets/profile.svg,
+  // which refresh-stats.yml publishes to the stats-output branch nightly (the README
+  // hero <img> points at that fresh copy). Constellation + Field Notes stay as
+  // design-gallery previews.
   const directions = [
-    { name: "console",       templatePath: "console.svg.template",       outPath: "previews/console/assets/01-profile.svg" },
+    { name: "console",       templatePath: "console.svg.template",       outPath: "assets/profile.svg" },
     { name: "constellation", templatePath: "constellation.svg.template", outPath: "previews/constellation/assets/01-profile.svg" },
     { name: "field-notes",   templatePath: "field-notes.svg.template",   outPath: "previews/field-notes/assets/01-profile.svg" },
   ];

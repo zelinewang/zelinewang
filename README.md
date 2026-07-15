@@ -1,15 +1,31 @@
 <!--
-  Canonical GitHub profile: Evidence Ledger / Professional.
-  The hero is theme-aware presentation; every load-bearing claim, project link,
-  principle, and contact path remains semantic Markdown for mobile readers,
-  assistive technology, search, and resume-screening tools.
+  Zane Wang's GitHub profile.
+
+  HERO = one integrated mega-SVG (assets/profile.svg): a single composition in eight
+  sections — §01 whoami · §02 projects · §03 how I work · §04 stats · §05 contribution
+  heatmap · §06 stack · §07 philosophy · §08 sidekick. Stats (§04) and the snake (§05)
+  refresh nightly via .github/workflows/refresh-stats.yml, which renders the SVG and
+  publishes it to the stats-output branch — the <img> below points at that fresh copy.
+
+  Why no <map>/<area> image-map? GitHub re-renders the <img> at container width while
+  <area coords> are pixel-absolute, so coords drift and break on mobile. The SVG rows
+  are therefore inert; the clickable, searchable layer is the "Full profile" <details>
+  below, where every load-bearing claim, project link, principle, and contact path
+  stays semantic Markdown for mobile readers, assistive technology, search, and
+  resume-screening tools.
+
+  Single dark theme is intentional: the terminal metaphor only reads on a dark
+  background, so the hero is one theme-aware <img>, not a <picture> light/dark pair.
 -->
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/hero-signal-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="assets/hero-signal.svg">
-  <img src="assets/hero-signal.svg" alt="Zane Wang — AI systems builder focused on evaluation, agent infrastructure, and evidence-driven workflows" width="100%">
-</picture>
+<p>
+  <img src="https://raw.githubusercontent.com/zelinewang/zelinewang/stats-output/profile.svg" alt="Zane Wang — AI systems builder focused on evaluation, agent infrastructure, and evidence-driven workflows; a terminal-style profile in eight sections: whoami, projects, how I work, stats, contribution heatmap, stack, philosophy, and an AI sidekick" width="100%" />
+</p>
+
+[GitHub](https://github.com/zelinewang) · [LinkedIn](https://www.linkedin.com/in/zane-wang7/) · [X](https://x.com/zanewang102)
+
+<details>
+<summary>▸ Full profile — searchable: focus · selected work · open-source contributions · how I work · contact</summary>
 
 **AI systems builder based in San Francisco.** My production background spans multimodal evaluation, high-volume data systems, workflow automation, and enterprise agents. My current public focus is the infrastructure underneath reliable agents: memory, delegation, and evidence-driven development.
 
@@ -57,11 +73,13 @@ Upstream work in other people's repositories:
 
 ## Design studies
 
-The canonical profile stays text-first. Three complete visual interpretations live in the [profile design gallery](./previews/): **Console**, **Constellation**, and **Field Notes**. They are design studies, not alternate claims.
+The **Console** design renders live as the hero above. Two more complete visual interpretations live in the [profile design gallery](./previews/): **Constellation** and **Field Notes** — the same content in a different aesthetic, not alternate claims.
 
 ## Contact
 
 [LinkedIn](https://www.linkedin.com/in/zane-wang7/) · [GitHub](https://github.com/zelinewang) · [X](https://x.com/zanewang102)
+
+</details>
 
 <details>
 <summary><strong>Ask Zane's AI about the public work</strong></summary>

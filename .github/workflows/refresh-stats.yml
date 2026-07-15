@@ -41,7 +41,7 @@ jobs:
         run: |
           set -eo pipefail
           mkdir -p /tmp/rendered
-          mv previews/console/assets/01-profile.svg /tmp/rendered/console.svg
+          mv assets/profile.svg /tmp/rendered/profile.svg
           mv previews/constellation/assets/01-profile.svg /tmp/rendered/constellation.svg
           mv previews/field-notes/assets/01-profile.svg /tmp/rendered/field-notes.svg
 
@@ -67,13 +67,19 @@ jobs:
             git rm -rf . 2>/dev/null || true
           fi
 
-          # Place fresh SVGs at their published paths
+          # Place fresh SVGs at their published paths.
+          #   profile.svg (root)  = the active Console-v2 hero; the README <img>
+          #                         points at this fresh copy.
+          #   studies/console.svg = same render, kept so the Console gallery
+          #                         preview's "Latest automated render" link resolves.
+          #   studies/{constellation,field-notes}.svg = the other gallery studies.
           mkdir -p studies
-          mv /tmp/rendered/console.svg       studies/console.svg
+          cp /tmp/rendered/profile.svg       profile.svg
+          mv /tmp/rendered/profile.svg       studies/console.svg
           mv /tmp/rendered/constellation.svg studies/constellation.svg
           mv /tmp/rendered/field-notes.svg   studies/field-notes.svg
 
-          git add studies/
+          git add profile.svg studies/
 
           if git diff --staged --quiet; then
             echo "No changes; skipping commit."
