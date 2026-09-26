@@ -243,9 +243,9 @@
 
     <text x="0"   y="56" fill="#a0aab6" font-family="ui-monospace, monospace" font-size="13">PullRequestEvent</text>
     <rect x="180" y="44" width="0" height="14" fill="#f0b67a" opacity="0.85">
-      <animate attributeName="width" from="0" to="429" dur="1.4s" begin="0.15s" fill="freeze"/>
+      <animate attributeName="width" from="0" to="500" dur="1.4s" begin="0.15s" fill="freeze"/>
     </rect>
-    <text x="619" y="56" fill="#fdfaf2" font-family="ui-monospace, monospace" font-size="13">5</text>
+    <text x="690" y="56" fill="#fdfaf2" font-family="ui-monospace, monospace" font-size="13">5</text>
 
     <text x="0"   y="80" fill="#a0aab6" font-family="ui-monospace, monospace" font-size="13">CreateEvent</text>
     <rect x="180" y="68" width="0" height="14" fill="#f0b67a" opacity="0.7">
