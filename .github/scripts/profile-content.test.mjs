@@ -126,6 +126,17 @@ test("public profile surfaces exclude stale projects and unsupported vanity copy
   }
 });
 
+test("hero shows no activity counts the render token cannot see", async () => {
+  // Honesty gate, not a layout lock: the Action's GITHUB_TOKEN only sees public
+  // events and public contributions, so a hero that prints them understates real
+  // activity (it once showed "0 recent pushes" beside a 10,000+ contribution graph).
+  // GitHub's native contribution graph is the activity signal on the profile.
+  const hero = await read(".github/templates/console.svg.template");
+  for (const token of ["PUSH_COUNT", "PR_COUNT", "CREATE_COUNT", "WATCH_COUNT", "REPO_COUNT", "SNAKE_CONTENT"]) {
+    assert.doesNotMatch(hero, new RegExp(`\\{\\{${token}\\}\\}`), `hero template renders ${token}`);
+  }
+});
+
 test("renderer wires console to the active hero and studies to the gallery", async () => {
   const renderer = await read(".github/scripts/render-profile.mjs");
 
