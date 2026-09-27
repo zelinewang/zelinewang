@@ -19,12 +19,20 @@ const publicTargets = [
   "dipole",
 ];
 
+// Merged upstream PRs (plus one bug report) that the profile cites as evidence.
+// Every entry must be verifiable from a public PR or issue link in README.md.
 const contributionTargets = [
+  "colinhacks/zod/pull/6192",
+  "TanStack/query/pull/11065",
+  "fastify/fastify/pull/6846",
+  "tokio-rs/axum/pull/3836",
+  "transact-rs/sqlx/pull/4340",
+  "aaif-goose/goose/pull/10438",
+  "agronholm/anyio/pull/1223",
+  "jd/tenacity/pull/656",
+  "feast-dev/feast/pull/6604",
   "jarrodwatts/claude-hud",
   "modelcontextprotocol/typescript-sdk",
-  "letta-ai/letta",
-  "bhimamalbhage/lightup",
-  "nextbound/bragi-canvas",
 ];
 
 const forbiddenPublicCopy = [

@@ -1,28 +1,35 @@
 <!--
   Zane Wang's GitHub profile.
 
-  HERO = one integrated mega-SVG (assets/profile.svg): a single composition in eight
-  sections — §01 whoami · §02 projects · §03 how I work · §04 stats · §05 contribution
-  heatmap · §06 stack · §07 philosophy · §08 sidekick. Stats (§04) and the snake (§05)
-  refresh nightly via .github/workflows/refresh-stats.yml, which renders the SVG and
-  publishes it to the stats-output branch — the <img> below points at that fresh copy.
+  HERO = one integrated SVG (assets/profile.svg): a single terminal composition in four
+  sections — §01 whoami · §02 projects · §03 merged upstream fixes · §04 how I work.
+  Every line in it is static, verifiable content. It is rendered from
+  .github/templates/console.svg.template by .github/workflows/refresh-stats.yml and
+  published to the stats-output branch; the <img> below points at that copy.
+
+  Why no live stats or contribution snake in the hero? The Action's token only sees
+  public activity, so they showed "0 recent pushes" and a near-empty grid while
+  GitHub's own graph below the README counts every contribution. The native graph
+  is the honest activity signal; the hero carries identity and evidence.
 
   Why no <map>/<area> image-map? GitHub re-renders the <img> at container width while
   <area coords> are pixel-absolute, so coords drift and break on mobile. The SVG rows
-  are therefore inert; the clickable, searchable layer is the "Full profile" <details>
-  below, where every load-bearing claim, project link, principle, and contact path
-  stays semantic Markdown for mobile readers, assistive technology, search, and
-  resume-screening tools.
+  are therefore inert; the clickable layer is the Markdown directly below the artwork
+  (visible on phones, where the SVG text is too small to read) and the "Full profile"
+  <details>, where every load-bearing claim, project link, principle, and contact path
+  stays semantic Markdown for assistive technology, search, and resume-screening tools.
 
   Single dark theme is intentional: the terminal metaphor only reads on a dark
-  background, so the hero is one theme-aware <img>, not a <picture> light/dark pair.
+  background, so the hero is one <img>, not a <picture> light/dark pair.
 -->
 
 <p>
-  <img src="https://raw.githubusercontent.com/zelinewang/zelinewang/stats-output/profile.svg" alt="Zane Wang — AI systems builder focused on evaluation, agent infrastructure, and evidence-driven workflows; a terminal-style profile in eight sections: whoami, projects, how I work, stats, contribution heatmap, stack, philosophy, and an AI sidekick" width="100%" />
+  <img src="https://raw.githubusercontent.com/zelinewang/zelinewang/stats-output/profile.svg" alt="Zane Wang — builds open-source infrastructure for coding agents (claudemem, handoff, dev-orchestrator), with fixes merged upstream in zod, TanStack Query, fastify, axum, SQLx, goose, anyio, tenacity, feast, and claude-hud. A terminal-style profile in four sections: whoami, projects, merged upstream fixes, and how I work." width="100%" />
 </p>
 
-[GitHub](https://github.com/zelinewang) · [LinkedIn](https://www.linkedin.com/in/zane-wang7/) · [X](https://x.com/zanewang102)
+**Open source:** [claudemem](https://github.com/zelinewang/claudemem) · [handoff](https://github.com/zelinewang/handoff) · [dev-orchestrator](https://github.com/zelinewang/dev-orchestrator)<br>
+**Merged upstream:** [zod](https://github.com/colinhacks/zod/pull/6192) · [TanStack Query](https://github.com/TanStack/query/pull/11065) · [fastify](https://github.com/fastify/fastify/pull/6846) · [axum](https://github.com/tokio-rs/axum/pull/3836) · [SQLx](https://github.com/transact-rs/sqlx/pull/4340) · [goose](https://github.com/aaif-goose/goose/pull/10438) · [anyio](https://github.com/agronholm/anyio/pull/1223) · [tenacity](https://github.com/jd/tenacity/pull/656) · [feast](https://github.com/feast-dev/feast/pull/6604) · [claude-hud](https://github.com/jarrodwatts/claude-hud/pulls?q=is%3Apr+author%3Azelinewang+is%3Amerged)<br>
+**Elsewhere:** [LinkedIn](https://www.linkedin.com/in/zane-wang7/) · [X](https://x.com/zanewang102)
 
 <details>
 <summary>▸ Full profile — searchable: focus · selected work · open-source contributions · how I work · contact</summary>
@@ -45,7 +52,7 @@ The product experiments below apply the same standard to computer use, real-time
 ### Agent infrastructure
 
 - **[claudemem](https://github.com/zelinewang/claudemem)** — persistent memory for coding agents, using portable Markdown records plus searchable indexing across sessions.
-- **[handoff](https://github.com/zelinewang/handoff)** — a spec-and-ledger protocol for token-tiered delegation, published with its pre-registered evaluation and failure direction.
+- **[handoff](https://github.com/zelinewang/handoff)** — a spec-and-ledger protocol for token-tiered delegation, published with its evaluation protocol, results, and failure cases.
 - **[dev-orchestrator](https://github.com/zelinewang/dev-orchestrator)** — an end-to-end development workflow that connects investigation, planning, tests, verification, shipping, hooks, and file-backed state.
 
 ### Product experiments
@@ -56,13 +63,22 @@ The product experiments below apply the same standard to computer use, real-time
 
 ## Open source contributions
 
-Upstream work in other people's repositories:
+Small, tested fixes in widely used libraries, each accepted and merged by the project's maintainers:
 
-- **[jarrodwatts/claude-hud](https://github.com/jarrodwatts/claude-hud)** — three merged PRs in the 26k-star Claude Code HUD: configurable model display ([#354](https://github.com/jarrodwatts/claude-hud/pull/354)), effort-level display in the model bracket ([#471](https://github.com/jarrodwatts/claude-hud/pull/471)), and a schema-compatibility fix for newer Claude Code releases ([#491](https://github.com/jarrodwatts/claude-hud/pull/491)).
-- **[modelcontextprotocol/typescript-sdk](https://github.com/modelcontextprotocol/typescript-sdk)** — a reproducible bug report on v2 declaration source maps ([#2491](https://github.com/modelcontextprotocol/typescript-sdk/issues/2491)), built from published-tarball forensics.
-- **[letta-ai/letta](https://github.com/letta-ai/letta)** — three tested fixes staged on [a public fork](https://github.com/zelinewang/letta) and linked from issues [#3310](https://github.com/letta-ai/letta/issues/3310), [#3399](https://github.com/letta-ai/letta/issues/3399), and [#3390](https://github.com/letta-ai/letta/issues/3390): provider rate-limit attribution, slash-label routing with route-shadow regression tests, and a missing client timeout.
-- **[bhimamalbhage/lightup](https://github.com/bhimamalbhage/lightup)** — merged multi-chain agent design work ([#3](https://github.com/bhimamalbhage/lightup/pull/3), [#4](https://github.com/bhimamalbhage/lightup/pull/4)).
-- **[nextbound/bragi-canvas](https://github.com/nextbound/bragi-canvas)** — an Obsidian canvas plugin; merged upstream bugfix ([#26](https://github.com/nextbound/bragi-canvas/pull/26)).
+| Project | What the fix does | PR |
+| --- | --- | --- |
+| [zod](https://github.com/colinhacks/zod) | `.catch()` callbacks receive the original input instead of the coerced value, as documented | [#6192](https://github.com/colinhacks/zod/pull/6192) |
+| [TanStack Query](https://github.com/TanStack/query) | `combine` results that are falsy (`0`, `false`, `""`, `null`) are memoized instead of recomputed | [#11065](https://github.com/TanStack/query/pull/11065) |
+| [fastify](https://github.com/fastify/fastify) | content-type parsers registered with a global or sticky RegExp no longer miss matches because of a stale `lastIndex` | [#6846](https://github.com/fastify/fastify/pull/6846) |
+| [axum](https://github.com/tokio-rs/axum) | merging `MethodRouter` instances no longer repeats methods in the `Allow` header (`GET,HEAD,HEAD`) | [#3836](https://github.com/tokio-rs/axum/pull/3836) |
+| [SQLx](https://github.com/transact-rs/sqlx) | SQLite `REAL` datetimes before 1970 decode to the correct sub-second value | [#4340](https://github.com/transact-rs/sqlx/pull/4340) |
+| [goose](https://github.com/aaif-goose/goose) | a custom model that is not in the provider's list can be saved as the default for a new chat | [#10438](https://github.com/aaif-goose/goose/pull/10438) |
+| [anyio](https://github.com/agronholm/anyio) | the asyncio `CapacityLimiter` stops over-granting tokens when `total_tokens` is raised while over-subscribed | [#1223](https://github.com/agronholm/anyio/pull/1223) |
+| [tenacity](https://github.com/jd/tenacity) | `wait_exponential` returns a wait time instead of raising in a narrow floating-point underflow case | [#656](https://github.com/jd/tenacity/pull/656) |
+| [feast](https://github.com/feast-dev/feast) | `feast[flink]` becomes installable again by fixing contradictory PyArrow constraints | [#6604](https://github.com/feast-dev/feast/pull/6604) |
+| [claude-hud](https://github.com/jarrodwatts/claude-hud) | configurable model display, effort-level display, and a schema fix for newer Claude Code releases | [#354](https://github.com/jarrodwatts/claude-hud/pull/354), [#471](https://github.com/jarrodwatts/claude-hud/pull/471), [#491](https://github.com/jarrodwatts/claude-hud/pull/491) |
+
+Also: a reproducible bug report on the MCP TypeScript SDK's v2 declaration source maps ([modelcontextprotocol/typescript-sdk#2491](https://github.com/modelcontextprotocol/typescript-sdk/issues/2491)), built from published-tarball forensics.
 
 ## How I work
 
@@ -73,7 +89,7 @@ Upstream work in other people's repositories:
 
 ## Design studies
 
-The **Console** design renders live as the hero above. Two more complete visual interpretations live in the [profile design gallery](./previews/): **Constellation** and **Field Notes** — the same content in a different aesthetic, not alternate claims.
+The **Console** design is the hero above. Two more complete visual interpretations live in the [profile design gallery](./previews/): **Constellation** and **Field Notes** — the same content in a different aesthetic, not alternate claims.
 
 ## Contact
 
