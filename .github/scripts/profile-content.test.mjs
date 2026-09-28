@@ -54,10 +54,9 @@ test("canonical profile keeps load-bearing content in semantic Markdown", async 
   // (one theme-aware <img>, not a <picture> pair). The scannable/searchable
   // layer is the "Full profile" <details> block (asserted below).
   assert.match(readme, /raw\.githubusercontent\.com\/zelinewang\/zelinewang\/stats-output\/profile\.svg/);
-  assert.match(readme, /## Current focus/);
   assert.match(readme, /production background/i);
   assert.match(readme, /current public focus/i);
-  assert.match(readme, /## Selected work/);
+  assert.match(readme, /## Open-source tools/);
   assert.match(readme, /## Contact/);
   assert.match(readme, /<details>/);
 
@@ -65,7 +64,10 @@ test("canonical profile keeps load-bearing content in semantic Markdown", async 
     assert.match(readme, new RegExp(target, "i"), `missing public target: ${target}`);
   }
 
-  assert.match(readme, /## Open source contributions/);
+  // The evidence table sits ABOVE the <details> fold so it is visible without a
+  // click, on phones and to crawlers; the fold holds background and contact only.
+  assert.match(readme, /## Merged upstream/);
+  assert.ok(readme.indexOf("## Merged upstream") < readme.indexOf("<details>"), "merged-upstream table must sit above the fold");
   for (const target of contributionTargets) {
     assert.match(readme, new RegExp(target, "i"), `missing contribution target: ${target}`);
   }
