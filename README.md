@@ -1,63 +1,90 @@
 <!--
   Zane Wang's GitHub profile.
 
-  HERO = one SVG card (assets/profile.svg): the claim, the ten upstream projects with
-  their PR numbers, and the three own tools. It is rendered from
-  .github/templates/console.svg.template by .github/workflows/refresh-stats.yml and
-  published to the stats-output branch; the <img> below points at that copy and links
-  to the list it summarizes. Every line is static and verifiable: no live stats (the
-  Action's token only sees public activity) and no animation.
+  HERO = one integrated mega-SVG (assets/profile.svg): a single composition in eight
+  sections — §01 whoami · §02 projects · §03 how I work · §04 stats · §05 contribution
+  heatmap · §06 stack · §07 philosophy · §08 sidekick. Stats (§04) and the snake (§05)
+  refresh nightly via .github/workflows/refresh-stats.yml, which renders the SVG and
+  publishes it to the stats-output branch — the <img> below points at that fresh copy.
 
-  The Markdown below the card repeats nothing the card already says in full: the card
-  names the projects, the list says what each PR changed and links it. Phones and
-  screen-reading tools rely on the list, because the card's text is too small there.
+  Why no <map>/<area> image-map? GitHub re-renders the <img> at container width while
+  <area coords> are pixel-absolute, so coords drift and break on mobile. The SVG rows
+  are therefore inert; the clickable, searchable layer is the "Full profile" <details>
+  below, where every load-bearing claim, project link, principle, and contact path
+  stays semantic Markdown for mobile readers, assistive technology, search, and
+  resume-screening tools.
 
-  Single dark card on purpose: GitHub's dark palette with a 1 px border and 6 px
-  radius reads as a native card in both light and dark mode.
+  Single dark theme is intentional: the terminal metaphor only reads on a dark
+  background, so the hero is one theme-aware <img>, not a <picture> light/dark pair.
 -->
 
-<p><a href="#merged-upstream"><img src="https://raw.githubusercontent.com/zelinewang/zelinewang/stats-output/profile.svg" alt="Zane Wang: 12 pull requests merged into 10 upstream projects (axum, SQLx, AnyIO, goose, Fastify, Zod, TanStack Query, Tenacity, Feast, Claude HUD) and his own tools claudemem, handoff, and dev-orchestrator. The same content follows as text." width="100%"></a></p>
+<p>
+  <img src="https://raw.githubusercontent.com/zelinewang/zelinewang/stats-output/profile.svg" alt="Zane Wang — AI systems builder focused on evaluation, agent infrastructure, and evidence-driven workflows; a terminal-style profile in eight sections: whoami, projects, how I work, stats, contribution heatmap, stack, philosophy, and an AI sidekick" width="100%" />
+</p>
 
-## Merged upstream
-
-Bug fixes in libraries other people depend on, each merged by that project's maintainers. I use AI coding agents to find candidates and draft fixes, then reproduce each bug, verify the fix and its regression test locally, and see the pull request through review.
-
-- **[axum](https://github.com/tokio-rs/axum)** (Rust web framework): the `Allow` header no longer lists `HEAD` twice after a `get` route is merged with a separate `head` route; four review comments addressed the same day. [#3836](https://github.com/tokio-rs/axum/pull/3836)
-- **[SQLx](https://github.com/transact-rs/sqlx)** (Rust SQL toolkit): pre-1970 datetimes stored as SQLite `REAL` (Julian day) values no longer decode up to two seconds off. [#4340](https://github.com/transact-rs/sqlx/pull/4340)
-- **[AnyIO](https://github.com/agronholm/anyio)** (Python async I/O): the asyncio `CapacityLimiter` no longer grants more tokens than it has when `total_tokens` is raised while it is over-subscribed. [#1223](https://github.com/agronholm/anyio/pull/1223)
-- **[goose](https://github.com/aaif-goose/goose)** (open-source AI agent): saving a custom model that is not in the provider's list as the default for a new chat no longer fails with `Invalid params`, a regression three users reported. [#10438](https://github.com/aaif-goose/goose/pull/10438)
-- **[Fastify](https://github.com/fastify/fastify)** (Node.js web framework): content-type parsers registered with a global or sticky RegExp no longer miss matches because of a stale `lastIndex`; approved by two maintainers. [#6846](https://github.com/fastify/fastify/pull/6846)
-- **[Zod](https://github.com/colinhacks/zod)** (TypeScript schema validation): `.catch()` callbacks receive the original input instead of the coerced value, as the documentation describes. [#6192](https://github.com/colinhacks/zod/pull/6192)
-- **[TanStack Query](https://github.com/TanStack/query)** (data fetching): `combine` results that are falsy (`0`, `false`, `""`, `null`) are memoized instead of being recomputed. [#11065](https://github.com/TanStack/query/pull/11065)
-
-Also merged: a narrow floating-point edge case in [Tenacity](https://github.com/jd/tenacity)'s `wait_exponential` ([#656](https://github.com/jd/tenacity/pull/656)); the maintainers' proposed fix for contradictory PyArrow constraints that made `feast[flink]` uninstallable in [Feast](https://github.com/feast-dev/feast) ([#6604](https://github.com/feast-dev/feast/pull/6604)); and in [Claude HUD](https://github.com/jarrodwatts/claude-hud), two display features ([#354](https://github.com/jarrodwatts/claude-hud/pull/354), [#471](https://github.com/jarrodwatts/claude-hud/pull/471)) and a fix for a crash my #471 caused once Claude Code started sending `effort` as an object ([#491](https://github.com/jarrodwatts/claude-hud/pull/491)).
-
-## Tools I maintain
-
-- **[claudemem](https://github.com/zelinewang/claudemem)** (Go): local-first memory for coding agents. Markdown files are the record; a SQLite full-text and vector index is a rebuildable cache over them. About 14,500 lines of Go with nearly as much test code, CI, and release binaries for macOS, Linux, and Windows.
-- **[handoff](https://github.com/zelinewang/handoff)**: a protocol for handing work from a lead model to cheaper models, with resumable spec files and a published small-sample evaluation that includes the run where delegation lost.
-- **[dev-orchestrator](https://github.com/zelinewang/dev-orchestrator)**: a Claude Code plugin that takes a task from investigation through tests and verification to a pull request.
+[GitHub](https://github.com/zelinewang) · [LinkedIn](https://www.linkedin.com/in/zane-wang7/) · [X](https://x.com/zanewang102)
 
 <details>
-<summary>More: background, how I work, earlier experiments, contact</summary>
+<summary>▸ Full profile — searchable: focus · selected work · open-source contributions · how I work · contact</summary>
 
-### Background
+**AI systems builder based in San Francisco.** My production background spans multimodal evaluation, high-volume data systems, workflow automation, and enterprise agents. My current public focus is the infrastructure underneath reliable agents: memory, delegation, and evidence-driven development.
 
-**AI systems engineer in San Francisco.** My production background covers multimodal evaluation, high-volume data systems, workflow automation, and enterprise agents. My current public focus is what reliable coding agents need underneath: memory, delegation, and evidence-driven workflows, built as small tools anyone can inspect.
+[Explore the work ↓](#selected-work) · [LinkedIn](https://www.linkedin.com/in/zane-wang7/) · [GitHub](https://github.com/zelinewang)
 
-### How I work
+## Current focus
+
+I turn lessons from production AI systems into smaller, public, inspectable tools. The current thread is reliable agent execution across sessions and teams: durable context, bounded delegation, and workflows that keep evidence close to decisions.
+
+**Current public proof:** [claudemem](https://github.com/zelinewang/claudemem) preserves context across coding-agent sessions, [handoff](https://github.com/zelinewang/handoff) measures when delegated execution helps and when coordination cost outweighs the benefit, and [dev-orchestrator](https://github.com/zelinewang/dev-orchestrator) keeps investigation, tests, verification, and shipping in one resumable workflow.
+
+The product experiments below apply the same standard to computer use, real-time data, and deployment without presenting prototypes as production systems.
+
+<a id="selected-work"></a>
+## Selected work
+
+### Agent infrastructure
+
+- **[claudemem](https://github.com/zelinewang/claudemem)** — persistent memory for coding agents, using portable Markdown records plus searchable indexing across sessions.
+- **[handoff](https://github.com/zelinewang/handoff)** — a spec-and-ledger protocol for token-tiered delegation, published with its pre-registered evaluation and failure direction.
+- **[dev-orchestrator](https://github.com/zelinewang/dev-orchestrator)** — an end-to-end development workflow that connects investigation, planning, tests, verification, shipping, hooks, and file-backed state.
+
+### Product experiments
+
+- **[PostPrism](https://github.com/zelinewang/postprism)** — a hackathon prototype with a front-end simulation and an experimental backend for parallel computer-use agents.
+- **[FireSight](https://github.com/zelinewang/FireSight)** — a client-side wildfire map built around NASA FIRMS feeds and Leaflet.
+- **[Dipole](https://github.com/zelinewang/dipole)** — a conversational deployment assistant for Netlify and Vercel with streamed progress and diagnostics.
+
+## Open source contributions
+
+Upstream work in other people's repositories:
+
+- **[jarrodwatts/claude-hud](https://github.com/jarrodwatts/claude-hud)** — three merged PRs in the 26k-star Claude Code HUD: configurable model display ([#354](https://github.com/jarrodwatts/claude-hud/pull/354)), effort-level display in the model bracket ([#471](https://github.com/jarrodwatts/claude-hud/pull/471)), and a schema-compatibility fix for newer Claude Code releases ([#491](https://github.com/jarrodwatts/claude-hud/pull/491)).
+- **[modelcontextprotocol/typescript-sdk](https://github.com/modelcontextprotocol/typescript-sdk)** — a reproducible bug report on v2 declaration source maps ([#2491](https://github.com/modelcontextprotocol/typescript-sdk/issues/2491)), built from published-tarball forensics.
+- **[letta-ai/letta](https://github.com/letta-ai/letta)** — three tested fixes staged on [a public fork](https://github.com/zelinewang/letta) and linked from issues [#3310](https://github.com/letta-ai/letta/issues/3310), [#3399](https://github.com/letta-ai/letta/issues/3399), and [#3390](https://github.com/letta-ai/letta/issues/3390): provider rate-limit attribution, slash-label routing with route-shadow regression tests, and a missing client timeout.
+- **[bhimamalbhage/lightup](https://github.com/bhimamalbhage/lightup)** — merged multi-chain agent design work ([#3](https://github.com/bhimamalbhage/lightup/pull/3), [#4](https://github.com/bhimamalbhage/lightup/pull/4)).
+- **[nextbound/bragi-canvas](https://github.com/nextbound/bragi-canvas)** — an Obsidian canvas plugin; merged upstream bugfix ([#26](https://github.com/nextbound/bragi-canvas/pull/26)).
+
+## How I work
 
 - **Prove before arguing.** A small experiment should be able to overturn the plan.
 - **Fix the bottleneck.** Solve the constraint that changes the outcome; defer adjacent cleanup.
 - **Keep evidence close to the claim.** Tests, source, logs, and failure cases beat polished confidence.
-- **Leave the next person less work.** Every delivery should make the next change easier to verify, resume, or reuse.
+- **Leave leverage behind.** A delivery should make the next run easier to verify, resume, or reuse.
 
-### Earlier experiments
+## Design studies
 
-Small demos and hackathon builds, labeled as such in their READMEs: [FireSight](https://github.com/zelinewang/FireSight) (a client-side wildfire map on NASA FIRMS feeds), [Dipole](https://github.com/zelinewang/dipole) (a demo agent that deploys a web project to Netlify or Vercel from a chat prompt), and [PostPrism](https://github.com/zelinewang/postprism) (a computer-use prototype whose hosted front end is a simulation).
+The **Console** design renders live as the hero above. Two more complete visual interpretations live in the [profile design gallery](./previews/): **Constellation** and **Field Notes** — the same content in a different aesthetic, not alternate claims.
 
-### Contact
+## Contact
 
-[LinkedIn](https://www.linkedin.com/in/zane-wang7/) · [X](https://x.com/zanewang102)
+[LinkedIn](https://www.linkedin.com/in/zane-wang7/) · [GitHub](https://github.com/zelinewang) · [X](https://x.com/zanewang102)
 
+</details>
+
+<details>
+<summary><strong>Ask Zane's AI about the public work</strong></summary>
+
+The sidekick answers from this README, the public persona, the six flagship repositories, and the open source contributions above. It replies in a public GitHub issue and does not speak on Zane's behalf.
+
+[Open a public question →](https://github.com/zelinewang/zelinewang/issues/new?title=ZaneOS%20ask%3A%20your%20question%20here&body=Replace%20the%20question%20in%20the%20title.%20Zane%27s%20AI%20will%20reply%20from%20the%20public%20profile%20context.)
 </details>

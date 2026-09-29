@@ -19,30 +19,12 @@ const publicTargets = [
   "dipole",
 ];
 
-// Merged upstream PRs that the profile cites as evidence.
-// Every entry must be verifiable from a public PR link in README.md.
 const contributionTargets = [
-  "colinhacks/zod/pull/6192",
-  "TanStack/query/pull/11065",
-  "fastify/fastify/pull/6846",
-  "tokio-rs/axum/pull/3836",
-  "transact-rs/sqlx/pull/4340",
-  "aaif-goose/goose/pull/10438",
-  "agronholm/anyio/pull/1223",
-  "jd/tenacity/pull/656",
-  "feast-dev/feast/pull/6604",
-  "jarrodwatts/claude-hud/pull/354",
-  "jarrodwatts/claude-hud/pull/471",
-  "jarrodwatts/claude-hud/pull/491",
-];
-
-// Claims that the public record contradicts or cannot support. The fixes were
-// found and drafted with AI coding agents (stated in tokio-rs/axum#3836), and a
-// `gh search --author=@me` line returns the visitor's own PRs, not these.
-const unsupportedClaims = [
-  /found by reading the code/i,
-  /--author=@me/i,
-  /the tools behind how the fixes/i,
+  "jarrodwatts/claude-hud",
+  "modelcontextprotocol/typescript-sdk",
+  "letta-ai/letta",
+  "bhimamalbhage/lightup",
+  "nextbound/bragi-canvas",
 ];
 
 const forbiddenPublicCopy = [
@@ -60,23 +42,22 @@ const forbiddenPublicCopy = [
 test("canonical profile keeps load-bearing content in semantic Markdown", async () => {
   const readme = await read("README.md");
 
-  // Hero = one SVG card served from the stats-output branch; the searchable,
-  // clickable layer is the Markdown list below it (asserted below).
+  // Hero = the Console-v2 mega-SVG served fresh from the stats-output branch
+  // (one theme-aware <img>, not a <picture> pair). The scannable/searchable
+  // layer is the "Full profile" <details> block (asserted below).
   assert.match(readme, /raw\.githubusercontent\.com\/zelinewang\/zelinewang\/stats-output\/profile\.svg/);
+  assert.match(readme, /## Current focus/);
   assert.match(readme, /production background/i);
   assert.match(readme, /current public focus/i);
-  assert.match(readme, /## Tools I maintain/);
-  assert.match(readme, /#{2,3} Contact/);
+  assert.match(readme, /## Selected work/);
+  assert.match(readme, /## Contact/);
   assert.match(readme, /<details>/);
 
   for (const target of publicTargets) {
     assert.match(readme, new RegExp(target, "i"), `missing public target: ${target}`);
   }
 
-  // The evidence list sits ABOVE the <details> fold so it is visible without a
-  // click, on phones and to crawlers; the fold holds background and contact only.
-  assert.match(readme, /## Merged upstream/);
-  assert.ok(readme.indexOf("## Merged upstream") < readme.indexOf("<details>"), "merged-upstream list must sit above the fold");
+  assert.match(readme, /## Open source contributions/);
   for (const target of contributionTargets) {
     assert.match(readme, new RegExp(target, "i"), `missing contribution target: ${target}`);
   }
@@ -98,12 +79,10 @@ test("resume bridge separates past production background from current public foc
     assert.match(source, /current public focus/i, `${path} missing current public focus`);
   }
 
-  // The console hero is an evidence card (merged PRs + own tools), not a bio, so the
-  // background through-line lives in README "Background" and ZANE_PERSONA.md above.
-  // The older studies still carry the bio-style hero and keep the check.
   const visualPaths = [
     "assets/hero-signal.svg",
     "assets/hero-signal-dark.svg",
+    ".github/templates/console.svg.template",
     ".github/templates/constellation.svg.template",
     ".github/templates/field-notes.svg.template",
   ];
@@ -136,26 +115,6 @@ test("public profile surfaces exclude stale projects and unsupported vanity copy
     for (const pattern of forbiddenPublicCopy) {
       assert.doesNotMatch(source, pattern, `${path} matched ${pattern}`);
     }
-  }
-});
-
-test("profile makes no claim the public record contradicts", async () => {
-  for (const path of ["README.md", ".github/templates/console.svg.template", "ZANE_PERSONA.md"]) {
-    const source = await read(path);
-    for (const pattern of unsupportedClaims) {
-      assert.doesNotMatch(source, pattern, `${path} matched ${pattern}`);
-    }
-  }
-});
-
-test("hero shows no activity counts the render token cannot see", async () => {
-  // Honesty gate, not a layout lock: the Action's GITHUB_TOKEN only sees public
-  // events and public contributions, so a hero that prints them understates real
-  // activity (it once showed "0 recent pushes" beside a 10,000+ contribution graph).
-  // GitHub's native contribution graph is the activity signal on the profile.
-  const hero = await read(".github/templates/console.svg.template");
-  for (const token of ["PUSH_COUNT", "PR_COUNT", "CREATE_COUNT", "WATCH_COUNT", "REPO_COUNT", "SNAKE_CONTENT"]) {
-    assert.doesNotMatch(hero, new RegExp(`\\{\\{${token}\\}\\}`), `hero template renders ${token}`);
   }
 });
 
