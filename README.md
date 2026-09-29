@@ -1,12 +1,13 @@
 <!--
   Zane Wang's GitHub profile.
 
-  HERO = one integrated mega-SVG (assets/profile.svg): a single composition in seven
-  sections — §01 whoami · §02 merged upstream · §03 tools I maintain · §04 how I work ·
-  §05 activity · §06 stack · §07 sidekick. The activity numbers (§05, read from GitHub's
-  contribution calendar) and the snake refresh nightly via
-  .github/workflows/refresh-stats.yml, which renders the SVG and publishes it to the
-  stats-output branch — the <img> below points at that fresh copy.
+  HERO = one integrated mega-SVG. Two designs with the same content are kept side by
+  side: Console (a terminal session) and Sunset (the same session opened by a pixel-art
+  sunset over a skyline drawn from the contribution calendar). ACTIVE_DESIGN in
+  .github/scripts/render-profile.mjs picks the live one. .github/workflows/refresh-stats.yml
+  renders both nightly with fresh activity numbers and publishes the live one to the
+  stats-output branch as profile.svg — the <img> below points at that fresh copy — and
+  every design to stats-output/studies/ for the gallery in previews/.
 
   Why no <map>/<area> image-map? GitHub re-renders the <img> at container width while
   <area coords> are pixel-absolute, so coords drift and break on mobile. The SVG rows
@@ -20,7 +21,7 @@
 -->
 
 <p>
-  <img src="https://raw.githubusercontent.com/zelinewang/zelinewang/stats-output/profile.svg" alt="Zane Wang — building the infrastructure that makes AI coding agents reliable. A terminal-style profile in seven sections: whoami; 12 pull requests merged into 10 upstream projects (axum, SQLx, AnyIO, goose, Fastify, Zod, TanStack Query, Tenacity, Feast, Claude HUD); the tools he maintains (claudemem, handoff, dev-orchestrator); how he works; activity from GitHub's contribution calendar; stack; and an AI sidekick. Every link is in the text below." width="100%" />
+  <img src="https://raw.githubusercontent.com/zelinewang/zelinewang/stats-output/profile.svg" alt="Zane Wang — building tools that make AI coding agents more reliable. A terminal-style profile: 12 pull requests merged into 10 upstream projects (axum, SQLx, AnyIO, goose, Fastify, Zod, TanStack Query, Tenacity, Feast, Claude HUD), the tools he maintains (claudemem, handoff, dev-orchestrator), how he works, and activity from his GitHub contribution calendar. Every link is in the text below." width="100%" />
 </p>
 
 [GitHub](https://github.com/zelinewang) · [LinkedIn](https://www.linkedin.com/in/zane-wang7/) · [X](https://x.com/zanewang102)
@@ -32,7 +33,7 @@
 
 ## Merged upstream
 
-Bug fixes in libraries other people depend on, each merged by that project's maintainers. I use AI coding agents to find candidates and draft fixes, then reproduce each bug, verify the fix and its regression test locally, and see the pull request through review.
+Ten bug fixes and two small features in projects other people depend on, each merged by that project's maintainers. I use AI coding agents to find candidates and draft fixes, then reproduce each bug, verify the fix and its regression test locally, and see the pull request through review.
 
 - **[axum](https://github.com/tokio-rs/axum)** (Rust web framework): the `Allow` header no longer lists `HEAD` twice after a `get` route is merged with a separate `head` route; four review comments addressed the same day. [#3836](https://github.com/tokio-rs/axum/pull/3836)
 - **[SQLx](https://github.com/transact-rs/sqlx)** (Rust SQL toolkit): pre-1970 datetimes stored as SQLite `REAL` (Julian day) values no longer decode up to two seconds off. [#4340](https://github.com/transact-rs/sqlx/pull/4340)
@@ -46,7 +47,7 @@ Also merged: a narrow floating-point edge case in [Tenacity](https://github.com/
 
 ## Tools I maintain
 
-- **[claudemem](https://github.com/zelinewang/claudemem)** (Go): local-first memory for coding agents. Markdown files are the record; a SQLite full-text and vector index is a rebuildable cache over them. About 14,500 lines of Go with nearly as much test code, CI, and release binaries for macOS, Linux, and Windows.
+- **[claudemem](https://github.com/zelinewang/claudemem)** (Go): local-first memory for coding agents. Markdown files are the record; a SQLite full-text and vector index is a rebuildable cache over them. About 11,000 lines of Go code, not counting blank lines and comments, with nearly as much test code, CI, and release binaries for macOS, Linux, and Windows.
 - **[handoff](https://github.com/zelinewang/handoff)**: a protocol for handing work from a lead model to cheaper models, with resumable spec files and a published small-sample evaluation that includes the run where delegation lost.
 - **[dev-orchestrator](https://github.com/zelinewang/dev-orchestrator)**: a Claude Code plugin that takes a task from investigation through tests and verification to a pull request.
 
@@ -67,7 +68,7 @@ Small demos and hackathon builds, labeled as such in their READMEs: [FireSight](
 
 ## Design studies
 
-The **Console** design renders live as the hero above. Two more complete visual interpretations live in the [profile design gallery](./previews/): **Constellation** and **Field Notes** — the same content in a different aesthetic, not alternate claims.
+The hero above is one of two designs kept side by side with the same content: **Console**, a terminal session, and **Sunset**, the same session opened by a pixel-art sunset over a skyline drawn from my contribution calendar. Both render nightly in the [profile design gallery](./previews/), next to two earlier studies, **Constellation** and **Field Notes**, that still show this profile's previous content.
 
 ## Contact
 

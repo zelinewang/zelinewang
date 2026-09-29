@@ -42,8 +42,9 @@ jobs:
           set -eo pipefail
           mkdir -p /tmp/rendered
           mv assets/profile.svg /tmp/rendered/profile.svg
-          mv previews/constellation/assets/01-profile.svg /tmp/rendered/constellation.svg
-          mv previews/field-notes/assets/01-profile.svg /tmp/rendered/field-notes.svg
+          for design in console sunset constellation field-notes; do
+            mv "previews/$design/assets/01-profile.svg" "/tmp/rendered/$design.svg"
+          done
 
       - name: Switch to stats-output branch + commit + push
         run: |
@@ -68,16 +69,15 @@ jobs:
           fi
 
           # Place fresh SVGs at their published paths.
-          #   profile.svg (root)  = the active Console-v2 hero; the README <img>
-          #                         points at this fresh copy.
-          #   studies/console.svg = same render, kept so the Console gallery
-          #                         preview's "Latest automated render" link resolves.
-          #   studies/{constellation,field-notes}.svg = the other gallery studies.
+          #   profile.svg (root)  = the live hero (ACTIVE_DESIGN in render-profile.mjs);
+          #                         the README <img> points at this fresh copy.
+          #   studies/<design>.svg = every design, so each gallery preview's
+          #                          "Latest automated render" link resolves.
           mkdir -p studies
-          cp /tmp/rendered/profile.svg       profile.svg
-          mv /tmp/rendered/profile.svg       studies/console.svg
-          mv /tmp/rendered/constellation.svg studies/constellation.svg
-          mv /tmp/rendered/field-notes.svg   studies/field-notes.svg
+          mv /tmp/rendered/profile.svg profile.svg
+          for design in console sunset constellation field-notes; do
+            mv "/tmp/rendered/$design.svg" "studies/$design.svg"
+          done
 
           git add profile.svg studies/
 

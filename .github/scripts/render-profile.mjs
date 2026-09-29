@@ -9,9 +9,8 @@
 //   GH_TOKEN  — required (any token with read access; Action's GITHUB_TOKEN works)
 //
 // Outputs:
-//   assets/profile.svg                           (active hero; published to stats-output nightly)
-//   previews/constellation/assets/01-profile.svg
-//   previews/field-notes/assets/01-profile.svg
+//   previews/{console,sunset,constellation,field-notes}/assets/01-profile.svg
+//   assets/profile.svg  (a copy of ACTIVE_DESIGN; published to stats-output nightly)
 //
 // Templates use {{TOKEN}} placeholders. Snake content is injected at the
 // {{SNAKE_CONTENT}} marker (one per template, color-shifted per direction).
@@ -19,18 +18,23 @@
 // SECURITY: uses execFileSync (no shell) with hardcoded argv arrays. No user
 // input is ever passed as a shell-interpreted string.
 
-import { readFile, writeFile, mkdir } from "node:fs/promises";
+import { copyFile, readFile, writeFile, mkdir } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 import { execFileSync } from "node:child_process";
 
 import { summarizeCalendar } from "./calendar-summary.mjs";
+import { renderScene } from "./sunset-scene.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(here, "..", "..");
 const templatesDir = resolve(repoRoot, ".github/templates");
 
 const USER = "zelinewang";
+
+// The design shown as the profile hero. "console" (terminal) or "sunset" (pixel
+// sunset over a skyline of the contribution calendar); the other stays in the gallery.
+const ACTIVE_DESIGN = "console";
 const SNAKE_URL = `https://raw.githubusercontent.com/${USER}/${USER}/output/github-snake.svg`;
 
 // ── Stats fetch ──────────────────────────────────────────────────────────────
@@ -119,11 +123,27 @@ function fetchCalendar() {
 
   const days = calendar.weeks.flatMap((week) => week.contributionDays);
   const { activeDays, longestStreak } = summarizeCalendar(days);
+  // The Sunset banner draws the same weeks as a skyline.
+  const { defs, scene } = renderScene(calendar.weeks);
   return {
     CONTRIB_TOTAL:  calendar.totalContributions.toLocaleString("en-US"),
     ACTIVE_DAYS:    String(activeDays),
     LONGEST_STREAK: String(longestStreak),
+    RANGE_START:    (days[0]?.date || "").slice(0, 7),
+    SCENE_DEFS:     defs,
+    SCENE:          scene,
   };
+}
+
+// Sunset embeds its fonts: an SVG shown through <img> cannot load web fonts.
+async function fontFaces() {
+  const fonts = [["zw-pixel", "zw-pixel.woff2"], ["zw-body", "zw-body.woff2"], ["zw-body-medium", "zw-body-medium.woff2"]];
+  const rules = [];
+  for (const [family, file] of fonts) {
+    const data = (await readFile(resolve(templatesDir, "fonts", file))).toString("base64");
+    rules.push(`@font-face{font-family:'${family}';src:url(data:font/woff2;base64,${data}) format('woff2');}`);
+  }
+  return rules.join("");
 }
 
 // ── Snake fetch ──────────────────────────────────────────────────────────────
@@ -193,19 +213,20 @@ async function renderTemplate(templatePath, outPath, replacements, snakeInner, d
 
 async function main() {
   console.log("Fetching live GitHub stats...");
-  const stats = { ...(await fetchStats()), ...fetchCalendar() };
+  const stats = { ...(await fetchStats()), ...fetchCalendar(), FONT_FACES: await fontFaces() };
   console.log("Stats fetched:", Object.keys(stats).length, "tokens");
 
   console.log("Fetching daily snake...");
   const snake = await fetchSnake();
   console.log(`Snake content: ${snake.length} chars`);
 
-  // Console is the active profile design — its render goes to root assets/profile.svg,
-  // which refresh-stats.yml publishes to the stats-output branch nightly (the README
-  // hero <img> points at that fresh copy). Constellation + Field Notes stay as
-  // design-gallery previews.
+  // Every design renders nightly into the gallery; refresh-stats.yml publishes each
+  // one to stats-output/studies/<name>.svg. ACTIVE_DESIGN is also copied to
+  // assets/profile.svg, which becomes stats-output/profile.svg: the README hero.
+  // Switching the live hero means changing ACTIVE_DESIGN, nothing else.
   const directions = [
-    { name: "console",       templatePath: "console.svg.template",       outPath: "assets/profile.svg" },
+    { name: "console",       templatePath: "console.svg.template",       outPath: "previews/console/assets/01-profile.svg" },
+    { name: "sunset",        templatePath: "sunset.svg.template",        outPath: "previews/sunset/assets/01-profile.svg" },
     { name: "constellation", templatePath: "constellation.svg.template", outPath: "previews/constellation/assets/01-profile.svg" },
     { name: "field-notes",   templatePath: "field-notes.svg.template",   outPath: "previews/field-notes/assets/01-profile.svg" },
   ];
@@ -216,7 +237,12 @@ async function main() {
     await renderTemplate(tplFull, outFull, stats, snake, name);
   }
 
-  console.log("All 3 mega-SVGs rendered.");
+  const active = directions.find((d) => d.name === ACTIVE_DESIGN);
+  if (!active) throw new Error(`ACTIVE_DESIGN "${ACTIVE_DESIGN}" is not a rendered design`);
+  await mkdir(resolve(repoRoot, "assets"), { recursive: true });
+  await copyFile(resolve(repoRoot, active.outPath), resolve(repoRoot, "assets/profile.svg"));
+
+  console.log(`All ${directions.length} mega-SVGs rendered; live hero: ${ACTIVE_DESIGN}.`);
 }
 
 main().catch((err) => {

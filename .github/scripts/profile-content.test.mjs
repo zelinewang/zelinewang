@@ -81,21 +81,30 @@ test("canonical profile keeps load-bearing content in semantic Markdown", async 
   }
 });
 
-test("console hero shows calendar activity and the same upstream projects as the README", async () => {
-  const hero = await read(".github/templates/console.svg.template");
+// Both current designs carry the same evidence; only the art differs.
+const heroes = [
+  { path: ".github/templates/console.svg.template", tokens: ["CONTRIB_TOTAL", "ACTIVE_DAYS", "LONGEST_STREAK", "SNAKE_CONTENT"] },
+  { path: ".github/templates/sunset.svg.template", tokens: ["CONTRIB_TOTAL", "ACTIVE_DAYS", "LONGEST_STREAK", "SCENE", "SCENE_DEFS", "FONT_FACES"] },
+];
 
-  // The public events feed misses private work, so its counters contradicted the
-  // contribution graph on the same page. The hero reads the calendar instead.
-  for (const token of ["CONTRIB_TOTAL", "ACTIVE_DAYS", "LONGEST_STREAK", "SNAKE_CONTENT"]) {
-    assert.ok(hero.includes(`{{${token}}}`), `hero missing {{${token}}}`);
-  }
-  assert.doesNotMatch(hero, /\{\{(PUSH|PR|CREATE|DELETE|COMMENT|WATCH|REPO)_(COUNT|BAR|BAR_LABEL_X)\}\}/);
+for (const { path, tokens } of heroes) {
+  test(`${path} shows calendar activity and the same upstream projects as the README`, async () => {
+    const hero = await read(path);
 
-  assert.match(hero, /12<\/tspan> PRs merged into <tspan[^>]*>10<\/tspan> upstream projects/);
-  for (const project of upstreamProjects) {
-    assert.ok(hero.includes(project), `hero missing upstream project: ${project}`);
-  }
-});
+    // The public events feed misses private work, so its counters contradicted the
+    // contribution graph on the same page. The heroes read the calendar instead.
+    for (const token of tokens) {
+      assert.ok(hero.includes(`{{${token}}}`), `hero missing {{${token}}}`);
+    }
+    assert.doesNotMatch(hero, /\{\{(PUSH|PR|CREATE|DELETE|COMMENT|WATCH|REPO)_(COUNT|BAR|BAR_LABEL_X)\}\}/);
+
+    assert.match(hero, /12<\/tspan> PRs merged into <tspan[^>]*>10<\/tspan> upstream projects/);
+    assert.match(hero, /10 bug fixes and 2 small features/);
+    for (const project of upstreamProjects) {
+      assert.ok(hero.includes(project), `hero missing upstream project: ${project}`);
+    }
+  });
+}
 
 test("resume bridge separates past production background from current public focus", async () => {
   const semanticPaths = [
@@ -105,6 +114,7 @@ test("resume bridge separates past production background from current public foc
     "previews/console/README.md",
     "previews/constellation/README.md",
     "previews/field-notes/README.md",
+    "previews/sunset/README.md",
   ];
 
   for (const path of semanticPaths) {
@@ -117,6 +127,7 @@ test("resume bridge separates past production background from current public foc
     "assets/hero-signal.svg",
     "assets/hero-signal-dark.svg",
     ".github/templates/console.svg.template",
+    ".github/templates/sunset.svg.template",
     ".github/templates/constellation.svg.template",
     ".github/templates/field-notes.svg.template",
   ];
@@ -135,7 +146,9 @@ test("public profile surfaces exclude stale projects and unsupported vanity copy
     "previews/console/README.md",
     "previews/constellation/README.md",
     "previews/field-notes/README.md",
+    "previews/sunset/README.md",
     ".github/templates/console.svg.template",
+    ".github/templates/sunset.svg.template",
     ".github/templates/constellation.svg.template",
     ".github/templates/field-notes.svg.template",
     "assets/hero-signal.svg",
@@ -155,12 +168,12 @@ test("public profile surfaces exclude stale projects and unsupported vanity copy
 test("renderer wires console to the active hero and studies to the gallery", async () => {
   const renderer = await read(".github/scripts/render-profile.mjs");
 
-  // Console is the ACTIVE profile design → renders to root assets/profile.svg,
+  // Every design renders into the gallery; ACTIVE_DESIGN is copied to the hero path,
   // which refresh-stats.yml publishes to the stats-output branch nightly.
-  assert.match(renderer, /outPath: "assets\/profile\.svg"/);
+  assert.match(renderer, /const ACTIVE_DESIGN = "(console|sunset)";/);
+  assert.match(renderer, /copyFile\(resolve\(repoRoot, active\.outPath\), resolve\(repoRoot, "assets\/profile\.svg"\)\)/);
 
-  // Constellation + Field Notes stay as design-gallery previews.
-  for (const direction of ["constellation", "field-notes"]) {
+  for (const direction of ["console", "sunset", "constellation", "field-notes"]) {
     assert.match(
       renderer,
       new RegExp(`previews/${direction}/assets/01-profile\\.svg`),
