@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 644" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 656" role="img" aria-labelledby="title desc">
 <title id="title">Zane Wang — building tools that make AI coding agents more reliable</title>
-<desc id="desc">A pixel-art sunset over a city drawn from the past year of Zane's GitHub contributions: one building per week, one window per day, lit on the {{ACTIVE_DAYS}} days he contributed, and a gold pennant over each week in which one of his pull requests was merged upstream. Below the city: 12 PRs merged into 10 upstream projects between {{MERGED_RANGE}}, namely axum, SQLx, AnyIO, goose, Fastify, Zod, TanStack Query, Tenacity, Feast and Claude HUD (three), 10 bug fixes and 2 small features, each merged by that project's maintainers. His production background covers multimodal evaluation and data systems; his current public focus is tools for reliable AI coding agents: claudemem, handoff and dev-orchestrator.</desc>
+<desc id="desc">A pixel-art sunset over a city drawn from the past year of Zane's GitHub contributions: one building per week, one window per day, lit on the {{ACTIVE_DAYS}} days he contributed, and a gold pennant over each week in which one of his pull requests was merged upstream. Below the city: 12 PRs merged into 10 upstream projects ({{MERGED_RANGE}}): axum, SQLx, AnyIO, goose, Fastify, Zod, TanStack Query, Tenacity, Feast and Claude HUD (three), 10 bug fixes and 2 small features, for example pre-1970 SQLite datetimes that SQLx decoded up to 2 seconds off, and AnyIO's CapacityLimiter over-granting tokens. His production background covers multimodal evaluation and data systems; his current public focus is tools for reliable AI coding agents: claudemem, handoff and dev-orchestrator.</desc>
 <!-- Fonts: Departure Mono (c) Helena Zhang and IBM Plex Mono (c) IBM Corp., both SIL Open Font License 1.1; embedded as renamed subsets. -->
 <!-- The phone layout of dusk.svg.template, served by the README's <picture> below 600 px: authored 320 units wide
      for a README column of about 300-350 px, on a 2-unit pixel grid. Plex Mono sizes give whole-unit
@@ -18,41 +18,48 @@ text{text-rendering:geometricPrecision}
 .glow{animation:glow 7s ease-in-out infinite}@keyframes glow{0%,100%{opacity:.75}50%{opacity:1}}
 .sh{animation:sh 2.8s ease-in-out infinite}@keyframes sh{0%,100%{opacity:.25}50%{opacity:.9}}
 .beacon{animation:bk 1.6s steps(1) infinite}@keyframes bk{0%{opacity:1}50%{opacity:.15}}
-.cr{animation:up .9s cubic-bezier(.22,1,.36,1) both}@keyframes up{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important}}</style>
 {{DUSK_PHONE_DEFS}}
-<clipPath id="card"><rect width="320" height="644" rx="10"/></clipPath>
-<clipPath id="water"><rect x="0" y="250" width="320" height="30"/></clipPath>
+<clipPath id="card"><rect width="320" height="656" rx="10"/></clipPath>
+<clipPath id="water"><rect x="0" y="250" width="320" height="24"/></clipPath>
+<g id="pennant"><rect width="2" height="12" fill="#c6ad84"/><rect x="2" width="8" height="6" fill="#f5c45c"/></g>
 </defs>
 <g clip-path="url(#card)">
-<rect width="320" height="644" fill="#1e1523"/>
+<rect width="320" height="656" fill="#1e1523"/>
 <g shape-rendering="crispEdges">{{DUSK_PHONE_SCENE}}</g>
 
 <g class="px" font-size="44" fill="#7a2e40" aria-hidden="true"><text x="16" y="72">zane wang</text></g>
 <text class="px" x="12" y="68" font-size="44" fill="#f8eed7">zane wang</text>
 <g class="bd" font-size="13.333" fill="#f6db95"><text x="15" y="104">building tools that make AI</text><text x="15" y="120">coding agents more reliable</text></g>
-<text class="bd" x="15" y="142" font-size="11.667" fill="#e7cda5">claudemem · handoff · dev-orchestrator</text>
-<text class="px" x="7" y="264" font-size="11" fill="#c6ad84">{{RANGE_LABEL}}</text>
-<text class="px" x="313" y="264" font-size="11" fill="#c6ad84" text-anchor="end">this week</text>
+<text class="bd" x="15" y="142" font-size="11.667" fill="#c6ad84"><tspan class="md" fill="#f8eed7">claudemem</tspan> · <tspan class="md" fill="#f8eed7">handoff</tspan> · <tspan class="md" fill="#f8eed7">dev-orchestrator</tspan></text>
 
-<g class="bd" font-size="11.667" fill="#c6ad84"><text x="15" y="306">↑ my year on GitHub: a building per week,</text><text x="15" y="321">a lit window for each of {{ACTIVE_DAYS}} active days</text></g>
+<!-- The city's time axis on the ground under the water, then what it shows. -->
+<text class="px" x="7" y="296" font-size="11" fill="#c6ad84">{{RANGE_LABEL}}</text>
+<text class="px" x="313" y="296" font-size="11" fill="#c6ad84" text-anchor="end">this week</text>
+<g class="bd" font-size="11.667" fill="#c6ad84"><text x="15" y="320">↑ a building per week, a lit window for</text><text x="15" y="335">each of the {{ACTIVE_DAYS}} days I contributed</text></g>
 
-<g class="cr" style="animation-delay:2.3s"><g shape-rendering="crispEdges"><rect x="16" y="344" width="2" height="16" fill="#c6ad84"/><rect x="18" y="344" width="8" height="6" fill="#f5c45c"/></g><text class="px" x="35" y="358" font-size="11" fill="#e97648" letter-spacing="2">{{MERGED_RANGE_CAPS}}</text></g>
-<text class="px cr" x="14" y="396" font-size="22" fill="#f8eed7" style="animation-delay:2.35s"><tspan fill="#f5c45c">12</tspan> PRs merged into</text>
-<text class="px cr" x="14" y="424" font-size="22" fill="#f8eed7" style="animation-delay:2.35s"><tspan fill="#f5c45c">10</tspan> upstream projects</text>
-<g class="md" font-size="15" fill="#f8eed7">
-<text class="cr" x="15" y="462" style="animation-delay:2.45s">axum</text>
-<text class="cr" x="15" y="486" style="animation-delay:2.51s">SQLx</text>
-<text class="cr" x="15" y="510" style="animation-delay:2.57s">AnyIO</text>
-<text class="cr" x="15" y="534" style="animation-delay:2.63s">goose</text>
-<text class="cr" x="15" y="558" style="animation-delay:2.69s">Fastify</text>
-<text class="cr" x="169" y="462" style="animation-delay:2.75s">Zod</text>
-<text class="cr" x="169" y="486" style="animation-delay:2.81s">TanStack Query</text>
-<text class="cr" x="169" y="510" style="animation-delay:2.87s">Tenacity</text>
-<text class="cr" x="169" y="534" style="animation-delay:2.93s">Feast</text>
-<text class="cr" x="169" y="558" style="animation-delay:2.99s">Claude HUD<tspan fill="#c6ad84"> ×3</tspan></text>
+<!-- The evidence, labelled by the pennant that flies over each merge week in the city. -->
+<use href="#pennant" x="16" y="358" shape-rendering="crispEdges"/>
+<text class="px" x="33" y="370" font-size="11" fill="#c6ad84">MERGED UPSTREAM · {{MERGED_RANGE_CAPS}}</text>
+<text class="px" x="14" y="408" font-size="22" fill="#f8eed7"><tspan fill="#f5c45c">12</tspan> PRs merged into</text>
+<text class="px" x="14" y="436" font-size="22" fill="#f8eed7"><tspan fill="#f5c45c">10</tspan> upstream projects</text>
+<g shape-rendering="crispEdges">
+<use href="#pennant" x="16" y="462"/><use href="#pennant" x="16" y="486"/><use href="#pennant" x="16" y="510"/><use href="#pennant" x="16" y="534"/><use href="#pennant" x="16" y="558"/>
+<use href="#pennant" x="164" y="462"/><use href="#pennant" x="164" y="486"/><use href="#pennant" x="164" y="510"/><use href="#pennant" x="164" y="534"/><use href="#pennant" x="164" y="558"/>
 </g>
-<g class="bd cr" font-size="11.667" fill="#c6ad84" style="animation-delay:2.9s"><text x="15" y="590">10 bug fixes and 2 small features in</text><text x="15" y="605">Rust, Python, TypeScript and JavaScript,</text><text x="15" y="620">each merged by that project's maintainers</text></g>
+<g class="md" font-size="15" fill="#e7cda5">
+<text x="30" y="474">axum</text>
+<text x="30" y="498">SQLx</text>
+<text x="30" y="522">AnyIO</text>
+<text x="30" y="546">goose</text>
+<text x="30" y="570">Fastify</text>
+<text x="178" y="474">Zod</text>
+<text x="178" y="498">TanStack Query</text>
+<text x="178" y="522">Tenacity</text>
+<text x="178" y="546">Feast</text>
+<text x="178" y="570">Claude HUD<tspan fill="#c6ad84"> ×3</tspan></text>
 </g>
-<rect x="0.5" y="0.5" width="319" height="643" rx="9.5" fill="none" stroke="#45344a"/>
+<g class="bd" font-size="11.667" fill="#c6ad84"><text x="15" y="602">10 bug fixes and 2 small features, e.g.</text><text x="15" y="617"><tspan fill="#e7cda5">SQLx:</tspan> pre-1970 datetimes up to 2 s off</text><text x="15" y="632"><tspan fill="#e7cda5">AnyIO:</tspan> limiter over-granting tokens</text></g>
+</g>
+<rect x="0.5" y="0.5" width="319" height="655" rx="9.5" fill="none" stroke="#45344a"/>
 </svg>

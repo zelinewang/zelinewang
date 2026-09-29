@@ -43,17 +43,21 @@ function layout(spec) {
 }
 
 // Geometry shared with the templates; change them together. Sky band edges carry
-// a two-pixel dither strip, and each layout puts its edges clear of the tagline
-// and the sub-line (textRows), where a checkerboard behind small text reads as
-// noise. Nothing in the skyline rises above textClear, where the text sits, and
-// maxH leaves the tallest roof room for a pennant or beacon (7 pixels) below it.
+// a two-pixel dither strip, and each layout puts its edges clear of the name
+// (nameRow) and of the tagline and sub-line (textRows), where a checkerboard
+// behind or right under the letters reads as noise or an underline. Nothing in
+// the skyline rises above textClear, where the text sits, and maxH leaves the
+// tallest roof room for a pennant or beacon (7 pixels) below it.
 export const DESKTOP = layout({
   W: 846, P: 3,
-  skyPx: [26, 18, 20, 9, 7, 7, 6, 6, 6, 5, 4, 2],
+  skyPx: [12, 30, 22, 9, 7, 7, 6, 6, 6, 5, 4, 2],
   waterPx: [2, 3, 4, 6, 4, 3],
   sunCx: 231, sunR: 108,
   minH: 72, maxH: 135, buildingW: 18,
+  // A pennant's flag, in art pixels.
+  flag: [3, 2],
   textClear: 192,
+  nameRow: [48, 112],
   textRows: [[136, 154], [163, 177]],
   // Open sky above and beside the name, one star per equal slice of a field.
   starFields: [{ x0: 21, x1: 540, y0: 9, y1: 36, count: 7 }, { x0: 600, x1: 828, y0: 9, y1: 114, count: 5 }],
@@ -63,11 +67,14 @@ export const DESKTOP = layout({
 
 export const PHONE = layout({
   W: 320, P: 2,
-  skyPx: [27, 37, 11, 8, 7, 6, 6, 5, 5, 5, 5, 3],
+  skyPx: [18, 26, 33, 7, 6, 6, 5, 5, 5, 5, 5, 4],
   waterPx: [1, 2, 3, 4, 3, 2],
   sunCx: 92, sunR: 58,
   minH: 40, maxH: 82, buildingW: 8,
+  // Bigger than the desktop's in art pixels, so it still shows at phone size.
+  flag: [4, 3],
   textClear: 154,
+  nameRow: [44, 76],
   textRows: [[94, 107], [110, 123], [133, 143]],
   starFields: [{ x0: 10, x1: 310, y0: 6, y1: 30, count: 6 }],
   clouds: [{ x: 8, y: 196, len: 56, band: 7 }, { x: 110, y: 212, len: 30, band: 8 }],
@@ -204,7 +211,7 @@ function sunReflection(L) {
 // ({ date, contributionCount }), up to 7 of them, Sunday first.
 // merged: ISO dates (YYYY-MM-DD) on which an upstream pull request was merged.
 export function skyline(weeks, merged = [], L = DESKTOP) {
-  const { W, P, HORIZON, sunCx, minH, maxH, buildingW, textClear } = L;
+  const { W, P, HORIZON, sunCx, minH, maxH, buildingW, textClear, flag } = L;
   const snap = (v) => P * Math.round(v / P);
   const totals = weeks.map((w) => sum(w.contributionDays.map((d) => d.contributionCount)));
   const max = Math.max(1, ...totals);
@@ -253,7 +260,7 @@ export function skyline(weeks, merged = [], L = DESKTOP) {
     if (flagged[i] && room >= 6 * P) {
       // Pennant: a pole and a two-pixel flag, for a week with a merged upstream PR.
       parts.push(rect(col, top - 6 * P, P, 6 * P, facade));
-      parts.push(rect(col + P, top - 6 * P, 3 * P, 2 * P, GOLD, ' class="flag"'));
+      parts.push(rect(col + P, top - 6 * P, flag[0] * P, flag[1] * P, GOLD, ' class="flag"'));
     } else if (i === tallest && room >= 7 * P) {
       parts.push(rect(col, top - 5 * P, P, 5 * P, facade));
       parts.push(rect(col, top - 7 * P, P, 2 * P, CORAL, ' class="beacon"'));

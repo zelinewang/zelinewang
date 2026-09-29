@@ -78,6 +78,8 @@ for (const [name, L] of layouts) {
     const buildings = parseBuildings(skyline(sample, merged, L).svg, L);
     assert.deepEqual(buildings.map((b) => b.merged), [false, true, false, true]);
     assert.deepEqual(buildings.map((b) => b.flags), [0, 1, 0, 1]);
+    const flags = [...skyline(sample, merged, L).svg.matchAll(/width="(\d+)" height="(\d+)" fill="#f5c45c" class="flag"/g)];
+    for (const [, w, h] of flags) assert.deepEqual([+w, +h], [L.flag[0] * L.P, L.flag[1] * L.P]);
     // No merges, no pennants.
     assert.equal(count(skyline(sample, [], L).svg, /class="flag"/g), 0);
   });
@@ -116,14 +118,16 @@ for (const [name, L] of layouts) {
     }
   });
 
-  test(`${name}: no sky dither runs through the tagline or the sub-line`, () => {
+  test(`${name}: no sky dither runs through or right under the name, the tagline or the sub-line`, () => {
     const { scene } = renderScene(sample, [], L);
     const strips = [...scene.matchAll(/<rect x="0" y="([\d.]+)" width="\d+" height="(\d+)" fill="url\(#ds\d+\)"/g)]
       .map(([, y, h]) => [+y, +y + +h]);
     assert.ok(strips.length >= 8, `expected the sky's dither strips, found ${strips.length}`);
-    for (const [top, bottom] of L.textRows) {
+    // A strip closer than two art pixels to the letters reads as an underline.
+    const gap = 2 * L.P;
+    for (const [top, bottom] of [L.nameRow, ...L.textRows]) {
       for (const [y0, y1] of strips) {
-        assert.ok(y1 <= top || y0 >= bottom, `dither ${y0}-${y1} crosses text row ${top}-${bottom}`);
+        assert.ok(y1 <= top - gap || y0 >= bottom + gap, `dither ${y0}-${y1} crowds text row ${top}-${bottom}`);
       }
     }
   });

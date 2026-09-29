@@ -261,7 +261,7 @@ function duskLines(svg) {
       const shown = t.replace(/<[^>]+>/g, "").replace(/&#?\w+;/g, "x").replace("{{ACTIVE_DAYS}}", "366")
         .replace("{{RANGE_LABEL}}", "Sep 2025").replace("{{MERGED_RANGE_CAPS}}", "NOV 2025 – AUG 2026");
       const chars = [...shown].length;
-      lines.push({ face, size, x: Number(attr("x", open)), end: /text-anchor="end"/.test(open),
+      lines.push({ face, size, x: Number(attr("x", open)), y: Number(attr("y", open)), end: /text-anchor="end"/.test(open), middle: /text-anchor="middle"/.test(open),
         width: chars * (ADVANCE[face] * size + spacing), text: t.replace(/<[^>]+>/g, "") });
     }
   }
@@ -279,18 +279,19 @@ for (const { name, path, L } of duskLayouts) {
   test(`${name} lines stay inside the card, and the left column clears the list beside it`, async () => {
     const lines = duskLines(await read(path));
     assert.ok(lines.length > 15, "expected the text lines");
-    for (const { x, width, end, text } of lines) {
-      const [left, right] = end ? [x - width, x] : [x, x + width];
+    for (const { x, width, end, middle, text } of lines) {
+      const [left, right] = end ? [x - width, x] : middle ? [x - width / 2, x + width / 2] : [x, x + width];
       assert.ok(left >= 6 && right <= L.W - 6, `"${text}" runs ${left.toFixed(0)}–${right.toFixed(0)}, outside the card`);
     }
-    // Desktop only: the credits' left column ends before the name list starts.
+    // Desktop only: the evidence's left column ends well before the list of projects,
+    // whose left edge is the column of pennant bullets.
     if (L === DESKTOP) {
-      const gridX = Math.min(...lines.filter((l) => l.x > L.W / 2 - 50 && l.x < L.W / 2 + 50 && l.face === "px").map((l) => l.x));
-      for (const l of lines.filter((l) => l.x < 60 && !l.end)) {
-        const onGridRows = lines.some((g) => g.x === gridX);
-        if (onGridRows && l.x + l.width > gridX - 24 && l.width < L.W / 2) {
-          assert.fail(`"${l.text}" ends at ${(l.x + l.width).toFixed(0)}, within 24 units of the list at ${gridX}`);
-        }
+      const svg = await read(path);
+      const bullets = [...svg.matchAll(/<use href="#pennant" x="(\d+)" y="\d+"\/>/g)].map((m) => Number(m[1]));
+      const listLeft = Math.min(...bullets.filter((x) => x > L.W / 2));
+      assert.ok(Number.isFinite(listLeft), "expected the list's pennant bullets");
+      for (const l of lines.filter((l) => l.x < 60 && !l.end && !l.middle && l.y > 480)) {
+        assert.ok(l.x + l.width <= listLeft - 40, `"${l.text}" ends at ${(l.x + l.width).toFixed(0)}, within 40 units of the list at ${listLeft}`);
       }
     }
   });
