@@ -38,7 +38,7 @@ const sum = (xs) => xs.reduce((a, b) => a + b, 0);
 const freeze = (o) => Object.freeze(Array.isArray(o) ? o.map(freeze) : o && typeof o === "object"
   ? Object.fromEntries(Object.entries(o).map(([k, v]) => [k, freeze(v)])) : o);
 
-// Heights below are in art pixels (sky, water, clouds) or viewBox units (the rest).
+// Heights below are in art pixels (sky, water) or viewBox units (the rest).
 function layout(spec) {
   const { P, skyPx, waterPx } = spec;
   return freeze({ ...spec, HORIZON: P * sum(skyPx), WATER_B: P * (sum(skyPx) + sum(waterPx)) });
@@ -64,8 +64,6 @@ export const DESKTOP = layout({
   textRows: [[136, 154], [163, 177]],
   // Open sky above and beside the name, one star per equal slice of a field.
   starFields: [{ x0: 21, x1: 540, y0: 9, y1: 36, count: 7 }, { x0: 600, x1: 828, y0: 9, y1: 114, count: 5 }],
-  // Cloud strata across the sun, below its crown: left edge, top, length in pixels.
-  clouds: [{ x: 132, y: 300, len: 60 }, { x: 300, y: 282, len: 62 }],
 });
 
 export const PHONE = layout({
@@ -80,7 +78,6 @@ export const PHONE = layout({
   nameRow: [44, 80],
   textRows: [[94, 107], [110, 123], [133, 143]],
   starFields: [{ x0: 10, x1: 310, y0: 6, y1: 30, count: 6 }],
-  clouds: [{ x: 40, y: 254, len: 40 }, { x: 130, y: 242, len: 30 }],
 });
 
 // mulberry32
@@ -135,17 +132,9 @@ export function nearText(L, top, bottom) {
   return [L.nameRow, ...L.textRows].some(([t, b]) => bottom > t - gap && top < b + gap);
 }
 
-// The index of the sky band that covers row y.
-export function skyBandAt(L, y) {
-  let edge = 0;
-  for (let i = 0; i < L.skyPx.length; i++) {
-    edge += L.P * L.skyPx[i];
-    if (y < edge) return i;
-  }
-  return L.skyPx.length - 1;
-}
 
-// A disc drawn as one-pixel rows, cut off at the horizon; fills run top to bottom.
+// A disc drawn as one-pixel rows, cut off at the horizon. The fills run from the
+// top to the horizon, so the cap that shows above the roofs warms toward its edge.
 function pixelDisc(L, cx, cy, r, fills, clipBottom, attrs = "") {
   const { P } = L;
   const snap = (v) => P * Math.round(v / P);
@@ -156,7 +145,7 @@ function pixelDisc(L, cx, cy, r, fills, clipBottom, attrs = "") {
     if (Math.abs(dy) >= r) continue;
     const half = snap(Math.sqrt(r * r - dy * dy));
     if (half <= 0) continue;
-    const k = Math.min(fills.length - 1, Math.floor(((y - top) / (2 * r)) * fills.length * 1.25));
+    const k = Math.min(fills.length - 1, Math.floor(((y - top) / r) * fills.length * 0.9));
     rows.push(rect(cx - half, y, 2 * half, P, fills[k]));
   }
   return `<g${attrs}>${rows.join("")}</g>`;
@@ -180,24 +169,6 @@ function stars(L) {
     }
   }
   return out.join("");
-}
-
-// Flat cloud strata drifting across the sun: a tapered body one shade darker than
-// the sky band behind it, lit along the underside by a lighter band further down.
-function clouds(L) {
-  const { P } = L;
-  return L.clouds.map(({ x, y, len }) => {
-    const behind = skyBandAt(L, y);
-    const body = SKY[Math.max(0, behind - 1)];
-    const lit = SKY[Math.min(SKY.length - 1, behind + 4)];
-    const w = len * P;
-    return `<g class="cloud">` +
-      rect(x + 8 * P, y, w - 20 * P, P, body) +
-      rect(x + 2 * P, y + P, w - 6 * P, P, body) +
-      rect(x, y + 2 * P, w, P, body) +
-      rect(x + 3 * P, y + 3 * P, w - 9 * P, P, lit, ' opacity="0.85"') +
-      `</g>`;
-  }).join("");
 }
 
 // A glitter path: narrow at the horizon, widening toward the viewer, rows
@@ -313,7 +284,7 @@ export function skyline(weeks, merged = [], L = DESKTOP) {
   return { svg: buildings.join(""), totals, tallest, flagged };
 }
 
-// The whole picture for one layout: sky, sun, clouds, city, water, reflections.
+// The whole picture for one layout: sky, sun, city, water, reflections.
 // The template supplies the "water" clip path (the band between HORIZON and WATER_B).
 export function renderScene(weeks, merged = [], L = DESKTOP) {
   const { W, P, HORIZON, sunCx, sunR } = L;
@@ -329,7 +300,6 @@ export function renderScene(weeks, merged = [], L = DESKTOP) {
     `<g class="glow">${pixelDisc(L, sunCx, HORIZON - P, sunR + 2 * glowStep + P, [BUTTER], HORIZON, ' opacity="0.12"')}</g>`,
     `<g class="glow">${pixelDisc(L, sunCx, HORIZON - P, sunR + glowStep, [BUTTER], HORIZON, ' opacity="0.24"')}</g>`,
     pixelDisc(L, sunCx, HORIZON - P, sunR, SUN, HORIZON),
-    clouds(L),
     rect(0, HORIZON - P, W, P, BUTTER, ' opacity="0.55"'),
     `<g id="skyline">${skyline(weeks, merged, L).svg}</g>`,
     bands(L, WATER, L.waterPx, HORIZON, "dw"),

@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { DESKTOP, PHONE, POLE, SKY, UNLIT, renderScene, skyBandAt, skyline } from "./dusk-scene.mjs";
+import { DESKTOP, PHONE, POLE, UNLIT, renderScene, skyline } from "./dusk-scene.mjs";
 
 // weeks of { contributionDays: [{ date, contributionCount }] }, oldest first,
 // Sunday first, starting on Sunday 2026-01-04.
@@ -144,22 +144,6 @@ for (const [name, L] of layouts) {
     assert.equal(stars.length, L.starFields.reduce((n, f) => n + f.count, 0), "a star fell outside the open sky");
     // A two-pixel star reads as a grey square, not a point of light.
     for (const s of stars) assert.equal(s.size, L.P, `star at ${s.x},${s.y} is ${s.size} units`);
-  });
-
-  test(`${name}: each cloud has a body darker than the sky band behind it`, () => {
-    const { scene } = renderScene(sample, [], L);
-    const clouds = [...scene.matchAll(/<g class="cloud">(.*?)<\/g>/g)].map((m) => m[1]);
-    assert.equal(clouds.length, L.clouds.length);
-    const luminance = (hex) => {
-      const [r, g, b] = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255)
-        .map((c) => (c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4));
-      return 0.2126 * r + 0.7152 * g + 0.0722 * b;
-    };
-    clouds.forEach((body, i) => {
-      const [, fill] = body.match(/fill="(#[0-9a-f]{6})"/);
-      const behind = SKY[skyBandAt(L, L.clouds[i].y)];
-      assert.ok(luminance(fill) < luminance(behind), `cloud ${i} body ${fill} does not show on ${behind}`);
-    });
   });
 
   test(`${name}: the halo breathes on a wrapper, so it keeps its own faint opacity`, () => {
