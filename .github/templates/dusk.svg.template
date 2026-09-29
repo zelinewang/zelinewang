@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 846 714" role="img" aria-labelledby="title desc">
 <title id="title">Zane Wang — building tools that make AI coding agents more reliable</title>
-<desc id="desc">A pixel-art sunset over a city drawn from the past year of Zane's GitHub contributions: one building per week, one window per day, lit on the {{ACTIVE_DAYS}} days he contributed, and a gold pennant over each week in which one of his pull requests was merged upstream. Below the city: 12 PRs merged into 10 upstream projects ({{MERGED_RANGE}}): axum, SQLx, AnyIO, goose, Fastify, Zod, TanStack Query, Tenacity, Feast and Claude HUD (three); 10 bug fixes and 2 small features, for example pre-1970 SQLite datetimes that SQLx decoded up to 2 seconds off, and AnyIO's CapacityLimiter over-granting tokens. His production background covers multimodal evaluation and data systems; his current public focus is tools for reliable AI coding agents: claudemem, handoff and dev-orchestrator.</desc>
+<desc id="desc">A pixel-art sunset over a city drawn from the past year of Zane's GitHub contributions: one building per week, one window per day, lit on the {{ACTIVE_DAYS}} days he contributed, and a gold pennant over each week in which one of his pull requests was merged upstream. Below the city: 12 PRs merged into 10 upstream projects ({{MERGED_RANGE}}), 10 bug fixes and 2 small features. Two of them: SQLx #4340, pre-1970 SQLite datetimes no longer decode up to 2 seconds off; AnyIO #1223, CapacityLimiter no longer grants more tokens than it has. Also merged: axum, goose, Fastify, Zod, TanStack Query, Tenacity, Feast and Claude HUD (three). His production background covers multimodal evaluation and data systems; his current public focus is tools for reliable AI coding agents: claudemem, handoff and dev-orchestrator.</desc>
 <!-- Fonts: Departure Mono (c) Helena Zhang and IBM Plex Mono (c) IBM Corp., both SIL Open Font License 1.1; embedded as renamed subsets. -->
 <!-- Authored at GitHub's desktop README width: 1 unit = 1 CSS px at 846 px wide. The picture is drawn on a 3-unit
      pixel grid. Departure Mono draws an 11-pixel em, so its sizes are multiples of 11 and it lands on whole pixels.
@@ -8,9 +8,9 @@
      some browsers round a fractional advance to a whole pixel. text-rendering:geometricPrecision keeps
      them exact when the image is scaled (a phone or a narrow window), where Chrome otherwise rounds each
      advance to a whole screen pixel and lines grow by up to 4%. Type: 11 pixel labels, 13.33 notes
-     (8-unit advance), 18.33 tagline and project names (11), 22 and 33 headline, 88 name.
-     The evidence block sits on a 38-unit baseline grid (526 to 678): the claim takes the top rows on the left,
-     its examples end on the list's last row. -->
+     (8-unit advance), 15 examples (9), 18.33 tagline (11), 33 headline, 88 name.
+     The evidence is one left-aligned column on a 38-unit baseline grid (526 to 678): the claim in two
+     equal lines, two of the fixes with their PR numbers, then the other projects. -->
 <defs><style>{{FONT_FACES}}
 text{text-rendering:geometricPrecision}
 .px{font-family:zw-pixel, ui-monospace, 'SF Mono', Menlo, Consolas, 'DejaVu Sans Mono', monospace}
@@ -39,36 +39,20 @@ text{text-rendering:geometricPrecision}
 <text class="bd" x="35" y="174" font-size="13.333" fill="#c6ad84"><tspan class="md" fill="#f8eed7">claudemem</tspan> for memory · <tspan class="md" fill="#f8eed7">handoff</tspan> for delegation · <tspan class="md" fill="#f8eed7">dev-orchestrator</tspan> for verification</text>
 
 <!-- The city's time axis, on the clean ground under the water: first week, what it shows, this week. -->
-<text class="px" x="11" y="440" font-size="11" fill="#c6ad84">{{RANGE_LABEL}}</text>
-<text class="bd" x="423" y="440" font-size="13.333" fill="#c6ad84" text-anchor="middle">↑ a building per week, a lit window for each of the {{ACTIVE_DAYS}} days I contributed</text>
-<text class="px" x="835" y="440" font-size="11" fill="#c6ad84" text-anchor="end">this week</text>
+<text class="px" x="35" y="432" font-size="11" fill="#c6ad84">{{RANGE_LABEL}}</text>
+<text class="bd" x="423" y="432" font-size="13.333" fill="#c6ad84" text-anchor="middle">↑ a building per week, a lit window for each of the {{ACTIVE_DAYS}} days I contributed</text>
+<text class="px" x="811" y="432" font-size="11" fill="#c6ad84" text-anchor="end">this week</text>
 
-<!-- The evidence, labelled by the pennant that flies over each merge week in the city. -->
+<!-- The evidence. Its first line is the legend of the pennants on the roofs. -->
 <use href="#pennant" x="36" y="461" shape-rendering="crispEdges"/>
-<text class="px" x="56" y="476" font-size="11" fill="#c6ad84" letter-spacing="2">MERGED UPSTREAM · {{MERGED_RANGE_CAPS}}</text>
-<text class="px" x="33" y="526" font-size="33" fill="#f8eed7"><tspan fill="#f5c45c">12</tspan> PRs merged</text>
-<text class="px" x="34" y="564" font-size="22" fill="#f8eed7">into <tspan fill="#f5c45c">10</tspan> upstream projects</text>
-<g class="bd" font-size="13.333" fill="#c6ad84">
-<text x="35" y="640">10 bug fixes and 2 small features, for example:</text>
-<text x="35" y="659"><tspan fill="#e7cda5">SQLx:</tspan> pre-1970 SQLite datetimes decoded up to 2 s off</text>
-<text x="35" y="678"><tspan fill="#e7cda5">AnyIO:</tspan> CapacityLimiter over-granting tokens</text>
+<text class="px" x="56" y="476" font-size="11" fill="#c6ad84">a week with a PR merged upstream</text>
+<text class="px" x="33" y="526" font-size="33" fill="#f8eed7"><tspan fill="#f5c45c">12</tspan> PRs merged into</text>
+<text class="px" x="33" y="564" font-size="33" fill="#f8eed7"><tspan fill="#f5c45c">10</tspan> upstream projects</text>
+<g font-size="15">
+<text class="md" x="35" y="602" fill="#f5c45c">SQLx #4340</text><text class="bd" x="152" y="602" fill="#f8eed7">pre-1970 SQLite datetimes no longer decode up to 2 s off</text>
+<text class="md" x="35" y="640" fill="#f5c45c">AnyIO #1223</text><text class="bd" x="152" y="640" fill="#f8eed7">CapacityLimiter no longer grants more tokens than it has</text>
 </g>
-<g shape-rendering="crispEdges">
-<use href="#pennant" x="519" y="511"/><use href="#pennant" x="519" y="549"/><use href="#pennant" x="519" y="587"/><use href="#pennant" x="519" y="625"/><use href="#pennant" x="519" y="663"/>
-<use href="#pennant" x="639" y="511"/><use href="#pennant" x="639" y="549"/><use href="#pennant" x="639" y="587"/><use href="#pennant" x="639" y="625"/><use href="#pennant" x="639" y="663"/>
-</g>
-<g class="md" font-size="18.333" fill="#e7cda5">
-<text x="536" y="526">axum</text>
-<text x="536" y="564">SQLx</text>
-<text x="536" y="602">AnyIO</text>
-<text x="536" y="640">goose</text>
-<text x="536" y="678">Fastify</text>
-<text x="656" y="526">Zod</text>
-<text x="656" y="564">TanStack Query</text>
-<text x="656" y="602">Tenacity</text>
-<text x="656" y="640">Feast</text>
-<text x="656" y="678">Claude HUD<tspan fill="#c6ad84"> ×3</tspan></text>
-</g>
+<text class="bd" x="35" y="678" font-size="13.333" fill="#c6ad84">also merged: axum, goose, Fastify, Zod, TanStack Query, Tenacity, Feast, Claude HUD ×3</text>
 </g>
 <rect x="0.5" y="0.5" width="845" height="713" rx="11.5" fill="none" stroke="#45344a"/>
 </svg>

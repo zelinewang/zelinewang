@@ -146,7 +146,6 @@ function fetchCalendar() {
     SPARKLINE:      sparkline(calendar.weeks, CONSOLE_BOX).svg,
     RANGE_LABEL:    days[0] ? monthLabel(days[0].date) : "",
     MERGED_RANGE:   mergedRange(),
-    MERGED_RANGE_CAPS: mergedRange().toUpperCase(),
     DUSK_DEFS:      dusk.defs,
     DUSK_SCENE:     dusk.scene,
     DUSK_PHONE_DEFS:  duskPhone.defs,

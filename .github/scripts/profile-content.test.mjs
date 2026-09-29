@@ -87,15 +87,19 @@ function visibleText(svg) {
     .replace(/\s+/g, " ");
 }
 
-// The current designs carry the same evidence; only the art differs.
+// The current designs make the same claim about the same projects; only the art
+// differs. Each also shows what kind of work it was: Console and Sunset count the
+// fixes and features, Dusk shows two of the fixes with their pull request numbers.
+const duskExamples = [/SQLx #4340/, /AnyIO #1223/];
+const workSummary = [/10 bug fixes and 2 small features/];
 const heroes = [
-  { path: ".github/templates/dusk.svg.template", tokens: ["ACTIVE_DAYS", "RANGE_LABEL", "MERGED_RANGE", "MERGED_RANGE_CAPS", "DUSK_DEFS", "DUSK_SCENE", "FONT_FACES"] },
-  { path: ".github/templates/dusk-phone.svg.template", tokens: ["ACTIVE_DAYS", "RANGE_LABEL", "MERGED_RANGE", "MERGED_RANGE_CAPS", "DUSK_PHONE_DEFS", "DUSK_PHONE_SCENE", "FONT_FACES"] },
-  { path: ".github/templates/console.svg.template", tokens: ["CONTRIB_TOTAL", "ACTIVE_DAYS", "LONGEST_STREAK", "SPARKLINE", "FONT_FACES"] },
-  { path: ".github/templates/sunset.svg.template", tokens: ["CONTRIB_TOTAL", "ACTIVE_DAYS", "LONGEST_STREAK", "SCENE", "SCENE_DEFS", "FONT_FACES"] },
+  { path: ".github/templates/dusk.svg.template", tokens: ["ACTIVE_DAYS", "RANGE_LABEL", "MERGED_RANGE", "DUSK_DEFS", "DUSK_SCENE", "FONT_FACES"], work: duskExamples },
+  { path: ".github/templates/dusk-phone.svg.template", tokens: ["ACTIVE_DAYS", "RANGE_LABEL", "MERGED_RANGE", "DUSK_PHONE_DEFS", "DUSK_PHONE_SCENE", "FONT_FACES"], work: duskExamples },
+  { path: ".github/templates/console.svg.template", tokens: ["CONTRIB_TOTAL", "ACTIVE_DAYS", "LONGEST_STREAK", "SPARKLINE", "FONT_FACES"], work: workSummary },
+  { path: ".github/templates/sunset.svg.template", tokens: ["CONTRIB_TOTAL", "ACTIVE_DAYS", "LONGEST_STREAK", "SCENE", "SCENE_DEFS", "FONT_FACES"], work: workSummary },
 ];
 
-for (const { path, tokens } of heroes) {
+for (const { path, tokens, work } of heroes) {
   test(`${path} shows calendar activity and the same upstream projects as the README`, async () => {
     const hero = await read(path);
 
@@ -108,12 +112,18 @@ for (const { path, tokens } of heroes) {
 
     const text = visibleText(hero);
     assert.match(text, /12 PRs merged into 10 upstream projects/);
-    assert.match(text, /10 bug fixes and 2 small features/);
+    for (const pattern of work) assert.match(text, pattern);
     for (const project of upstreamProjects) {
       assert.ok(text.includes(project), `hero missing upstream project: ${project}`);
     }
   });
 }
+
+test("Dusk's two examples cite pull requests from the merged-upstream data", () => {
+  for (const [project, number] of [["SQLx", 4340], ["AnyIO", 1223]]) {
+    assert.ok(UPSTREAM_PRS.some((pr) => pr.project === project && pr.number === number), `${project} #${number} is not in UPSTREAM_PRS`);
+  }
+});
 
 const fontPaths = heroes.map((h) => h.path);
 for (const path of fontPaths) {
@@ -235,7 +245,7 @@ for (const { name, path, L, shown } of duskLayouts) {
         }
       }
     }
-    assert.ok(checked > 20, `expected to check the text colours, checked ${checked}`);
+    assert.ok(checked >= 15, `expected to check the text colours, checked ${checked}`);
   });
 }
 
@@ -259,7 +269,7 @@ function duskLines(svg) {
       const spacing = Number(attr("letter-spacing", open) || attr("letter-spacing", g) || 0);
       // Tokens measured at their widest plausible values.
       const shown = t.replace(/<[^>]+>/g, "").replace(/&#?\w+;/g, "x").replace("{{ACTIVE_DAYS}}", "366")
-        .replace("{{RANGE_LABEL}}", "Sep 2025").replace("{{MERGED_RANGE_CAPS}}", "NOV 2025 – AUG 2026");
+        .replace("{{RANGE_LABEL}}", "Sep 2025");
       const chars = [...shown].length;
       lines.push({ face, size, x: Number(attr("x", open)), y: Number(attr("y", open)), end: /text-anchor="end"/.test(open), middle: /text-anchor="middle"/.test(open),
         width: chars * (ADVANCE[face] * size + spacing), text: t.replace(/<[^>]+>/g, "") });
@@ -276,22 +286,23 @@ for (const { name, path, L } of duskLayouts) {
     }
   });
 
-  test(`${name} lines stay inside the card, and the left column clears the list beside it`, async () => {
-    const lines = duskLines(await read(path));
-    assert.ok(lines.length > 15, "expected the text lines");
-    for (const { x, width, end, middle, text } of lines) {
-      const [left, right] = end ? [x - width, x] : middle ? [x - width / 2, x + width / 2] : [x, x + width];
+  test(`${name} lines stay inside the card and clear their neighbours on the same baseline`, async () => {
+    const lines = duskLines(await read(path)).map((l) => {
+      const [left, right] = l.end ? [l.x - l.width, l.x] : l.middle ? [l.x - l.width / 2, l.x + l.width / 2] : [l.x, l.x + l.width];
+      return { ...l, left, right };
+    });
+    assert.ok(lines.length >= 12, `expected the text lines, found ${lines.length}`);
+    for (const { left, right, text } of lines) {
       assert.ok(left >= 6 && right <= L.W - 6, `"${text}" runs ${left.toFixed(0)}–${right.toFixed(0)}, outside the card`);
     }
-    // Desktop only: the evidence's left column ends well before the list of projects,
-    // whose left edge is the column of pennant bullets.
-    if (L === DESKTOP) {
-      const svg = await read(path);
-      const bullets = [...svg.matchAll(/<use href="#pennant" x="(\d+)" y="\d+"\/>/g)].map((m) => Number(m[1]));
-      const listLeft = Math.min(...bullets.filter((x) => x > L.W / 2));
-      assert.ok(Number.isFinite(listLeft), "expected the list's pennant bullets");
-      for (const l of lines.filter((l) => l.x < 60 && !l.end && !l.middle && l.y > 480)) {
-        assert.ok(l.x + l.width <= listLeft - 40, `"${l.text}" ends at ${(l.x + l.width).toFixed(0)}, within 40 units of the list at ${listLeft}`);
+    // Pieces set on one baseline (axis labels and caption, a PR label and its
+    // description) keep at least two characters of space between them.
+    const rows = Map.groupBy(lines, (l) => l.y);
+    for (const [y, row] of rows) {
+      const sorted = row.sort((a, b) => a.left - b.left);
+      for (let i = 1; i < sorted.length; i++) {
+        const gap = sorted[i].left - sorted[i - 1].right;
+        assert.ok(gap >= 16, `"${sorted[i - 1].text}" and "${sorted[i].text}" at y=${y} are ${gap.toFixed(0)} units apart`);
       }
     }
   });
