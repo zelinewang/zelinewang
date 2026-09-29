@@ -5,8 +5,8 @@
 // days with contributions), height from that week's total. The palette comes
 // from the pixel-art avatar that sits next to the README on the profile page.
 //
-// Output is deterministic: roof details, stars and window tints come from a
-// seeded PRNG, so the picture only changes when the calendar does.
+// Output is deterministic: roof details, facades, stars and window tints come
+// from a seeded PRNG, so the picture only changes when the calendar does.
 
 const BUTTER = "#f6db95";
 const GOLD = "#f5c45c";
@@ -18,10 +18,14 @@ const INK = "#1e1523";
 
 const SKY = ["#1f1626", "#2a1b2e", "#3b2137", "#55273c", "#74303f", "#963a40",
              "#ba4341", "#d45a44", CORAL, ORANGE, AMBER, GOLD];
-const SKY_H = [72, 56, 48, 40, 40, 32, 32, 24, 24, 24, 24, 16];
+// Band edges carry an 8-unit dither strip. These heights put two edges at 260
+// and 296, in the gaps under the tagline and the sub-line (LAYOUT.BODY_ROWS),
+// so no dither runs through body text; bands still thin toward the horizon.
+const SKY_H = [72, 64, 60, 36, 32, 32, 24, 24, 24, 24, 24, 16];
 const WATER = ["#3b4259", "#353b52", "#2d3247", "#262a3e", "#221f34", INK];
-const WATER_H = [8, 24, 32, 40, 32, 24];
+const WATER_H = [8, 16, 24, 32, 24, 16];
 const SUN = ["#fdf4dc", "#fbeac0", "#f8dc9e", "#f6cf82", "#f3bf6c"];
+const FACADES = ["#1a1220", "#1d1424", "#201626"];
 
 const sum = (xs) => xs.reduce((a, b) => a + b, 0);
 
@@ -35,6 +39,23 @@ export const LAYOUT = Object.freeze({
   HORIZON: 64 + sum(SKY_H),
   SCENE_B: 64 + sum(SKY_H) + sum(WATER_H),
   SUN_CX: 324,
+  // Building heights for the quietest and the busiest week.
+  MIN_H: 88,
+  MAX_H: 200,
+  // The name, tagline and sub-line sit left of TEXT_RIGHT and above TEXT_CLEAR
+  // in the template. Nothing in the skyline may reach into that box, including
+  // when a busy week drifts left under the text as the calendar moves on.
+  TEXT_RIGHT: 980,
+  TEXT_CLEAR: 292,
+  // Ink extent of the tagline (26 units, baseline 246) and the sub-line (20,
+  // baseline 278), measured from the embedded font. No dither may cross them.
+  BODY_ROWS: Object.freeze([Object.freeze([226, 252]), Object.freeze([263, 283])]),
+  // The open sky the text leaves over: the darkest band, above the name. Stars
+  // go only here, one per equal slice of a field, so the sprinkle reads as
+  // deliberate rather than as dust.
+  STAR_FIELDS: Object.freeze([
+    Object.freeze({ x0: 44, x1: 820, y0: 72, y1: 100, count: 8 }),
+  ]),
 });
 
 // mulberry32
@@ -98,71 +119,105 @@ function pixelDisc(cx, cy, r, fills, clipBottom, attrs = "") {
 }
 
 function stars() {
-  const { WX, WW, SCENE_Y } = LAYOUT;
   const next = rng(42);
+  const even = (v) => 2 * Math.floor(v / 2);
   const out = [];
-  for (let k = 0; k < 46; k++) {
-    const x = snap(uniform(next, WX + 24, WX + WW - 24));
-    const y = snap(uniform(next, SCENE_Y + 12, SCENE_Y + 190));
-    const size = next() < 0.25 ? 4 : 2;
-    const opacity = num(uniform(next, 0.3, 0.85));
-    const twinkle = next() < 0.35;
-    const delay = uniform(next, 0, 3);
-    // Keep the name, tagline and activity numbers on a clean sky.
-    if ((x > 56 && x < 940 && y > 90 && y < 300) || (x > 880 && x < 1170 && y > 90 && y < 200)) continue;
-    const cls = twinkle ? ` class="tw" style="animation-delay:${num(delay)}s"` : "";
-    out.push(`<rect x="${x}" y="${y}" width="${size}" height="${size}" fill="${CREAM}" opacity="${opacity}"${cls}/>`);
+  for (const { x0, x1, y0, y1, count } of LAYOUT.STAR_FIELDS) {
+    const slice = (x1 - x0) / count;
+    for (let k = 0; k < count; k++) {
+      const size = next() < 0.25 ? 4 : 2;
+      const x = Math.max(x0, even(uniform(next, x0 + k * slice, x0 + (k + 1) * slice - size)));
+      const y = Math.max(y0, even(uniform(next, y0, y1 - size)));
+      const opacity = num(uniform(next, 0.35, 0.85));
+      const cls = next() < 0.35 ? ` class="tw" style="animation-delay:${num(uniform(next, 0, 3))}s"` : "";
+      out.push(`<rect x="${x}" y="${y}" width="${size}" height="${size}" fill="${CREAM}" opacity="${opacity}"${cls}/>`);
+    }
   }
   return out.join("");
 }
 
+// A glitter path: seen from the shore, the sun's reflection is narrow at the
+// horizon and widens toward the viewer, and its rows spread apart with distance
+// covered. Each row is broken into a few glints.
 function sunReflection(cx) {
   const { HORIZON, SCENE_B } = LAYOUT;
   const next = rng(7);
-  const widths = [132, 116, 104, 88, 76, 64, 52, 44, 36, 28, 20, 16, 12];
   const colors = [BUTTER, GOLD, AMBER, ORANGE, CORAL];
+  const gap = 8;
   const out = [];
-  widths.forEach((w, k) => {
-    const y = HORIZON + 6 + k * 10;
-    if (y > SCENE_B - 12) return;
-    const offset = snap(uniform(next, -3, 3) * 4);
-    const color = colors[Math.min(colors.length - 1, Math.floor(k / 3))];
-    const opacity = Math.max(0.18, 0.9 - k * 0.06);
-    out.push(
-      `<rect x="${cx - Math.floor(w / 2) + offset}" y="${y}" width="${w}" height="4" fill="${color}" ` +
-      `opacity="${num(opacity)}" class="sh" style="animation-delay:${num(uniform(next, 0, 2.5))}s"/>`,
-    );
-  });
+  for (let k = 0; ; k++) {
+    const y = HORIZON + 6 + snap(8 * k + 1.2 * k * k);
+    if (y > SCENE_B - 10) break;
+    const span = snap(40 + 20 * k);
+    const pieces = k < 2 ? 1 : k < 5 ? 2 : 3;
+    const color = colors[Math.min(colors.length - 1, Math.floor(k / 2))];
+    const opacity = num(Math.max(0.3, 0.92 - k * 0.09));
+    let x = snap(cx - span / 2 + uniform(next, -1, 1) * 4);
+    let left = span - gap * (pieces - 1);
+    for (let p = 0; p < pieces; p++) {
+      const rest = pieces - p - 1;
+      const w = rest === 0 ? left : Math.min(left - 4 * rest, Math.max(4, snap((left / (rest + 1)) * uniform(next, 0.7, 1.3))));
+      out.push(
+        `<rect x="${x}" y="${y}" width="${w}" height="4" fill="${color}" opacity="${opacity}" ` +
+        `class="sh" style="animation-delay:${num(uniform(next, 0, 2.5))}s"/>`,
+      );
+      x += w + gap;
+      left -= w;
+    }
+  }
   return out.join("");
 }
 
 // weeks: contributionCalendar.weeks, oldest first; each has contributionDays
 // ({ date, contributionCount }), up to 7 of them, Sunday first.
 export function skyline(weeks) {
-  const { WX, WW, HORIZON } = LAYOUT;
+  const { WX, WW, HORIZON, SUN_CX, MIN_H, MAX_H, TEXT_RIGHT, TEXT_CLEAR } = LAYOUT;
   const totals = weeks.map((w) => sum(w.contributionDays.map((d) => d.contributionCount)));
   const max = Math.max(1, ...totals);
-  const pitch = WW / Math.max(1, weeks.length);
-  const width = Math.floor(pitch) - 3;
+  // Centres run from edge to edge, so the window frame cuts the first and last
+  // buildings the way a viewfinder crops a city.
+  const pitch = WW / Math.max(1, weeks.length - 1);
+  const width = Math.max(6, Math.floor(Math.min(pitch, 40)) - 3);
   const tallest = totals.indexOf(Math.max(...totals));
 
   const buildings = weeks.map((week, i) => {
     const next = rng(i * 7919 + 1);
-    const x = Math.round(WX + i * pitch + (pitch - width) / 2);
-    const h = snap(88 + (236 - 88) * Math.sqrt(totals[i] / max));
+    const cx = WX + i * pitch;
+    // Widths vary a little so the row reads as a skyline rather than a bar
+    // chart; height alone carries the data.
+    const w = Math.max(8, Math.round(width * (0.75 + 0.25 * rng(i * 104729 + 3)())));
+    const x = Math.round(cx - w / 2);
+    const h = snap(MIN_H + (MAX_H - MIN_H) * Math.sqrt(totals[i] / max));
     const top = HORIZON - h;
-    const facade = i % 2 ? "#1a1220" : "#211726";
-    const mid = x + Math.floor(width / 2);
-    const parts = [`<rect x="${x}" y="${top}" width="${width}" height="${h}" fill="${facade}"/>`];
+    const facade = FACADES[Math.floor(next() * FACADES.length)];
+    const mid = x + Math.floor(w / 2);
+    const ceiling = cx < TEXT_RIGHT ? TEXT_CLEAR : -Infinity;
+    const parts = [];
 
+    // Setback crowns stay inside the data height; antennas never enter the text box.
     const roll = next();
+    const crown = i !== tallest && h > 150 && roll < 0.3 ? 12 : 0;
+    parts.push(`<rect x="${x}" y="${top + crown}" width="${w}" height="${h - crown}" fill="${facade}"/>`);
+    if (crown) parts.push(`<rect x="${x + 3}" y="${top}" width="${w - 6}" height="${crown}" fill="${facade}"/>`);
+
+    // Rim light on the side facing the sun, stronger near it.
+    const glow = 0.1 + 0.5 * Math.max(0, 1 - Math.abs(cx - SUN_CX) / 560);
+    const rimX = cx < SUN_CX ? x + w - 2 : x;
+    parts.push(`<rect x="${rimX}" y="${top + crown}" width="2" height="${h - crown}" fill="url(#rim)" opacity="${num(glow)}"/>`);
+
+    const tip = (length) => {
+      const y = Math.max(top - length, ceiling);
+      return top - y >= 6 ? y : null;
+    };
     if (i === tallest) {
-      parts.push(`<rect x="${mid - 1}" y="${top - 28}" width="2" height="28" fill="${facade}"/>`);
-      parts.push(`<rect x="${mid - 2}" y="${top - 32}" width="4" height="4" fill="${CORAL}" class="beacon"/>`);
-    } else if (roll < 0.22 && h > 110) {
-      parts.push(`<rect x="${x + 3}" y="${top - 8}" width="${width - 6}" height="8" fill="${facade}"/>`);
-    } else if (roll < 0.34 && h > 110) {
-      parts.push(`<rect x="${mid - 1}" y="${top - 14}" width="2" height="14" fill="${facade}"/>`);
+      const y = tip(22);
+      if (y !== null) {
+        parts.push(`<rect x="${mid - 1}" y="${y + 4}" width="2" height="${top - y - 4}" fill="${facade}"/>`);
+        parts.push(`<rect x="${mid - 2}" y="${y}" width="4" height="4" fill="${CORAL}" class="beacon"/>`);
+      }
+    } else if (roll >= 0.3 && roll < 0.42 && h > 110) {
+      const y = tip(14);
+      if (y !== null) parts.push(`<rect x="${mid - 1}" y="${y}" width="2" height="${top - y}" fill="${facade}"/>`);
     }
 
     week.contributionDays.forEach((day, d) => {
@@ -175,7 +230,7 @@ export function skyline(weeks) {
         parts.push(`<rect x="${mid - 3}" y="${y}" width="6" height="5" fill="#34252f"/>`);
       }
     });
-    return `<g class="b" style="animation-delay:${num(i * 0.014)}s">${parts.join("")}</g>`;
+    return `<g class="b" data-h="${h}" style="animation-delay:${num(i * 0.014)}s">${parts.join("")}</g>`;
   });
 
   return { svg: buildings.join(""), totals, tallest };
@@ -183,7 +238,9 @@ export function skyline(weeks) {
 
 export function renderScene(weeks) {
   const { WX, WW, SCENE_Y, HORIZON, SUN_CX } = LAYOUT;
-  const defs = ditherPatterns(SKY, "ds") + ditherPatterns(WATER, "dw");
+  const defs = ditherPatterns(SKY, "ds") + ditherPatterns(WATER, "dw") +
+    `<linearGradient id="rim" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${GOLD}"/>` +
+    `<stop offset="1" stop-color="${CORAL}" stop-opacity="0"/></linearGradient>`;
   const scene = [
     bands(SKY, SKY_H, SCENE_Y, "ds"),
     stars(),

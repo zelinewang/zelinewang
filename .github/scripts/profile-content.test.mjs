@@ -132,6 +132,7 @@ const contrast = (a, b) => {
 
 const panels = [
   { name: "Console", path: ".github/templates/console.svg.template", panel: "#10161c" },
+  { name: "Sunset", path: ".github/templates/sunset.svg.template", panel: "#1e1523" },
 ];
 
 for (const { name, path, panel } of panels) {
