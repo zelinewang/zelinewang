@@ -137,15 +137,23 @@ function fetchCalendar() {
   };
 }
 
-// Sunset embeds its fonts: an SVG shown through <img> cannot load web fonts.
+// The heroes embed their fonts: an SVG shown through <img> cannot load web fonts.
 async function fontFaces() {
   const fonts = [["zw-pixel", "zw-pixel.woff2"], ["zw-body", "zw-body.woff2"], ["zw-body-medium", "zw-body-medium.woff2"]];
-  const rules = [];
+  const faces = [];
   for (const [family, file] of fonts) {
     const data = (await readFile(resolve(templatesDir, "fonts", file))).toString("base64");
-    rules.push(`@font-face{font-family:'${family}';src:url(data:font/woff2;base64,${data}) format('woff2');}`);
+    faces.push([family, `@font-face{font-family:'${family}';src:url(data:font/woff2;base64,${data}) format('woff2');}`]);
   }
-  return rules.join("");
+  return faces;
+}
+
+// Only the families a template names: each embedded face costs its full size.
+function facesFor(template, faces) {
+  return faces
+    .filter(([family]) => new RegExp(`${family}(?![\\w-])`).test(template))
+    .map(([, rule]) => rule)
+    .join("");
 }
 
 // ── Snake fetch ──────────────────────────────────────────────────────────────
@@ -192,9 +200,9 @@ function snakeForDirection(snakeInner, direction) {
 
 // ── Render ───────────────────────────────────────────────────────────────────
 
-async function renderTemplate(templatePath, outPath, replacements, snakeInner, direction) {
+async function renderTemplate(templatePath, outPath, replacements, snakeInner, direction, faces) {
   const template = await readFile(templatePath, "utf8");
-  let rendered = template;
+  let rendered = template.replaceAll("{{FONT_FACES}}", facesFor(template, faces));
 
   for (const [key, value] of Object.entries(replacements)) {
     rendered = rendered.replaceAll(`{{${key}}}`, value);
@@ -215,7 +223,8 @@ async function renderTemplate(templatePath, outPath, replacements, snakeInner, d
 
 async function main() {
   console.log("Fetching live GitHub stats...");
-  const stats = { ...(await fetchStats()), ...fetchCalendar(), FONT_FACES: await fontFaces() };
+  const stats = { ...(await fetchStats()), ...fetchCalendar() };
+  const faces = await fontFaces();
   console.log("Stats fetched:", Object.keys(stats).length, "tokens");
 
   console.log("Fetching daily snake...");
@@ -236,7 +245,7 @@ async function main() {
   for (const { name, templatePath, outPath } of directions) {
     const tplFull = resolve(templatesDir, templatePath);
     const outFull = resolve(repoRoot, outPath);
-    await renderTemplate(tplFull, outFull, stats, snake, name);
+    await renderTemplate(tplFull, outFull, stats, snake, name, faces);
   }
 
   const active = directions.find((d) => d.name === ACTIVE_DESIGN);

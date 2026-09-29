@@ -119,6 +119,18 @@ for (const path of [".github/templates/console.svg.template", ".github/templates
   });
 }
 
+test("each rendered hero embeds exactly the fonts it uses", async () => {
+  // A missing face silently falls back to a system font; an unused one only adds bytes.
+  for (const design of ["console", "sunset"]) {
+    const svg = await read(`previews/${design}/assets/01-profile.svg`);
+    const embedded = [...svg.matchAll(/@font-face\{font-family:'([\w-]+)'/g)].map((m) => m[1]).sort();
+    const rest = svg.replace(/@font-face\{[^}]*\}/g, "");
+    const used = [...new Set([...rest.matchAll(/\b(zw-[\w-]+?)(?=[,;'"\s}])/g)].map((m) => m[1]))].sort();
+    assert.ok(used.length > 0, `${design} names no embedded font`);
+    assert.deepEqual(embedded, used, `${design} embeds [${embedded}] but uses [${used}]`);
+  }
+});
+
 // WCAG relative luminance and contrast ratio for #rrggbb colours.
 function luminance(hex) {
   const [r, g, b] = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255)
