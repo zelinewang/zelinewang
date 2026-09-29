@@ -29,8 +29,6 @@
   </picture>
 </p>
 
-[LinkedIn](https://www.linkedin.com/in/zane-wang7/) · [X](https://x.com/zanewang102)
-
 <details>
 <summary>Full profile: every merged pull request with its link, the tools I maintain, current focus, how I work, contact</summary>
 
