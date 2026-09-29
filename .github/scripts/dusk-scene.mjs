@@ -20,6 +20,8 @@ const AMBER = "#f1a349";
 const ORANGE = "#ed8e4c";
 const CORAL = "#e97648";
 const CREAM = "#f8eed7";
+// Pennant poles, here and in the templates' legend icon, so a roof flag reads as the same mark.
+export const POLE = "#c6ad84";
 export const INK = "#1e1523";
 
 // Band colors, top to bottom; exported so tests can check text against what is behind it.
@@ -43,41 +45,43 @@ function layout(spec) {
 }
 
 // Geometry shared with the templates; change them together. Sky band edges carry
-// a two-pixel dither strip, and each layout puts its edges clear of the name
-// (nameRow) and of the tagline and sub-line (textRows), where a checkerboard
-// behind or right under the letters reads as noise or an underline. Nothing in
-// the skyline rises above textClear, where the text sits, and maxH leaves the
-// tallest roof room for a pennant or beacon (7 pixels) below it.
+// a two-pixel dither strip, except near the name (nameRow, its shadow included)
+// and the tagline and sub-line (textRows): there a checkerboard behind or just
+// under the letters reads as noise or an underline, so those edges are plain
+// colour steps. Nothing in the skyline rises above textClear, where the text
+// sits, and maxH leaves the tallest roof room for a pennant or beacon (7 pixels).
 export const DESKTOP = layout({
   W: 846, P: 3,
-  skyPx: [12, 30, 22, 9, 7, 7, 6, 6, 6, 5, 4, 2],
+  // One dark band behind the name, tagline and sub-line; the glow gathers above the city.
+  skyPx: [12, 54, 8, 6, 6, 5, 5, 5, 4, 4, 4, 3],
   waterPx: [2, 3, 4, 6, 4, 3],
   sunCx: 231, sunR: 108,
   minH: 72, maxH: 135, buildingW: 18,
   // A pennant's flag, in art pixels.
   flag: [3, 2],
   textClear: 192,
-  nameRow: [48, 112],
+  nameRow: [48, 120],
   textRows: [[136, 154], [163, 177]],
   // Open sky above and beside the name, one star per equal slice of a field.
   starFields: [{ x0: 21, x1: 540, y0: 9, y1: 36, count: 7 }, { x0: 600, x1: 828, y0: 9, y1: 114, count: 5 }],
   // Cloud strata across the sun: left edge, top, length in pixels.
-  clouds: [{ x: 30, y: 231, len: 96, band: 4 }, { x: 222, y: 252, len: 62, band: 5 }, { x: 108, y: 282, len: 40, band: 6 }],
+  clouds: [{ x: 30, y: 231, len: 96 }, { x: 222, y: 252, len: 62 }, { x: 108, y: 282, len: 40 }],
 });
 
 export const PHONE = layout({
   W: 320, P: 2,
-  skyPx: [18, 26, 33, 7, 6, 6, 5, 5, 5, 5, 5, 4],
+  skyPx: [18, 60, 6, 5, 5, 5, 5, 4, 4, 4, 4, 5],
   waterPx: [1, 2, 3, 4, 3, 2],
   sunCx: 92, sunR: 58,
-  minH: 40, maxH: 82, buildingW: 8,
+  // maxH keeps the tallest pennant clear of the tools line above the city.
+  minH: 40, maxH: 72, buildingW: 8,
   // Bigger than the desktop's in art pixels, so it still shows at phone size.
   flag: [4, 3],
   textClear: 154,
-  nameRow: [44, 76],
+  nameRow: [44, 80],
   textRows: [[94, 107], [110, 123], [133, 143]],
   starFields: [{ x0: 10, x1: 310, y0: 6, y1: 30, count: 6 }],
-  clouds: [{ x: 8, y: 196, len: 56, band: 7 }, { x: 110, y: 212, len: 30, band: 8 }],
+  clouds: [{ x: 8, y: 196, len: 56 }, { x: 110, y: 212, len: 30 }],
 });
 
 // mulberry32
@@ -109,20 +113,37 @@ function ditherPatterns(L, colors, prefix) {
   return out.join("");
 }
 
-// Horizontal bands with a two-pixel 50% dither strip where one color meets the next.
-function bands(L, colors, heights, y0, prefix) {
+// Horizontal bands with a two-pixel 50% dither strip where one color meets the next,
+// unless plain(top, bottom) says the strip would sit too close to text.
+function bands(L, colors, heights, y0, prefix, plain = () => false) {
   const { P, W } = L;
   const out = [];
   let y = y0;
   colors.forEach((color, i) => {
     const h = P * heights[i];
     out.push(rect(0, y, W, h, color));
-    if (i < colors.length - 1 && heights[i] >= 4) {
+    if (i < colors.length - 1 && heights[i] >= 4 && !plain(y + h - 2 * P, y + h)) {
       out.push(rect(0, y + h - 2 * P, W, 2 * P, `url(#${prefix}${i})`));
     }
     y += h;
   });
   return out.join("");
+}
+
+// True when a strip from top to bottom comes within four art pixels of a text row.
+export function nearText(L, top, bottom) {
+  const gap = 4 * L.P;
+  return [L.nameRow, ...L.textRows].some(([t, b]) => bottom > t - gap && top < b + gap);
+}
+
+// The index of the sky band that covers row y.
+export function skyBandAt(L, y) {
+  let edge = 0;
+  for (let i = 0; i < L.skyPx.length; i++) {
+    edge += L.P * L.skyPx[i];
+    if (y < edge) return i;
+  }
+  return L.skyPx.length - 1;
 }
 
 // A disc drawn as one-pixel rows, cut off at the horizon; fills run top to bottom.
@@ -149,7 +170,9 @@ function stars(L) {
   for (const { x0, x1, y0, y1, count } of L.starFields) {
     const slice = (x1 - x0) / count;
     for (let k = 0; k < count; k++) {
-      const size = next() < 0.25 ? 2 * P : P;
+      // One art pixel: a two-pixel star reads as a grey square, not a point of light.
+      const size = P;
+      next();
       const x = Math.max(x0, P * Math.floor(uniform(next, x0 + k * slice, x0 + (k + 1) * slice - size) / P));
       const y = Math.max(y0, P * Math.floor(uniform(next, y0, y1 - size) / P));
       const opacity = num(uniform(next, 0.4, 0.85));
@@ -160,13 +183,14 @@ function stars(L) {
   return out.join("");
 }
 
-// Flat cloud strata drifting across the sun: a tapered body in a darker shade of
-// the sky band behind it, lit along the underside by the sky band below.
+// Flat cloud strata drifting across the sun: a tapered body one shade darker than
+// the sky band behind it, lit along the underside by a lighter band further down.
 function clouds(L) {
   const { P } = L;
-  return L.clouds.map(({ x, y, len, band }) => {
-    const body = SKY[band];
-    const lit = SKY[Math.min(SKY.length - 1, band + 4)];
+  return L.clouds.map(({ x, y, len }) => {
+    const behind = skyBandAt(L, y);
+    const body = SKY[Math.max(0, behind - 1)];
+    const lit = SKY[Math.min(SKY.length - 1, behind + 4)];
     const w = len * P;
     return `<g class="cloud">` +
       rect(x + 8 * P, y, w - 20 * P, P, body) +
@@ -258,8 +282,8 @@ export function skyline(weeks, merged = [], L = DESKTOP) {
     // Roof furniture never reaches into the text band.
     const room = top - textClear;
     if (flagged[i] && room >= 6 * P) {
-      // Pennant: a pole and a two-pixel flag, for a week with a merged upstream PR.
-      parts.push(rect(col, top - 6 * P, P, 6 * P, facade));
+      // Pennant: a tan pole and a gold flag, for a week with a merged upstream PR.
+      parts.push(rect(col, top - 6 * P, P, 6 * P, POLE, ' class="pole"'));
       parts.push(rect(col + P, top - 6 * P, flag[0] * P, flag[1] * P, GOLD, ' class="flag"'));
     } else if (i === tallest && room >= 7 * P) {
       parts.push(rect(col, top - 5 * P, P, 5 * P, facade));
@@ -273,7 +297,9 @@ export function skyline(weeks, merged = [], L = DESKTOP) {
     week.contributionDays.forEach((day, d) => {
       const y = top + 2 * P + d * step;
       if (day.contributionCount > 0) {
-        const color = next() < 0.3 ? GOLD : BUTTER;
+        // Gold is kept for the pennants, so a lit window never looks like a flag.
+        next();
+        const color = BUTTER;
         const delay = 1.1 + i * 0.03 + d * 0.015;
         parts.push(rect(col, y, P, winH, color, ` class="w" style="animation-delay:${num(delay)}s"`));
       } else {
@@ -295,7 +321,7 @@ export function renderScene(weeks, merged = [], L = DESKTOP) {
     `<stop offset="1" stop-color="${CORAL}" stop-opacity="0"/></linearGradient>`;
   const glowStep = 4 * P;
   const scene = [
-    bands(L, SKY, L.skyPx, 0, "ds"),
+    bands(L, SKY, L.skyPx, 0, "ds", (top, bottom) => nearText(L, top, bottom)),
     stars(L),
     pixelDisc(L, sunCx, HORIZON - P, sunR + 2 * glowStep + P, [BUTTER], HORIZON, ' class="glow" opacity="0.12"'),
     pixelDisc(L, sunCx, HORIZON - P, sunR + glowStep, [BUTTER], HORIZON, ' class="glow" opacity="0.24"'),

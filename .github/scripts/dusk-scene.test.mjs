@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { DESKTOP, PHONE, UNLIT, renderScene, skyline } from "./dusk-scene.mjs";
+import { DESKTOP, PHONE, POLE, SKY, UNLIT, renderScene, skyBandAt, skyline } from "./dusk-scene.mjs";
 
 // weeks of { contributionDays: [{ date, contributionCount }] }, oldest first,
 // Sunday first, starting on Sunday 2026-01-04.
@@ -118,13 +118,14 @@ for (const [name, L] of layouts) {
     }
   });
 
-  test(`${name}: no sky dither runs through or right under the name, the tagline or the sub-line`, () => {
+  test(`${name}: no sky dither runs through or near the name, the tagline or the sub-line`, () => {
     const { scene } = renderScene(sample, [], L);
     const strips = [...scene.matchAll(/<rect x="0" y="([\d.]+)" width="\d+" height="(\d+)" fill="url\(#ds\d+\)"/g)]
       .map(([, y, h]) => [+y, +y + +h]);
     assert.ok(strips.length >= 8, `expected the sky's dither strips, found ${strips.length}`);
-    // A strip closer than two art pixels to the letters reads as an underline.
-    const gap = 2 * L.P;
+    // A strip within four art pixels of the letters (the name's shadow included)
+    // reads as noise or an underline; those band edges are plain colour steps.
+    const gap = 4 * L.P;
     for (const [top, bottom] of [L.nameRow, ...L.textRows]) {
       for (const [y0, y1] of strips) {
         assert.ok(y1 <= top - gap || y0 >= bottom + gap, `dither ${y0}-${y1} crowds text row ${top}-${bottom}`);
@@ -141,6 +142,35 @@ for (const [name, L] of layouts) {
       assert.equal(stars.filter((s) => inside(s, field)).length, field.count, `stars in ${JSON.stringify(field)}`);
     }
     assert.equal(stars.length, L.starFields.reduce((n, f) => n + f.count, 0), "a star fell outside the open sky");
+    // A two-pixel star reads as a grey square, not a point of light.
+    for (const s of stars) assert.equal(s.size, L.P, `star at ${s.x},${s.y} is ${s.size} units`);
+  });
+
+  test(`${name}: each cloud has a body darker than the sky band behind it`, () => {
+    const { scene } = renderScene(sample, [], L);
+    const clouds = [...scene.matchAll(/<g class="cloud">(.*?)<\/g>/g)].map((m) => m[1]);
+    assert.equal(clouds.length, L.clouds.length);
+    const luminance = (hex) => {
+      const [r, g, b] = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255)
+        .map((c) => (c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4));
+      return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+    };
+    clouds.forEach((body, i) => {
+      const [, fill] = body.match(/fill="(#[0-9a-f]{6})"/);
+      const behind = SKY[skyBandAt(L, L.clouds[i].y)];
+      assert.ok(luminance(fill) < luminance(behind), `cloud ${i} body ${fill} does not show on ${behind}`);
+    });
+  });
+
+  test(`${name}: gold marks only the pennants, whose poles match the legend's tan`, () => {
+    const { svg } = skyline(year, merged, L);
+    const gold = "#f5c45c";
+    for (const [, fill] of svg.matchAll(/fill="(#[0-9a-f]{6})" class="w"/g)) {
+      assert.notEqual(fill, gold, "a lit window uses the pennant gold");
+    }
+    const flags = count(svg, /class="flag"/g);
+    assert.ok(flags > 0, "expected pennants");
+    assert.equal(count(svg, new RegExp(`fill="${POLE}" class="pole"`, "g")), flags);
   });
 
   test(`${name}: the scene is deterministic and every paint it uses is defined`, () => {
