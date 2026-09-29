@@ -204,16 +204,18 @@ function clouds(L) {
 // A glitter path: narrow at the horizon, widening toward the viewer, rows
 // spreading apart with the distance covered, each row broken into glints.
 function sunReflection(L) {
-  const { P, HORIZON, WATER_B, sunCx, W } = L;
+  const { P, HORIZON, sunCx, W } = L;
   const snap = (v) => P * Math.round(v / P);
   const scale = W / 846;
+  // The last two water bands are almost the ground's colour; glints there float.
+  const glitterEnd = HORIZON + P * sum(L.waterPx.slice(0, -2));
   const next = rng(7);
   const colors = [BUTTER, GOLD, AMBER, ORANGE, CORAL];
   const gap = 2 * P;
   const out = [];
   for (let k = 0; ; k++) {
     const y = HORIZON + P + snap(scale * (5 * k + 0.9 * k * k));
-    if (y > WATER_B - 2 * P) break;
+    if (y > glitterEnd - P) break;
     const span = snap(scale * (30 + 15 * k));
     const pieces = k < 2 ? 1 : k < 4 ? 2 : 3;
     const color = colors[Math.min(colors.length - 1, Math.floor(k / 2))];
@@ -323,8 +325,10 @@ export function renderScene(weeks, merged = [], L = DESKTOP) {
   const scene = [
     bands(L, SKY, L.skyPx, 0, "ds", (top, bottom) => nearText(L, top, bottom)),
     stars(L),
-    pixelDisc(L, sunCx, HORIZON - P, sunR + 2 * glowStep + P, [BUTTER], HORIZON, ' class="glow" opacity="0.12"'),
-    pixelDisc(L, sunCx, HORIZON - P, sunR + glowStep, [BUTTER], HORIZON, ' class="glow" opacity="0.24"'),
+    // The glow animation sets opacity, which would override the halo's own
+    // opacity attribute, so it runs on a wrapper and the two multiply.
+    `<g class="glow">${pixelDisc(L, sunCx, HORIZON - P, sunR + 2 * glowStep + P, [BUTTER], HORIZON, ' opacity="0.12"')}</g>`,
+    `<g class="glow">${pixelDisc(L, sunCx, HORIZON - P, sunR + glowStep, [BUTTER], HORIZON, ' opacity="0.24"')}</g>`,
     pixelDisc(L, sunCx, HORIZON - P, sunR, SUN, HORIZON),
     clouds(L),
     rect(0, HORIZON - P, W, P, BUTTER, ' opacity="0.55"'),

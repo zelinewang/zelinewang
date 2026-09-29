@@ -162,6 +162,23 @@ for (const [name, L] of layouts) {
     });
   });
 
+  test(`${name}: the halo breathes on a wrapper, so it keeps its own faint opacity`, () => {
+    // A CSS opacity animation overrides an element's opacity attribute; on the halo
+    // discs themselves it turned a 12% glow into a 75-100% dome.
+    const { scene } = renderScene(sample, [], L);
+    assert.doesNotMatch(scene, /class="glow"[^>]*opacity=|opacity=[^>]*class="glow"/);
+    assert.equal(count(scene, /<g class="glow"><g opacity="0\.(12|24)">/g), 2);
+  });
+
+  test(`${name}: the sun's glitter stays off the water's last two bands`, () => {
+    const { scene } = renderScene(sample, [], L);
+    const rows = [...scene.matchAll(/<rect x="[\d.-]+" y="([\d.]+)" width="[\d.]+" height="([\d.]+)" fill="#[0-9a-f]{6}" opacity="[\d.]+" class="sh"/g)]
+      .map(([, y, h]) => +y + +h);
+    assert.ok(rows.length > 5, `expected the glitter path, found ${rows.length}`);
+    const end = L.HORIZON + L.P * L.waterPx.slice(0, -2).reduce((a, b) => a + b, 0);
+    assert.ok(Math.max(...rows) <= end, `glitter reaches ${Math.max(...rows)}, below ${end}`);
+  });
+
   test(`${name}: gold marks only the pennants, whose poles match the legend's tan`, () => {
     const { svg } = skyline(year, merged, L);
     const gold = "#f5c45c";
