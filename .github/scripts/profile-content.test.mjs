@@ -19,12 +19,26 @@ const publicTargets = [
   "dipole",
 ];
 
+// Every PR the hero counts ("12 PRs merged into 10 upstream projects") must stay
+// linked in the searchable Markdown layer.
 const contributionTargets = [
-  "jarrodwatts/claude-hud",
-  "modelcontextprotocol/typescript-sdk",
-  "letta-ai/letta",
-  "bhimamalbhage/lightup",
-  "nextbound/bragi-canvas",
+  "tokio-rs/axum/pull/3836",
+  "transact-rs/sqlx/pull/4340",
+  "agronholm/anyio/pull/1223",
+  "aaif-goose/goose/pull/10438",
+  "fastify/fastify/pull/6846",
+  "colinhacks/zod/pull/6192",
+  "TanStack/query/pull/11065",
+  "jd/tenacity/pull/656",
+  "feast-dev/feast/pull/6604",
+  "jarrodwatts/claude-hud/pull/354",
+  "jarrodwatts/claude-hud/pull/471",
+  "jarrodwatts/claude-hud/pull/491",
+];
+
+const upstreamProjects = [
+  "axum", "SQLx", "AnyIO", "goose", "Fastify",
+  "Zod", "TanStack Query", "Tenacity", "Feast", "Claude HUD",
 ];
 
 const forbiddenPublicCopy = [
@@ -37,6 +51,10 @@ const forbiddenPublicCopy = [
   /world.?s first/i,
   /revolutionary/i,
   /visitor count/i,
+  // Claims an independent review could not verify or found contradicted.
+  /pre-registered/i,
+  /found by reading the code/i,
+  /--author=@me/i,
 ];
 
 test("canonical profile keeps load-bearing content in semantic Markdown", async () => {
@@ -49,7 +67,7 @@ test("canonical profile keeps load-bearing content in semantic Markdown", async 
   assert.match(readme, /## Current focus/);
   assert.match(readme, /production background/i);
   assert.match(readme, /current public focus/i);
-  assert.match(readme, /## Selected work/);
+  assert.match(readme, /## Tools I maintain/);
   assert.match(readme, /## Contact/);
   assert.match(readme, /<details>/);
 
@@ -57,9 +75,25 @@ test("canonical profile keeps load-bearing content in semantic Markdown", async 
     assert.match(readme, new RegExp(target, "i"), `missing public target: ${target}`);
   }
 
-  assert.match(readme, /## Open source contributions/);
+  assert.match(readme, /## Merged upstream/);
   for (const target of contributionTargets) {
-    assert.match(readme, new RegExp(target, "i"), `missing contribution target: ${target}`);
+    assert.ok(readme.includes(`https://github.com/${target}`), `missing merged PR link: ${target}`);
+  }
+});
+
+test("console hero shows calendar activity and the same upstream projects as the README", async () => {
+  const hero = await read(".github/templates/console.svg.template");
+
+  // The public events feed misses private work, so its counters contradicted the
+  // contribution graph on the same page. The hero reads the calendar instead.
+  for (const token of ["CONTRIB_TOTAL", "ACTIVE_DAYS", "LONGEST_STREAK", "SNAKE_CONTENT"]) {
+    assert.ok(hero.includes(`{{${token}}}`), `hero missing {{${token}}}`);
+  }
+  assert.doesNotMatch(hero, /\{\{(PUSH|PR|CREATE|DELETE|COMMENT|WATCH|REPO)_(COUNT|BAR|BAR_LABEL_X)\}\}/);
+
+  assert.match(hero, /12<\/tspan> PRs merged into <tspan[^>]*>10<\/tspan> upstream projects/);
+  for (const project of upstreamProjects) {
+    assert.ok(hero.includes(project), `hero missing upstream project: ${project}`);
   }
 });
 
@@ -135,4 +169,8 @@ test("renderer wires console to the active hero and studies to the gallery", asy
   }
 
   assert.doesNotMatch(renderer, /previews\/_drafts/);
+
+  // Activity cards come from the contribution calendar.
+  assert.match(renderer, /contributionCalendar/);
+  assert.match(renderer, /summarizeCalendar/);
 });

@@ -1,7 +1,7 @@
 // .github/scripts/render-profile.mjs
 //
-// Profile renderer — fetches live GitHub stats + the daily snake animation,
-// fills templates, writes rendered mega-SVGs.
+// Profile renderer — fetches live GitHub stats, the contribution calendar, and
+// the daily snake animation, fills templates, writes rendered mega-SVGs.
 //
 // Invoked by .github/workflows/refresh-stats.yml on a daily cron.
 //
@@ -23,6 +23,8 @@ import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 import { execFileSync } from "node:child_process";
+
+import { summarizeCalendar } from "./calendar-summary.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(here, "..", "..");
@@ -96,6 +98,34 @@ async function fetchStats() {
   };
 }
 
+// ── Contribution calendar (Console activity cards) ───────────────────────────
+//
+// The events feed above only sees public activity, so on a profile where most
+// work is private it reports a handful of pushes next to a graph showing
+// thousands of contributions. The Console cards read the same calendar GitHub
+// draws on the profile page instead. The gallery studies still use the events
+// tokens above.
+
+const CALENDAR_QUERY = `query { user(login: "${USER}") { contributionsCollection { contributionCalendar { totalContributions weeks { contributionDays { date contributionCount } } } } } }`;
+
+function fetchCalendar() {
+  const stdout = execFileSync("gh", ["api", "graphql", "-f", `query=${CALENDAR_QUERY}`], { encoding: "utf8" });
+  const calendar = JSON.parse(stdout)?.data?.user?.contributionsCollection?.contributionCalendar;
+  if (!calendar || !Number.isInteger(calendar.totalContributions) || !Array.isArray(calendar.weeks)) {
+    // Fail the run rather than publish a card with made-up numbers; the last
+    // good render stays on the stats-output branch.
+    throw new Error("contribution calendar missing from the GraphQL response");
+  }
+
+  const days = calendar.weeks.flatMap((week) => week.contributionDays);
+  const { activeDays, longestStreak } = summarizeCalendar(days);
+  return {
+    CONTRIB_TOTAL:  calendar.totalContributions.toLocaleString("en-US"),
+    ACTIVE_DAYS:    String(activeDays),
+    LONGEST_STREAK: String(longestStreak),
+  };
+}
+
 // ── Snake fetch ──────────────────────────────────────────────────────────────
 
 async function fetchSnake() {
@@ -163,7 +193,7 @@ async function renderTemplate(templatePath, outPath, replacements, snakeInner, d
 
 async function main() {
   console.log("Fetching live GitHub stats...");
-  const stats = await fetchStats();
+  const stats = { ...(await fetchStats()), ...fetchCalendar() };
   console.log("Stats fetched:", Object.keys(stats).length, "tokens");
 
   console.log("Fetching daily snake...");
