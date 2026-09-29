@@ -1,13 +1,15 @@
 <!--
   Zane Wang's GitHub profile.
 
-  HERO = one integrated mega-SVG. Two designs with the same content are kept side by
-  side: Console (a terminal session) and Sunset (the same session opened by a pixel-art
-  sunset over a skyline drawn from the contribution calendar). ACTIVE_DESIGN in
-  .github/scripts/render-profile.mjs picks the live one. .github/workflows/refresh-stats.yml
-  renders both nightly with fresh activity numbers and publishes the live one to the
-  stats-output branch as profile.svg — the <img> below points at that fresh copy — and
-  every design to stats-output/studies/ for the gallery in previews/.
+  HERO = one integrated SVG. The current designs carry the same content: Dusk (a
+  pixel-art sunset over a city drawn from the contribution calendar, with the upstream
+  pull requests beneath it), Console (a terminal session) and Sunset (the terminal
+  session opened by a sunset banner). ACTIVE_DESIGN in .github/scripts/render-profile.mjs
+  picks the live one. .github/workflows/refresh-stats.yml renders every design nightly
+  with fresh activity numbers and publishes the live one to the stats-output branch as
+  profile.svg, plus its phone layout as profile-phone.svg (the desktop render again when
+  a design has none), and every design to stats-output/studies/ for the gallery in
+  previews/. The <picture> below serves the phone layout under 600 px.
 
   Why no <map>/<area> image-map? GitHub re-renders the <img> at container width while
   <area coords> are pixel-absolute, so coords drift and break on mobile. The SVG rows
@@ -16,18 +18,21 @@
   stays semantic Markdown for mobile readers, assistive technology, search, and
   resume-screening tools.
 
-  Single dark theme is intentional: the terminal metaphor only reads on a dark
-  background, so the hero is one theme-aware <img>, not a <picture> light/dark pair.
+  Single dark theme is intentional: the dusk and terminal pictures only read on a dark
+  background, so the <picture> switches on width, not on light/dark theme.
 -->
 
 <p>
-  <img src="https://raw.githubusercontent.com/zelinewang/zelinewang/stats-output/profile.svg" alt="Zane Wang — building tools that make AI coding agents more reliable. A terminal-style profile: 12 pull requests merged into 10 upstream projects (axum, SQLx, AnyIO, goose, Fastify, Zod, TanStack Query, Tenacity, Feast, Claude HUD), the tools he maintains (claudemem, handoff, dev-orchestrator), how he works, and activity from his GitHub contribution calendar. Every link is in the text below." width="100%" />
+  <picture>
+    <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/zelinewang/zelinewang/stats-output/profile-phone.svg">
+    <img src="https://raw.githubusercontent.com/zelinewang/zelinewang/stats-output/profile.svg" alt="Zane Wang — building tools that make AI coding agents more reliable. A terminal-style profile: 12 pull requests merged into 10 upstream projects (axum, SQLx, AnyIO, goose, Fastify, Zod, TanStack Query, Tenacity, Feast, Claude HUD), the tools he maintains (claudemem, handoff, dev-orchestrator), how he works, and activity from his GitHub contribution calendar. Every link is in the text below." width="100%" />
+  </picture>
 </p>
 
-[GitHub](https://github.com/zelinewang) · [LinkedIn](https://www.linkedin.com/in/zane-wang7/) · [X](https://x.com/zanewang102)
+[LinkedIn](https://www.linkedin.com/in/zane-wang7/) · [X](https://x.com/zanewang102)
 
 <details>
-<summary>▸ Full profile — searchable: merged upstream PRs · tools · focus · how I work · contact</summary>
+<summary>Full profile: every merged pull request with its link, the tools I maintain, current focus, how I work, contact</summary>
 
 **AI systems builder based in San Francisco.** My production background spans multimodal evaluation, high-volume data systems, workflow automation, and enterprise agents. My current public focus is the infrastructure underneath reliable coding agents: memory, delegation, and evidence-driven development.
 
@@ -66,13 +71,9 @@ Small demos and hackathon builds, labeled as such in their READMEs: [FireSight](
 - **Keep evidence close to the claim.** Tests, source, logs, and failure cases beat polished confidence.
 - **Leave leverage behind.** A delivery should make the next run easier to verify, resume, or reuse.
 
-## Design studies
-
-The hero above is one of two designs kept side by side with the same content: **Console**, a terminal session, and **Sunset**, the same session opened by a pixel-art sunset over a skyline drawn from my contribution calendar. Both render nightly in the [profile design gallery](./previews/), next to two earlier studies, **Constellation** and **Field Notes**, that still show this profile's previous content.
-
 ## Contact
 
-[LinkedIn](https://www.linkedin.com/in/zane-wang7/) · [GitHub](https://github.com/zelinewang) · [X](https://x.com/zanewang102)
+[LinkedIn](https://www.linkedin.com/in/zane-wang7/) · [X](https://x.com/zanewang102)
 
 </details>
 
