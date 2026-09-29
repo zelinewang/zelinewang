@@ -25,7 +25,9 @@ const SKY_H = [72, 64, 60, 36, 32, 32, 24, 24, 24, 24, 24, 16];
 const WATER = ["#3b4259", "#353b52", "#2d3247", "#262a3e", "#221f34", INK];
 const WATER_H = [8, 16, 24, 32, 24, 16];
 const SUN = ["#fdf4dc", "#fbeac0", "#f8dc9e", "#f6cf82", "#f3bf6c"];
-const FACADES = ["#1a1220", "#1d1424", "#201626"];
+// Neighbouring buildings never share a shade, so touching facades still separate.
+const FACADES = ["#19111f", "#2a1d30", "#221828"];
+const DARK_WINDOW = "#3d2c38";
 
 const sum = (xs) => xs.reduce((a, b) => a + b, 0);
 
@@ -78,7 +80,7 @@ function ditherPatterns(colors, prefix) {
   const out = [];
   for (let i = 0; i < colors.length - 1; i++) {
     out.push(
-      `<pattern id="${prefix}${i}" width="8" height="8" patternUnits="userSpaceOnUse">` +
+      `<pattern id="${prefix}${i}" width="8" height="8" patternUnits="userSpaceOnUse" shape-rendering="crispEdges">` +
       `<rect width="8" height="8" fill="${colors[i]}"/><rect width="4" height="4" fill="${colors[i + 1]}"/>` +
       `<rect x="4" y="4" width="4" height="4" fill="${colors[i + 1]}"/></pattern>`,
     );
@@ -175,21 +177,25 @@ export function skyline(weeks) {
   const totals = weeks.map((w) => sum(w.contributionDays.map((d) => d.contributionCount)));
   const max = Math.max(1, ...totals);
   // Centres run from edge to edge, so the window frame cuts the first and last
-  // buildings the way a viewfinder crops a city.
+  // buildings the way a viewfinder crops a city. Buildings touch, overlapping by
+  // a unit so no hairline of bright sky shows between them; seen from across the
+  // water a skyline has no gaps, and gaps back-lit by the sunset read as a barcode.
   const pitch = WW / Math.max(1, weeks.length - 1);
-  const width = Math.max(6, Math.floor(Math.min(pitch, 40)) - 3);
+  const width = Math.min(Math.ceil(pitch) + 1, 40);
   const tallest = totals.indexOf(Math.max(...totals));
+  let previousShade = -1;
 
   const buildings = weeks.map((week, i) => {
     const next = rng(i * 7919 + 1);
     const cx = WX + i * pitch;
-    // Widths vary a little so the row reads as a skyline rather than a bar
-    // chart; height alone carries the data.
-    const w = Math.max(8, Math.round(width * (0.75 + 0.25 * rng(i * 104729 + 3)())));
+    const w = width;
     const x = Math.round(cx - w / 2);
     const h = snap(MIN_H + (MAX_H - MIN_H) * Math.sqrt(totals[i] / max));
     const top = HORIZON - h;
-    const facade = FACADES[Math.floor(next() * FACADES.length)];
+    let shade = Math.floor(next() * FACADES.length);
+    if (shade === previousShade) shade = (shade + 1) % FACADES.length;
+    previousShade = shade;
+    const facade = FACADES[shade];
     const mid = x + Math.floor(w / 2);
     const ceiling = cx < TEXT_RIGHT ? TEXT_CLEAR : -Infinity;
     const parts = [];
@@ -220,14 +226,16 @@ export function skyline(weeks) {
       if (y !== null) parts.push(`<rect x="${mid - 1}" y="${y}" width="2" height="${top - y}" fill="${facade}"/>`);
     }
 
+    // One window per day, spread down the facade so busy weeks look lived in.
+    const step = 4 * Math.max(2, Math.floor((h - 26) / 24));
     week.contributionDays.forEach((day, d) => {
-      const y = top + 10 + d * 9;
+      const y = top + 10 + d * step;
       if (day.contributionCount > 0) {
         const color = next() < 0.3 ? GOLD : BUTTER;
         const delay = 1.1 + i * 0.03 + d * 0.015;
         parts.push(`<rect x="${mid - 3}" y="${y}" width="6" height="5" fill="${color}" class="w" style="animation-delay:${num(delay)}s"/>`);
       } else {
-        parts.push(`<rect x="${mid - 3}" y="${y}" width="6" height="5" fill="#34252f"/>`);
+        parts.push(`<rect x="${mid - 3}" y="${y}" width="6" height="5" fill="${DARK_WINDOW}"/>`);
       }
     });
     return `<g class="b" data-h="${h}" style="animation-delay:${num(i * 0.014)}s">${parts.join("")}</g>`;

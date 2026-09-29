@@ -31,7 +31,7 @@ test("one lit window per day with contributions, one dark window per day without
   const { svg } = skyline(sample);
   const days = sample.flatMap((w) => w.contributionDays);
   assert.equal(count(svg, /class="w"/g), days.filter((d) => d.contributionCount > 0).length);
-  assert.equal(count(svg, /fill="#34252f"/g), days.filter((d) => d.contributionCount === 0).length);
+  assert.equal(count(svg, /fill="#3d2c38"/g), days.filter((d) => d.contributionCount === 0).length);
 });
 
 test("the busiest week is the tallest building and carries the beacon", () => {
@@ -56,7 +56,7 @@ function parseBuildings(svg) {
   return [...svg.matchAll(/<g class="b" data-h="(\d+)"[^>]*>(.*?)<\/g>/g)].map(([, h, body]) => {
     const rects = [...body.matchAll(/<rect x="([\d.-]+)" y="([\d.-]+)" width="([\d.]+)" height="([\d.]+)"([^>]*)\/>/g)]
       .map(([, x, y, width, height, rest]) => ({ x: +x, y: +y, width: +width, height: +height, rest }));
-    const mass = rects.filter((r) => r.width > 6 && !/class="w"|#34252f/.test(r.rest));
+    const mass = rects.filter((r) => r.width > 6 && !/class="w"|#3d2c38/.test(r.rest));
     return {
       height: Number(h),
       massTop: Math.min(...mass.map((r) => r.y)),
@@ -66,6 +66,28 @@ function parseBuildings(svg) {
     };
   });
 }
+
+test("buildings touch and neighbours differ in shade, so the row reads as a city, not a barcode", () => {
+  const year = weeks(Array.from({ length: 53 }, (_, i) => [i % 5, 1, 2]));
+  const svg = skyline(year).svg;
+  const masses = [...svg.matchAll(/<g class="b"[^>]*><rect x="([\d.-]+)" y="[\d.-]+" width="([\d.]+)" height="[\d.]+" fill="(#[0-9a-f]{6})"/g)]
+    .map(([, x, width, fill]) => ({ left: +x, right: +x + +width, fill }));
+  assert.equal(masses.length, 53);
+  for (let i = 1; i < masses.length; i++) {
+    assert.ok(masses[i].left <= masses[i - 1].right, `sky shows between buildings ${i - 1} and ${i}`);
+    assert.notEqual(masses[i].fill, masses[i - 1].fill, `buildings ${i - 1} and ${i} share a shade`);
+  }
+});
+
+test("a tall building's windows run down the facade, not only under the roof", () => {
+  const svg = skyline(weeks([[9, 9, 9, 9, 9, 9, 9], [1]])).svg;
+  const [tall] = parseBuildings(svg);
+  const first = svg.split('<g class="b"')[1];
+  const windows = [...first.matchAll(/<rect x="[\d.-]+" y="([\d.-]+)" width="6" height="5"/g)].map((m) => +m[1]);
+  assert.equal(windows.length, 7);
+  const lowest = Math.max(...windows) + 5 - (LAYOUT.HORIZON - tall.height);
+  assert.ok(lowest > 0.75 * tall.height, `windows end ${lowest} units down a ${tall.height}-unit facade`);
+});
 
 test("nothing in the skyline reaches into the name and tagline", () => {
   // The busiest week sits at the far left, under the text, where it will drift

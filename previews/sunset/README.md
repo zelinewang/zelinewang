@@ -7,7 +7,7 @@ The same terminal session as Console, opened with a login banner: a pixel-art su
 **Production background:** AI evaluation, high-volume data systems, workflow automation, and enterprise agents. **Current public focus:** agent memory, bounded delegation, and evidence-driven development workflows.
 
 <p>
-  <img src="./assets/01-profile.svg" alt="Sunset design study for Zane Wang: a pixel-art sunset over a skyline of the last 52 weeks of GitHub contributions, above a terminal listing 12 pull requests merged into 10 upstream projects and the tools he maintains" width="100%">
+  <img src="./assets/01-profile.svg" alt="Sunset design study for Zane Wang: a pixel-art sunset over a skyline of the past year of GitHub contributions, above a terminal listing 12 pull requests merged into 10 upstream projects and the tools he maintains" width="100%">
 </p>
 
 The visual is a dated, non-interactive artwork. Rows inside the SVG are not links. Use the public evidence paths below:
