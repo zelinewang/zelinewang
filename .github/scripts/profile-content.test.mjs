@@ -106,6 +106,17 @@ for (const { path, tokens } of heroes) {
   });
 }
 
+test("Sunset text falls back to a monospace font if an embedded font does not load", async () => {
+  // Fonts travel inside the SVG as data URIs. If a browser skips them, a bare
+  // family name falls back to the default serif and breaks the terminal columns.
+  const hero = await read(".github/templates/sunset.svg.template");
+  const families = [...hero.matchAll(/font-family="([^"]*)"/g)].map((match) => match[1]);
+  assert.ok(families.length > 0, "Sunset template declares no font-family");
+  for (const family of families) {
+    assert.match(family, /,\s*monospace$/, `font-family without a monospace fallback: ${family}`);
+  }
+});
+
 test("resume bridge separates past production background from current public focus", async () => {
   const semanticPaths = [
     "README.md",
