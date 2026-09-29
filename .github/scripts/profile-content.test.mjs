@@ -4,6 +4,9 @@ import { dirname, resolve } from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 
+import { DESKTOP, INK, PHONE, SKY, WATER } from "./dusk-scene.mjs";
+import { UPSTREAM_PRS, mergedRange } from "./upstream-prs.mjs";
+
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..", "..");
 
 async function read(path) {
@@ -19,27 +22,10 @@ const publicTargets = [
   "dipole",
 ];
 
-// Every PR the hero counts ("12 PRs merged into 10 upstream projects") must stay
-// linked in the searchable Markdown layer.
-const contributionTargets = [
-  "tokio-rs/axum/pull/3836",
-  "transact-rs/sqlx/pull/4340",
-  "agronholm/anyio/pull/1223",
-  "aaif-goose/goose/pull/10438",
-  "fastify/fastify/pull/6846",
-  "colinhacks/zod/pull/6192",
-  "TanStack/query/pull/11065",
-  "jd/tenacity/pull/656",
-  "feast-dev/feast/pull/6604",
-  "jarrodwatts/claude-hud/pull/354",
-  "jarrodwatts/claude-hud/pull/471",
-  "jarrodwatts/claude-hud/pull/491",
-];
-
-const upstreamProjects = [
-  "axum", "SQLx", "AnyIO", "goose", "Fastify",
-  "Zod", "TanStack Query", "Tenacity", "Feast", "Claude HUD",
-];
+// Every PR the heroes count ("12 PRs merged into 10 upstream projects") must stay
+// linked in the searchable Markdown layer. upstream-prs.mjs is the one list.
+const contributionTargets = UPSTREAM_PRS.map((pr) => `${pr.repo}/pull/${pr.number}`);
+const upstreamProjects = [...new Set(UPSTREAM_PRS.map((pr) => pr.project))];
 
 const forbiddenPublicCopy = [
   /constellix/i,
@@ -57,12 +43,22 @@ const forbiddenPublicCopy = [
   /--author=@me/i,
 ];
 
+test("the upstream list matches the numbers the heroes print", () => {
+  // The heroes say 12 PRs in 10 projects; a new row here must update that copy too.
+  assert.equal(UPSTREAM_PRS.length, 12);
+  assert.equal(upstreamProjects.length, 10);
+  for (const pr of UPSTREAM_PRS) assert.match(pr.merged, /^\d{4}-\d{2}-\d{2}$/);
+  assert.equal(mergedRange(), "Apr – Aug 2026");
+  assert.equal(mergedRange([{ merged: "2025-11-02" }, { merged: "2026-08-25" }]), "Nov 2025 – Aug 2026");
+  assert.equal(mergedRange([{ merged: "2026-08-02" }]), "Aug 2026");
+});
+
 test("canonical profile keeps load-bearing content in semantic Markdown", async () => {
   const readme = await read("README.md");
 
-  // Hero = the Console-v2 mega-SVG served fresh from the stats-output branch
-  // (one theme-aware <img>, not a <picture> pair). The scannable/searchable
-  // layer is the "Full profile" <details> block (asserted below).
+  // Hero = one mega-SVG served fresh from the stats-output branch, with a phone
+  // layout for narrow screens. The scannable/searchable layer is the "Full
+  // profile" <details> block (asserted below).
   assert.match(readme, /raw\.githubusercontent\.com\/zelinewang\/zelinewang\/stats-output\/profile\.svg/);
   assert.match(readme, /## Current focus/);
   assert.match(readme, /production background/i);
@@ -81,8 +77,20 @@ test("canonical profile keeps load-bearing content in semantic Markdown", async 
   }
 });
 
-// Both current designs carry the same evidence; only the art differs.
+// The words a reader sees: no <title>, <desc>, styles, comments or tags.
+function visibleText(svg) {
+  return svg
+    .replace(/<!--[\s\S]*?-->/g, " ")
+    .replace(/<(title|desc|style)\b[\s\S]*?<\/\1>/g, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&#160;/g, " ")
+    .replace(/\s+/g, " ");
+}
+
+// The current designs carry the same evidence; only the art differs.
 const heroes = [
+  { path: ".github/templates/dusk.svg.template", tokens: ["ACTIVE_DAYS", "RANGE_LABEL", "MERGED_RANGE", "MERGED_RANGE_CAPS", "DUSK_DEFS", "DUSK_SCENE", "FONT_FACES"] },
+  { path: ".github/templates/dusk-phone.svg.template", tokens: ["ACTIVE_DAYS", "RANGE_LABEL", "MERGED_RANGE", "MERGED_RANGE_CAPS", "DUSK_PHONE_DEFS", "DUSK_PHONE_SCENE", "FONT_FACES"] },
   { path: ".github/templates/console.svg.template", tokens: ["CONTRIB_TOTAL", "ACTIVE_DAYS", "LONGEST_STREAK", "SPARKLINE", "FONT_FACES"] },
   { path: ".github/templates/sunset.svg.template", tokens: ["CONTRIB_TOTAL", "ACTIVE_DAYS", "LONGEST_STREAK", "SCENE", "SCENE_DEFS", "FONT_FACES"] },
 ];
@@ -98,15 +106,17 @@ for (const { path, tokens } of heroes) {
     }
     assert.doesNotMatch(hero, /\{\{(PUSH|PR|CREATE|DELETE|COMMENT|WATCH|REPO)_(COUNT|BAR|BAR_LABEL_X)\}\}/);
 
-    assert.match(hero, /12<\/tspan> PRs merged into <tspan[^>]*>10<\/tspan> upstream projects/);
-    assert.match(hero, /10 bug fixes and 2 small features/);
+    const text = visibleText(hero);
+    assert.match(text, /12 PRs merged into 10 upstream projects/);
+    assert.match(text, /10 bug fixes and 2 small features/);
     for (const project of upstreamProjects) {
-      assert.ok(hero.includes(project), `hero missing upstream project: ${project}`);
+      assert.ok(text.includes(project), `hero missing upstream project: ${project}`);
     }
   });
 }
 
-for (const path of [".github/templates/console.svg.template", ".github/templates/sunset.svg.template"]) {
+const fontPaths = heroes.map((h) => h.path);
+for (const path of fontPaths) {
   test(`${path} falls back to a monospace font if an embedded font does not load`, async () => {
     // Fonts travel inside the SVG as data URIs. If a browser skips them, a bare
     // family name falls back to the default serif and breaks the terminal columns.
@@ -121,13 +131,14 @@ for (const path of [".github/templates/console.svg.template", ".github/templates
 
 test("each rendered hero embeds exactly the fonts it uses", async () => {
   // A missing face silently falls back to a system font; an unused one only adds bytes.
-  for (const design of ["console", "sunset"]) {
-    const svg = await read(`previews/${design}/assets/01-profile.svg`);
+  const renders = ["dusk/assets/01-profile", "dusk/assets/01-profile-phone", "console/assets/01-profile", "sunset/assets/01-profile"];
+  for (const render of renders) {
+    const svg = await read(`previews/${render}.svg`);
     const embedded = [...svg.matchAll(/@font-face\{font-family:'([\w-]+)'/g)].map((m) => m[1]).sort();
     const rest = svg.replace(/@font-face\{[^}]*\}/g, "");
     const used = [...new Set([...rest.matchAll(/\b(zw-[\w-]+?)(?=[,;'"\s}])/g)].map((m) => m[1]))].sort();
-    assert.ok(used.length > 0, `${design} names no embedded font`);
-    assert.deepEqual(embedded, used, `${design} embeds [${embedded}] but uses [${used}]`);
+    assert.ok(used.length > 0, `${render} names no embedded font`);
+    assert.deepEqual(embedded, used, `${render} embeds [${embedded}] but uses [${used}]`);
   }
 });
 
@@ -142,17 +153,21 @@ const contrast = (a, b) => {
   return (hi + 0.05) / (lo + 0.05);
 };
 
+// Smallest type in viewBox units that still renders at 10.5 CSS px where GitHub
+// shows the image: 846 px on desktop, about 308 px on a 390-px phone.
+const minSize = (viewBoxWidth, shownWidth) => (10.5 * viewBoxWidth) / shownWidth;
+
 const panels = [
-  { name: "Console", path: ".github/templates/console.svg.template", panel: "#10161c" },
-  { name: "Sunset", path: ".github/templates/sunset.svg.template", panel: "#1e1523" },
+  { name: "Console", path: ".github/templates/console.svg.template", panel: "#10161c", min: minSize(1200, 846) },
+  { name: "Sunset", path: ".github/templates/sunset.svg.template", panel: "#1e1523", min: minSize(1200, 846) },
 ];
 
-for (const { name, path, panel } of panels) {
+for (const { name, path, panel, min } of panels) {
   test(`${name} text stays legible at GitHub's desktop width`, async () => {
     // Desktop shows the 1200-unit viewBox at 846 px (0.705x): 15 units is 10.6 px.
     const hero = await read(path);
     const sizes = [...hero.matchAll(/font-size="([\d.]+)"/g)].map((m) => Number(m[1]));
-    for (const size of sizes) assert.ok(size >= 15, `font-size ${size} renders below 10.6 px on desktop`);
+    for (const size of sizes) assert.ok(size >= min, `font-size ${size} renders below 10.5 px on desktop`);
 
     // aria-hidden copies (Sunset's name shadow) are decoration, not text to read.
     const textFills = [...hero.matchAll(/<(?:text|tspan|g)\b[^>]*\bfill="(#[0-9a-f]{6})"[^>]*>/gi)]
@@ -166,11 +181,70 @@ for (const { name, path, panel } of panels) {
   });
 }
 
+// Dusk's text sits on the sky, the water or the ground below them. Each line is
+// checked against every band its ink crosses, dither included, so no line relies
+// on the darker of two neighbouring bands.
+function bandsAt(L, top, bottom) {
+  const layers = [
+    ...L.skyPx.map((h, i) => ({ h, color: SKY[i] })),
+    ...L.waterPx.map((h, i) => ({ h, color: WATER[i] })),
+  ];
+  const colors = new Set();
+  let y = 0;
+  for (const { h, color } of layers) {
+    const y1 = y + L.P * h;
+    if (bottom > y && top < y1) colors.add(color);
+    y = y1;
+  }
+  if (bottom > L.WATER_B) colors.add(INK);
+  return [...colors];
+}
+
+const duskLayouts = [
+  { name: "Dusk", path: ".github/templates/dusk.svg.template", L: DESKTOP, shown: 846 },
+  { name: "Dusk phone", path: ".github/templates/dusk-phone.svg.template", L: PHONE, shown: 308 },
+];
+
+for (const { name, path, L, shown } of duskLayouts) {
+  test(`${name} text is legible and clears 4.5:1 against whatever is behind it`, async () => {
+    const hero = await read(path);
+    const min = minSize(L.W, shown);
+    const sizes = [...hero.matchAll(/font-size="([\d.]+)"/g)].map((m) => Number(m[1]));
+    for (const size of sizes) assert.ok(size >= min, `font-size ${size} renders below 10.5 px`);
+
+    // Each <text>, with the size and fill it inherits from its <g>, and each tspan fill inside it.
+    let checked = 0;
+    const body = hero.replace(/<(title|desc|style)\b[\s\S]*?<\/\1>/g, "");
+    for (const group of body.matchAll(/<g\b([^>]*)>((?:(?!<\/?g\b)[\s\S])*)<\/g>|<text\b[^>]*>[\s\S]*?<\/text>/g)) {
+      const groupAttrs = group[1] || "";
+      if (/aria-hidden="true"/.test(groupAttrs)) continue;
+      const texts = group[2] !== undefined ? [...group[2].matchAll(/<text\b[^>]*>[\s\S]*?<\/text>/g)].map((m) => m[0]) : [group[0]];
+      for (const t of texts) {
+        const attr = (k, from) => (from.match(new RegExp(`\\b${k}="([^"]+)"`)) || [])[1];
+        const open = t.match(/<text\b[^>]*>/)[0];
+        const y = Number(attr("y", open));
+        const size = Number(attr("font-size", open) || attr("font-size", groupAttrs));
+        const fills = [attr("fill", open) || attr("fill", groupAttrs), ...[...t.matchAll(/<tspan\b[^>]*\bfill="(#[0-9a-f]{6})"/gi)].map((m) => m[1])];
+        assert.ok(Number.isFinite(y) && size > 0 && fills[0], `could not read ${open}`);
+        for (const back of bandsAt(L, y - 0.75 * size, y + 0.22 * size)) {
+          for (const fill of fills) {
+            const ratio = contrast(fill.toLowerCase(), back);
+            assert.ok(ratio >= 4.5, `${fill} on ${back} is ${ratio.toFixed(2)}:1 in ${t.slice(0, 90)}`);
+            checked++;
+          }
+        }
+      }
+    }
+    assert.ok(checked > 20, `expected to check the text colours, checked ${checked}`);
+  });
+}
+
 test("resume bridge separates past production background from current public focus", async () => {
   const semanticPaths = [
     "README.md",
     "ZANE_PERSONA.md",
     "previews/README.md",
+    "previews/dusk/README.md",
     "previews/console/README.md",
     "previews/constellation/README.md",
     "previews/field-notes/README.md",
@@ -186,6 +260,8 @@ test("resume bridge separates past production background from current public foc
   const visualPaths = [
     "assets/hero-signal.svg",
     "assets/hero-signal-dark.svg",
+    ".github/templates/dusk.svg.template",
+    ".github/templates/dusk-phone.svg.template",
     ".github/templates/console.svg.template",
     ".github/templates/sunset.svg.template",
     ".github/templates/constellation.svg.template",
@@ -203,10 +279,13 @@ test("public profile surfaces exclude stale projects and unsupported vanity copy
   const paths = [
     "README.md",
     "previews/README.md",
+    "previews/dusk/README.md",
     "previews/console/README.md",
     "previews/constellation/README.md",
     "previews/field-notes/README.md",
     "previews/sunset/README.md",
+    ".github/templates/dusk.svg.template",
+    ".github/templates/dusk-phone.svg.template",
     ".github/templates/console.svg.template",
     ".github/templates/sunset.svg.template",
     ".github/templates/constellation.svg.template",
@@ -225,26 +304,39 @@ test("public profile surfaces exclude stale projects and unsupported vanity copy
   }
 });
 
-test("renderer wires console to the active hero and studies to the gallery", async () => {
+test("renderer renders every design to the gallery and the active one to the hero paths", async () => {
   const renderer = await read(".github/scripts/render-profile.mjs");
 
   // Every design renders into the gallery; ACTIVE_DESIGN is copied to the hero path,
-  // which refresh-stats.yml publishes to the stats-output branch nightly.
-  assert.match(renderer, /const ACTIVE_DESIGN = "(console|sunset)";/);
+  // which refresh-stats.yml publishes to the stats-output branch nightly, and its
+  // phone layout (or its desktop render, when it has none) to the phone path.
+  assert.match(renderer, /const ACTIVE_DESIGN = "(dusk|console|sunset)";/);
   assert.match(renderer, /copyFile\(resolve\(repoRoot, active\.outPath\), resolve\(repoRoot, "assets\/profile\.svg"\)\)/);
+  assert.match(renderer, /copyFile\(resolve\(repoRoot, \(active\.phone \|\| active\)\.outPath\), resolve\(repoRoot, "assets\/profile-phone\.svg"\)\)/);
 
-  for (const direction of ["console", "sunset", "constellation", "field-notes"]) {
+  for (const direction of ["dusk", "console", "sunset", "constellation", "field-notes"]) {
     assert.match(
       renderer,
       new RegExp(`previews/${direction}/assets/01-profile\\.svg`),
       `renderer output missing for ${direction}`,
     );
   }
+  assert.match(renderer, /previews\/dusk\/assets\/01-profile-phone\.svg/);
 
   assert.doesNotMatch(renderer, /previews\/_drafts/);
 
-  // Activity numbers, the Console chart and the Sunset skyline come from the contribution calendar.
+  // Activity numbers, the Console chart and the city skylines come from the contribution calendar.
   assert.match(renderer, /contributionCalendar/);
   assert.match(renderer, /sparkline\(calendar\.weeks/);
   assert.match(renderer, /summarizeCalendar/);
+  assert.match(renderer, /renderDusk\(calendar\.weeks, merged, DESKTOP\)/);
+  assert.match(renderer, /renderDusk\(calendar\.weeks, merged, PHONE\)/);
+});
+
+test("the nightly workflow publishes every design and the phone hero", async () => {
+  const workflow = await read(".github/workflows/refresh-stats.yml");
+  for (const design of ["dusk", "dusk-phone", "console", "sunset", "constellation", "field-notes"]) {
+    assert.ok(workflow.includes(design), `refresh-stats.yml does not publish ${design}`);
+  }
+  assert.match(workflow, /profile-phone\.svg/);
 });

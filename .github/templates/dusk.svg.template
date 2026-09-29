@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 846 725" role="img" aria-labelledby="title desc">
+<title id="title">Zane Wang — building tools that make AI coding agents more reliable</title>
+<desc id="desc">A pixel-art sunset over a city drawn from the past year of Zane's GitHub contributions: one building per week, one window per day, lit on the {{ACTIVE_DAYS}} days he contributed, and a gold pennant over each week in which one of his pull requests was merged upstream. Below the city: 12 PRs merged into 10 upstream projects between {{MERGED_RANGE}}, namely axum, SQLx, AnyIO, goose, Fastify, Zod, TanStack Query, Tenacity, Feast and Claude HUD (three), 10 bug fixes and 2 small features, each merged by that project's maintainers. His production background covers multimodal evaluation and data systems; his current public focus is tools for reliable AI coding agents: claudemem, handoff and dev-orchestrator.</desc>
+<!-- Fonts: Departure Mono (c) Helena Zhang and IBM Plex Mono (c) IBM Corp., both SIL Open Font License 1.1; embedded as renamed subsets. -->
+<!-- Authored at GitHub's desktop README width: 1 unit = 1 CSS px at 846 px wide. The picture is drawn on a 3-unit
+     pixel grid. Departure Mono draws an 11-pixel em, so its sizes are multiples of 11 and it lands on whole pixels.
+     Type: 11 pixel labels, 13 notes, 14 sub-line, 18 tagline, 22 names, 33 figure, 88 name. -->
+<defs><style>{{FONT_FACES}}
+.px{font-family:zw-pixel, ui-monospace, 'SF Mono', Menlo, Consolas, 'DejaVu Sans Mono', monospace}
+.bd{font-family:zw-body, ui-monospace, 'SF Mono', Menlo, Consolas, 'DejaVu Sans Mono', monospace}
+.b{transform-box:fill-box;transform-origin:50% 100%;animation:rise 1s cubic-bezier(.22,1,.36,1) both}@keyframes rise{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+.w{animation:on .6s ease-out both}@keyframes on{from{opacity:0}to{opacity:1}}
+.tw{animation:tw 3.4s ease-in-out infinite}@keyframes tw{0%,100%{opacity:.2}50%{opacity:.95}}
+.glow{animation:glow 7s ease-in-out infinite}@keyframes glow{0%,100%{opacity:.75}50%{opacity:1}}
+.sh{animation:sh 2.8s ease-in-out infinite}@keyframes sh{0%,100%{opacity:.25}50%{opacity:.9}}
+.beacon{animation:bk 1.6s steps(1) infinite}@keyframes bk{0%{opacity:1}50%{opacity:.15}}
+.cr{animation:up .9s cubic-bezier(.22,1,.36,1) both}@keyframes up{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}</style>
+{{DUSK_DEFS}}
+<clipPath id="card"><rect width="846" height="725" rx="12"/></clipPath>
+<clipPath id="water"><rect x="0" y="360" width="846" height="75"/></clipPath>
+</defs>
+<g clip-path="url(#card)">
+<rect width="846" height="725" fill="#1e1523"/>
+<g shape-rendering="crispEdges">{{DUSK_SCENE}}</g>
+
+<g class="px" font-size="88" fill="#7a2e40" aria-hidden="true"><text x="36" y="112">zane wang</text></g>
+<text class="px" x="28" y="104" font-size="88" fill="#f8eed7">zane wang</text>
+<text class="bd" x="35" y="160" font-size="18" fill="#f6db95">building tools that make AI coding agents more reliable</text>
+<text class="bd" x="35" y="184" font-size="14" fill="#c6ad84"><tspan fill="#e7cda5">claudemem</tspan> for memory · <tspan fill="#e7cda5">handoff</tspan> for delegation · <tspan fill="#e7cda5">dev-orchestrator</tspan> for verification</text>
+<text class="px" x="11" y="377" font-size="11" fill="#c6ad84">{{RANGE_LABEL}}</text>
+<text class="px" x="835" y="377" font-size="11" fill="#c6ad84" text-anchor="end">this week</text>
+
+<text class="bd" x="35" y="471" font-size="13" fill="#c6ad84">↑ my last year on GitHub: a building per week, a lit window for each of the {{ACTIVE_DAYS}} days I contributed</text>
+
+<g class="cr" style="animation-delay:2.3s"><g shape-rendering="crispEdges"><rect x="36" y="512" width="3" height="18" fill="#c6ad84"/><rect x="39" y="512" width="9" height="6" fill="#f5c45c"/></g><text class="px" x="56" y="527" font-size="11" fill="#e97648" letter-spacing="2">{{MERGED_RANGE_CAPS}}</text></g>
+<text class="px cr" x="33" y="577" font-size="33" fill="#f8eed7" style="animation-delay:2.35s"><tspan fill="#f5c45c">12</tspan> PRs merged</text>
+<text class="px cr" x="34" y="611" font-size="22" fill="#f8eed7" style="animation-delay:2.35s">into <tspan fill="#f5c45c">10</tspan> upstream projects</text>
+<g class="bd cr" font-size="13" fill="#c6ad84" style="animation-delay:2.9s">
+<text x="35" y="649">10 bug fixes and 2 small features</text>
+<text x="35" y="668">in Rust, Python, TypeScript and JavaScript,</text>
+<text x="35" y="687">each merged by that project's maintainers</text>
+</g>
+<g class="px" font-size="22" fill="#f8eed7">
+<text class="cr" x="428" y="531" style="animation-delay:2.45s">axum</text>
+<text class="cr" x="428" y="569" style="animation-delay:2.51s">SQLx</text>
+<text class="cr" x="428" y="607" style="animation-delay:2.57s">AnyIO</text>
+<text class="cr" x="428" y="645" style="animation-delay:2.63s">goose</text>
+<text class="cr" x="428" y="683" style="animation-delay:2.69s">Fastify</text>
+<text class="cr" x="614" y="531" style="animation-delay:2.75s">Zod</text>
+<text class="cr" x="614" y="569" style="animation-delay:2.81s">TanStack Query</text>
+<text class="cr" x="614" y="607" style="animation-delay:2.87s">Tenacity</text>
+<text class="cr" x="614" y="645" style="animation-delay:2.93s">Feast</text>
+<text class="cr" x="614" y="683" style="animation-delay:2.99s">Claude HUD<tspan fill="#c6ad84"> ×3</tspan></text>
+</g>
+</g>
+<rect x="0.5" y="0.5" width="845" height="724" rx="11.5" fill="none" stroke="#45344a"/>
+</svg>

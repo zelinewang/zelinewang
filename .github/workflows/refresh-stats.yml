@@ -32,7 +32,7 @@ jobs:
         with:
           node-version: "22"
 
-      - name: Render all 3 mega-SVGs from templates
+      - name: Render every design from its template
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: node .github/scripts/render-profile.mjs
@@ -42,9 +42,11 @@ jobs:
           set -eo pipefail
           mkdir -p /tmp/rendered
           mv assets/profile.svg /tmp/rendered/profile.svg
-          for design in console sunset constellation field-notes; do
+          mv assets/profile-phone.svg /tmp/rendered/profile-phone.svg
+          for design in dusk console sunset constellation field-notes; do
             mv "previews/$design/assets/01-profile.svg" "/tmp/rendered/$design.svg"
           done
+          mv previews/dusk/assets/01-profile-phone.svg /tmp/rendered/dusk-phone.svg
 
       - name: Switch to stats-output branch + commit + push
         run: |
@@ -69,17 +71,19 @@ jobs:
           fi
 
           # Place fresh SVGs at their published paths.
-          #   profile.svg (root)  = the live hero (ACTIVE_DESIGN in render-profile.mjs);
-          #                         the README <img> points at this fresh copy.
-          #   studies/<design>.svg = every design, so each gallery preview's
-          #                          "Latest automated render" link resolves.
+          #   profile.svg (root)       = the live hero (ACTIVE_DESIGN in render-profile.mjs);
+          #                              the README <picture> points at this fresh copy.
+          #   profile-phone.svg (root) = the live hero's phone layout, served below 600 px.
+          #   studies/<design>.svg     = every design, so each gallery preview's
+          #                              "Latest automated render" link resolves.
           mkdir -p studies
           mv /tmp/rendered/profile.svg profile.svg
-          for design in console sunset constellation field-notes; do
+          mv /tmp/rendered/profile-phone.svg profile-phone.svg
+          for design in dusk dusk-phone console sunset constellation field-notes; do
             mv "/tmp/rendered/$design.svg" "studies/$design.svg"
           done
 
-          git add profile.svg studies/
+          git add profile.svg profile-phone.svg studies/
 
           if git diff --staged --quiet; then
             echo "No changes; skipping commit."

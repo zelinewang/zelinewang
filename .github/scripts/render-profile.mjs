@@ -9,8 +9,11 @@
 //   GH_TOKEN  — required (any token with read access; Action's GITHUB_TOKEN works)
 //
 // Outputs:
-//   previews/{console,sunset,constellation,field-notes}/assets/01-profile.svg
-//   assets/profile.svg  (a copy of ACTIVE_DESIGN; published to stats-output nightly)
+//   previews/{dusk,console,sunset,constellation,field-notes}/assets/01-profile.svg
+//   previews/dusk/assets/01-profile-phone.svg  (Dusk re-set for a phone's README column)
+//   assets/profile.svg        (a copy of ACTIVE_DESIGN; published to stats-output nightly)
+//   assets/profile-phone.svg  (ACTIVE_DESIGN's phone layout, or its desktop render
+//                              when it has none; the README <picture> serves it below 600 px)
 //
 // Templates use {{TOKEN}} placeholders. Snake content is injected at the
 // {{SNAKE_CONTENT}} marker (one per template, color-shifted per direction).
@@ -25,7 +28,9 @@ import { execFileSync } from "node:child_process";
 
 import { summarizeCalendar } from "./calendar-summary.mjs";
 import { renderScene } from "./sunset-scene.mjs";
+import { renderScene as renderDusk, DESKTOP, PHONE } from "./dusk-scene.mjs";
 import { CONSOLE_BOX, sparkline } from "./activity-sparkline.mjs";
+import { UPSTREAM_PRS, mergedRange, monthLabel } from "./upstream-prs.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(here, "..", "..");
@@ -33,8 +38,9 @@ const templatesDir = resolve(repoRoot, ".github/templates");
 
 const USER = "zelinewang";
 
-// The design shown as the profile hero. "console" (terminal) or "sunset" (pixel
-// sunset over a skyline of the contribution calendar); the other stays in the gallery.
+// The design shown as the profile hero: "dusk" (a pixel sunset over a city of the
+// contribution calendar, with the upstream PRs below it), "console" (terminal) or
+// "sunset" (the earlier terminal window with a sunset banner). The rest stay in the gallery.
 const ACTIVE_DESIGN = "console";
 const SNAKE_URL = `https://raw.githubusercontent.com/${USER}/${USER}/output/github-snake.svg`;
 
@@ -124,8 +130,12 @@ function fetchCalendar() {
 
   const days = calendar.weeks.flatMap((week) => week.contributionDays);
   const { activeDays, longestStreak } = summarizeCalendar(days);
-  // Sunset draws the weeks as a skyline, Console as one bar per week.
+  // Sunset draws the weeks as a skyline, Console as one bar per week, Dusk as a city
+  // with a pennant over each week an upstream PR was merged.
   const { defs, scene } = renderScene(calendar.weeks);
+  const merged = UPSTREAM_PRS.map((pr) => pr.merged);
+  const dusk = renderDusk(calendar.weeks, merged, DESKTOP);
+  const duskPhone = renderDusk(calendar.weeks, merged, PHONE);
   return {
     CONTRIB_TOTAL:  calendar.totalContributions.toLocaleString("en-US"),
     ACTIVE_DAYS:    String(activeDays),
@@ -134,6 +144,13 @@ function fetchCalendar() {
     SCENE_DEFS:     defs,
     SCENE:          scene,
     SPARKLINE:      sparkline(calendar.weeks, CONSOLE_BOX).svg,
+    RANGE_LABEL:    days[0] ? monthLabel(days[0].date) : "",
+    MERGED_RANGE:   mergedRange(),
+    MERGED_RANGE_CAPS: mergedRange().toUpperCase(),
+    DUSK_DEFS:      dusk.defs,
+    DUSK_SCENE:     dusk.scene,
+    DUSK_PHONE_DEFS:  duskPhone.defs,
+    DUSK_PHONE_SCENE: duskPhone.scene,
   };
 }
 
@@ -234,24 +251,29 @@ async function main() {
   // Every design renders nightly into the gallery; refresh-stats.yml publishes each
   // one to stats-output/studies/<name>.svg. ACTIVE_DESIGN is also copied to
   // assets/profile.svg, which becomes stats-output/profile.svg: the README hero.
-  // Switching the live hero means changing ACTIVE_DESIGN, nothing else.
+  // Switching the live hero means changing ACTIVE_DESIGN and the README alt text that
+  // describes the picture.
   const directions = [
+    { name: "dusk",          templatePath: "dusk.svg.template",          outPath: "previews/dusk/assets/01-profile.svg",
+      phone: { templatePath: "dusk-phone.svg.template", outPath: "previews/dusk/assets/01-profile-phone.svg" } },
     { name: "console",       templatePath: "console.svg.template",       outPath: "previews/console/assets/01-profile.svg" },
     { name: "sunset",        templatePath: "sunset.svg.template",        outPath: "previews/sunset/assets/01-profile.svg" },
     { name: "constellation", templatePath: "constellation.svg.template", outPath: "previews/constellation/assets/01-profile.svg" },
     { name: "field-notes",   templatePath: "field-notes.svg.template",   outPath: "previews/field-notes/assets/01-profile.svg" },
   ];
 
-  for (const { name, templatePath, outPath } of directions) {
-    const tplFull = resolve(templatesDir, templatePath);
-    const outFull = resolve(repoRoot, outPath);
-    await renderTemplate(tplFull, outFull, stats, snake, name, faces);
+  for (const { name, templatePath, outPath, phone } of directions) {
+    for (const { templatePath: tpl, outPath: out } of [{ templatePath, outPath }, ...(phone ? [phone] : [])]) {
+      await renderTemplate(resolve(templatesDir, tpl), resolve(repoRoot, out), stats, snake, name, faces);
+    }
   }
 
   const active = directions.find((d) => d.name === ACTIVE_DESIGN);
   if (!active) throw new Error(`ACTIVE_DESIGN "${ACTIVE_DESIGN}" is not a rendered design`);
   await mkdir(resolve(repoRoot, "assets"), { recursive: true });
   await copyFile(resolve(repoRoot, active.outPath), resolve(repoRoot, "assets/profile.svg"));
+  // The README's <picture> always has a phone source to serve, whichever design is live.
+  await copyFile(resolve(repoRoot, (active.phone || active).outPath), resolve(repoRoot, "assets/profile-phone.svg"));
 
   console.log(`All ${directions.length} mega-SVGs rendered; live hero: ${ACTIVE_DESIGN}.`);
 }

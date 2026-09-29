@@ -1,10 +1,16 @@
 # Profile design studies
 
-The canonical [GitHub profile](../README.md) shows one of these designs as its hero and keeps its evidence in semantic Markdown, so it remains readable on mobile, searchable, and accessible. Console and Sunset are the two current designs, kept side by side with the same content; either can be the live hero. Constellation and Field Notes are earlier studies that still show the profile's previous content.
+The canonical [GitHub profile](../README.md) shows one of these designs as its hero and keeps its evidence in semantic Markdown, so it remains readable on mobile, searchable, and accessible. Dusk, Console and Sunset carry the current content, and any of them can be the live hero. Constellation and Field Notes are earlier studies that still show the profile's previous content.
 
 Each artwork is a dated render from public GitHub data, refreshed nightly. Project rows inside an SVG are illustrative, not clickable; the verified repository links remain native Markdown below each study.
 
 **Production background:** multimodal evaluation, high-volume data systems, workflow automation, and enterprise agents. **Current public focus:** durable agent memory, bounded delegation, and evidence-driven development workflows. Every direction below tells that same past-to-present story without implying a current employer.
+
+## [Dusk](./dusk/)
+
+A pixel-art sunset over a city of the contribution calendar, with a gold pennant over each week an upstream pull request was merged, and the ten upstream projects set as a short list beneath it. Drawn at the width GitHub shows it, with a separate layout for phones.
+
+**Best at:** one memorable image, evidence at a glance, legibility on phones.
 
 ## [Console](./console/)
 
