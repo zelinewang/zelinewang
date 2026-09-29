@@ -49,16 +49,16 @@ function layout(spec) {
 // maxH leaves the tallest roof room for a pennant or beacon (7 pixels) below it.
 export const DESKTOP = layout({
   W: 846, P: 3,
-  skyPx: [26, 21, 19, 9, 7, 7, 6, 6, 6, 6, 5, 2],
-  waterPx: [2, 3, 5, 7, 5, 3],
+  skyPx: [26, 18, 20, 9, 7, 7, 6, 6, 6, 5, 4, 2],
+  waterPx: [2, 3, 4, 6, 4, 3],
   sunCx: 231, sunR: 108,
   minH: 72, maxH: 135, buildingW: 18,
-  textClear: 204,
-  textRows: [[146, 164], [173, 187]],
+  textClear: 192,
+  textRows: [[136, 154], [163, 177]],
   // Open sky above and beside the name, one star per equal slice of a field.
-  starFields: [{ x0: 21, x1: 540, y0: 12, y1: 42, count: 7 }, { x0: 600, x1: 828, y0: 12, y1: 120, count: 5 }],
+  starFields: [{ x0: 21, x1: 540, y0: 9, y1: 36, count: 7 }, { x0: 600, x1: 828, y0: 9, y1: 114, count: 5 }],
   // Cloud strata across the sun: left edge, top, length in pixels.
-  clouds: [{ x: 30, y: 243, len: 96, band: 4 }, { x: 222, y: 264, len: 62, band: 5 }, { x: 108, y: 294, len: 40, band: 6 }],
+  clouds: [{ x: 30, y: 231, len: 96, band: 4 }, { x: 222, y: 252, len: 62, band: 5 }, { x: 108, y: 282, len: 40, band: 6 }],
 });
 
 export const PHONE = layout({

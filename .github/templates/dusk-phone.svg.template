@@ -3,9 +3,12 @@
 <desc id="desc">A pixel-art sunset over a city drawn from the past year of Zane's GitHub contributions: one building per week, one window per day, lit on the {{ACTIVE_DAYS}} days he contributed, and a gold pennant over each week in which one of his pull requests was merged upstream. Below the city: 12 PRs merged into 10 upstream projects between {{MERGED_RANGE}}, namely axum, SQLx, AnyIO, goose, Fastify, Zod, TanStack Query, Tenacity, Feast and Claude HUD (three), 10 bug fixes and 2 small features, each merged by that project's maintainers. His production background covers multimodal evaluation and data systems; his current public focus is tools for reliable AI coding agents: claudemem, handoff and dev-orchestrator.</desc>
 <!-- Fonts: Departure Mono (c) Helena Zhang and IBM Plex Mono (c) IBM Corp., both SIL Open Font License 1.1; embedded as renamed subsets. -->
 <!-- The phone layout of dusk.svg.template, served by the README's <picture> below 600 px: authored 320 units wide
-     for a README column of about 300-350 px, on a 2-unit pixel grid. Type: 11 notes and labels, 13 tagline,
-     15 names, 22 figures, 44 name. -->
+     for a README column of about 300-350 px, on a 2-unit pixel grid. Plex Mono sizes give whole-unit
+     advances (0.6 em), so lines measure the same on every platform. text-rendering:geometricPrecision keeps
+     them exact when the image is scaled: Chrome otherwise rounds each advance to a whole screen pixel. Type: 11 pixel labels, 11.67 notes
+     (7-unit advance), 13.33 tagline (8), 15 names (9), 22 figures, 44 name. -->
 <defs><style>{{FONT_FACES}}
+text{text-rendering:geometricPrecision}
 .px{font-family:zw-pixel, ui-monospace, 'SF Mono', Menlo, Consolas, 'DejaVu Sans Mono', monospace}
 .bd{font-family:zw-body, ui-monospace, 'SF Mono', Menlo, Consolas, 'DejaVu Sans Mono', monospace}
 .md{font-family:zw-body-medium, ui-monospace, 'SF Mono', Menlo, Consolas, 'DejaVu Sans Mono', monospace}
@@ -27,12 +30,12 @@
 
 <g class="px" font-size="44" fill="#7a2e40" aria-hidden="true"><text x="16" y="72">zane wang</text></g>
 <text class="px" x="12" y="68" font-size="44" fill="#f8eed7">zane wang</text>
-<g class="bd" font-size="13" fill="#f6db95"><text x="15" y="104">building tools that make AI</text><text x="15" y="120">coding agents more reliable</text></g>
-<text class="bd" x="15" y="142" font-size="11" fill="#e7cda5">claudemem · handoff · dev-orchestrator</text>
+<g class="bd" font-size="13.333" fill="#f6db95"><text x="15" y="104">building tools that make AI</text><text x="15" y="120">coding agents more reliable</text></g>
+<text class="bd" x="15" y="142" font-size="11.667" fill="#e7cda5">claudemem · handoff · dev-orchestrator</text>
 <text class="px" x="7" y="264" font-size="11" fill="#c6ad84">{{RANGE_LABEL}}</text>
 <text class="px" x="313" y="264" font-size="11" fill="#c6ad84" text-anchor="end">this week</text>
 
-<g class="bd" font-size="11" fill="#c6ad84"><text x="15" y="306">↑ my year on GitHub: a building per week,</text><text x="15" y="321">a lit window for each of {{ACTIVE_DAYS}} active days</text></g>
+<g class="bd" font-size="11.667" fill="#c6ad84"><text x="15" y="306">↑ my year on GitHub: a building per week,</text><text x="15" y="321">a lit window for each of {{ACTIVE_DAYS}} active days</text></g>
 
 <g class="cr" style="animation-delay:2.3s"><g shape-rendering="crispEdges"><rect x="16" y="344" width="2" height="16" fill="#c6ad84"/><rect x="18" y="344" width="8" height="6" fill="#f5c45c"/></g><text class="px" x="35" y="358" font-size="11" fill="#e97648" letter-spacing="2">{{MERGED_RANGE_CAPS}}</text></g>
 <text class="px cr" x="14" y="396" font-size="22" fill="#f8eed7" style="animation-delay:2.35s"><tspan fill="#f5c45c">12</tspan> PRs merged into</text>
@@ -49,7 +52,7 @@
 <text class="cr" x="169" y="534" style="animation-delay:2.93s">Feast</text>
 <text class="cr" x="169" y="558" style="animation-delay:2.99s">Claude HUD<tspan fill="#c6ad84"> ×3</tspan></text>
 </g>
-<g class="bd cr" font-size="11" fill="#c6ad84" style="animation-delay:2.9s"><text x="15" y="590">10 bug fixes and 2 small features in Rust,</text><text x="15" y="605">Python, TypeScript and JavaScript, each</text><text x="15" y="620">merged by that project's maintainers</text></g>
+<g class="bd cr" font-size="11.667" fill="#c6ad84" style="animation-delay:2.9s"><text x="15" y="590">10 bug fixes and 2 small features in</text><text x="15" y="605">Rust, Python, TypeScript and JavaScript,</text><text x="15" y="620">each merged by that project's maintainers</text></g>
 </g>
 <rect x="0.5" y="0.5" width="319" height="643" rx="9.5" fill="none" stroke="#45344a"/>
 </svg>
