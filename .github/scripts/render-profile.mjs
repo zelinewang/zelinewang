@@ -25,6 +25,7 @@ import { execFileSync } from "node:child_process";
 
 import { summarizeCalendar } from "./calendar-summary.mjs";
 import { renderScene } from "./sunset-scene.mjs";
+import { CONSOLE_BOX, sparkline } from "./activity-sparkline.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(here, "..", "..");
@@ -102,11 +103,11 @@ async function fetchStats() {
   };
 }
 
-// ── Contribution calendar (Console activity cards) ───────────────────────────
+// ── Contribution calendar (activity numbers, Console chart, Sunset skyline) ──
 //
 // The events feed above only sees public activity, so on a profile where most
 // work is private it reports a handful of pushes next to a graph showing
-// thousands of contributions. The Console cards read the same calendar GitHub
+// thousands of contributions. Both heroes read the same calendar GitHub
 // draws on the profile page instead. The gallery studies still use the events
 // tokens above.
 
@@ -123,7 +124,7 @@ function fetchCalendar() {
 
   const days = calendar.weeks.flatMap((week) => week.contributionDays);
   const { activeDays, longestStreak } = summarizeCalendar(days);
-  // The Sunset banner draws the same weeks as a skyline.
+  // Sunset draws the weeks as a skyline, Console as one bar per week.
   const { defs, scene } = renderScene(calendar.weeks);
   return {
     CONTRIB_TOTAL:  calendar.totalContributions.toLocaleString("en-US"),
@@ -132,6 +133,7 @@ function fetchCalendar() {
     RANGE_START:    (days[0]?.date || "").slice(0, 7),
     SCENE_DEFS:     defs,
     SCENE:          scene,
+    SPARKLINE:      sparkline(calendar.weeks, CONSOLE_BOX).svg,
   };
 }
 

@@ -1,6 +1,6 @@
-# Fonts embedded in the Sunset hero
+# Fonts embedded in the profile heroes
 
-The Sunset hero is served as an `<img>`, so it cannot load web fonts; `render-profile.mjs`
+Both heroes (Console and Sunset) are served as an `<img>`, so neither can load web fonts; `render-profile.mjs`
 inlines these files as base64 `@font-face` rules instead. Each file is a subset (printable
 ASCII plus `·→←↑↓↳§—–’“”…×├└─│█`) and a Modified Version under the SIL Open Font License 1.1:
 the internal font names were changed, as the license requires for IBM Plex's Reserved Font

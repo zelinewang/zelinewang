@@ -83,7 +83,7 @@ test("canonical profile keeps load-bearing content in semantic Markdown", async 
 
 // Both current designs carry the same evidence; only the art differs.
 const heroes = [
-  { path: ".github/templates/console.svg.template", tokens: ["CONTRIB_TOTAL", "ACTIVE_DAYS", "LONGEST_STREAK", "SNAKE_CONTENT"] },
+  { path: ".github/templates/console.svg.template", tokens: ["CONTRIB_TOTAL", "ACTIVE_DAYS", "LONGEST_STREAK", "SPARKLINE", "FONT_FACES"] },
   { path: ".github/templates/sunset.svg.template", tokens: ["CONTRIB_TOTAL", "ACTIVE_DAYS", "LONGEST_STREAK", "SCENE", "SCENE_DEFS", "FONT_FACES"] },
 ];
 
@@ -106,16 +106,52 @@ for (const { path, tokens } of heroes) {
   });
 }
 
-test("Sunset text falls back to a monospace font if an embedded font does not load", async () => {
-  // Fonts travel inside the SVG as data URIs. If a browser skips them, a bare
-  // family name falls back to the default serif and breaks the terminal columns.
-  const hero = await read(".github/templates/sunset.svg.template");
-  const families = [...hero.matchAll(/font-family="([^"]*)"/g)].map((match) => match[1]);
-  assert.ok(families.length > 0, "Sunset template declares no font-family");
-  for (const family of families) {
-    assert.match(family, /,\s*monospace$/, `font-family without a monospace fallback: ${family}`);
-  }
-});
+for (const path of [".github/templates/console.svg.template", ".github/templates/sunset.svg.template"]) {
+  test(`${path} falls back to a monospace font if an embedded font does not load`, async () => {
+    // Fonts travel inside the SVG as data URIs. If a browser skips them, a bare
+    // family name falls back to the default serif and breaks the terminal columns.
+    const hero = await read(path);
+    const families = [...hero.matchAll(/font-family(?:="|:\s*)([^";}]*)/g)].map((match) => match[1].trim());
+    assert.ok(families.length > 0, "template declares no font-family");
+    for (const family of families) {
+      assert.match(family, /,\s*monospace$/, `font-family without a monospace fallback: ${family}`);
+    }
+  });
+}
+
+// WCAG relative luminance and contrast ratio for #rrggbb colours.
+function luminance(hex) {
+  const [r, g, b] = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255)
+    .map((v) => (v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4));
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+}
+const contrast = (a, b) => {
+  const [hi, lo] = [luminance(a), luminance(b)].sort((x, y) => y - x);
+  return (hi + 0.05) / (lo + 0.05);
+};
+
+const panels = [
+  { name: "Console", path: ".github/templates/console.svg.template", panel: "#10161c" },
+];
+
+for (const { name, path, panel } of panels) {
+  test(`${name} text stays legible at GitHub's desktop width`, async () => {
+    // Desktop shows the 1200-unit viewBox at 846 px (0.705x): 15 units is 10.6 px.
+    const hero = await read(path);
+    const sizes = [...hero.matchAll(/font-size="([\d.]+)"/g)].map((m) => Number(m[1]));
+    for (const size of sizes) assert.ok(size >= 15, `font-size ${size} renders below 10.6 px on desktop`);
+
+    // aria-hidden copies (Sunset's name shadow) are decoration, not text to read.
+    const textFills = [...hero.matchAll(/<(?:text|tspan|g)\b[^>]*\bfill="(#[0-9a-f]{6})"[^>]*>/gi)]
+      .filter((m) => !/aria-hidden="true"/.test(m[0]))
+      .filter((m) => /<(text|tspan)\b/.test(m[0]) || /font-size|letter-spacing|font-weight|text-anchor/.test(m[0]))
+      .map((m) => m[1].toLowerCase());
+    assert.ok(textFills.length > 20, "expected to find the text colours");
+    for (const fill of new Set(textFills)) {
+      assert.ok(contrast(fill, panel) >= 4.5, `text colour ${fill} is ${contrast(fill, panel).toFixed(2)}:1 on the panel`);
+    }
+  });
+}
 
 test("resume bridge separates past production background from current public focus", async () => {
   const semanticPaths = [
@@ -194,7 +230,8 @@ test("renderer wires console to the active hero and studies to the gallery", asy
 
   assert.doesNotMatch(renderer, /previews\/_drafts/);
 
-  // Activity cards come from the contribution calendar.
+  // Activity numbers, the Console chart and the Sunset skyline come from the contribution calendar.
   assert.match(renderer, /contributionCalendar/);
+  assert.match(renderer, /sparkline\(calendar\.weeks/);
   assert.match(renderer, /summarizeCalendar/);
 });
