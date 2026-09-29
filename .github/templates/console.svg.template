@@ -1,9 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 2208" role="img" aria-labelledby="title desc" preserveAspectRatio="xMidYMid meet">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 2376" role="img" aria-labelledby="title desc" preserveAspectRatio="xMidYMid meet">
   <title id="title">Console — Zane Wang's terminal session profile</title>
   <desc id="desc">A terminal-window profile composed as one tmux session with 6 sections: identity; 12 pull requests merged by the maintainers of axum, SQLx, AnyIO, goose, Fastify, Zod, TanStack Query, Tenacity, Feast, and Claude HUD; the tools Zane maintains (claudemem, handoff, dev-orchestrator); working method; activity from GitHub's contribution calendar as one bar per week; and an AI sidekick. Activity refreshes nightly.</desc>
 
-  <!-- Type scale (viewBox units; desktop shows 0.705x): 15 labels, 16 notes, 18 body,
-       20 tagline, 34 headline, 56 name. Text colours keep at least 4.5:1 on the panel.
+  <!-- Type scale (viewBox units; desktop shows 0.705x): 16 labels, 17 notes, 20 body,
+       22 tagline, 24 figures, 40 headline, 72 name; the same steps as the Sunset hero.
+       Every table shares the column stops 46 / 270 / 380 / 820. Text colours keep at
+       least 4.5:1 on the panel; green is kept for the tagline, the proof and the activity.
        Fonts are embedded (render-profile.mjs) so every platform draws the same terminal. -->
   <style>
     {{FONT_FACES}}
@@ -20,9 +22,7 @@
   </style>
 
   <defs>
-    <pattern id="scanlines" x="0" y="0" width="2" height="3" patternUnits="userSpaceOnUse">
-      <line x1="0" y1="0" x2="2" y2="0" stroke="#0e1418" stroke-width="0.5" opacity="0.6"/>
-    </pattern>
+    <clipPath id="panel"><rect width="1200" height="2376" rx="12"/></clipPath>
     <!-- GitHub's "merged" mark, in its merged purple -->
     <g id="merged" fill="none" stroke="#a371f7" stroke-width="1.7" stroke-linecap="round">
       <circle cx="4" cy="3.2" r="2.2"/><circle cx="4" cy="12.8" r="2.2"/><circle cx="12.6" cy="8" r="2.2"/>
@@ -30,129 +30,128 @@
     </g>
   </defs>
 
-  <!-- ═══════ FRAME ═══════ -->
-  <rect width="1200" height="2208" fill="#0a0e12"/>
-  <rect width="1200" height="2208" fill="url(#scanlines)" opacity="0.4"/>
-  <rect x="20" y="20" width="1160" height="2168" fill="#10161c" stroke="#26303b" stroke-width="1.5"/>
+  <!-- ═══════ PANEL: the whole canvas, rounded like GitHub's own boxes ═══════ -->
+  <g clip-path="url(#panel)">
+    <rect width="1200" height="2376" fill="#10161c"/>
 
-  <!-- ═══════ STATUS BAR ═══════ -->
-  <g font-family="zw-body, ui-monospace, 'SF Mono', Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="15">
-    <rect x="20" y="20" width="1160" height="36" fill="#151c24"/>
-    <line x1="20" y1="56" x2="1180" y2="56" stroke="#222c37" stroke-width="1"/>
-    <circle cx="42" cy="38" r="5" fill="#3a4a5a"/>
-    <circle cx="60" cy="38" r="5" fill="#3a4a5a"/>
-    <circle cx="78" cy="38" r="5" fill="#3a4a5a"/>
-    <text x="106" y="43" fill="#7d8a96">~/zelinewang &#8212; tmux: profile (1/6)</text>
-    <!-- the date of the last nightly refresh, with a breathing dot -->
-    <circle class="pulse" cx="986" cy="38" r="3.5" fill="#5fb88a"/>
-    <text x="1160" y="43" fill="#7d8a96" text-anchor="end">updated {{TODAY}}</text>
+    <!-- ═══════ STATUS BAR ═══════ -->
+    <g font-family="zw-body, ui-monospace, 'SF Mono', Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="16">
+      <rect width="1200" height="46" fill="#151c24"/>
+      <line x1="0" y1="46" x2="1200" y2="46" stroke="#222c37" stroke-width="1.5"/>
+      <circle cx="30" cy="23" r="5.5" fill="#3a4a5a"/>
+      <circle cx="50" cy="23" r="5.5" fill="#3a4a5a"/>
+      <circle cx="70" cy="23" r="5.5" fill="#3a4a5a"/>
+      <text x="98" y="29" fill="#7d8a96">~/zelinewang &#8212; tmux: profile (1/6)</text>
+      <!-- the date of the last nightly refresh, with a breathing dot -->
+      <circle class="pulse" cx="983" cy="23" r="4" fill="#5fb88a"/>
+      <text x="1170" y="29" fill="#7d8a96" text-anchor="end">updated {{TODAY}}</text>
+    </g>
+
+    <g font-family="zw-body, ui-monospace, 'SF Mono', Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="20">
+
+      <!-- ═══════ § 01 WHOAMI ═══════ -->
+      <text x="46" y="104"><tspan fill="#7d8a96">~/zelinewang $</tspan><tspan fill="#a8b4c0"> whoami --verbose</tspan></text>
+      <text x="1154" y="104" fill="#7d8a96" font-size="16" letter-spacing="0.2em" text-anchor="end">§ 01 &#160;WHOAMI</text>
+
+      <text x="44" y="186" fill="#e3e9ee" font-size="72" class="m" letter-spacing="-0.02em">zane wang</text>
+      <text x="46" y="234" fill="#5fb88a" font-size="22">building tools that make AI coding agents more reliable</text>
+      <text x="46" y="280"><tspan fill="#7d8a96">&#8594; current focus: </tspan><tspan fill="#cdd5dd">memory · delegation · evidence-driven workflows</tspan></text>
+      <text x="46" y="314"><tspan fill="#7d8a96">&#8594; open-source: </tspan><tspan fill="#cdd5dd">claudemem</tspan><tspan fill="#7d8a96"> · </tspan><tspan fill="#cdd5dd">handoff</tspan><tspan fill="#7d8a96"> · </tspan><tspan fill="#cdd5dd">dev-orchestrator</tspan></text>
+      <text x="46" y="348" fill="#7d8a96" font-size="17"># production background: AI evaluation · high-volume data · workflow automation</text>
+      <line x1="46" y1="382" x2="1154" y2="382" stroke="#222c37" stroke-width="1.5"/>
+
+      <!-- ═══════ § 02 MERGED UPSTREAM ═══════ -->
+      <text x="46" y="430"><tspan fill="#7d8a96">~/zelinewang $</tspan><tspan fill="#a8b4c0"> cat upstream/merged.txt</tspan></text>
+      <text x="1154" y="430" fill="#7d8a96" font-size="16" letter-spacing="0.2em" text-anchor="end">§ 02 &#160;MERGED UPSTREAM</text>
+
+      <text x="45" y="492" fill="#e3e9ee" font-size="40" class="m" letter-spacing="-0.01em"><tspan fill="#5fb88a">12</tspan> PRs merged into <tspan fill="#5fb88a">10</tspan> upstream projects</text>
+      <text x="46" y="528" fill="#7d8a96" font-size="17"># 10 bug fixes and 2 small features, each merged by that project's maintainers</text>
+
+      <g fill="#7d8a96" font-size="16" letter-spacing="0.08em">
+        <text x="76" y="574">PROJECT</text><text x="270" y="574">PR</text><text x="380" y="574">WHAT CHANGED</text>
+      </g>
+      <line x1="46" y1="588" x2="1154" y2="588" stroke="#222c37" stroke-width="1.5"/>
+
+      <g><use href="#merged" transform="translate(46,607) scale(1.15)"/><text x="76" y="624" fill="#cdd5dd" class="m">axum</text><text x="270" y="624" fill="#7d8a96">#3836</text><text x="380" y="624" fill="#cdd5dd">Allow header no longer lists HEAD twice after merge</text></g>
+      <g><use href="#merged" transform="translate(46,643) scale(1.15)"/><text x="76" y="660" fill="#cdd5dd" class="m">SQLx</text><text x="270" y="660" fill="#7d8a96">#4340</text><text x="380" y="660" fill="#cdd5dd">pre-1970 SQLite REAL datetimes no longer off by 2 s</text></g>
+      <g><use href="#merged" transform="translate(46,679) scale(1.15)"/><text x="76" y="696" fill="#cdd5dd" class="m">AnyIO</text><text x="270" y="696" fill="#7d8a96">#1223</text><text x="380" y="696" fill="#cdd5dd">CapacityLimiter no longer over-grants tokens</text></g>
+      <g><use href="#merged" transform="translate(46,715) scale(1.15)"/><text x="76" y="732" fill="#cdd5dd" class="m">goose</text><text x="270" y="732" fill="#7d8a96">#10438</text><text x="380" y="732" fill="#cdd5dd">custom model as new-chat default no longer fails</text></g>
+      <g><use href="#merged" transform="translate(46,751) scale(1.15)"/><text x="76" y="768" fill="#cdd5dd" class="m">Fastify</text><text x="270" y="768" fill="#7d8a96">#6846</text><text x="380" y="768" fill="#cdd5dd">RegExp content-type parsers no longer miss matches</text></g>
+      <g><use href="#merged" transform="translate(46,787) scale(1.15)"/><text x="76" y="804" fill="#cdd5dd" class="m">Zod</text><text x="270" y="804" fill="#7d8a96">#6192</text><text x="380" y="804" fill="#cdd5dd">.catch() gets the original input, as documented</text></g>
+      <g><use href="#merged" transform="translate(46,823) scale(1.15)"/><text x="76" y="840" fill="#cdd5dd" class="m">TanStack Query</text><text x="270" y="840" fill="#7d8a96">#11065</text><text x="380" y="840" fill="#cdd5dd">falsy combine() results memoized, not recomputed</text></g>
+
+      <text x="46" y="886"><tspan fill="#7d8a96">also merged: </tspan><tspan fill="#cdd5dd">Tenacity </tspan><tspan fill="#7d8a96">#656 · </tspan><tspan fill="#cdd5dd">Feast </tspan><tspan fill="#7d8a96">#6604 · </tspan><tspan fill="#cdd5dd">Claude HUD </tspan><tspan fill="#7d8a96">#354 #471 #491</tspan></text>
+      <text x="46" y="918" fill="#7d8a96" font-size="17"># links to every PR: open "Full profile" below this image</text>
+      <line x1="46" y1="952" x2="1154" y2="952" stroke="#222c37" stroke-width="1.5"/>
+
+      <!-- ═══════ § 03 TOOLS ═══════ -->
+      <text x="46" y="1000"><tspan fill="#7d8a96">~/zelinewang $</tspan><tspan fill="#a8b4c0"> ls tools/</tspan></text>
+      <text x="1154" y="1000" fill="#7d8a96" font-size="16" letter-spacing="0.2em" text-anchor="end">§ 03 &#160;TOOLS I MAINTAIN</text>
+
+      <g fill="#7d8a96" font-size="16" letter-spacing="0.08em">
+        <text x="46" y="1044">NAME</text><text x="270" y="1044">LANG</text><text x="380" y="1044">WHAT IT IS</text>
+      </g>
+      <line x1="46" y1="1058" x2="1154" y2="1058" stroke="#222c37" stroke-width="1.5"/>
+
+      <g><text x="46" y="1094" fill="#cdd5dd" class="m">claudemem</text><text x="270" y="1094" fill="#7d8a96">Go</text><text x="380" y="1094" fill="#cdd5dd">local-first memory for coding agents; Markdown is the record</text>
+        <text x="380" y="1122" fill="#7d8a96" font-size="17">&#8627; 11k lines of Go, 10k lines of tests, CI, release builds for 3 OSes</text></g>
+      <g><text x="46" y="1170" fill="#cdd5dd" class="m">handoff</text><text x="270" y="1170" fill="#7d8a96">Shell</text><text x="380" y="1170" fill="#cdd5dd">hands work from a lead model to cheaper ones via resumable specs</text>
+        <text x="380" y="1198" fill="#7d8a96" font-size="17">&#8627; ships with a small-sample evaluation, including the run where it lost</text></g>
+      <g><text x="46" y="1246" fill="#cdd5dd" class="m">dev-orchestrator</text><text x="270" y="1246" fill="#7d8a96">Shell</text><text x="380" y="1246" fill="#cdd5dd">Claude Code plugin: investigate, test, verify, open the PR</text>
+        <text x="380" y="1274" fill="#7d8a96" font-size="17">&#8627; the workflow below as a command, hooks, and file-backed state</text></g>
+
+      <text x="46" y="1320" fill="#7d8a96" font-size="17"># earlier experiments, hackathon-scale and labeled as such: FireSight · dipole · postprism</text>
+      <line x1="46" y1="1354" x2="1154" y2="1354" stroke="#222c37" stroke-width="1.5"/>
+
+      <!-- ═══════ § 04 HOW I WORK ═══════ -->
+      <text x="46" y="1402"><tspan fill="#7d8a96">~/zelinewang $</tspan><tspan fill="#a8b4c0"> cat ~/.dev/how-i-work</tspan></text>
+      <text x="1154" y="1402" fill="#7d8a96" font-size="16" letter-spacing="0.2em" text-anchor="end">§ 04 &#160;HOW I WORK</text>
+
+      <g fill="#7d8a96" font-size="16" letter-spacing="0.08em">
+        <text x="46" y="1446">STAGE</text><text x="270" y="1446">WHAT HAPPENS</text><text x="820" y="1446">GATE</text>
+      </g>
+      <line x1="46" y1="1460" x2="1154" y2="1460" stroke="#222c37" stroke-width="1.5"/>
+
+      <g><text x="46" y="1496" fill="#cdd5dd" class="m">investigate</text><text x="270" y="1496" fill="#cdd5dd">gather evidence before forming a theory</text><text x="820" y="1496" fill="#a8b4c0" font-size="17">logs · code · docs</text></g>
+      <g><text x="46" y="1532" fill="#cdd5dd" class="m">plan</text><text x="270" y="1532" fill="#cdd5dd">scope it, pick the reversible path</text><text x="820" y="1532" fill="#a8b4c0" font-size="17">cheapest signal first</text></g>
+      <g><text x="46" y="1568" fill="#cdd5dd" class="m">execute</text><text x="270" y="1568" fill="#cdd5dd">write the failing test, then the fix</text><text x="820" y="1568" fill="#a8b4c0" font-size="17">red &#8594; green</text></g>
+      <g><text x="46" y="1604" fill="#cdd5dd" class="m">verify</text><text x="270" y="1604" fill="#cdd5dd">independent review before anything merges</text><text x="820" y="1604" fill="#a8b4c0" font-size="17">no fake green</text></g>
+      <g><text x="46" y="1640" fill="#cdd5dd" class="m">ship</text><text x="270" y="1640" fill="#cdd5dd">PR &#8594; CI &#8594; watch it in production</text><text x="820" y="1640" fill="#a8b4c0" font-size="17">done = observed</text></g>
+
+      <text x="46" y="1686" fill="#7d8a96" font-size="17"># one brain plans and adjudicates; cheaper hands execute in parallel</text>
+      <text x="46" y="1716" fill="#7d8a96" font-size="17"># the code behind this: dev-orchestrator (lifecycle) · handoff (delegation)</text>
+      <line x1="46" y1="1750" x2="1154" y2="1750" stroke="#222c37" stroke-width="1.5"/>
+
+      <!-- ═══════ § 05 ACTIVITY (contribution calendar, one bar per week, refreshed nightly) ═══════ -->
+      <text x="46" y="1798"><tspan fill="#7d8a96">~/zelinewang $</tspan><tspan fill="#a8b4c0"> gh api graphql | jq .contributionCalendar</tspan></text>
+      <text x="1154" y="1798" fill="#7d8a96" font-size="16" letter-spacing="0.2em" text-anchor="end">§ 05 &#160;ACTIVITY</text>
+
+      <!-- Bars injected by render-profile.mjs; box x=46 y=1834 w=1108 h=100 (activity-sparkline.mjs) -->
+      <g id="sparkline">{{SPARKLINE}}</g>
+      <line x1="46" y1="1935" x2="1154" y2="1935" stroke="#222c37" stroke-width="1.5"/>
+      <text x="46" y="1960" fill="#7d8a96" font-size="16">{{RANGE_START}}</text>
+      <text x="1154" y="1960" fill="#7d8a96" font-size="16" text-anchor="end">this week</text>
+
+      <g class="m" fill="#5fb88a" font-size="24" text-anchor="end">
+        <text x="140" y="2010">{{CONTRIB_TOTAL}}</text><text x="140" y="2046">{{ACTIVE_DAYS}}</text><text x="140" y="2082">{{LONGEST_STREAK}}</text>
+      </g>
+      <g fill="#cdd5dd">
+        <text x="158" y="2010">contributions in the last year</text><text x="158" y="2046">days with contributions</text><text x="158" y="2082">days in a row, the longest streak in the last year</text>
+      </g>
+      <text x="46" y="2124" fill="#7d8a96" font-size="17"># from GitHub's contribution calendar, private work counted; refreshed nightly</text>
+      <line x1="46" y1="2158" x2="1154" y2="2158" stroke="#222c37" stroke-width="1.5"/>
+
+      <!-- ═══════ § 06 SIDEKICK ═══════ -->
+      <text x="46" y="2206"><tspan fill="#7d8a96">~/zelinewang $</tspan><tspan fill="#a8b4c0"> zane query --help</tspan></text>
+      <text x="1154" y="2206" fill="#7d8a96" font-size="16" letter-spacing="0.2em" text-anchor="end">§ 06 &#160;SIDEKICK</text>
+
+      <text x="46" y="2248"><tspan fill="#cdd5dd">open an issue titled </tspan><tspan fill="#e8b063">"ZaneOS ask: &lt;question&gt;"</tspan><tspan fill="#cdd5dd"> and my AI answers from public context</tspan></text>
+      <text x="46" y="2282" font-size="17"><tspan fill="#7d8a96">modes </tspan><tspan fill="#e8b063">ask</tspan><tspan fill="#7d8a96"> · </tspan><tspan fill="#e8b063">match</tspan><tspan fill="#7d8a96"> · </tspan><tspan fill="#e8b063">boop</tspan><tspan fill="#7d8a96"> · </tspan><tspan fill="#e8b063">quest</tspan><tspan fill="#7d8a96"> · at most 3 a day per person</tspan></text>
+
+      <!-- idle prompt with a blinking cursor -->
+      <text x="46" y="2334" fill="#7d8a96">~/zelinewang $</text>
+      <rect class="cursor" x="226" y="2318" width="12" height="20" fill="#e8b063"/>
+    </g>
   </g>
-
-  <g font-family="zw-body, ui-monospace, 'SF Mono', Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="18">
-
-    <!-- ═══════ § 01 WHOAMI ═══════ -->
-    <text x="46" y="100"><tspan fill="#4f9a75">~/zelinewang</tspan><tspan fill="#7d8a96"> $</tspan><tspan fill="#a8b4c0"> whoami --verbose</tspan></text>
-    <text x="1154" y="100" fill="#7d8a96" font-size="15" letter-spacing="0.2em" text-anchor="end">§ 01 &#160;WHOAMI</text>
-
-    <text x="46" y="170" fill="#e3e9ee" font-size="56" class="m" letter-spacing="-0.02em">zane wang</text>
-    <text x="46" y="210" fill="#5fb88a" font-size="20">building tools that make AI coding agents more reliable</text>
-    <text x="46" y="250"><tspan fill="#7d8a96">&#8594; current focus: </tspan><tspan fill="#cdd5dd">memory · delegation · evidence-driven workflows</tspan></text>
-    <text x="46" y="280"><tspan fill="#7d8a96">&#8594; open-source: </tspan><tspan fill="#cdd5dd">claudemem</tspan><tspan fill="#7d8a96"> · </tspan><tspan fill="#cdd5dd">handoff</tspan><tspan fill="#7d8a96"> · </tspan><tspan fill="#cdd5dd">dev-orchestrator</tspan></text>
-    <text x="46" y="312" fill="#7d8a96" font-size="16"># production background: AI evaluation · high-volume data · workflow automation</text>
-    <line x1="46" y1="344" x2="1154" y2="344" stroke="#222c37" stroke-width="1"/>
-
-    <!-- ═══════ § 02 MERGED UPSTREAM ═══════ -->
-    <text x="46" y="392"><tspan fill="#4f9a75">~/zelinewang</tspan><tspan fill="#7d8a96"> $</tspan><tspan fill="#a8b4c0"> cat upstream/merged.txt</tspan></text>
-    <text x="1154" y="392" fill="#7d8a96" font-size="15" letter-spacing="0.2em" text-anchor="end">§ 02 &#160;MERGED UPSTREAM</text>
-
-    <text x="46" y="442" fill="#e3e9ee" font-size="34" class="m" letter-spacing="-0.01em"><tspan fill="#5fb88a">12</tspan> PRs merged into <tspan fill="#5fb88a">10</tspan> upstream projects</text>
-    <text x="46" y="474" fill="#7d8a96" font-size="16"># 10 bug fixes and 2 small features, each merged by that project's maintainers</text>
-
-    <g fill="#7d8a96" font-size="15" letter-spacing="0.08em">
-      <text x="76" y="514">PROJECT</text><text x="258" y="514">PR</text><text x="352" y="514">WHAT CHANGED</text>
-    </g>
-    <line x1="46" y1="526" x2="1154" y2="526" stroke="#222c37" stroke-width="1"/>
-
-    <g><use href="#merged" transform="translate(46,546)"/><text x="76" y="560" fill="#cdd5dd" class="m">axum</text><text x="258" y="560" fill="#5fb88a">#3836</text><text x="352" y="560" fill="#cdd5dd">Allow header no longer lists HEAD twice after merge</text></g>
-    <g><use href="#merged" transform="translate(46,578)"/><text x="76" y="592" fill="#cdd5dd" class="m">SQLx</text><text x="258" y="592" fill="#5fb88a">#4340</text><text x="352" y="592" fill="#cdd5dd">pre-1970 SQLite REAL datetimes no longer 2 s off</text></g>
-    <g><use href="#merged" transform="translate(46,610)"/><text x="76" y="624" fill="#cdd5dd" class="m">AnyIO</text><text x="258" y="624" fill="#5fb88a">#1223</text><text x="352" y="624" fill="#cdd5dd">CapacityLimiter no longer over-grants tokens</text></g>
-    <g><use href="#merged" transform="translate(46,642)"/><text x="76" y="656" fill="#cdd5dd" class="m">goose</text><text x="258" y="656" fill="#5fb88a">#10438</text><text x="352" y="656" fill="#cdd5dd">custom model as new-chat default no longer fails</text></g>
-    <g><use href="#merged" transform="translate(46,674)"/><text x="76" y="688" fill="#cdd5dd" class="m">Fastify</text><text x="258" y="688" fill="#5fb88a">#6846</text><text x="352" y="688" fill="#cdd5dd">RegExp content-type parsers no longer miss matches</text></g>
-    <g><use href="#merged" transform="translate(46,706)"/><text x="76" y="720" fill="#cdd5dd" class="m">Zod</text><text x="258" y="720" fill="#5fb88a">#6192</text><text x="352" y="720" fill="#cdd5dd">.catch() gets the original input, as documented</text></g>
-    <g><use href="#merged" transform="translate(46,738)"/><text x="76" y="752" fill="#cdd5dd" class="m">TanStack Query</text><text x="258" y="752" fill="#5fb88a">#11065</text><text x="352" y="752" fill="#cdd5dd">falsy combine() results memoized, not recomputed</text></g>
-
-    <text x="46" y="794"><tspan fill="#7d8a96">also merged: </tspan><tspan fill="#cdd5dd">Tenacity </tspan><tspan fill="#5fb88a">#656</tspan><tspan fill="#7d8a96"> · </tspan><tspan fill="#cdd5dd">Feast </tspan><tspan fill="#5fb88a">#6604</tspan><tspan fill="#7d8a96"> · </tspan><tspan fill="#cdd5dd">Claude HUD </tspan><tspan fill="#5fb88a">#354 #471 #491</tspan></text>
-    <text x="46" y="824" fill="#7d8a96" font-size="16"># links to every PR: open "Full profile" below this image</text>
-    <line x1="46" y1="858" x2="1154" y2="858" stroke="#222c37" stroke-width="1"/>
-
-    <!-- ═══════ § 03 TOOLS ═══════ -->
-    <text x="46" y="906"><tspan fill="#4f9a75">~/zelinewang</tspan><tspan fill="#7d8a96"> $</tspan><tspan fill="#a8b4c0"> ls tools/</tspan></text>
-    <text x="1154" y="906" fill="#7d8a96" font-size="15" letter-spacing="0.2em" text-anchor="end">§ 03 &#160;TOOLS I MAINTAIN</text>
-
-    <g fill="#7d8a96" font-size="15" letter-spacing="0.08em">
-      <text x="46" y="946">LANG</text><text x="150" y="946">NAME</text><text x="400" y="946">WHAT IT IS</text>
-    </g>
-    <line x1="46" y1="958" x2="1154" y2="958" stroke="#222c37" stroke-width="1"/>
-
-    <g><text x="46" y="992" fill="#7d8a96">Go</text><text x="150" y="992" fill="#cdd5dd" class="m">claudemem/</text><text x="400" y="992" fill="#cdd5dd">local-first memory for coding agents; Markdown is the record</text>
-      <text x="400" y="1018" fill="#7d8a96" font-size="16">&#8627; 11k lines of Go, 10k lines of tests, CI, release builds for 3 OSes</text></g>
-    <g><text x="46" y="1060" fill="#7d8a96">Shell</text><text x="150" y="1060" fill="#cdd5dd" class="m">handoff/</text><text x="400" y="1060" fill="#cdd5dd">hands work from a lead model to cheaper ones via resumable specs</text>
-      <text x="400" y="1086" fill="#7d8a96" font-size="16">&#8627; ships with a small-sample evaluation, including the run where it lost</text></g>
-    <g><text x="46" y="1128" fill="#7d8a96">Shell</text><text x="150" y="1128" fill="#cdd5dd" class="m">dev-orchestrator/</text><text x="400" y="1128" fill="#cdd5dd">Claude Code plugin: investigate, test, verify, open the PR</text>
-      <text x="400" y="1154" fill="#7d8a96" font-size="16">&#8627; the workflow below as a command, hooks, and file-backed state</text></g>
-
-    <text x="46" y="1196" fill="#7d8a96" font-size="16"># earlier experiments, hackathon-scale and labeled as such: FireSight · dipole · postprism</text>
-    <line x1="46" y1="1230" x2="1154" y2="1230" stroke="#222c37" stroke-width="1"/>
-
-    <!-- ═══════ § 04 HOW I WORK ═══════ -->
-    <text x="46" y="1278"><tspan fill="#4f9a75">~/zelinewang</tspan><tspan fill="#7d8a96"> $</tspan><tspan fill="#a8b4c0"> cat ~/.dev/how-i-work</tspan></text>
-    <text x="1154" y="1278" fill="#7d8a96" font-size="15" letter-spacing="0.2em" text-anchor="end">§ 04 &#160;HOW I WORK</text>
-
-    <g fill="#7d8a96" font-size="15" letter-spacing="0.08em">
-      <text x="46" y="1318">STAGE</text><text x="236" y="1318">WHAT HAPPENS</text><text x="760" y="1318">GATE</text>
-    </g>
-    <line x1="46" y1="1330" x2="1154" y2="1330" stroke="#222c37" stroke-width="1"/>
-
-    <g><text x="46" y="1364" fill="#5fb88a">investigate</text><text x="236" y="1364" fill="#cdd5dd">gather evidence before forming a theory</text><text x="760" y="1364" fill="#a8b4c0">logs · code · docs</text></g>
-    <g><text x="46" y="1396" fill="#5fb88a">plan</text><text x="236" y="1396" fill="#cdd5dd">scope it, pick the reversible path</text><text x="760" y="1396" fill="#a8b4c0">cheapest signal first</text></g>
-    <!-- execute is the active stage: a single quiet pulse keeps the terminal alive -->
-    <g><text x="46" y="1428" fill="#5fb88a">execute</text><text x="236" y="1428" fill="#cdd5dd">write the failing test, then the fix</text><text x="760" y="1428" fill="#a8b4c0">red &#8594; green</text>
-      <circle class="pulse" cx="896" cy="1422" r="3.5" fill="#5fb88a"/></g>
-    <g><text x="46" y="1460" fill="#5fb88a">verify</text><text x="236" y="1460" fill="#cdd5dd">independent review before anything merges</text><text x="760" y="1460" fill="#a8b4c0">no fake green</text></g>
-    <g><text x="46" y="1492" fill="#5fb88a">ship</text><text x="236" y="1492" fill="#cdd5dd">PR &#8594; CI &#8594; watch it in production</text><text x="760" y="1492" fill="#a8b4c0">done = observed</text></g>
-
-    <text x="46" y="1534" fill="#7d8a96" font-size="16"># one brain plans and adjudicates; cheaper hands execute in parallel</text>
-    <text x="46" y="1562" fill="#7d8a96" font-size="16"># the code behind this: dev-orchestrator (lifecycle) · handoff (delegation)</text>
-    <line x1="46" y1="1596" x2="1154" y2="1596" stroke="#222c37" stroke-width="1"/>
-
-    <!-- ═══════ § 05 ACTIVITY (contribution calendar, one bar per week, refreshed nightly) ═══════ -->
-    <text x="46" y="1644"><tspan fill="#4f9a75">~/zelinewang</tspan><tspan fill="#7d8a96"> $</tspan><tspan fill="#a8b4c0"> gh api graphql | jq .contributionCalendar</tspan></text>
-    <text x="1154" y="1644" fill="#7d8a96" font-size="15" letter-spacing="0.2em" text-anchor="end">§ 05 &#160;ACTIVITY</text>
-
-    <!-- Bars injected by render-profile.mjs; box x=46 y=1680 w=1108 h=96 (activity-sparkline.mjs) -->
-    <g id="sparkline">{{SPARKLINE}}</g>
-    <line x1="46" y1="1777" x2="1154" y2="1777" stroke="#222c37" stroke-width="1"/>
-    <text x="46" y="1800" fill="#7d8a96" font-size="15">{{RANGE_START}}</text>
-    <text x="1154" y="1800" fill="#7d8a96" font-size="15" text-anchor="end">this week</text>
-
-    <g class="m" fill="#5fb88a" text-anchor="end">
-      <text x="142" y="1846">{{CONTRIB_TOTAL}}</text><text x="142" y="1878">{{ACTIVE_DAYS}}</text><text x="142" y="1910">{{LONGEST_STREAK}}</text>
-    </g>
-    <g fill="#cdd5dd">
-      <text x="162" y="1846">contributions in the last year</text><text x="162" y="1878">days with contributions</text><text x="162" y="1910">days in a row, the longest streak in the last year</text>
-    </g>
-    <text x="46" y="1950" fill="#7d8a96" font-size="16"># from GitHub's contribution calendar, private work counted; refreshed nightly</text>
-    <line x1="46" y1="1984" x2="1154" y2="1984" stroke="#222c37" stroke-width="1"/>
-
-    <!-- ═══════ § 06 SIDEKICK ═══════ -->
-    <text x="46" y="2032"><tspan fill="#4f9a75">~/zelinewang</tspan><tspan fill="#7d8a96"> $</tspan><tspan fill="#a8b4c0"> zane query --help</tspan></text>
-    <text x="1154" y="2032" fill="#7d8a96" font-size="15" letter-spacing="0.2em" text-anchor="end">§ 06 &#160;SIDEKICK</text>
-
-    <text x="46" y="2072"><tspan fill="#cdd5dd">open an issue titled </tspan><tspan fill="#e8b063">"ZaneOS ask: &lt;question&gt;"</tspan><tspan fill="#cdd5dd"> and my AI answers from public context</tspan></text>
-    <text x="46" y="2104" font-size="16"><tspan fill="#7d8a96">modes </tspan><tspan fill="#e8b063">ask</tspan><tspan fill="#7d8a96"> · </tspan><tspan fill="#e8b063">match</tspan><tspan fill="#7d8a96"> · </tspan><tspan fill="#e8b063">boop</tspan><tspan fill="#7d8a96"> · </tspan><tspan fill="#e8b063">quest</tspan><tspan fill="#7d8a96"> · at most 3 a day per person</tspan></text>
-
-    <!-- idle prompt with a blinking cursor -->
-    <text x="46" y="2154"><tspan fill="#4f9a75">~/zelinewang</tspan><tspan fill="#7d8a96"> $</tspan></text>
-    <rect class="cursor" x="200" y="2140" width="11" height="18" fill="#e8b063"/>
-  </g>
+  <rect x="0.75" y="0.75" width="1198.5" height="2374.5" rx="11.25" fill="none" stroke="#30363d" stroke-width="1.5"/>
 </svg>

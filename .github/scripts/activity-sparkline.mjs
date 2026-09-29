@@ -7,7 +7,7 @@
 
 // Where the Console template draws the chart. Shared with
 // .github/templates/console.svg.template; change them together.
-export const CONSOLE_BOX = Object.freeze({ x: 46, y: 1680, width: 1108, height: 96 });
+export const CONSOLE_BOX = Object.freeze({ x: 46, y: 1834, width: 1108, height: 100 });
 
 const MIN_BAR = 4;
 const STUB = 2;
