@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 846 714" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 846 690" role="img" aria-labelledby="title desc">
 <title id="title">Zane Wang — building tools that make AI coding agents more reliable</title>
-<desc id="desc">A pixel-art sunset over a city drawn from the past year of Zane's GitHub contributions: one building per week, one window per day, lit on the {{ACTIVE_DAYS}} days he contributed, and a gold pennant over each week in which one of his pull requests was merged upstream. Below the city: 12 PRs merged into 10 upstream projects ({{MERGED_RANGE}}), 10 bug fixes and 2 small features. Two of them: SQLx #4340, pre-1970 SQLite datetimes no longer decode up to 2 seconds off; AnyIO #1223, CapacityLimiter no longer grants more tokens than it has. Also merged: axum, goose, Fastify, Zod, TanStack Query, Tenacity, Feast and Claude HUD (three). His production background covers multimodal evaluation and data systems; his current public focus is tools for reliable AI coding agents: claudemem, handoff and dev-orchestrator.</desc>
+<desc id="desc">A pixel-art sunset over a city drawn from the past year of Zane's GitHub contributions: one building per week, one window per day, lit on the {{ACTIVE_DAYS}} days he contributed, and a gold pennant over each week in which one of his pull requests was merged upstream. Below the city: 12 PRs merged into 10 upstream projects ({{MERGED_RANGE}}), 10 bug fixes and 2 small features. Two of them: SQLx #4340, pre-1970 SQLite datetimes are no longer off by up to 2 seconds; AnyIO #1223, CapacityLimiter no longer grants more tokens than it has. Also merged: axum, goose, Fastify, Zod, TanStack Query, Tenacity, Feast and Claude HUD (three). His production background covers multimodal evaluation and data systems; his current public focus is tools for reliable AI coding agents: claudemem, handoff and dev-orchestrator.</desc>
 <!-- Fonts: Departure Mono (c) Helena Zhang and IBM Plex Mono (c) IBM Corp., both SIL Open Font License 1.1; embedded as renamed subsets. -->
 <!-- Authored at GitHub's desktop README width: 1 unit = 1 CSS px at 846 px wide. The picture is drawn on a 3-unit
      pixel grid. Departure Mono draws an 11-pixel em, so its sizes are multiples of 11 and it lands on whole pixels.
@@ -9,8 +9,9 @@
      them exact when the image is scaled (a phone or a narrow window), where Chrome otherwise rounds each
      advance to a whole screen pixel and lines grow by up to 4%. Type: 11 pixel labels, 13.33 notes
      (8-unit advance), 15 examples (9), 18.33 tagline (11), 33 headline, 88 name.
-     The evidence is one left-aligned column on a 38-unit baseline grid (526 to 678): the claim in two
-     equal lines, two of the fixes with their PR numbers, then the other projects. -->
+     Under the water, a key for reading the picture (its time axis, the windows, the pennants), then the
+     evidence in two columns whose tops and bottoms line up: the claim and the other projects on the left,
+     two of the fixes with their PR numbers on the right. -->
 <defs><style>{{FONT_FACES}}
 text{text-rendering:geometricPrecision}
 .px{font-family:zw-pixel, ui-monospace, 'SF Mono', Menlo, Consolas, 'DejaVu Sans Mono', monospace}
@@ -24,13 +25,13 @@ text{text-rendering:geometricPrecision}
 .beacon{animation:bk 1.6s steps(1) infinite}@keyframes bk{0%{opacity:1}50%{opacity:.15}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important}}</style>
 {{DUSK_DEFS}}
-<clipPath id="card"><rect width="846" height="714" rx="12"/></clipPath>
+<clipPath id="card"><rect width="846" height="690" rx="12"/></clipPath>
 <!-- The reflection stops short of the water's last rows, so the tallest roofs do not spill into the ground. -->
-<clipPath id="water"><rect x="0" y="348" width="846" height="54"/></clipPath>
+<clipPath id="water"><rect x="0" y="378" width="846" height="54"/></clipPath>
 <g id="pennant"><rect width="3" height="15" fill="#c6ad84"/><rect x="3" width="9" height="6" fill="#f5c45c"/></g>
 </defs>
 <g clip-path="url(#card)">
-<rect width="846" height="714" fill="#1e1523"/>
+<rect width="846" height="690" fill="#1e1523"/>
 <g shape-rendering="crispEdges">{{DUSK_SCENE}}</g>
 
 <g class="px" font-size="88" fill="#7a2e40" aria-hidden="true"><text x="36" y="104">zane wang</text></g>
@@ -38,21 +39,25 @@ text{text-rendering:geometricPrecision}
 <text class="bd" x="35" y="150" font-size="18.333" fill="#f6db95">building tools that make AI coding agents more reliable</text>
 <text class="bd" x="35" y="174" font-size="13.333" fill="#c6ad84"><tspan class="md" fill="#f8eed7">claudemem</tspan> for memory · <tspan class="md" fill="#f8eed7">handoff</tspan> for delegation · <tspan class="md" fill="#f8eed7">dev-orchestrator</tspan> for verification</text>
 
-<!-- The city's time axis, on the clean ground under the water: first week, what it shows, this week. -->
-<text class="px" x="35" y="432" font-size="11" fill="#c6ad84">{{RANGE_LABEL}}</text>
-<text class="bd" x="423" y="432" font-size="13.333" fill="#c6ad84" text-anchor="middle">↑ a building per week, a lit window for each of the {{ACTIVE_DAYS}} days I contributed</text>
-<text class="px" x="811" y="432" font-size="11" fill="#c6ad84" text-anchor="end">this week</text>
+<!-- How to read the picture: its time axis under the water, then a key for the windows and the pennants. -->
+<text class="px" x="35" y="462" font-size="11" fill="#c6ad84">{{RANGE_LABEL}}</text>
+<text class="px" x="811" y="462" font-size="11" fill="#c6ad84" text-anchor="end">this week</text>
+<text class="bd" x="35" y="484" font-size="13.333" fill="#c6ad84">↑ a building per week, a lit window for each of the {{ACTIVE_DAYS}} days I contributed</text>
+<use href="#pennant" x="36" y="491" shape-rendering="crispEdges"/>
+<text class="px" x="56" y="504" font-size="11" fill="#c6ad84">a week with a PR merged upstream</text>
 
-<!-- The evidence. Its first line is the legend of the pennants on the roofs. -->
-<use href="#pennant" x="36" y="461" shape-rendering="crispEdges"/>
-<text class="px" x="56" y="476" font-size="11" fill="#c6ad84">a week with a PR merged upstream</text>
-<text class="px" x="33" y="526" font-size="33" fill="#f8eed7"><tspan fill="#f5c45c">12</tspan> PRs merged into</text>
-<text class="px" x="33" y="564" font-size="33" fill="#f8eed7"><tspan fill="#f5c45c">10</tspan> upstream projects</text>
+<!-- The evidence: the claim and the other projects on the left, two of the fixes on the right. -->
+<text class="px" x="33" y="560" font-size="33" fill="#f8eed7"><tspan fill="#f5c45c">12</tspan> PRs merged into</text>
+<text class="px" x="33" y="598" font-size="33" fill="#f8eed7"><tspan fill="#f5c45c">10</tspan> upstream projects</text>
+<g class="bd" font-size="13.333" fill="#c6ad84"><text x="35" y="634">also merged: axum, goose, Fastify, Zod,</text><text x="35" y="653">TanStack Query, Tenacity, Feast, Claude HUD ×3</text></g>
 <g font-size="15">
-<text class="md" x="35" y="602" fill="#f5c45c">SQLx #4340</text><text class="bd" x="152" y="602" fill="#f8eed7">pre-1970 SQLite datetimes no longer decode up to 2 s off</text>
-<text class="md" x="35" y="640" fill="#f5c45c">AnyIO #1223</text><text class="bd" x="152" y="640" fill="#f8eed7">CapacityLimiter no longer grants more tokens than it has</text>
+<text class="md" x="500" y="548" fill="#f5c45c">SQLx #4340</text>
+<text class="bd" x="500" y="568" fill="#f8eed7">pre-1970 SQLite datetimes are</text>
+<text class="bd" x="500" y="587" fill="#f8eed7">no longer off by up to 2 s</text>
+<text class="md" x="500" y="615" fill="#f5c45c">AnyIO #1223</text>
+<text class="bd" x="500" y="635" fill="#f8eed7">CapacityLimiter no longer grants</text>
+<text class="bd" x="500" y="654" fill="#f8eed7">more tokens than it has</text>
 </g>
-<text class="bd" x="35" y="678" font-size="13.333" fill="#c6ad84">also merged: axum, goose, Fastify, Zod, TanStack Query, Tenacity, Feast, Claude HUD ×3</text>
 </g>
-<rect x="0.5" y="0.5" width="845" height="713" rx="11.5" fill="none" stroke="#45344a"/>
+<rect x="0.5" y="0.5" width="845" height="689" rx="11.5" fill="none" stroke="#45344a"/>
 </svg>

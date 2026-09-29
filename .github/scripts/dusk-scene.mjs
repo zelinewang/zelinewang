@@ -53,10 +53,10 @@ function layout(spec) {
 export const DESKTOP = layout({
   W: 846, P: 3,
   // One dark band behind the name, tagline and sub-line; the glow gathers above the city.
-  skyPx: [12, 54, 8, 6, 6, 5, 5, 5, 4, 4, 4, 3],
+  skyPx: [12, 54, 9, 8, 7, 7, 6, 6, 5, 5, 4, 3],
   waterPx: [2, 3, 4, 6, 4, 3],
   sunCx: 231, sunR: 108,
-  minH: 72, maxH: 135, buildingW: 18,
+  minH: 72, maxH: 162, buildingW: 18,
   // A pennant's flag, in art pixels.
   flag: [3, 2],
   textClear: 192,
@@ -64,24 +64,23 @@ export const DESKTOP = layout({
   textRows: [[136, 154], [163, 177]],
   // Open sky above and beside the name, one star per equal slice of a field.
   starFields: [{ x0: 21, x1: 540, y0: 9, y1: 36, count: 7 }, { x0: 600, x1: 828, y0: 9, y1: 114, count: 5 }],
-  // Cloud strata across the sun: left edge, top, length in pixels.
-  clouds: [{ x: 30, y: 231, len: 96 }, { x: 222, y: 252, len: 62 }, { x: 108, y: 282, len: 40 }],
+  // Cloud strata across the sun, below its crown: left edge, top, length in pixels.
+  clouds: [{ x: 132, y: 300, len: 60 }, { x: 222, y: 282, len: 62 }],
 });
 
 export const PHONE = layout({
   W: 320, P: 2,
-  skyPx: [18, 60, 6, 5, 5, 5, 5, 4, 4, 4, 4, 5],
+  skyPx: [18, 60, 8, 7, 7, 6, 6, 6, 6, 6, 5, 5],
   waterPx: [1, 2, 3, 4, 3, 2],
   sunCx: 92, sunR: 58,
-  // maxH keeps the tallest pennant clear of the tools line above the city.
-  minH: 40, maxH: 72, buildingW: 8,
+  minH: 40, maxH: 96, buildingW: 8,
   // Bigger than the desktop's in art pixels, so it still shows at phone size.
   flag: [4, 3],
   textClear: 154,
   nameRow: [44, 80],
   textRows: [[94, 107], [110, 123], [133, 143]],
   starFields: [{ x0: 10, x1: 310, y0: 6, y1: 30, count: 6 }],
-  clouds: [{ x: 8, y: 196, len: 56 }, { x: 110, y: 212, len: 30 }],
+  clouds: [{ x: 40, y: 240, len: 40 }, { x: 100, y: 228, len: 30 }],
 });
 
 // mulberry32

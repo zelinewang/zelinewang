@@ -295,14 +295,17 @@ for (const { name, path, L } of duskLayouts) {
     for (const { left, right, text } of lines) {
       assert.ok(left >= 6 && right <= L.W - 6, `"${text}" runs ${left.toFixed(0)}–${right.toFixed(0)}, outside the card`);
     }
-    // Pieces set on one baseline (axis labels and caption, a PR label and its
-    // description) keep at least two characters of space between them.
-    const rows = Map.groupBy(lines, (l) => l.y);
-    for (const [y, row] of rows) {
-      const sorted = row.sort((a, b) => a.left - b.left);
-      for (let i = 1; i < sorted.length; i++) {
-        const gap = sorted[i].left - sorted[i - 1].right;
-        assert.ok(gap >= 16, `"${sorted[i - 1].text}" and "${sorted[i].text}" at y=${y} are ${gap.toFixed(0)} units apart`);
+    // Lines that share any height (a label and the caption beside it, the two
+    // evidence columns) keep at least two characters of space between them.
+    const band = (l) => [l.y - 0.75 * l.size, l.y + 0.25 * l.size];
+    for (let i = 0; i < lines.length; i++) {
+      for (let j = i + 1; j < lines.length; j++) {
+        const [a, b] = [lines[i], lines[j]];
+        const [a0, a1] = band(a);
+        const [b0, b1] = band(b);
+        if (a1 <= b0 || b1 <= a0) continue;
+        const gap = Math.max(b.left - a.right, a.left - b.right);
+        assert.ok(gap >= 16, `"${a.text}" and "${b.text}" are ${gap.toFixed(0)} units apart`);
       }
     }
   });
