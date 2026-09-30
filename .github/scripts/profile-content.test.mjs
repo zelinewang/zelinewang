@@ -13,6 +13,16 @@ async function read(path) {
   return readFile(resolve(repoRoot, path), "utf8");
 }
 
+// Removes every match, repeating until none is left: one pass over "<<b>b>" leaves "<b>".
+function stripAll(text, pattern) {
+  let previous;
+  do {
+    previous = text;
+    text = text.replace(pattern, "");
+  } while (text !== previous);
+  return text;
+}
+
 const publicTargets = [
   "claudemem",
   "handoff",
@@ -232,7 +242,7 @@ for (const { name, path, L, shown } of duskLayouts) {
 
     // Each <text>, with the size and fill it inherits from its <g>, and each tspan fill inside it.
     let checked = 0;
-    const body = hero.replace(/<(title|desc|style)\b[\s\S]*?<\/\1>/g, "");
+    const body = stripAll(hero, /<(title|desc|style)\b[\s\S]*?<\/\1>/g);
     for (const group of body.matchAll(/<g\b([^>]*)>((?:(?!<\/?g\b)[\s\S])*)<\/g>|<text\b[^>]*>[\s\S]*?<\/text>/g)) {
       const groupAttrs = group[1] || "";
       if (/aria-hidden="true"/.test(groupAttrs)) continue;
@@ -263,7 +273,7 @@ for (const { name, path, L, shown } of duskLayouts) {
 const ADVANCE = { px: 7 / 11, bd: 0.6, md: 0.6 };
 
 function duskLines(svg) {
-  const body = svg.replace(/<(title|desc|style)\b[\s\S]*?<\/\1>/g, "");
+  const body = stripAll(svg, /<(title|desc|style)\b[\s\S]*?<\/\1>/g);
   const lines = [];
   for (const m of body.matchAll(/<g\b([^>]*)>((?:(?!<\/?g\b)[\s\S])*)<\/g>|<text\b[^>]*>[\s\S]*?<\/text>/g)) {
     const g = m[1] || "";
@@ -276,11 +286,11 @@ function duskLines(svg) {
       const size = Number(attr("font-size", open) || attr("font-size", g));
       const spacing = Number(attr("letter-spacing", open) || attr("letter-spacing", g) || 0);
       // Tokens measured at their widest plausible values.
-      const shown = t.replace(/<[^>]+>/g, "").replace(/&#?\w+;/g, "x").replace("{{ACTIVE_DAYS}}", "366")
+      const shown = stripAll(t, /<[^>]+>/g).replace(/&#?\w+;/g, "x").replace("{{ACTIVE_DAYS}}", "366")
         .replace("{{FLAG_WEEKS}}", "53").replace("{{FLAG_PRS}}", "99");
       const chars = [...shown].length;
       lines.push({ face, size, x: Number(attr("x", open)), y: Number(attr("y", open)), end: /text-anchor="end"/.test(open), middle: /text-anchor="middle"/.test(open),
-        width: chars * (ADVANCE[face] * size + spacing), text: t.replace(/<[^>]+>/g, "") });
+        width: chars * (ADVANCE[face] * size + spacing), text: stripAll(t, /<[^>]+>/g) });
     }
   }
   return lines;
