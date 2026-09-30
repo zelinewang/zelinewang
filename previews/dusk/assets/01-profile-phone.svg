@@ -64,7 +64,7 @@ text{text-rendering:geometricPrecision}
 <g class="md" font-size="13.333" fill="#f8eed7"><text x="15" y="686"><tspan fill="#f5c45c">12</tspan> PRs merged into</text><text x="15" y="702"><tspan fill="#f5c45c">10</tspan> upstream projects</text></g>
 <text class="bd" x="15" y="718" font-size="11.667" fill="#c6ad84">10 bug fixes and 2 small features</text>
 <g class="px" font-size="11" fill="#c6ad84"><text x="15" y="744">Rust</text><text x="15" y="760">Python</text><text x="15" y="776">JS/TS</text></g>
-<g class="bd" font-size="11.667" fill="#f8eed7"><text x="76" y="744">axum · SQLx · goose</text><text x="76" y="760">AnyIO · Tenacity · Feast</text><text x="76" y="776">Zod · TanStack Query ·</text><text x="76" y="791">Fastify · Claude HUD</text></g>
+<g class="bd" font-size="11.667" fill="#f8eed7"><text x="76" y="744">axum · SQLx · goose</text><text x="76" y="760">AnyIO · Tenacity · Feast</text><text x="76" y="776">Zod · TanStack Query</text><text x="76" y="791">Fastify · Claude HUD</text></g>
 <g class="bd" font-size="11.667" fill="#c6ad84"><text x="15" y="815">I use AI to find and draft fixes,</text><text x="15" y="830">verify each locally, and see it</text><text x="15" y="845">through maintainer review.</text></g>
 </g>
 <rect x="0.5" y="0.5" width="319" height="859" rx="9.5" fill="none" stroke="#45344a"/>
