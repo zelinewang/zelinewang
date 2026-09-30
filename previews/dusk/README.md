@@ -2,14 +2,14 @@
 
 > Dusk · Complete profile design study
 
-A pixel-art sunset in the palette of the avatar next to it, over a city built from the past year of the contribution calendar: one building per week, one window per day, lit on days with contributions, and a gold pennant over each week in which one of the upstream pull requests below was merged. Under the city, a short key for reading it, then the evidence itself in two columns instead of a terminal listing: 12 pull requests merged into 10 upstream projects with the other projects beneath the claim, and two of the fixes with their pull request numbers beside it.
+A pixel-art sunset in the palette of the avatar next to it, over a city built from the past 12 months of the contribution calendar. As the image loads, the contribution graph appears as a row of green squares along the horizon and rises into the city: each week becomes a building, taller when the week was busier, and each day becomes one of its windows, lit if there were contributions that day. A gold pennant flies over each week in which one of the upstream pull requests below was merged. Under the city, a month axis and a legend, then two columns: the tools I maintain, each with what it does and one fact, and the pull requests merged upstream, grouped by the language of the fix.
 
 **Production background:** AI evaluation, high-volume data systems, workflow automation, and enterprise agents. **Current public focus:** agent memory, bounded delegation, and evidence-driven development workflows.
 
 <p>
   <picture>
     <source media="(max-width: 600px)" srcset="./assets/01-profile-phone.svg">
-    <img src="./assets/01-profile.svg" alt="Dusk design study for Zane Wang: a pixel-art sunset over a city of the past year of GitHub contributions, with a gold pennant over each week a pull request was merged upstream, above the claim 12 pull requests merged into 10 upstream projects, two of the fixes (SQLx #4340, AnyIO #1223) and the other projects: axum, goose, Fastify, Zod, TanStack Query, Tenacity, Feast and Claude HUD" width="100%">
+    <img src="./assets/01-profile.svg" alt="Dusk design study for Zane Wang: a pixel-art sunset over a city drawn from the past 12 months of GitHub contributions, which rises out of the contribution graph as the image loads, with a gold pennant over each week a pull request was merged upstream. Below it, the tools he maintains (claudemem, handoff, dev-orchestrator) and 12 pull requests merged into 10 upstream projects: axum, SQLx and goose in Rust; AnyIO, Tenacity and Feast in Python; Zod, TanStack Query, Fastify and Claude HUD in JavaScript and TypeScript" width="100%">
   </picture>
 </p>
 
@@ -19,6 +19,6 @@ The visual is a dated, non-interactive artwork. Names inside the SVG are not lin
 
 **Agent infrastructure:** [claudemem](https://github.com/zelinewang/claudemem) · [handoff](https://github.com/zelinewang/handoff) · [dev-orchestrator](https://github.com/zelinewang/dev-orchestrator)
 
-**Design rationale:** One picture and one piece of evidence, nothing the page already shows twice. The picture takes the largest share of the card. The city is the contribution graph turned into an image, and its pennants tie the year to the pull requests under it: the evidence opens with the same pennant as its legend, and no window is lit in the pennant's gold, so a flag never reads as a lit window. The picture is drawn at the width GitHub shows it (846 px, and a second layout for phones below 600 px), so every art pixel lands on whole screen pixels. Fonts are embedded (Departure Mono for display, IBM Plex Mono for text, both SIL OFL). Motion is one load sequence, the city rising and its windows lighting up week by week; the evidence under it is static, so it can be read the moment the image loads.
+**Design rationale:** The picture has to explain itself, so the caption under the tagline says what it is, the opening shows it (the calendar the visitor knows turns into the city), and the axis and legend under the water say how to read it. No single upstream fix is enlarged: the depth sits with the tools I built, each with one fact, and the upstream work reads as breadth, with the sentence I used on axum#3836 about how the fixes were found and verified. The picture is drawn at the width GitHub shows it (846 px, and a second layout for phones below 600 px), so every art pixel lands on whole screen pixels. Fonts are embedded (Departure Mono for display, IBM Plex Mono for text, both SIL OFL). With reduced motion the finished city shows at once; the text is static, so it can be read the moment the image loads.
 
 [Latest automated render](https://raw.githubusercontent.com/zelinewang/zelinewang/stats-output/studies/dusk.svg) · [Phone layout](https://raw.githubusercontent.com/zelinewang/zelinewang/stats-output/studies/dusk-phone.svg) · [All design studies](../README.md) · [Canonical profile](../../README.md)

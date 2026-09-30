@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { DESKTOP, PHONE, POLE, UNLIT, calendarStrip, levelOf, monthTicks, renderScene, skyline, timeAxis } from "./dusk-scene.mjs";
+import { DESKTOP, PHONE, POLE, UNLIT, calendarStrip, levelOf, monthTicks, pennantSummary, renderScene, skyline, timeAxis } from "./dusk-scene.mjs";
 
 // weeks of { contributionDays: [{ date, contributionCount }] }, oldest first,
 // Sunday first, starting on Sunday 2026-01-04.
@@ -247,14 +247,27 @@ for (const [name, L] of layouts) {
     const level = levelOf(sample);
     windows.forEach((m, k) => {
       const [y, w, h, lit, lv, , dy, sx, sy] = [Number(m[1]), Number(m[2]), Number(m[3]), m[4], Number(m[5]), m[6], Number(m[7]), Number(m[8]), Number(m[9])];
-      // Every square is the same size, on a 4-pixel row step, clear of the horizon.
-      assert.equal(w * sx, 3 * L.P);
-      assert.ok(Math.abs(h * sy - 3 * L.P) < 0.01);
-      assert.equal((L.HORIZON - (y + dy)) % (4 * L.P), 0);
-      assert.ok(y + dy + 3 * L.P <= L.HORIZON);
+      // Every square is the same size, on the layout's row step, clear of the horizon.
+      const [cell, step] = L.graph.map((n) => n * L.P);
+      assert.equal(w * sx, cell);
+      assert.ok(Math.abs(h * sy - cell) < 0.01);
+      assert.equal((L.HORIZON - (y + dy)) % step, 0);
+      assert.ok(y + dy + cell <= L.HORIZON);
       // Lit days stay windows; the shade is GitHub's level for that day.
       assert.equal(Boolean(lit), days[k].contributionCount > 0);
       assert.equal(lv, level(days[k].contributionCount));
     });
   });
 }
+
+test("the phone axis names every third month and still ticks every month", () => {
+  const axis = timeAxis(fromSep28, PHONE, PHONE.WATER_B, POLE, 3);
+  assert.deepEqual([...axis.matchAll(/>(\w+)<\/text>/g)].map((m) => m[1]), ["Oct", "Jan", "Apr", "Jul"]);
+  assert.equal([...axis.matchAll(/<rect /g)].length, 12);
+});
+
+test("the legend counts only the merges inside the calendar, and the weeks they fall in", () => {
+  // Two merges in week 1, one in week 3, one before the calendar starts.
+  assert.deepEqual(pennantSummary(sample, ["2026-01-13", "2026-01-14", "2026-01-26", "2025-06-01"]), { prs: 3, weeks: 2 });
+  assert.deepEqual(pennantSummary(sample, []), { prs: 0, weeks: 0 });
+});

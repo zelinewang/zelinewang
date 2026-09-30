@@ -1,57 +1,71 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 670" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 860" role="img" aria-labelledby="title desc">
 <title id="title">Zane Wang — building tools that make AI coding agents more reliable</title>
-<desc id="desc">A pixel-art sunset over a city drawn from the past year of Zane's GitHub contributions: one building per week, one window per day, lit on the {{ACTIVE_DAYS}} days he contributed, and a gold pennant over each week in which one of his pull requests was merged upstream. Below the city: 12 PRs merged into 10 upstream projects ({{MERGED_RANGE}}), 10 bug fixes and 2 small features. Two of them: SQLx #4340, pre-1970 SQLite datetimes are no longer off by up to 2 seconds; AnyIO #1223, CapacityLimiter no longer grants more tokens than it has. Also merged: axum, goose, Fastify, Zod, TanStack Query, Tenacity, Feast and Claude HUD (three). His production background covers multimodal evaluation and data systems; his current public focus is tools for reliable AI coding agents: claudemem, handoff and dev-orchestrator.</desc>
+<desc id="desc">A pixel-art sunset over a city drawn from the past 12 months of Zane's GitHub contributions. As the image loads, the contribution graph appears along the horizon and rises into the city: one building per week, taller when the week was busier, and one window per day, lit on the {{ACTIVE_DAYS}} days he contributed. A gold pennant flies over each week in which one of his pull requests was merged upstream ({{FLAG_WEEKS}} weeks, {{FLAG_PRS}} PRs). Below the city, the tools he maintains: claudemem, memory that lasts across agent sessions (about 11,000 lines of Go and nearly as many in tests); handoff, which lets a strong model delegate to cheaper ones through resumable specs, with a published evaluation; dev-orchestrator, a Claude Code plugin that takes a task to a tested pull request, failing test first. Then 12 PRs merged into 10 upstream projects ({{MERGED_RANGE}}), 10 bug fixes and 2 small features: axum, SQLx and goose in Rust; AnyIO, Tenacity and Feast in Python; Zod, TanStack Query, Fastify and Claude HUD in JavaScript and TypeScript. He uses AI to find and draft fixes, verifies each one locally, and sees it through maintainer review. His production background covers multimodal evaluation and high-volume data systems; his current public focus is tools for reliable AI coding agents.</desc>
 <!-- Fonts: Departure Mono (c) Helena Zhang and IBM Plex Mono (c) IBM Corp., both SIL Open Font License 1.1; embedded as renamed subsets. -->
 <!-- The phone layout of dusk.svg.template, served by the README's <picture> below 600 px: authored 320 units wide
      for a README column of about 300-350 px, on a 2-unit pixel grid. Plex Mono sizes give whole-unit
      advances (0.6 em), so lines measure the same on every platform. text-rendering:geometricPrecision keeps
-     them exact when the image is scaled: Chrome otherwise rounds each advance to a whole screen pixel. Type: 11 pixel labels, 11.67 caption
-     (7-unit advance), 13.33 tagline and evidence (8), 22 headline, 44 name. -->
+     them exact when the image is scaled: Chrome otherwise rounds each advance to a whole screen pixel.
+     Type: 11 pixel labels, 11.67 notes (7-unit advance), 13.33 tagline and names (8), 44 name. The same
+     opening as the desktop: the contribution graph along the horizon rises into the city. The axis names
+     every third month; everything under it is one column. -->
 <defs><style>{{FONT_FACES}}
 text{text-rendering:geometricPrecision}
 .px{font-family:zw-pixel, ui-monospace, 'SF Mono', Menlo, Consolas, 'DejaVu Sans Mono', monospace}
 .bd{font-family:zw-body, ui-monospace, 'SF Mono', Menlo, Consolas, 'DejaVu Sans Mono', monospace}
 .md{font-family:zw-body-medium, ui-monospace, 'SF Mono', Menlo, Consolas, 'DejaVu Sans Mono', monospace}
-.b{transform-box:fill-box;transform-origin:50% 100%;animation:rise 1s cubic-bezier(.22,1,.36,1) both}@keyframes rise{from{transform:scaleY(0)}to{transform:scaleY(1)}}
-.w{animation:on .6s ease-out both}@keyframes on{from{opacity:0}to{opacity:1}}
+.b{transform-box:fill-box;transform-origin:50% 100%;animation:rise 1.4s cubic-bezier(.65,0,.35,1) both}@keyframes rise{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+.m{transform-box:fill-box;transform-origin:0 0;animation-duration:1.4s;animation-timing-function:cubic-bezier(.65,0,.35,1);animation-fill-mode:both}
+@keyframes mv{from{transform:var(--t)}to{transform:none}}
+.c0{animation-name:mv,c0}.c1{animation-name:mv,c1}.c2{animation-name:mv,c2}.c3{animation-name:mv,c3}.c4{animation-name:mv,c4}
+@keyframes c0{0%{fill:#161b22}100%{fill:#3d2c38}}@keyframes c1{0%{fill:#0e4429}100%{fill:#f6db95}}@keyframes c2{0%{fill:#006d32}100%{fill:#f6db95}}
+@keyframes c3{0%{fill:#26a641}100%{fill:#f6db95}}@keyframes c4{0%{fill:#39d353}100%{fill:#f6db95}}
 .tw{animation:tw 3.4s ease-in-out infinite}@keyframes tw{0%,100%{opacity:.2}50%{opacity:.95}}
 .glow{animation:glow 7s ease-in-out infinite}@keyframes glow{0%,100%{opacity:.75}50%{opacity:1}}
 .sh{animation:sh 2.8s ease-in-out infinite}@keyframes sh{0%,100%{opacity:.25}50%{opacity:.9}}
 .beacon{animation:bk 1.6s steps(1) infinite}@keyframes bk{0%{opacity:1}50%{opacity:.15}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important}}</style>
 {{DUSK_PHONE_DEFS}}
-<clipPath id="card"><rect width="320" height="670" rx="10"/></clipPath>
-<clipPath id="water"><rect x="0" y="294" width="320" height="24"/></clipPath>
+<clipPath id="card"><rect width="320" height="860" rx="10"/></clipPath>
+<clipPath id="water"><rect x="0" y="310" width="320" height="24"/></clipPath>
 <g id="pennant"><rect width="2" height="12" fill="#c6ad84"/><rect x="2" width="8" height="6" fill="#f5c45c"/></g>
+<g id="bldg"><rect width="8" height="12" fill="#4a3a52"/><rect x="3" y="2" width="2" height="4" fill="#f6db95"/></g>
+<g id="lit"><rect width="3" height="6" fill="#f6db95"/></g>
 </defs>
 <g clip-path="url(#card)">
-<rect width="320" height="670" fill="#1e1523"/>
+<rect width="320" height="860" fill="#1e1523"/>
 <g shape-rendering="crispEdges">{{DUSK_PHONE_SCENE}}</g>
 
 <g class="px" font-size="44" fill="#7a2e40" aria-hidden="true"><text x="16" y="72">zane wang</text></g>
 <text class="px" x="12" y="68" font-size="44" fill="#f8eed7">zane wang</text>
 <g class="bd" font-size="13.333" fill="#f6db95"><text x="15" y="104">building tools that make AI</text><text x="15" y="120">coding agents more reliable</text></g>
-<text class="bd" x="15" y="142" font-size="11.667" fill="#c6ad84"><tspan class="md" fill="#f8eed7">claudemem</tspan> · <tspan class="md" fill="#f8eed7">handoff</tspan> · <tspan class="md" fill="#f8eed7">dev-orchestrator</tspan></text>
+<g class="bd" font-size="11.667" fill="#f8eed7"><text x="15" y="142">↓ my last 12 months of GitHub</text><text x="15" y="157">contributions, drawn as a city</text></g>
 
-<!-- How to read the picture: its time axis under the water, then a key for the windows and the pennants. -->
-<text class="px" x="15" y="340" font-size="11" fill="#c6ad84">{{RANGE_LABEL}}</text>
-<text class="px" x="305" y="340" font-size="11" fill="#c6ad84" text-anchor="end">this week</text>
-<g class="bd" font-size="11.667" fill="#c6ad84"><text x="15" y="360">↑ a building per week, a lit window for</text><text x="15" y="375">each of the {{ACTIVE_DAYS}} days I contributed</text></g>
-<use href="#pennant" x="16" y="382" shape-rendering="crispEdges"/>
-<text class="px" x="33" y="394" font-size="11" fill="#c6ad84">a week with a PR merged upstream</text>
+<!-- How to read the picture: a month axis under the water, then the legend. -->
+<g shape-rendering="crispEdges">{{DUSK_PHONE_AXIS}}</g>
+<g shape-rendering="crispEdges"><use href="#bldg" x="16" y="372"/><use href="#lit" x="18" y="391"/><use href="#pennant" x="16" y="404"/></g>
+<g class="bd" font-size="11.667" fill="#c6ad84">
+<text x="31" y="382">a week; taller = busier</text>
+<text x="31" y="398">a day I contributed ({{ACTIVE_DAYS}})</text>
+<text x="31" y="414">a week with a PR merged upstream</text>
+<text x="31" y="429">({{FLAG_WEEKS}} weeks, {{FLAG_PRS}} PRs in all)</text>
+</g>
 
-<!-- The evidence. -->
-<text class="px" x="14" y="434" font-size="22" fill="#f8eed7"><tspan fill="#f5c45c">12</tspan> PRs merged into</text>
-<text class="px" x="14" y="462" font-size="22" fill="#f8eed7"><tspan fill="#f5c45c">10</tspan> upstream projects</text>
-<g font-size="13.333">
-<text class="md" x="15" y="494" fill="#f5c45c">SQLx #4340</text>
-<text class="bd" x="15" y="510" fill="#f8eed7">pre-1970 SQLite datetimes are</text>
-<text class="bd" x="15" y="526" fill="#f8eed7">no longer off by up to 2 s</text>
-<text class="md" x="15" y="554" fill="#f5c45c">AnyIO #1223</text>
-<text class="bd" x="15" y="570" fill="#f8eed7">CapacityLimiter no longer grants</text>
-<text class="bd" x="15" y="586" fill="#f8eed7">more tokens than it has</text>
+<!-- What I build, then what I have shipped into other people's projects. -->
+<text class="px" x="15" y="466" font-size="11" fill="#c6ad84">tools I maintain</text>
+<text class="md" x="15" y="488" font-size="13.333" fill="#f8eed7">claudemem</text>
+<g class="bd" font-size="11.667"><text x="15" y="504" fill="#ecdcc0">memory that lasts across agent sessions</text><text x="15" y="519" fill="#c6ad84">11k lines of Go, nearly as many in tests</text></g>
+<text class="md" x="15" y="543" font-size="13.333" fill="#f8eed7">handoff</text>
+<g class="bd" font-size="11.667"><text x="15" y="559" fill="#ecdcc0">a strong model delegates to cheaper ones</text><text x="15" y="574" fill="#c6ad84">resumable specs, with a published eval</text></g>
+<text class="md" x="15" y="598" font-size="13.333" fill="#f8eed7">dev-orchestrator</text>
+<g class="bd" font-size="11.667"><text x="15" y="614" fill="#ecdcc0">Claude Code plugin: task to tested PR</text><text x="15" y="629" fill="#c6ad84">failing test first, then the fix</text></g>
+
+<text class="px" x="15" y="664" font-size="11" fill="#c6ad84">merged upstream</text>
+<g class="md" font-size="13.333" fill="#f8eed7"><text x="15" y="686"><tspan fill="#f5c45c">12</tspan> PRs merged into</text><text x="15" y="702"><tspan fill="#f5c45c">10</tspan> upstream projects</text></g>
+<text class="bd" x="15" y="718" font-size="11.667" fill="#c6ad84">10 bug fixes and 2 small features</text>
+<g class="px" font-size="11" fill="#c6ad84"><text x="15" y="744">Rust</text><text x="15" y="760">Python</text><text x="15" y="776">JS/TS</text></g>
+<g class="bd" font-size="11.667" fill="#f8eed7"><text x="76" y="744">axum · SQLx · goose</text><text x="76" y="760">AnyIO · Tenacity · Feast</text><text x="76" y="776">Zod · TanStack Query ·</text><text x="76" y="791">Fastify · Claude HUD</text></g>
+<g class="bd" font-size="11.667" fill="#c6ad84"><text x="15" y="815">I use AI to find and draft fixes,</text><text x="15" y="830">verify each locally, and see it</text><text x="15" y="845">through maintainer review.</text></g>
 </g>
-<g class="bd" font-size="13.333" fill="#c6ad84"><text x="15" y="616">also merged: axum, goose, Fastify,</text><text x="15" y="632">Zod, TanStack Query, Tenacity,</text><text x="15" y="648">Feast, Claude HUD ×3</text></g>
-</g>
-<rect x="0.5" y="0.5" width="319" height="669" rx="9.5" fill="none" stroke="#45344a"/>
+<rect x="0.5" y="0.5" width="319" height="859" rx="9.5" fill="none" stroke="#45344a"/>
 </svg>

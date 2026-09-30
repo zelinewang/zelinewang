@@ -59,6 +59,8 @@ export const DESKTOP = layout({
   minH: 72, maxH: 162, buildingW: 18,
   // A pennant's flag, in art pixels.
   flag: [3, 2],
+  // The contribution graph the windows rise from: square size and row step, in art pixels.
+  graph: [3, 4],
   textClear: 192,
   nameRow: [48, 120],
   textRows: [[136, 154], [163, 177]],
@@ -68,15 +70,18 @@ export const DESKTOP = layout({
 
 export const PHONE = layout({
   W: 320, P: 2,
-  skyPx: [18, 60, 9, 8, 8, 7, 7, 7, 6, 6, 6, 5],
+  // The dark band holds the name, the tagline's two lines and the caption's two.
+  skyPx: [18, 68, 9, 8, 8, 7, 7, 7, 6, 6, 6, 5],
   waterPx: [1, 2, 3, 4, 3, 2],
   sunCx: 92, sunR: 68,
   minH: 40, maxH: 110, buildingW: 8,
   // Bigger than the desktop's in art pixels, so it still shows at phone size.
   flag: [4, 3],
-  textClear: 154,
+  // Smaller squares than the desktop's, so gaps still show between the narrow columns.
+  graph: [2, 3],
+  textClear: 170,
   nameRow: [44, 80],
-  textRows: [[94, 107], [110, 123], [133, 143]],
+  textRows: [[94, 107], [110, 123], [133, 144], [148, 159]],
   starFields: [{ x0: 10, x1: 310, y0: 6, y1: 30, count: 6 }],
 });
 
@@ -223,15 +228,16 @@ export function monthTicks(weeks, L = DESKTOP) {
   return ticks.filter((t, k) => k === ticks.length - 1 || ticks[k + 1].i - t.i >= 3);
 }
 
-// The time axis itself: a short tick under each labelled week and the month name
-// beside it, in the pixel face. y is the top of the ticks; the labels hang below.
-export function timeAxis(weeks, L = DESKTOP, y = L.WATER_B, color = POLE) {
+// The time axis itself: a short tick under the first week of each month and the
+// month's name beside it, in the pixel face; with every = 3 only each third month
+// is named (a phone has no room for twelve). y is the top of the ticks.
+export function timeAxis(weeks, L = DESKTOP, y = L.WATER_B, color = POLE, every = 1) {
   const { P } = L;
   const snap = (v) => P * Math.round(v / P);
-  return monthTicks(weeks, L).map(({ x, label }) => {
+  return monthTicks(weeks, L).map(({ x, label }, k) => {
     const tx = Math.min(L.W - 7 * P, snap(x - P / 2));
-    return rect(tx, y, P, 2 * P, color) +
-      `<text class="px" x="${tx}" y="${y + 2 * P + 13}" font-size="11" fill="${color}">${label}</text>`;
+    const name = k % every === 0 ? `<text class="px" x="${tx}" y="${y + 2 * P + 13}" font-size="11" fill="${color}">${label}</text>` : "";
+    return rect(tx, y, P, 2 * P, color) + name;
   }).join("");
 }
 
@@ -266,6 +272,14 @@ export function calendarStrip(weeks, L = DESKTOP, top = L.WATER_B + 3 * L.P, ram
   return out.join("");
 }
 
+// What the legend counts: the merges that fall inside the calendar, and the weeks
+// their pennants fly over. Merges older than the calendar drop out as it moves on.
+export function pennantSummary(weeks, merged = []) {
+  const weekOf = new Map(weeks.flatMap((w, i) => w.contributionDays.map((d) => [d.date, i])));
+  const inside = merged.filter((date) => weekOf.has(date));
+  return { prs: inside.length, weeks: new Set(inside.map((date) => weekOf.get(date))).size };
+}
+
 // weeks: contributionCalendar.weeks, oldest first; each has contributionDays
 // ({ date, contributionCount }), up to 7 of them, Sunday first.
 // merged: ISO dates (YYYY-MM-DD) on which an upstream pull request was merged.
@@ -285,10 +299,10 @@ export function skyline(weeks, merged = [], L = DESKTOP, { morph = false } = {})
   const tallest = totals.indexOf(Math.max(...totals));
   // Windows: one per day, one pixel wide; taller on the desktop grid.
   const winH = P === 3 ? 2 * P : P;
-  // The contribution graph the windows start from when morphing: 3-pixel squares
-  // on a 4-pixel step, its bottom row just above the horizon.
-  const gridCell = 3 * P;
-  const gridStep = 4 * P;
+  // The contribution graph the windows start from when morphing, its bottom row
+  // just above the horizon (square size and step per layout).
+  const gridCell = L.graph[0] * P;
+  const gridStep = L.graph[1] * P;
   const gridTop = HORIZON - 7 * gridStep;
   const level = levelOf(weeks);
   let previousShade = -1;
@@ -351,7 +365,7 @@ export function skyline(weeks, merged = [], L = DESKTOP, { morph = false } = {})
         // Each window starts as its day's square in the contribution graph, a row of
         // squares along the horizon, and rides up to its floor as the building rises.
         const dy = gridTop + d * gridStep - y;
-        const t = `translate(${-P}px,${dy}px) scale(${gridCell / P},${num(gridCell / winH)})`;
+        const t = `translate(${(P - gridCell) / 2}px,${dy}px) scale(${gridCell / P},${num(gridCell / winH)})`;
         windows.push(rect(col, y, P, winH, color, ` class="${lit ? "w " : ""}m c${level(day.contributionCount)}" style="--t:${t};animation-delay:${num(start)}s"`));
       } else if (lit) {
         const delay = 1.1 + i * 0.03 + d * 0.015;

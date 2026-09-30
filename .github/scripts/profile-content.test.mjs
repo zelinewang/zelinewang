@@ -88,13 +88,14 @@ function visibleText(svg) {
 }
 
 // The current designs make the same claim about the same projects; only the art
-// differs. Each also shows what kind of work it was: Console and Sunset count the
-// fixes and features, Dusk shows two of the fixes with their pull request numbers.
-const duskExamples = [/SQLx #4340/, /AnyIO #1223/];
+// differs. Each also says what kind of work it was: ten fixes and two small features.
+// Dusk says how the fixes were found too, in the words Zane used on axum#3836, so
+// the list of well-known projects does not read as a claim of depth in each.
 const workSummary = [/10 bug fixes and 2 small features/];
+const duskWork = [...workSummary, /I use AI to find and draft fixes, verify each\s+locally, and see it\s+through maintainer review/];
 const heroes = [
-  { path: ".github/templates/dusk.svg.template", tokens: ["ACTIVE_DAYS", "RANGE_LABEL", "MERGED_RANGE", "DUSK_DEFS", "DUSK_SCENE", "FONT_FACES"], work: duskExamples },
-  { path: ".github/templates/dusk-phone.svg.template", tokens: ["ACTIVE_DAYS", "RANGE_LABEL", "MERGED_RANGE", "DUSK_PHONE_DEFS", "DUSK_PHONE_SCENE", "FONT_FACES"], work: duskExamples },
+  { path: ".github/templates/dusk.svg.template", tokens: ["ACTIVE_DAYS", "MERGED_RANGE", "FLAG_WEEKS", "FLAG_PRS", "DUSK_DEFS", "DUSK_SCENE", "DUSK_AXIS", "FONT_FACES"], work: duskWork },
+  { path: ".github/templates/dusk-phone.svg.template", tokens: ["ACTIVE_DAYS", "MERGED_RANGE", "FLAG_WEEKS", "FLAG_PRS", "DUSK_PHONE_DEFS", "DUSK_PHONE_SCENE", "DUSK_PHONE_AXIS", "FONT_FACES"], work: duskWork },
   { path: ".github/templates/console.svg.template", tokens: ["CONTRIB_TOTAL", "ACTIVE_DAYS", "LONGEST_STREAK", "SPARKLINE", "FONT_FACES"], work: workSummary },
   { path: ".github/templates/sunset.svg.template", tokens: ["CONTRIB_TOTAL", "ACTIVE_DAYS", "LONGEST_STREAK", "SCENE", "SCENE_DEFS", "FONT_FACES"], work: workSummary },
 ];
@@ -119,9 +120,16 @@ for (const { path, tokens, work } of heroes) {
   });
 }
 
-test("Dusk's two examples cite pull requests from the merged-upstream data", () => {
-  for (const [project, number] of [["SQLx", 4340], ["AnyIO", 1223]]) {
-    assert.ok(UPSTREAM_PRS.some((pr) => pr.project === project && pr.number === number), `${project} #${number} is not in UPSTREAM_PRS`);
+test("Dusk groups every upstream project under the language its fix was written in", async () => {
+  // Checked against each PR's changed files (goose #10438 touches only Rust crates).
+  const language = { axum: "Rust", SQLx: "Rust", goose: "Rust", AnyIO: "Python", Tenacity: "Python", Feast: "Python",
+    Zod: "JS/TS", "TanStack Query": "JS/TS", Fastify: "JS/TS", "Claude HUD": "JS/TS" };
+  assert.deepEqual(Object.keys(language).sort(), [...upstreamProjects].sort());
+  const hero = await read(".github/templates/dusk.svg.template");
+  for (const [project, lang] of Object.entries(language)) {
+    const row = [...hero.matchAll(/<text class="px" x="411" y="(\d+)"[^>]*>([^<]+)<\/text>/g)].find((m) => m[2] === lang);
+    assert.ok(row, `no ${lang} row`);
+    assert.match(hero, new RegExp(`<text class="bd" x="471" y="${row[1]}"[^>]*>[^<]*${project}`), `${project} is not on the ${lang} row`);
   }
 });
 
@@ -269,7 +277,7 @@ function duskLines(svg) {
       const spacing = Number(attr("letter-spacing", open) || attr("letter-spacing", g) || 0);
       // Tokens measured at their widest plausible values.
       const shown = t.replace(/<[^>]+>/g, "").replace(/&#?\w+;/g, "x").replace("{{ACTIVE_DAYS}}", "366")
-        .replace("{{RANGE_LABEL}}", "Sep 2025");
+        .replace("{{FLAG_WEEKS}}", "53").replace("{{FLAG_PRS}}", "99");
       const chars = [...shown].length;
       lines.push({ face, size, x: Number(attr("x", open)), y: Number(attr("y", open)), end: /text-anchor="end"/.test(open), middle: /text-anchor="middle"/.test(open),
         width: chars * (ADVANCE[face] * size + spacing), text: t.replace(/<[^>]+>/g, "") });
@@ -401,8 +409,8 @@ test("renderer renders every design to the gallery and the active one to the her
   assert.match(renderer, /contributionCalendar/);
   assert.match(renderer, /sparkline\(calendar\.weeks/);
   assert.match(renderer, /summarizeCalendar/);
-  assert.match(renderer, /renderDusk\(calendar\.weeks, merged, DESKTOP\)/);
-  assert.match(renderer, /renderDusk\(calendar\.weeks, merged, PHONE\)/);
+  assert.match(renderer, /renderDusk\(calendar\.weeks, merged, DESKTOP, \{ morph: true \}\)/);
+  assert.match(renderer, /renderDusk\(calendar\.weeks, merged, PHONE, \{ morph: true \}\)/);
 });
 
 test("the nightly workflow publishes every design and the phone hero", async () => {

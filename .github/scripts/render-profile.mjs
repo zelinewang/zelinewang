@@ -28,9 +28,9 @@ import { execFileSync } from "node:child_process";
 
 import { summarizeCalendar } from "./calendar-summary.mjs";
 import { renderScene } from "./sunset-scene.mjs";
-import { renderScene as renderDusk, DESKTOP, PHONE } from "./dusk-scene.mjs";
+import { renderScene as renderDusk, DESKTOP, PHONE, POLE, pennantSummary, timeAxis } from "./dusk-scene.mjs";
 import { CONSOLE_BOX, sparkline } from "./activity-sparkline.mjs";
-import { UPSTREAM_PRS, mergedRange, monthLabel } from "./upstream-prs.mjs";
+import { UPSTREAM_PRS, mergedRange } from "./upstream-prs.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(here, "..", "..");
@@ -131,11 +131,13 @@ function fetchCalendar() {
   const days = calendar.weeks.flatMap((week) => week.contributionDays);
   const { activeDays, longestStreak } = summarizeCalendar(days);
   // Sunset draws the weeks as a skyline, Console as one bar per week, Dusk as a city
-  // with a pennant over each week an upstream PR was merged.
+  // with a pennant over each week an upstream PR was merged. Dusk's windows start as
+  // the contribution graph and rise into the city (morph).
   const { defs, scene } = renderScene(calendar.weeks);
   const merged = UPSTREAM_PRS.map((pr) => pr.merged);
-  const dusk = renderDusk(calendar.weeks, merged, DESKTOP);
-  const duskPhone = renderDusk(calendar.weeks, merged, PHONE);
+  const dusk = renderDusk(calendar.weeks, merged, DESKTOP, { morph: true });
+  const duskPhone = renderDusk(calendar.weeks, merged, PHONE, { morph: true });
+  const pennants = pennantSummary(calendar.weeks, merged);
   return {
     CONTRIB_TOTAL:  calendar.totalContributions.toLocaleString("en-US"),
     ACTIVE_DAYS:    String(activeDays),
@@ -144,12 +146,15 @@ function fetchCalendar() {
     SCENE_DEFS:     defs,
     SCENE:          scene,
     SPARKLINE:      sparkline(calendar.weeks, CONSOLE_BOX).svg,
-    RANGE_LABEL:    days[0] ? monthLabel(days[0].date) : "",
     MERGED_RANGE:   mergedRange(),
     DUSK_DEFS:      dusk.defs,
     DUSK_SCENE:     dusk.scene,
     DUSK_PHONE_DEFS:  duskPhone.defs,
     DUSK_PHONE_SCENE: duskPhone.scene,
+    DUSK_AXIS:        timeAxis(calendar.weeks, DESKTOP),
+    DUSK_PHONE_AXIS:  timeAxis(calendar.weeks, PHONE, PHONE.WATER_B, POLE, 3),
+    FLAG_WEEKS:       String(pennants.weeks),
+    FLAG_PRS:         String(pennants.prs),
   };
 }
 

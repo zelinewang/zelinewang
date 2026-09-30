@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 846 690" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 846 786" role="img" aria-labelledby="title desc">
 <title id="title">Zane Wang — building tools that make AI coding agents more reliable</title>
-<desc id="desc">A pixel-art sunset over a city drawn from the past year of Zane's GitHub contributions: one building per week, one window per day, lit on the {{ACTIVE_DAYS}} days he contributed, and a gold pennant over each week in which one of his pull requests was merged upstream. Below the city: 12 PRs merged into 10 upstream projects ({{MERGED_RANGE}}), 10 bug fixes and 2 small features. Two of them: SQLx #4340, pre-1970 SQLite datetimes are no longer off by up to 2 seconds; AnyIO #1223, CapacityLimiter no longer grants more tokens than it has. Also merged: axum, goose, Fastify, Zod, TanStack Query, Tenacity, Feast and Claude HUD (three). His production background covers multimodal evaluation and data systems; his current public focus is tools for reliable AI coding agents: claudemem, handoff and dev-orchestrator.</desc>
+<desc id="desc">A pixel-art sunset over a city drawn from the past 12 months of Zane's GitHub contributions. As the image loads, the contribution graph appears along the horizon and rises into the city: one building per week, taller when the week was busier, and one window per day, lit on the {{ACTIVE_DAYS}} days he contributed. A gold pennant flies over each week in which one of his pull requests was merged upstream ({{FLAG_WEEKS}} weeks, {{FLAG_PRS}} PRs). Below the city, the tools he maintains: claudemem, memory that lasts across agent sessions (about 11,000 lines of Go and nearly as many in tests); handoff, which lets a strong model delegate to cheaper ones through resumable specs, with a published evaluation; dev-orchestrator, a Claude Code plugin that takes a task to a tested pull request, failing test first. Beside them, 12 PRs merged into 10 upstream projects ({{MERGED_RANGE}}), 10 bug fixes and 2 small features: axum, SQLx and goose in Rust; AnyIO, Tenacity and Feast in Python; Zod, TanStack Query, Fastify and Claude HUD in JavaScript and TypeScript. He uses AI to find and draft fixes, verifies each one locally, and sees it through maintainer review. His production background covers multimodal evaluation and high-volume data systems; his current public focus is tools for reliable AI coding agents.</desc>
 <!-- Fonts: Departure Mono (c) Helena Zhang and IBM Plex Mono (c) IBM Corp., both SIL Open Font License 1.1; embedded as renamed subsets. -->
 <!-- Authored at GitHub's desktop README width: 1 unit = 1 CSS px at 846 px wide. The picture is drawn on a 3-unit
      pixel grid. Departure Mono draws an 11-pixel em, so its sizes are multiples of 11 and it lands on whole pixels.
@@ -8,56 +8,74 @@
      some browsers round a fractional advance to a whole pixel. text-rendering:geometricPrecision keeps
      them exact when the image is scaled (a phone or a narrow window), where Chrome otherwise rounds each
      advance to a whole screen pixel and lines grow by up to 4%. Type: 11 pixel labels, 13.33 notes
-     (8-unit advance), 15 examples (9), 18.33 tagline (11), 33 headline, 88 name.
-     Under the water, a key for reading the picture (its time axis, the windows, the pennants), then the
-     evidence in two columns whose tops and bottoms line up: the claim and the other projects on the left,
-     two of the fixes with their PR numbers on the right. -->
+     (8-unit advance), 15 names (9), 18.33 tagline (11), 88 name.
+     The caption under the tagline says what the picture is. On load, each window starts as its day's
+     square in GitHub's contribution graph, a row of green squares along the horizon, and rides up as its
+     building rises (dusk-scene.mjs, morph); with reduced motion the finished city shows at once.
+     Under the water: a month axis and a legend; then the tools (left) and the upstream PRs (right),
+     their rows on one baseline grid. -->
 <defs><style>{{FONT_FACES}}
 text{text-rendering:geometricPrecision}
 .px{font-family:zw-pixel, ui-monospace, 'SF Mono', Menlo, Consolas, 'DejaVu Sans Mono', monospace}
 .bd{font-family:zw-body, ui-monospace, 'SF Mono', Menlo, Consolas, 'DejaVu Sans Mono', monospace}
 .md{font-family:zw-body-medium, ui-monospace, 'SF Mono', Menlo, Consolas, 'DejaVu Sans Mono', monospace}
-.b{transform-box:fill-box;transform-origin:50% 100%;animation:rise 1s cubic-bezier(.22,1,.36,1) both}@keyframes rise{from{transform:scaleY(0)}to{transform:scaleY(1)}}
-.w{animation:on .6s ease-out both}@keyframes on{from{opacity:0}to{opacity:1}}
+.b{transform-box:fill-box;transform-origin:50% 100%;animation:rise 1.4s cubic-bezier(.65,0,.35,1) both}@keyframes rise{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+.m{transform-box:fill-box;transform-origin:0 0;animation-duration:1.4s;animation-timing-function:cubic-bezier(.65,0,.35,1);animation-fill-mode:both}
+@keyframes mv{from{transform:var(--t)}to{transform:none}}
+.c0{animation-name:mv,c0}.c1{animation-name:mv,c1}.c2{animation-name:mv,c2}.c3{animation-name:mv,c3}.c4{animation-name:mv,c4}
+@keyframes c0{0%{fill:#161b22}100%{fill:#3d2c38}}@keyframes c1{0%{fill:#0e4429}100%{fill:#f6db95}}@keyframes c2{0%{fill:#006d32}100%{fill:#f6db95}}
+@keyframes c3{0%{fill:#26a641}100%{fill:#f6db95}}@keyframes c4{0%{fill:#39d353}100%{fill:#f6db95}}
 .tw{animation:tw 3.4s ease-in-out infinite}@keyframes tw{0%,100%{opacity:.2}50%{opacity:.95}}
 .glow{animation:glow 7s ease-in-out infinite}@keyframes glow{0%,100%{opacity:.75}50%{opacity:1}}
 .sh{animation:sh 2.8s ease-in-out infinite}@keyframes sh{0%,100%{opacity:.25}50%{opacity:.9}}
 .beacon{animation:bk 1.6s steps(1) infinite}@keyframes bk{0%{opacity:1}50%{opacity:.15}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important}}</style>
 {{DUSK_DEFS}}
-<clipPath id="card"><rect width="846" height="690" rx="12"/></clipPath>
+<clipPath id="card"><rect width="846" height="786" rx="12"/></clipPath>
 <!-- The reflection stops short of the water's last rows, so the tallest roofs do not spill into the ground. -->
 <clipPath id="water"><rect x="0" y="378" width="846" height="54"/></clipPath>
 <g id="pennant"><rect width="3" height="15" fill="#c6ad84"/><rect x="3" width="9" height="6" fill="#f5c45c"/></g>
+<g id="bldg"><rect width="9" height="15" fill="#4a3a52"/><rect x="3" y="3" width="3" height="6" fill="#f6db95"/></g>
+<g id="lit"><rect width="4" height="8" fill="#f6db95"/></g>
 </defs>
 <g clip-path="url(#card)">
-<rect width="846" height="690" fill="#1e1523"/>
+<rect width="846" height="786" fill="#1e1523"/>
 <g shape-rendering="crispEdges">{{DUSK_SCENE}}</g>
 
 <g class="px" font-size="88" fill="#7a2e40" aria-hidden="true"><text x="36" y="104">zane wang</text></g>
 <text class="px" x="28" y="96" font-size="88" fill="#f8eed7">zane wang</text>
 <text class="bd" x="35" y="150" font-size="18.333" fill="#f6db95">building tools that make AI coding agents more reliable</text>
-<text class="bd" x="35" y="174" font-size="13.333" fill="#c6ad84"><tspan class="md" fill="#f8eed7">claudemem</tspan> for memory · <tspan class="md" fill="#f8eed7">handoff</tspan> for delegation · <tspan class="md" fill="#f8eed7">dev-orchestrator</tspan> for verification</text>
+<text class="bd" x="35" y="174" font-size="13.333" fill="#f8eed7">↓ my last 12 months of GitHub contributions, drawn as a city</text>
 
-<!-- How to read the picture: its time axis under the water, then a key for the windows and the pennants. -->
-<text class="px" x="35" y="462" font-size="11" fill="#c6ad84">{{RANGE_LABEL}}</text>
-<text class="px" x="811" y="462" font-size="11" fill="#c6ad84" text-anchor="end">this week</text>
-<text class="bd" x="35" y="484" font-size="13.333" fill="#c6ad84">↑ a building per week, a lit window for each of the {{ACTIVE_DAYS}} days I contributed</text>
-<use href="#pennant" x="36" y="491" shape-rendering="crispEdges"/>
-<text class="px" x="56" y="504" font-size="11" fill="#c6ad84">a week with a PR merged upstream</text>
+<!-- How to read the picture: a month axis under the water, then the legend. -->
+<g shape-rendering="crispEdges">{{DUSK_AXIS}}</g>
+<g shape-rendering="crispEdges"><use href="#bldg" x="36" y="481"/><use href="#lit" x="260" y="483"/><use href="#pennant" x="36" y="505"/></g>
+<text class="bd" x="52" y="492" font-size="13.333" fill="#c6ad84">a week; taller = busier</text>
+<text class="bd" x="271" y="492" font-size="13.333" fill="#c6ad84">a day I contributed ({{ACTIVE_DAYS}})</text>
+<text class="bd" x="55" y="516" font-size="13.333" fill="#c6ad84">a week with a PR merged upstream ({{FLAG_WEEKS}} weeks, {{FLAG_PRS}} PRs)</text>
 
-<!-- The evidence: the claim and the other projects on the left, two of the fixes on the right. -->
-<text class="px" x="33" y="560" font-size="33" fill="#f8eed7"><tspan fill="#f5c45c">12</tspan> PRs merged into</text>
-<text class="px" x="33" y="598" font-size="33" fill="#f8eed7"><tspan fill="#f5c45c">10</tspan> upstream projects</text>
-<g class="bd" font-size="13.333" fill="#c6ad84"><text x="35" y="634">also merged: axum, goose, Fastify, Zod,</text><text x="35" y="653">TanStack Query, Tenacity, Feast, Claude HUD ×3</text></g>
-<g font-size="15">
-<text class="md" x="500" y="548" fill="#f5c45c">SQLx #4340</text>
-<text class="bd" x="500" y="568" fill="#f8eed7">pre-1970 SQLite datetimes are</text>
-<text class="bd" x="500" y="587" fill="#f8eed7">no longer off by up to 2 s</text>
-<text class="md" x="500" y="615" fill="#f5c45c">AnyIO #1223</text>
-<text class="bd" x="500" y="635" fill="#f8eed7">CapacityLimiter no longer grants</text>
-<text class="bd" x="500" y="654" fill="#f8eed7">more tokens than it has</text>
+<!-- What I build (left) and what I have shipped into other people's projects (right). -->
+<text class="px" x="35" y="560" font-size="11" fill="#c6ad84">tools I maintain</text>
+<text class="px" x="411" y="560" font-size="11" fill="#c6ad84">merged upstream</text>
+<text class="md" x="35" y="588" font-size="15" fill="#f8eed7">claudemem</text>
+<text class="bd" x="35" y="607" font-size="13.333" fill="#ecdcc0">memory that lasts across agent sessions</text>
+<text class="bd" x="35" y="626" font-size="13.333" fill="#c6ad84">11k lines of Go, nearly as many in tests</text>
+<text class="md" x="35" y="654" font-size="15" fill="#f8eed7">handoff</text>
+<text class="bd" x="35" y="673" font-size="13.333" fill="#ecdcc0">a strong model delegates to cheaper ones</text>
+<text class="bd" x="35" y="692" font-size="13.333" fill="#c6ad84">resumable specs, with a published eval</text>
+<text class="md" x="35" y="720" font-size="15" fill="#f8eed7">dev-orchestrator</text>
+<text class="bd" x="35" y="739" font-size="13.333" fill="#ecdcc0">Claude Code plugin: task to tested PR</text>
+<text class="bd" x="35" y="758" font-size="13.333" fill="#c6ad84">failing test first, then the fix</text>
+<text class="md" x="411" y="588" font-size="15" fill="#f8eed7"><tspan fill="#f5c45c">12</tspan> PRs merged into <tspan fill="#f5c45c">10</tspan> upstream projects</text>
+<text class="bd" x="411" y="607" font-size="13.333" fill="#c6ad84">10 bug fixes and 2 small features</text>
+<text class="px" x="411" y="654" font-size="11" fill="#c6ad84">Rust</text>
+<text class="bd" x="471" y="654" font-size="13.333" fill="#f8eed7">axum · SQLx · goose</text>
+<text class="px" x="411" y="673" font-size="11" fill="#c6ad84">Python</text>
+<text class="bd" x="471" y="673" font-size="13.333" fill="#f8eed7">AnyIO · Tenacity · Feast</text>
+<text class="px" x="411" y="692" font-size="11" fill="#c6ad84">JS/TS</text>
+<text class="bd" x="471" y="692" font-size="13.333" fill="#f8eed7">Zod · TanStack Query · Fastify · Claude HUD</text>
+<text class="bd" x="411" y="739" font-size="13.333" fill="#c6ad84">I use AI to find and draft fixes, verify each</text>
+<text class="bd" x="411" y="758" font-size="13.333" fill="#c6ad84">locally, and see it through maintainer review.</text>
 </g>
-</g>
-<rect x="0.5" y="0.5" width="845" height="689" rx="11.5" fill="none" stroke="#45344a"/>
+<rect x="0.5" y="0.5" width="845" height="785" rx="11.5" fill="none" stroke="#45344a"/>
 </svg>
