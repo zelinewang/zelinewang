@@ -41,7 +41,7 @@ const USER = "zelinewang";
 // The design shown as the profile hero: "dusk" (a pixel sunset over a city of the
 // contribution calendar, with the upstream PRs below it), "console" (terminal) or
 // "sunset" (the earlier terminal window with a sunset banner). The rest stay in the gallery.
-const ACTIVE_DESIGN = "console";
+const ACTIVE_DESIGN = "dusk";
 const SNAKE_URL = `https://raw.githubusercontent.com/${USER}/${USER}/output/github-snake.svg`;
 
 // ── Stats fetch ──────────────────────────────────────────────────────────────

@@ -25,7 +25,7 @@
 <p>
   <picture>
     <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/zelinewang/zelinewang/stats-output/profile-phone.svg">
-    <img src="https://raw.githubusercontent.com/zelinewang/zelinewang/stats-output/profile.svg" alt="Zane Wang — building tools that make AI coding agents more reliable. A terminal-style profile: 12 pull requests merged into 10 upstream projects (axum, SQLx, AnyIO, goose, Fastify, Zod, TanStack Query, Tenacity, Feast, Claude HUD), the tools he maintains (claudemem, handoff, dev-orchestrator), how he works, and activity from his GitHub contribution calendar. Every link is in the text below." width="100%" />
+    <img src="https://raw.githubusercontent.com/zelinewang/zelinewang/stats-output/profile.svg" alt="Zane Wang — building tools that make AI coding agents more reliable. A pixel-art sunset over a city drawn from the past 12 months of his GitHub contributions: it rises out of the contribution graph as the image loads, one building per week and one window per day, with a gold pennant over each week a pull request of his was merged upstream. Below it, the tools he maintains (claudemem, handoff, dev-orchestrator) and 12 pull requests merged into 10 upstream projects (axum, SQLx, goose, AnyIO, Tenacity, Feast, Zod, TanStack Query, Fastify, Claude HUD). Every link is in the text below." width="100%" />
   </picture>
 </p>
 
