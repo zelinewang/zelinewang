@@ -8,7 +8,7 @@ Each artwork is a dated render from public GitHub data, refreshed nightly. Proje
 
 ## [Dusk](./dusk/)
 
-A pixel-art sunset over a city of the contribution calendar, with a gold pennant over each week an upstream pull request was merged, and the ten upstream projects set as a short list beneath it. Drawn at the width GitHub shows it, with a separate layout for phones.
+A pixel-art sunset over a city drawn from the contribution calendar, which rises out of the contribution graph as the image loads, with a gold pennant over each week an upstream pull request was merged. Beneath it, the tools I maintain and the ten upstream projects, grouped by the language of the fix. Drawn at the width GitHub shows it, with a separate layout for phones.
 
 **Best at:** one memorable image, evidence at a glance, legibility on phones.
 
