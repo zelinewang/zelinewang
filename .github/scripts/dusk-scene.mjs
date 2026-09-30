@@ -203,10 +203,75 @@ function sunReflection(L) {
   return out.join("");
 }
 
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+// The x at the centre of week i's building: centres run from edge to edge.
+const pitchOf = (weeks, L) => L.W / Math.max(1, weeks.length - 1);
+
+// Month labels for a time axis under the city, placed the way GitHub labels its
+// contribution graph: at the first week that starts in each month. A label too
+// close to the next one (the partial month the calendar opens with) is dropped.
+export function monthTicks(weeks, L = DESKTOP) {
+  const pitch = pitchOf(weeks, L);
+  const ticks = [];
+  weeks.forEach((week, i) => {
+    const first = week.contributionDays[0]?.date;
+    if (!first) return;
+    const label = MONTHS[Number(first.slice(5, 7)) - 1];
+    if (ticks.at(-1)?.label !== label) ticks.push({ i, x: i * pitch, label });
+  });
+  return ticks.filter((t, k) => k === ticks.length - 1 || ticks[k + 1].i - t.i >= 3);
+}
+
+// The time axis itself: a short tick under each labelled week and the month name
+// beside it, in the pixel face. y is the top of the ticks; the labels hang below.
+export function timeAxis(weeks, L = DESKTOP, y = L.WATER_B, color = POLE) {
+  const { P } = L;
+  const snap = (v) => P * Math.round(v / P);
+  return monthTicks(weeks, L).map(({ x, label }) => {
+    const tx = Math.min(L.W - 7 * P, snap(x - P / 2));
+    return rect(tx, y, P, 2 * P, color) +
+      `<text class="px" x="${tx}" y="${y + 2 * P + 13}" font-size="11" fill="${color}">${label}</text>`;
+  }).join("");
+}
+
+// Contribution levels the way GitHub shades its graph: 0 for a day without
+// contributions, then 1-4 by the quartiles of the year's non-zero days.
+export function levelOf(weeks) {
+  const counts = weeks.flatMap((w) => w.contributionDays.map((d) => d.contributionCount)).filter((n) => n > 0).sort((a, b) => a - b);
+  const q = (p) => counts[Math.floor(p * (counts.length - 1))] ?? 0;
+  const [q1, q2, q3] = [q(0.25), q(0.5), q(0.75)];
+  return (n) => (n <= 0 ? 0 : n <= q1 ? 1 : n <= q2 ? 2 : n <= q3 ? 3 : 4);
+}
+
+// A warm ramp for the same five levels, from an unlit facade to a lit window.
+export const EMBER = Object.freeze(["#2a1d30", "#5e3a3c", "#9c5b41", "#dc9a52", BUTTER]);
+// GitHub's dark-theme graph, for the moment the picture shows where it comes from.
+export const GITHUB_GREENS = Object.freeze(["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"]);
+
+// The calendar the city is built from, as a strip of small squares: one column
+// per week directly under its building, one square per day, Sunday on top.
+export function calendarStrip(weeks, L = DESKTOP, top = L.WATER_B + 3 * L.P, ramp = EMBER) {
+  const { P, W } = L;
+  const pitch = pitchOf(weeks, L);
+  const cell = 2 * P;
+  const level = levelOf(weeks);
+  const out = [];
+  weeks.forEach((week, i) => {
+    const x = Math.max(0, Math.min(W - cell, P * Math.round((i * pitch - cell / 2) / P)));
+    week.contributionDays.forEach((day, d) => {
+      out.push(rect(x, top + d * 3 * P, cell, cell, ramp[level(day.contributionCount)]));
+    });
+  });
+  return out.join("");
+}
+
 // weeks: contributionCalendar.weeks, oldest first; each has contributionDays
 // ({ date, contributionCount }), up to 7 of them, Sunday first.
 // merged: ISO dates (YYYY-MM-DD) on which an upstream pull request was merged.
-export function skyline(weeks, merged = [], L = DESKTOP) {
+// morph: draw the windows outside the buildings, each carrying the offset from
+// the contribution graph's square it starts as (see the Rise study's styles).
+export function skyline(weeks, merged = [], L = DESKTOP, { morph = false } = {}) {
   const { W, P, HORIZON, sunCx, minH, maxH, buildingW, textClear, flag } = L;
   const snap = (v) => P * Math.round(v / P);
   const totals = weeks.map((w) => sum(w.contributionDays.map((d) => d.contributionCount)));
@@ -220,8 +285,15 @@ export function skyline(weeks, merged = [], L = DESKTOP) {
   const tallest = totals.indexOf(Math.max(...totals));
   // Windows: one per day, one pixel wide; taller on the desktop grid.
   const winH = P === 3 ? 2 * P : P;
+  // The contribution graph the windows start from when morphing: 3-pixel squares
+  // on a 4-pixel step, its bottom row just above the horizon.
+  const gridCell = 3 * P;
+  const gridStep = 4 * P;
+  const gridTop = HORIZON - 7 * gridStep;
+  const level = levelOf(weeks);
   let previousShade = -1;
 
+  const geometry = [];
   const buildings = weeks.map((week, i) => {
     const next = rng(i * 7919 + 1);
     const cx = i * pitch;
@@ -236,6 +308,7 @@ export function skyline(weeks, merged = [], L = DESKTOP) {
     const facade = FACADES[shade];
     // The window column, as close to the middle as the pixel grid allows.
     const col = x + P * Math.floor((w / P - 1) / 2);
+    geometry.push({ i, x, w, h, top, col, flagged: flagged[i] });
     const parts = [];
 
     // A setback crown on some tall buildings, inside the data height.
@@ -266,27 +339,36 @@ export function skyline(weeks, merged = [], L = DESKTOP) {
 
     // One window per day, spread down the facade so busy weeks look lived in.
     const step = P * Math.max(winH / P + 1, Math.floor((h / P - 4) / 7));
+    const start = morph ? 0.9 + i * 0.016 : i * 0.014;
+    const windows = [];
     week.contributionDays.forEach((day, d) => {
       const y = top + 2 * P + d * step;
-      if (day.contributionCount > 0) {
-        // Gold is kept for the pennants, so a lit window never looks like a flag.
-        next();
-        const color = BUTTER;
+      const lit = day.contributionCount > 0;
+      // Gold is kept for the pennants, so a lit window never looks like a flag.
+      if (lit) next();
+      const color = lit ? BUTTER : DARK_WINDOW;
+      if (morph) {
+        // Each window starts as its day's square in the contribution graph, a row of
+        // squares along the horizon, and rides up to its floor as the building rises.
+        const dy = gridTop + d * gridStep - y;
+        const t = `translate(${-P}px,${dy}px) scale(${gridCell / P},${num(gridCell / winH)})`;
+        windows.push(rect(col, y, P, winH, color, ` class="${lit ? "w " : ""}m c${level(day.contributionCount)}" style="--t:${t};animation-delay:${num(start)}s"`));
+      } else if (lit) {
         const delay = 1.1 + i * 0.03 + d * 0.015;
         parts.push(rect(col, y, P, winH, color, ` class="w" style="animation-delay:${num(delay)}s"`));
       } else {
-        parts.push(rect(col, y, P, winH, DARK_WINDOW));
+        parts.push(rect(col, y, P, winH, color));
       }
     });
-    return `<g class="b" data-h="${h}"${flagged[i] ? ' data-merged="1"' : ""} style="animation-delay:${num(i * 0.014)}s">${parts.join("")}</g>`;
+    return `<g class="b" data-h="${h}"${flagged[i] ? ' data-merged="1"' : ""} style="animation-delay:${num(start)}s">${parts.join("")}</g>${windows.join("")}`;
   });
 
-  return { svg: buildings.join(""), totals, tallest, flagged };
+  return { svg: buildings.join(""), totals, tallest, flagged, geometry };
 }
 
 // The whole picture for one layout: sky, sun, city, water, reflections.
 // The template supplies the "water" clip path (the band between HORIZON and WATER_B).
-export function renderScene(weeks, merged = [], L = DESKTOP) {
+export function renderScene(weeks, merged = [], L = DESKTOP, options = {}) {
   const { W, P, HORIZON, sunCx, sunR } = L;
   const defs = ditherPatterns(L, SKY, "ds") + ditherPatterns(L, WATER, "dw") +
     `<linearGradient id="rim" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${GOLD}"/>` +
@@ -301,7 +383,7 @@ export function renderScene(weeks, merged = [], L = DESKTOP) {
     `<g class="glow">${pixelDisc(L, sunCx, HORIZON - P, sunR + glowStep, [BUTTER], HORIZON, ' opacity="0.24"')}</g>`,
     pixelDisc(L, sunCx, HORIZON - P, sunR, SUN, HORIZON),
     rect(0, HORIZON - P, W, P, BUTTER, ' opacity="0.55"'),
-    `<g id="skyline">${skyline(weeks, merged, L).svg}</g>`,
+    `<g id="skyline">${skyline(weeks, merged, L, options).svg}</g>`,
     bands(L, WATER, L.waterPx, HORIZON, "dw"),
     `<g clip-path="url(#water)" opacity="0.17"><use href="#skyline" transform="translate(0,${HORIZON * 1.5}) scale(1,-0.5)"/></g>`,
     sunReflection(L),

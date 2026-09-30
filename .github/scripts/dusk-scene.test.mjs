@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { DESKTOP, PHONE, POLE, UNLIT, renderScene, skyline } from "./dusk-scene.mjs";
+import { DESKTOP, PHONE, POLE, UNLIT, calendarStrip, levelOf, monthTicks, renderScene, skyline, timeAxis } from "./dusk-scene.mjs";
 
 // weeks of { contributionDays: [{ date, contributionCount }] }, oldest first,
 // Sunday first, starting on Sunday 2026-01-04.
@@ -201,3 +201,60 @@ test("the two layouts draw the same city from the same data", () => {
   // Heights are snapped to each grid, so compare the order of the tallest few, not exact values.
   assert.deepEqual(rank(phone).slice(-3).sort(), rank(desktop).slice(-3).sort());
 });
+
+// A full year from Sunday 2025-09-28, the way the calendar opens on a partial month.
+const fromSep28 = Array.from({ length: 53 }, (_, w) => ({
+  contributionDays: Array.from({ length: 7 }, (_, d) => ({
+    date: new Date(Date.UTC(2025, 8, 28) + (w * 7 + d) * 86400000).toISOString().slice(0, 10),
+    contributionCount: 1,
+  })),
+}));
+
+test("the time axis names each month at its first week, as GitHub's graph does", () => {
+  const ticks = monthTicks(fromSep28, DESKTOP);
+  assert.deepEqual(ticks.map((t) => t.label), ["Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"]);
+  // The two days of September the calendar opens with get no label of their own.
+  assert.equal(ticks[0].i, 1);
+  const labels = [...timeAxis(fromSep28, DESKTOP).matchAll(/<text class="px" x="([\d.]+)"[^>]*>(\w+)<\/text>/g)];
+  assert.equal(labels.length, 12);
+  for (const [, x, label] of labels) {
+    assert.ok(Number(x) >= 6 && Number(x) + label.length * 7 <= DESKTOP.W - 6, `${label} at ${x} leaves the card`);
+  }
+});
+
+test("contribution levels follow the quartiles of the year's active days", () => {
+  const level = levelOf(weeks([[0, 1, 2, 3, 4, 5, 6], [7, 8, 9, 10, 11, 12, 0]]));
+  assert.equal(level(0), 0);
+  // Active counts 1-12: the quartiles fall at 3, 6 and 9.
+  assert.deepEqual([1, 3, 4, 6, 7, 9, 10, 12].map(level), [1, 1, 2, 2, 3, 3, 4, 4]);
+});
+
+test("the calendar strip draws one square per day, a column under each week", () => {
+  const squares = [...calendarStrip(sample, DESKTOP, 453).matchAll(/<rect x="([\d.]+)" y="([\d.]+)" width="6" height="6" fill="(#[0-9a-f]{6})"\/>/g)];
+  assert.equal(squares.length, sample.flatMap((w) => w.contributionDays).length);
+  assert.equal(new Set(squares.map((s) => s[1])).size, sample.length);
+});
+
+for (const [name, L] of layouts) {
+  test(`${name}: in the rise, each window starts as its day's square in the contribution graph`, () => {
+    const { svg } = skyline(sample, merged, L, { morph: true });
+    const pattern = /<rect x="[\d.-]+" y="([\d.]+)" width="(\d+)" height="(\d+)" fill="#[0-9a-f]{6}" class="(w )?m c(\d)" style="--t:translate\((-?[\d.]+)px,(-?[\d.]+)px\) scale\(([\d.]+),([\d.]+)\);animation-delay:[\d.]+s"\/>/g;
+    const windows = [...svg.matchAll(pattern)];
+    const days = sample.flatMap((w) => w.contributionDays);
+    assert.equal(windows.length, days.length);
+    // Outside the rising buildings, so the rise does not squash them on the way up.
+    for (const [, body] of svg.matchAll(/<g class="b"[^>]*>(.*?)<\/g>/g)) assert.doesNotMatch(body, /class="(w )?m /);
+    const level = levelOf(sample);
+    windows.forEach((m, k) => {
+      const [y, w, h, lit, lv, , dy, sx, sy] = [Number(m[1]), Number(m[2]), Number(m[3]), m[4], Number(m[5]), m[6], Number(m[7]), Number(m[8]), Number(m[9])];
+      // Every square is the same size, on a 4-pixel row step, clear of the horizon.
+      assert.equal(w * sx, 3 * L.P);
+      assert.ok(Math.abs(h * sy - 3 * L.P) < 0.01);
+      assert.equal((L.HORIZON - (y + dy)) % (4 * L.P), 0);
+      assert.ok(y + dy + 3 * L.P <= L.HORIZON);
+      // Lit days stay windows; the shade is GitHub's level for that day.
+      assert.equal(Boolean(lit), days[k].contributionCount > 0);
+      assert.equal(lv, level(days[k].contributionCount));
+    });
+  });
+}
