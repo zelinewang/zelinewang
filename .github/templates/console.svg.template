@@ -1,267 +1,157 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 2740" role="img" aria-labelledby="title desc" preserveAspectRatio="xMidYMid meet">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 2376" role="img" aria-labelledby="title desc" preserveAspectRatio="xMidYMid meet">
   <title id="title">Console — Zane Wang's terminal session profile</title>
-  <desc id="desc">A continuous terminal-window profile composed as one tmux session with 8 sections: identity, projects, working method, public stats, contribution trajectory, stack, principles, and sidekick. Stats and snake refresh nightly via cron.</desc>
+  <desc id="desc">A terminal-window profile composed as one tmux session with 6 sections: identity; 12 pull requests merged by the maintainers of axum, SQLx, AnyIO, goose, Fastify, Zod, TanStack Query, Tenacity, Feast, and Claude HUD; the tools Zane maintains (claudemem, handoff, dev-orchestrator); working method; activity from GitHub's contribution calendar as one bar per week; and an AI sidekick. Activity refreshes nightly.</desc>
+
+  <!-- Type scale (viewBox units; desktop shows 0.705x): 16 labels, 17 notes, 20 body,
+       22 tagline, 24 figures, 40 headline, 72 name; the same steps as the Sunset hero.
+       Every table shares the column stops 46 / 270 / 380 / 820. Text colours keep at
+       least 4.5:1 on the panel; green is kept for the tagline, the proof and the activity.
+       Fonts are embedded (render-profile.mjs) so every platform draws the same terminal. -->
+  <style>
+    {{FONT_FACES}}
+    .m { font-family: zw-body-medium, ui-monospace, 'SF Mono', Menlo, Consolas, 'DejaVu Sans Mono', monospace; font-weight: 500; }
+    .pulse { animation: pulse 2.4s ease-in-out infinite; }
+    @keyframes pulse { 50% { opacity: 0.35; } }
+    .cursor { animation: blink 1s step-end infinite; }
+    @keyframes blink { 50% { opacity: 0; } }
+    .bar { fill: #4f9a75; transform-box: fill-box; transform-origin: 50% 100%; animation: grow 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+    .bar.zero { fill: #26332d; }
+    .bar.now { fill: #9fe6be; }
+    @keyframes grow { from { transform: scaleY(0.04); } }
+    @media (prefers-reduced-motion: reduce) { .bar, .pulse, .cursor { animation: none; } }
+  </style>
 
   <defs>
-    <pattern id="scanlines" x="0" y="0" width="2" height="3" patternUnits="userSpaceOnUse">
-      <line x1="0" y1="0" x2="2" y2="0" stroke="#0e1418" stroke-width="0.5" opacity="0.6"/>
-    </pattern>
+    <clipPath id="panel"><rect width="1200" height="2376" rx="12"/></clipPath>
+    <!-- GitHub's "merged" mark, in its merged purple -->
+    <g id="merged" fill="none" stroke="#a371f7" stroke-width="1.7" stroke-linecap="round">
+      <circle cx="4" cy="3.2" r="2.2"/><circle cx="4" cy="12.8" r="2.2"/><circle cx="12.6" cy="8" r="2.2"/>
+      <path d="M4 5.4v5.2M4 5.4c0 2.6 2.4 2.6 6.4 2.6"/>
+    </g>
   </defs>
 
-  <!-- ═══════ FRAME ═══════ -->
-  <rect width="1200" height="2740" fill="#0a0e12"/>
-  <rect width="1200" height="2740" fill="url(#scanlines)" opacity="0.4"/>
-  <rect x="20" y="20" width="1160" height="2660" fill="#0d1217" stroke="#1c2530" stroke-width="0.5"/>
+  <!-- ═══════ PANEL: the whole canvas, rounded like GitHub's own boxes ═══════ -->
+  <g clip-path="url(#panel)">
+    <rect width="1200" height="2376" fill="#10161c"/>
 
-  <!-- ═══════ TOP STATUS BAR (shared) ═══════ -->
-  <rect x="20" y="20" width="1160" height="32" fill="#11181f"/>
-  <line x1="20" y1="52" x2="1180" y2="52" stroke="#1c2530" stroke-width="0.5"/>
-  <circle cx="42" cy="36" r="5" fill="#3a4a5a"/>
-  <circle cx="60" cy="36" r="5" fill="#3a4a5a"/>
-  <circle cx="78" cy="36" r="5" fill="#3a4a5a"/>
-  <text x="106" y="40" fill="#7d8a96" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', monospace" font-size="11" letter-spacing="0.04em">~/zelinewang &#8212; tmux: profile (1/8)</text>
-  <!-- pseudo-interactive: live status badge with breathing dot -->
-  <g>
-    <circle cx="1080" cy="36" r="3.5" fill="#5fb88a">
-      <animate attributeName="opacity" values="1;0.35;1" dur="2.4s" repeatCount="indefinite"/>
-    </circle>
-    <text x="1090" y="40" fill="#5fb88a" font-family="ui-monospace, monospace" font-size="11" letter-spacing="0.18em">LIVE</text>
-    <text x="1160" y="40" fill="#7d8a96" text-anchor="end" font-family="ui-monospace, monospace" font-size="11" letter-spacing="0.04em">{{TODAY}}</text>
-  </g>
-
-  <!-- ═══════ § 01 HERO ═══════ -->
-  <g font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-size="14">
-    <text x="46" y="92" fill="#5a6573" font-size="10" letter-spacing="0.32em">§ &#160;01 &#160;WHOAMI</text>
-
-    <text x="46" y="122"><tspan fill="#5fb88a">~/zelinewang</tspan><tspan fill="#7d8a96"> $</tspan><tspan fill="#cdd5dd"> whoami --verbose</tspan></text>
-
-    <text x="46" y="176" fill="#cdd5dd" font-size="44" font-weight="500" letter-spacing="-0.02em">zane wang</text>
-
-    <text x="46" y="208" font-size="15"><tspan fill="#5fb88a">builds AI systems</tspan><tspan fill="#5a6573">&#160;&#160;·&#160;&#160;</tspan><tspan fill="#5fb88a">builds open-source agent infrastructure</tspan></text>
-
-    <text x="46" y="244" font-size="14"><tspan fill="#7d8a96">&#8594; current focus: </tspan><tspan fill="#cdd5dd">memory · delegation · evidence-driven workflows</tspan></text>
-
-    <text x="46" y="270" font-size="14"><tspan fill="#7d8a96">&#8594; open-source: </tspan><tspan fill="#cdd5dd">claudemem</tspan><tspan fill="#5a6573"> · </tspan><tspan fill="#cdd5dd">handoff</tspan><tspan fill="#5a6573"> · </tspan><tspan fill="#cdd5dd">dev-orchestrator</tspan></text>
-
-    <text x="46" y="306" fill="#7d8a96" font-size="13">production background: AI evaluation · high-volume data · workflow automation</text>
-
-    <line x1="46" y1="340" x2="1154" y2="340" stroke="#1c2530" stroke-width="0.5"/>
-  </g>
-
-  <!-- ═══════ § 02 PROJECTS ═══════ -->
-  <g font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', monospace" font-size="14">
-    <text x="46" y="372" fill="#5a6573" font-size="10" letter-spacing="0.32em">§ &#160;02 &#160;PROJECTS</text>
-
-    <text x="46" y="404"><tspan fill="#5fb88a">~/zelinewang</tspan><tspan fill="#7d8a96"> $</tspan><tspan fill="#cdd5dd"> ls projects/ --sort=track</tspan></text>
-
-    <text x="46" y="432" fill="#5a6573" font-size="11" letter-spacing="0.06em">LANG</text>
-    <text x="200" y="432" fill="#5a6573" font-size="11" letter-spacing="0.06em">NAME</text>
-    <text x="470" y="432" fill="#5a6573" font-size="11" letter-spacing="0.06em">WHAT IT IS</text>
-    <line x1="46" y1="440" x2="1154" y2="440" stroke="#1c2530" stroke-width="0.5"/>
-
-    <g><text x="46" y="468" fill="#7d8a96">Go</text><text x="200" y="468" fill="#cdd5dd" font-weight="700">claudemem/</text><text x="470" y="468" fill="#a8b4c0">persistent memory for AI agents &#8212; FTS5 + semantic search, Go CLI</text></g>
-    <g><text x="46" y="492" fill="#7d8a96">TypeScript</text><text x="200" y="492" fill="#cdd5dd" font-weight="700">postprism/</text><text x="470" y="492" fill="#a8b4c0">computer-use prototype with a front-end simulation</text></g>
-    <g><text x="46" y="516" fill="#7d8a96">Shell</text><text x="200" y="516" fill="#cdd5dd" font-weight="700">dev-orchestrator/</text><text x="470" y="516" fill="#a8b4c0">one-command AI dev lifecycle &#8212; investigate &#8594; verify &#8594; ship</text></g>
-    <g><text x="46" y="540" fill="#7d8a96">Python</text><text x="200" y="540" fill="#cdd5dd" font-weight="700">FireSight/</text><text x="470" y="540" fill="#a8b4c0">client-side wildfire map using NASA FIRMS + Leaflet</text></g>
-    <g><text x="46" y="564" fill="#7d8a96">Shell</text><text x="200" y="564" fill="#cdd5dd" font-weight="700">handoff/</text><text x="470" y="564" fill="#a8b4c0">token-tiered delegation for agent harnesses</text></g>
-    <g><text x="46" y="588" fill="#7d8a96">JavaScript</text><text x="200" y="588" fill="#cdd5dd" font-weight="700">dipole/</text><text x="470" y="588" fill="#a8b4c0">conversational deploy assistant for Netlify and Vercel</text></g>
-
-    <text x="46" y="606" fill="#7d8a96" font-size="11"># 3 public agent tools · 3 public product experiments. links live below the artwork.</text>
-    <line x1="46" y1="630" x2="1154" y2="630" stroke="#1c2530" stroke-width="0.5"/>
-  </g>
-
-  <!-- ═══════ § 03 HOW I WORK ═══════ -->
-  <g font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', monospace" font-size="14">
-    <text x="46" y="662" fill="#5a6573" font-size="10" letter-spacing="0.32em">§ &#160;03 &#160;HOW &#160;I &#160;WORK</text>
-
-    <text x="46" y="694"><tspan fill="#5fb88a">~/zelinewang</tspan><tspan fill="#7d8a96"> $</tspan><tspan fill="#cdd5dd"> cat ~/.dev/how-i-work</tspan></text>
-
-    <text x="46" y="722" fill="#5a6573" font-size="11" letter-spacing="0.06em">STAGE</text>
-    <text x="220" y="722" fill="#5a6573" font-size="11" letter-spacing="0.06em">WHAT HAPPENS</text>
-    <text x="640" y="722" fill="#5a6573" font-size="11" letter-spacing="0.06em">GATE</text>
-    <line x1="46" y1="730" x2="1154" y2="730" stroke="#1c2530" stroke-width="0.5"/>
-
-    <g><text x="46" y="758" fill="#5fb88a">investigate</text><text x="220" y="758" fill="#a8b4c0">gather evidence before forming a theory</text><text x="640" y="758" fill="#7d8a96">logs · code · docs</text></g>
-    <g><text x="46" y="782" fill="#5fb88a">plan</text><text x="220" y="782" fill="#a8b4c0">scope, tier, pick the reversible path</text><text x="640" y="782" fill="#7d8a96">cheapest signal first</text></g>
-    <!-- execute is the "active" stage — a single quiet pulse keeps the terminal alive -->
-    <g><text x="46" y="806" fill="#5fb88a">execute</text><text x="220" y="806" fill="#a8b4c0">write the test, then the code</text><text x="640" y="806" fill="#7d8a96">TDD red &#8594; green</text>
-      <circle cx="1120" cy="801" r="3.5" fill="#5fb88a"><animate attributeName="opacity" values="1;0.35;1" dur="2.4s" repeatCount="indefinite"/></circle></g>
-    <g><text x="46" y="830" fill="#5fb88a">verify</text><text x="220" y="830" fill="#a8b4c0">adversarial review against 7 rules</text><text x="640" y="830" fill="#7d8a96">no fake green</text></g>
-    <g><text x="46" y="854" fill="#5fb88a">ship</text><text x="220" y="854" fill="#a8b4c0">PR &#8594; CI &#8594; observe in production</text><text x="640" y="854" fill="#7d8a96">done = observed</text></g>
-
-    <text x="46" y="890" fill="#7d8a96" font-size="11"># one brain plans and adjudicates; cheaper hands execute in parallel.</text>
-    <text x="46" y="912" fill="#7d8a96" font-size="11"># the real code behind this: dev-orchestrator (lifecycle) · handoff (delegation).</text>
-    <line x1="46" y1="962" x2="1154" y2="962" stroke="#1c2530" stroke-width="0.5"/>
-  </g>
-
-  <!-- ═══════ § 04 STATS (live data — refreshed nightly) ═══════ -->
-  <g font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', monospace" font-size="14">
-    <text x="46" y="994" fill="#5a6573" font-size="10" letter-spacing="0.32em">§ &#160;04 &#160;STATS &#160;&#160;&#160;<tspan fill="#5fb88a">●</tspan> updated {{TODAY}}</text>
-
-    <text x="46" y="1026" fill="#5fb88a">~/zelinewang</text>
-    <text x="170" y="1026" fill="#7d8a96"> $</text>
-    <text x="190" y="1026" fill="#cdd5dd"> gh api users/zelinewang | jq summary</text>
-
-    <!-- 4 stat cards in a row -->
-    <g transform="translate(46, 1054)">
-      <rect x="0" y="0" width="265" height="120" fill="#11181f" stroke="#1c2530" stroke-width="0.5"/>
-      <text x="20" y="28" fill="#5fb88a" font-size="10" letter-spacing="0.22em">PUBLIC REPOS</text>
-      <text x="20" y="78" fill="#cdd5dd" font-size="48" font-weight="500" letter-spacing="-0.02em">{{REPO_COUNT}}</text>
-      <text x="20" y="104" fill="#7d8a96" font-size="11">across all topics</text>
-
-      <rect x="285" y="0" width="265" height="120" fill="#11181f" stroke="#1c2530" stroke-width="0.5"/>
-      <text x="305" y="28" fill="#5fb88a" font-size="10" letter-spacing="0.22em">ON GITHUB SINCE</text>
-      <text x="305" y="78" fill="#cdd5dd" font-size="32" font-weight="500" letter-spacing="-0.02em">{{JOINED_MONTH}}</text>
-      <text x="305" y="104" fill="#7d8a96" font-size="11">~ {{YEARS}} years</text>
-
-      <rect x="570" y="0" width="265" height="120" fill="#11181f" stroke="#1c2530" stroke-width="0.5"/>
-      <text x="590" y="28" fill="#5fb88a" font-size="10" letter-spacing="0.22em">RECENT PUSHES</text>
-      <text x="590" y="78" fill="#cdd5dd" font-size="48" font-weight="500" letter-spacing="-0.02em">{{PUSH_COUNT}}</text>
-      <text x="590" y="104" fill="#7d8a96" font-size="11">last 100 events</text>
-
-      <rect x="855" y="0" width="253" height="120" fill="#11181f" stroke="#1c2530" stroke-width="0.5"/>
-      <text x="875" y="28" fill="#5fb88a" font-size="10" letter-spacing="0.22em">RECENT PRs</text>
-      <text x="875" y="78" fill="#cdd5dd" font-size="48" font-weight="500" letter-spacing="-0.02em">{{PR_COUNT}}</text>
-      <text x="875" y="104" fill="#7d8a96" font-size="11">opened recently</text>
+    <!-- ═══════ STATUS BAR ═══════ -->
+    <g font-family="zw-body, ui-monospace, 'SF Mono', Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="16">
+      <rect width="1200" height="46" fill="#151c24"/>
+      <line x1="0" y1="46" x2="1200" y2="46" stroke="#222c37" stroke-width="1.5"/>
+      <circle cx="30" cy="23" r="5.5" fill="#3a4a5a"/>
+      <circle cx="50" cy="23" r="5.5" fill="#3a4a5a"/>
+      <circle cx="70" cy="23" r="5.5" fill="#3a4a5a"/>
+      <text x="98" y="29" fill="#7d8a96">~/zelinewang &#8212; tmux: profile (1/6)</text>
+      <!-- the date of the last nightly refresh, with a breathing dot -->
+      <circle class="pulse" cx="983" cy="23" r="4" fill="#5fb88a"/>
+      <text x="1170" y="29" fill="#7d8a96" text-anchor="end">updated {{TODAY}}</text>
     </g>
 
-    <!-- Activity bar chart with draw-in animations -->
-    <g transform="translate(46, 1206)">
-      <text x="0" y="0" fill="#7d8a96" font-size="11" letter-spacing="0.06em">activity by event type, last 100 events:</text>
+    <g font-family="zw-body, ui-monospace, 'SF Mono', Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="20">
 
-      <text x="0"   y="32" fill="#a8b4c0">PushEvent</text>
-      <rect x="180" y="20" width="0" height="14" fill="#5fb88a" opacity="0.85">
-        <animate attributeName="width" from="0" to="{{PUSH_BAR}}" dur="1.4s" begin="0s" fill="freeze"/>
-      </rect>
-      <text x="{{PUSH_BAR_LABEL_X}}" y="32" fill="#cdd5dd">{{PUSH_COUNT}}</text>
+      <!-- ═══════ § 01 WHOAMI ═══════ -->
+      <text x="46" y="104"><tspan fill="#7d8a96">~/zelinewang $</tspan><tspan fill="#a8b4c0"> whoami --verbose</tspan></text>
+      <text x="1154" y="104" fill="#7d8a96" font-size="16" letter-spacing="0.2em" text-anchor="end">§ 01 &#160;WHOAMI</text>
 
-      <text x="0"   y="56" fill="#a8b4c0">PullRequestEvent</text>
-      <rect x="180" y="44" width="0" height="14" fill="#5fb88a" opacity="0.85">
-        <animate attributeName="width" from="0" to="{{PR_BAR}}" dur="1.4s" begin="0.15s" fill="freeze"/>
-      </rect>
-      <text x="{{PR_BAR_LABEL_X}}" y="56" fill="#cdd5dd">{{PR_COUNT}}</text>
+      <text x="44" y="186" fill="#e3e9ee" font-size="72" class="m" letter-spacing="-0.02em">zane wang</text>
+      <text x="46" y="234" fill="#5fb88a" font-size="22">building tools that make AI coding agents more reliable</text>
+      <text x="46" y="280"><tspan fill="#7d8a96">&#8594; current focus: </tspan><tspan fill="#cdd5dd">memory · delegation · evidence-driven workflows</tspan></text>
+      <text x="46" y="314"><tspan fill="#7d8a96">&#8594; open-source: </tspan><tspan fill="#cdd5dd">claudemem</tspan><tspan fill="#7d8a96"> · </tspan><tspan fill="#cdd5dd">handoff</tspan><tspan fill="#7d8a96"> · </tspan><tspan fill="#cdd5dd">dev-orchestrator</tspan></text>
+      <text x="46" y="348" fill="#7d8a96" font-size="17"># production background: AI evaluation · high-volume data · workflow automation</text>
+      <line x1="46" y1="382" x2="1154" y2="382" stroke="#222c37" stroke-width="1.5"/>
 
-      <text x="0"   y="80" fill="#a8b4c0">CreateEvent</text>
-      <rect x="180" y="68" width="0" height="14" fill="#5fb88a" opacity="0.7">
-        <animate attributeName="width" from="0" to="{{CREATE_BAR}}" dur="1.4s" begin="0.30s" fill="freeze"/>
-      </rect>
-      <text x="{{CREATE_BAR_LABEL_X}}" y="80" fill="#cdd5dd">{{CREATE_COUNT}}</text>
+      <!-- ═══════ § 02 MERGED UPSTREAM ═══════ -->
+      <text x="46" y="430"><tspan fill="#7d8a96">~/zelinewang $</tspan><tspan fill="#a8b4c0"> cat upstream/merged.txt</tspan></text>
+      <text x="1154" y="430" fill="#7d8a96" font-size="16" letter-spacing="0.2em" text-anchor="end">§ 02 &#160;MERGED UPSTREAM</text>
 
-      <text x="0"   y="104" fill="#a8b4c0">DeleteEvent</text>
-      <rect x="180" y="92" width="0" height="14" fill="#5fb88a" opacity="0.55">
-        <animate attributeName="width" from="0" to="{{DELETE_BAR}}" dur="1.4s" begin="0.45s" fill="freeze"/>
-      </rect>
-      <text x="{{DELETE_BAR_LABEL_X}}" y="104" fill="#cdd5dd">{{DELETE_COUNT}}</text>
+      <text x="45" y="492" fill="#e3e9ee" font-size="40" class="m" letter-spacing="-0.01em"><tspan fill="#5fb88a">12</tspan> PRs merged into <tspan fill="#5fb88a">10</tspan> upstream projects</text>
+      <text x="46" y="528" fill="#7d8a96" font-size="17"># 10 bug fixes and 2 small features, each merged by that project's maintainers</text>
 
-      <text x="0"   y="128" fill="#a8b4c0">IssueCommentEvent</text>
-      <rect x="180" y="116" width="0" height="14" fill="#5fb88a" opacity="0.5">
-        <animate attributeName="width" from="0" to="{{COMMENT_BAR}}" dur="1.4s" begin="0.60s" fill="freeze"/>
-      </rect>
-      <text x="{{COMMENT_BAR_LABEL_X}}" y="128" fill="#cdd5dd">{{COMMENT_COUNT}}</text>
+      <g fill="#7d8a96" font-size="16" letter-spacing="0.08em">
+        <text x="76" y="574">PROJECT</text><text x="270" y="574">PR</text><text x="380" y="574">WHAT CHANGED</text>
+      </g>
+      <line x1="46" y1="588" x2="1154" y2="588" stroke="#222c37" stroke-width="1.5"/>
 
-      <text x="0"   y="152" fill="#a8b4c0">WatchEvent</text>
-      <rect x="180" y="140" width="0" height="14" fill="#5fb88a" opacity="0.4">
-        <animate attributeName="width" from="0" to="{{WATCH_BAR}}" dur="1.4s" begin="0.75s" fill="freeze"/>
-      </rect>
-      <text x="{{WATCH_BAR_LABEL_X}}" y="152" fill="#cdd5dd">{{WATCH_COUNT}}</text>
+      <g><use href="#merged" transform="translate(46,607) scale(1.15)"/><text x="76" y="624" fill="#cdd5dd" class="m">axum</text><text x="270" y="624" fill="#7d8a96">#3836</text><text x="380" y="624" fill="#cdd5dd">Allow header no longer lists HEAD twice after merge</text></g>
+      <g><use href="#merged" transform="translate(46,643) scale(1.15)"/><text x="76" y="660" fill="#cdd5dd" class="m">SQLx</text><text x="270" y="660" fill="#7d8a96">#4340</text><text x="380" y="660" fill="#cdd5dd">pre-1970 SQLite REAL datetimes no longer off by 2 s</text></g>
+      <g><use href="#merged" transform="translate(46,679) scale(1.15)"/><text x="76" y="696" fill="#cdd5dd" class="m">AnyIO</text><text x="270" y="696" fill="#7d8a96">#1223</text><text x="380" y="696" fill="#cdd5dd">CapacityLimiter no longer over-grants tokens</text></g>
+      <g><use href="#merged" transform="translate(46,715) scale(1.15)"/><text x="76" y="732" fill="#cdd5dd" class="m">goose</text><text x="270" y="732" fill="#7d8a96">#10438</text><text x="380" y="732" fill="#cdd5dd">custom model as new-chat default no longer fails</text></g>
+      <g><use href="#merged" transform="translate(46,751) scale(1.15)"/><text x="76" y="768" fill="#cdd5dd" class="m">Fastify</text><text x="270" y="768" fill="#7d8a96">#6846</text><text x="380" y="768" fill="#cdd5dd">RegExp content-type parsers no longer miss matches</text></g>
+      <g><use href="#merged" transform="translate(46,787) scale(1.15)"/><text x="76" y="804" fill="#cdd5dd" class="m">Zod</text><text x="270" y="804" fill="#7d8a96">#6192</text><text x="380" y="804" fill="#cdd5dd">.catch() gets the original input, as documented</text></g>
+      <g><use href="#merged" transform="translate(46,823) scale(1.15)"/><text x="76" y="840" fill="#cdd5dd" class="m">TanStack Query</text><text x="270" y="840" fill="#7d8a96">#11065</text><text x="380" y="840" fill="#cdd5dd">falsy combine() results memoized, not recomputed</text></g>
+
+      <text x="46" y="886"><tspan fill="#7d8a96">also merged: </tspan><tspan fill="#cdd5dd">Tenacity </tspan><tspan fill="#7d8a96">#656 · </tspan><tspan fill="#cdd5dd">Feast </tspan><tspan fill="#7d8a96">#6604 · </tspan><tspan fill="#cdd5dd">Claude HUD </tspan><tspan fill="#7d8a96">#354 #471 #491</tspan></text>
+      <text x="46" y="918" fill="#7d8a96" font-size="17"># links to every PR: open "Full profile" below this image</text>
+      <line x1="46" y1="952" x2="1154" y2="952" stroke="#222c37" stroke-width="1.5"/>
+
+      <!-- ═══════ § 03 TOOLS ═══════ -->
+      <text x="46" y="1000"><tspan fill="#7d8a96">~/zelinewang $</tspan><tspan fill="#a8b4c0"> ls tools/</tspan></text>
+      <text x="1154" y="1000" fill="#7d8a96" font-size="16" letter-spacing="0.2em" text-anchor="end">§ 03 &#160;TOOLS I MAINTAIN</text>
+
+      <g fill="#7d8a96" font-size="16" letter-spacing="0.08em">
+        <text x="46" y="1044">NAME</text><text x="270" y="1044">LANG</text><text x="380" y="1044">WHAT IT IS</text>
+      </g>
+      <line x1="46" y1="1058" x2="1154" y2="1058" stroke="#222c37" stroke-width="1.5"/>
+
+      <g><text x="46" y="1094" fill="#cdd5dd" class="m">claudemem</text><text x="270" y="1094" fill="#7d8a96">Go</text><text x="380" y="1094" fill="#cdd5dd">local-first memory for coding agents; Markdown is the record</text>
+        <text x="380" y="1122" fill="#7d8a96" font-size="17">&#8627; 11k lines of Go, 10k lines of tests, CI, release builds for 3 OSes</text></g>
+      <g><text x="46" y="1170" fill="#cdd5dd" class="m">handoff</text><text x="270" y="1170" fill="#7d8a96">Shell</text><text x="380" y="1170" fill="#cdd5dd">hands work from a lead model to cheaper ones via resumable specs</text>
+        <text x="380" y="1198" fill="#7d8a96" font-size="17">&#8627; ships with a small-sample evaluation, including the run where it lost</text></g>
+      <g><text x="46" y="1246" fill="#cdd5dd" class="m">dev-orchestrator</text><text x="270" y="1246" fill="#7d8a96">Shell</text><text x="380" y="1246" fill="#cdd5dd">Claude Code plugin: investigate, test, verify, open the PR</text>
+        <text x="380" y="1274" fill="#7d8a96" font-size="17">&#8627; the workflow below as a command, hooks, and file-backed state</text></g>
+
+      <text x="46" y="1320" fill="#7d8a96" font-size="17"># earlier experiments, hackathon-scale and labeled as such: FireSight · dipole · postprism</text>
+      <line x1="46" y1="1354" x2="1154" y2="1354" stroke="#222c37" stroke-width="1.5"/>
+
+      <!-- ═══════ § 04 HOW I WORK ═══════ -->
+      <text x="46" y="1402"><tspan fill="#7d8a96">~/zelinewang $</tspan><tspan fill="#a8b4c0"> cat ~/.dev/how-i-work</tspan></text>
+      <text x="1154" y="1402" fill="#7d8a96" font-size="16" letter-spacing="0.2em" text-anchor="end">§ 04 &#160;HOW I WORK</text>
+
+      <g fill="#7d8a96" font-size="16" letter-spacing="0.08em">
+        <text x="46" y="1446">STAGE</text><text x="270" y="1446">WHAT HAPPENS</text><text x="820" y="1446">GATE</text>
+      </g>
+      <line x1="46" y1="1460" x2="1154" y2="1460" stroke="#222c37" stroke-width="1.5"/>
+
+      <g><text x="46" y="1496" fill="#cdd5dd" class="m">investigate</text><text x="270" y="1496" fill="#cdd5dd">gather evidence before forming a theory</text><text x="820" y="1496" fill="#a8b4c0" font-size="17">logs · code · docs</text></g>
+      <g><text x="46" y="1532" fill="#cdd5dd" class="m">plan</text><text x="270" y="1532" fill="#cdd5dd">scope it, pick the reversible path</text><text x="820" y="1532" fill="#a8b4c0" font-size="17">cheapest signal first</text></g>
+      <g><text x="46" y="1568" fill="#cdd5dd" class="m">execute</text><text x="270" y="1568" fill="#cdd5dd">write the failing test, then the fix</text><text x="820" y="1568" fill="#a8b4c0" font-size="17">red &#8594; green</text></g>
+      <g><text x="46" y="1604" fill="#cdd5dd" class="m">verify</text><text x="270" y="1604" fill="#cdd5dd">independent review before anything merges</text><text x="820" y="1604" fill="#a8b4c0" font-size="17">no fake green</text></g>
+      <g><text x="46" y="1640" fill="#cdd5dd" class="m">ship</text><text x="270" y="1640" fill="#cdd5dd">PR &#8594; CI &#8594; watch it in production</text><text x="820" y="1640" fill="#a8b4c0" font-size="17">done = observed</text></g>
+
+      <text x="46" y="1686" fill="#7d8a96" font-size="17"># one brain plans and adjudicates; cheaper hands execute in parallel</text>
+      <text x="46" y="1716" fill="#7d8a96" font-size="17"># the code behind this: dev-orchestrator (lifecycle) · handoff (delegation)</text>
+      <line x1="46" y1="1750" x2="1154" y2="1750" stroke="#222c37" stroke-width="1.5"/>
+
+      <!-- ═══════ § 05 ACTIVITY (contribution calendar, one bar per week, refreshed nightly) ═══════ -->
+      <text x="46" y="1798"><tspan fill="#7d8a96">~/zelinewang $</tspan><tspan fill="#a8b4c0"> gh api graphql | jq .contributionCalendar</tspan></text>
+      <text x="1154" y="1798" fill="#7d8a96" font-size="16" letter-spacing="0.2em" text-anchor="end">§ 05 &#160;ACTIVITY</text>
+
+      <!-- Bars injected by render-profile.mjs; box x=46 y=1834 w=1108 h=100 (activity-sparkline.mjs) -->
+      <g id="sparkline">{{SPARKLINE}}</g>
+      <line x1="46" y1="1935" x2="1154" y2="1935" stroke="#222c37" stroke-width="1.5"/>
+      <text x="46" y="1960" fill="#7d8a96" font-size="16">{{RANGE_START}}</text>
+      <text x="1154" y="1960" fill="#7d8a96" font-size="16" text-anchor="end">this week</text>
+
+      <g class="m" fill="#5fb88a" font-size="24" text-anchor="end">
+        <text x="140" y="2010">{{CONTRIB_TOTAL}}</text><text x="140" y="2046">{{ACTIVE_DAYS}}</text><text x="140" y="2082">{{LONGEST_STREAK}}</text>
+      </g>
+      <g fill="#cdd5dd">
+        <text x="158" y="2010">contributions in the last year</text><text x="158" y="2046">days with contributions</text><text x="158" y="2082">days in a row, the longest streak in the last year</text>
+      </g>
+      <text x="46" y="2124" fill="#7d8a96" font-size="17"># from GitHub's contribution calendar, private work counted; refreshed nightly</text>
+      <line x1="46" y1="2158" x2="1154" y2="2158" stroke="#222c37" stroke-width="1.5"/>
+
+      <!-- ═══════ § 06 SIDEKICK ═══════ -->
+      <text x="46" y="2206"><tspan fill="#7d8a96">~/zelinewang $</tspan><tspan fill="#a8b4c0"> zane query --help</tspan></text>
+      <text x="1154" y="2206" fill="#7d8a96" font-size="16" letter-spacing="0.2em" text-anchor="end">§ 06 &#160;SIDEKICK</text>
+
+      <text x="46" y="2248"><tspan fill="#cdd5dd">open an issue titled </tspan><tspan fill="#e8b063">"ZaneOS ask: &lt;question&gt;"</tspan><tspan fill="#cdd5dd"> and my AI answers from public context</tspan></text>
+      <text x="46" y="2282" font-size="17"><tspan fill="#7d8a96">modes </tspan><tspan fill="#e8b063">ask</tspan><tspan fill="#7d8a96"> · </tspan><tspan fill="#e8b063">match</tspan><tspan fill="#7d8a96"> · </tspan><tspan fill="#e8b063">boop</tspan><tspan fill="#7d8a96"> · </tspan><tspan fill="#e8b063">quest</tspan><tspan fill="#7d8a96"> · at most 3 a day per person</tspan></text>
+
+      <!-- idle prompt with a blinking cursor -->
+      <text x="46" y="2334" fill="#7d8a96">~/zelinewang $</text>
+      <rect class="cursor" x="226" y="2318" width="12" height="20" fill="#e8b063"/>
     </g>
-
-    <text x="46" y="1394" fill="#7d8a96" font-size="11"># refresh: nightly via .github/workflows/refresh-stats.yml. cadence over count.</text>
-    <line x1="46" y1="1422" x2="1154" y2="1422" stroke="#1c2530" stroke-width="0.5"/>
   </g>
-
-  <!-- ═══════ § 05 SNAKE (contribution heatmap, embedded from output branch) ═══════ -->
-  <g font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', monospace" font-size="14">
-    <text x="46" y="1454" fill="#5a6573" font-size="10" letter-spacing="0.32em">§ &#160;05 &#160;CONTRIBUTION &#160;HEATMAP</text>
-
-    <text x="46" y="1486" fill="#5fb88a">~/zelinewang</text>
-    <text x="170" y="1486" fill="#7d8a96"> $</text>
-    <text x="190" y="1486" fill="#cdd5dd"> snk --animate --output github-snake.svg</text>
-
-    <text x="46" y="1512" fill="#7d8a96" font-size="11"># snake eats the contribution graph; daily, on cron, committed to the output branch.</text>
-
-    <!-- Snake content injected here by render-profile.mjs -->
-    <g id="snake-zone" transform="translate(46, 1530)">
-      {{SNAKE_CONTENT}}
-    </g>
-
-    <line x1="46" y1="1740" x2="1154" y2="1740" stroke="#1c2530" stroke-width="0.5"/>
-  </g>
-
-  <!-- ═══════ § 06 STACK ═══════ -->
-  <g font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', monospace" font-size="14">
-    <text x="46" y="1772" fill="#5a6573" font-size="10" letter-spacing="0.32em">§ &#160;06 &#160;STACK</text>
-
-    <text x="46" y="1804" fill="#5fb88a">~/zelinewang</text>
-    <text x="170" y="1804" fill="#7d8a96"> $</text>
-    <text x="190" y="1804" fill="#cdd5dd"> tree -L 1 stack/</text>
-
-    <text x="46" y="1832" fill="#7d8a96">stack</text>
-    <text x="46"  y="1856" fill="#7d8a96">├── </text><text x="106" y="1856" fill="#5fb88a">lang/</text>
-    <text x="240" y="1856" fill="#cdd5dd">python</text><text x="350" y="1856" fill="#7d8a96">·</text><text x="370" y="1856" fill="#cdd5dd">go</text><text x="430" y="1856" fill="#7d8a96">·</text>
-    <text x="450" y="1856" fill="#cdd5dd">typescript</text><text x="610" y="1856" fill="#7d8a96">·</text><text x="630" y="1856" fill="#cdd5dd">javascript</text>
-    <text x="790" y="1856" fill="#7d8a96">·</text><text x="810" y="1856" fill="#cdd5dd">java</text><text x="890" y="1856" fill="#7d8a96">·</text><text x="910" y="1856" fill="#cdd5dd">c++</text>
-
-    <text x="46"  y="1880" fill="#7d8a96">├── </text><text x="106" y="1880" fill="#5fb88a">web/</text>
-    <text x="240" y="1880" fill="#cdd5dd">react</text><text x="350" y="1880" fill="#7d8a96">·</text><text x="370" y="1880" fill="#cdd5dd">node.js</text>
-
-    <text x="46"  y="1904" fill="#7d8a96">├── </text><text x="106" y="1904" fill="#5fb88a">infra/</text>
-    <text x="240" y="1904" fill="#cdd5dd">docker</text><text x="350" y="1904" fill="#7d8a96">·</text><text x="370" y="1904" fill="#cdd5dd">linux</text>
-
-    <text x="46"  y="1928" fill="#7d8a96">├── </text><text x="106" y="1928" fill="#5fb88a">spatial/</text>
-    <text x="240" y="1928" fill="#cdd5dd">qgis</text>
-
-    <text x="46"  y="1952" fill="#7d8a96">└── </text><text x="106" y="1952" fill="#5fb88a">hardware/</text>
-    <text x="240" y="1952" fill="#cdd5dd">raspberry pi</text>
-
-    <text x="46" y="1980" fill="#7d8a96" font-size="11"># 5 directories, 12 leaves. tool fit over logo walls.</text>
-    <line x1="46" y1="2008" x2="1154" y2="2008" stroke="#1c2530" stroke-width="0.5"/>
-  </g>
-
-  <!-- ═══════ § 07 PHILOSOPHY ═══════ -->
-  <g font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', monospace" font-size="14">
-    <text x="46" y="2040" fill="#5a6573" font-size="10" letter-spacing="0.32em">§ &#160;07 &#160;PHILOSOPHY</text>
-
-    <text x="46" y="2072" fill="#5fb88a">~/zelinewang</text>
-    <text x="170" y="2072" fill="#7d8a96"> $</text>
-    <text x="190" y="2072" fill="#cdd5dd"> cat doctrine/philosophy.txt | head -22</text>
-
-    <text x="46" y="2104" fill="#7d8a96" font-size="11"># Operating doctrine — partial extract. Run "man agent-dao" for the full set.</text>
-
-    <text x="46"  y="2144" fill="#cdd5dd">cut the noise.</text><text x="306" y="2144" fill="#a8b4c0">consolidate what overlaps; simplify what is tangled.</text>
-    <text x="46"  y="2180" fill="#cdd5dd">sharpen the tools first.</text><text x="306" y="2180" fill="#a8b4c0">leverage beats brute force.</text>
-    <text x="46"  y="2216" fill="#cdd5dd">prove before you argue.</text><text x="306" y="2216" fill="#a8b4c0">replace debate with experiment.</text>
-    <text x="46"  y="2252" fill="#cdd5dd">let reality disprove.</text><text x="306" y="2252" fill="#a8b4c0">never defend a position; update it.</text>
-    <text x="46"  y="2288" fill="#cdd5dd">solve the bottleneck.</text><text x="306" y="2288" fill="#a8b4c0">defer everything else.</text>
-    <text x="46"  y="2324" fill="#cdd5dd">hold the line.</text><text x="306" y="2324" fill="#a8b4c0">especially alone.</text>
-    <text x="46"  y="2360" fill="#cdd5dd">think in probabilities.</text><text x="306" y="2360" fill="#a8b4c0">never deal in absolutes.</text>
-    <text x="46"  y="2396" fill="#cdd5dd">leave leverage behind.</text><text x="306" y="2396" fill="#a8b4c0">every delivery deposits something reusable.</text>
-
-    <text x="46" y="2436" fill="#7d8a96" font-size="11"># EOF — 8 lines shown of 17.</text>
-    <line x1="46" y1="2464" x2="1154" y2="2464" stroke="#1c2530" stroke-width="0.5"/>
-  </g>
-
-  <!-- ═══════ § 08 SIDEKICK ═══════ -->
-  <g font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', monospace" font-size="14">
-    <text x="46" y="2496" fill="#5a6573" font-size="10" letter-spacing="0.32em">§ &#160;08 &#160;SIDEKICK</text>
-
-    <text x="46" y="2528" fill="#5fb88a">~/zelinewang</text>
-    <text x="170" y="2528" fill="#7d8a96"> $</text>
-    <text x="190" y="2528" fill="#cdd5dd"> zane query --help</text>
-
-    <text x="46" y="2556" fill="#a8b4c0">Open an issue with title prefix </text>
-    <text x="396" y="2556" fill="#e8b063">"ZaneOS &lt;mode&gt;: &lt;your input&gt;"</text>
-    <text x="46" y="2576" fill="#a8b4c0">A workflow runs Zane's AI and replies from public context.</text>
-    <text x="46" y="2594" fill="#7d8a96">Limit: 3 questions per 24h per handle. 50 globally per 24h.</text>
-
-    <text x="46" y="2630" fill="#e8b063">ask</text><text x="146" y="2630" fill="#a8b4c0">a question about Zane's work, stack, philosophy</text>
-    <text x="46" y="2652" fill="#e8b063">match</text><text x="146" y="2652" fill="#a8b4c0">your GitHub handle in, one specific overlap angle out</text>
-    <text x="46" y="2674" fill="#e8b063">boop</text><text x="146" y="2674" fill="#a8b4c0">a few topics in, one useful-strange prototype idea out</text>
-    <text x="46" y="2696" fill="#e8b063">quest<animate attributeName="opacity" values="1;0.5;1" dur="2.6s" begin="0.6s" repeatCount="indefinite"/></text><text x="146" y="2696" fill="#a8b4c0">a topic in, a small technical challenge card out</text>
-
-    <!-- pseudo-interactive cursor at the bottom prompt -->
-    <rect x="190" y="2716" width="9" height="14" fill="#e8b063">
-      <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.5;0.5;1" dur="1.0s" repeatCount="indefinite"/>
-    </rect>
-  </g>
+  <rect x="0.75" y="0.75" width="1198.5" height="2374.5" rx="11.25" fill="none" stroke="#30363d" stroke-width="1.5"/>
 </svg>

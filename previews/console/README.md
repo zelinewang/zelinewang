@@ -12,6 +12,8 @@ A dark terminal composition for the engineering-operator side of the same public
 
 The visual is a dated, non-interactive artwork. Rows inside the SVG are not links. Use the public evidence paths below:
 
+**Merged upstream:** 12 pull requests in 10 projects, each linked in the [canonical profile](../../README.md).
+
 **Agent infrastructure:** [claudemem](https://github.com/zelinewang/claudemem) · [handoff](https://github.com/zelinewang/handoff) · [dev-orchestrator](https://github.com/zelinewang/dev-orchestrator)
 
 **Product experiments:** [PostPrism](https://github.com/zelinewang/postprism) · [FireSight](https://github.com/zelinewang/FireSight) · [Dipole](https://github.com/zelinewang/dipole)

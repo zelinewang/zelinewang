@@ -1,7 +1,7 @@
 // .github/scripts/render-profile.mjs
 //
-// Profile renderer — fetches live GitHub stats + the daily snake animation,
-// fills templates, writes rendered mega-SVGs.
+// Profile renderer — fetches live GitHub stats, the contribution calendar, and
+// the daily snake animation, fills templates, writes rendered mega-SVGs.
 //
 // Invoked by .github/workflows/refresh-stats.yml on a daily cron.
 //
@@ -9,9 +9,11 @@
 //   GH_TOKEN  — required (any token with read access; Action's GITHUB_TOKEN works)
 //
 // Outputs:
-//   assets/profile.svg                           (active hero; published to stats-output nightly)
-//   previews/constellation/assets/01-profile.svg
-//   previews/field-notes/assets/01-profile.svg
+//   previews/{dusk,console,sunset,constellation,field-notes}/assets/01-profile.svg
+//   previews/dusk/assets/01-profile-phone.svg  (Dusk re-set for a phone's README column)
+//   assets/profile.svg        (a copy of ACTIVE_DESIGN; published to stats-output nightly)
+//   assets/profile-phone.svg  (ACTIVE_DESIGN's phone layout, or its desktop render
+//                              when it has none; the README <picture> serves it below 600 px)
 //
 // Templates use {{TOKEN}} placeholders. Snake content is injected at the
 // {{SNAKE_CONTENT}} marker (one per template, color-shifted per direction).
@@ -19,16 +21,27 @@
 // SECURITY: uses execFileSync (no shell) with hardcoded argv arrays. No user
 // input is ever passed as a shell-interpreted string.
 
-import { readFile, writeFile, mkdir } from "node:fs/promises";
+import { copyFile, readFile, writeFile, mkdir } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 import { execFileSync } from "node:child_process";
+
+import { summarizeCalendar } from "./calendar-summary.mjs";
+import { renderScene } from "./sunset-scene.mjs";
+import { renderScene as renderDusk, DESKTOP, PHONE, POLE, pennantSummary, timeAxis } from "./dusk-scene.mjs";
+import { CONSOLE_BOX, sparkline } from "./activity-sparkline.mjs";
+import { UPSTREAM_PRS, mergedRange } from "./upstream-prs.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(here, "..", "..");
 const templatesDir = resolve(repoRoot, ".github/templates");
 
 const USER = "zelinewang";
+
+// The design shown as the profile hero: "dusk" (a pixel sunset over a city of the
+// contribution calendar, with the upstream PRs below it), "console" (terminal) or
+// "sunset" (the earlier terminal window with a sunset banner). The rest stay in the gallery.
+const ACTIVE_DESIGN = "dusk";
 const SNAKE_URL = `https://raw.githubusercontent.com/${USER}/${USER}/output/github-snake.svg`;
 
 // ── Stats fetch ──────────────────────────────────────────────────────────────
@@ -96,6 +109,74 @@ async function fetchStats() {
   };
 }
 
+// ── Contribution calendar (activity numbers, Console chart, Sunset skyline) ──
+//
+// The events feed above only sees public activity, so on a profile where most
+// work is private it reports a handful of pushes next to a graph showing
+// thousands of contributions. Both heroes read the same calendar GitHub
+// draws on the profile page instead. The gallery studies still use the events
+// tokens above.
+
+const CALENDAR_QUERY = `query { user(login: "${USER}") { contributionsCollection { contributionCalendar { totalContributions weeks { contributionDays { date contributionCount } } } } } }`;
+
+function fetchCalendar() {
+  const stdout = execFileSync("gh", ["api", "graphql", "-f", `query=${CALENDAR_QUERY}`], { encoding: "utf8" });
+  const calendar = JSON.parse(stdout)?.data?.user?.contributionsCollection?.contributionCalendar;
+  if (!calendar || !Number.isInteger(calendar.totalContributions) || !Array.isArray(calendar.weeks)) {
+    // Fail the run rather than publish a card with made-up numbers; the last
+    // good render stays on the stats-output branch.
+    throw new Error("contribution calendar missing from the GraphQL response");
+  }
+
+  const days = calendar.weeks.flatMap((week) => week.contributionDays);
+  const { activeDays, longestStreak } = summarizeCalendar(days);
+  // Sunset draws the weeks as a skyline, Console as one bar per week, Dusk as a city
+  // with a pennant over each week an upstream PR was merged. Dusk's windows start as
+  // the contribution graph and rise into the city (morph).
+  const { defs, scene } = renderScene(calendar.weeks);
+  const merged = UPSTREAM_PRS.map((pr) => pr.merged);
+  const dusk = renderDusk(calendar.weeks, merged, DESKTOP, { morph: true });
+  const duskPhone = renderDusk(calendar.weeks, merged, PHONE, { morph: true });
+  const pennants = pennantSummary(calendar.weeks, merged);
+  return {
+    CONTRIB_TOTAL:  calendar.totalContributions.toLocaleString("en-US"),
+    ACTIVE_DAYS:    String(activeDays),
+    LONGEST_STREAK: String(longestStreak),
+    RANGE_START:    (days[0]?.date || "").slice(0, 7),
+    SCENE_DEFS:     defs,
+    SCENE:          scene,
+    SPARKLINE:      sparkline(calendar.weeks, CONSOLE_BOX).svg,
+    MERGED_RANGE:   mergedRange(),
+    DUSK_DEFS:      dusk.defs,
+    DUSK_SCENE:     dusk.scene,
+    DUSK_PHONE_DEFS:  duskPhone.defs,
+    DUSK_PHONE_SCENE: duskPhone.scene,
+    DUSK_AXIS:        timeAxis(calendar.weeks, DESKTOP),
+    DUSK_PHONE_AXIS:  timeAxis(calendar.weeks, PHONE, PHONE.WATER_B, POLE, 3),
+    FLAG_WEEKS:       String(pennants.weeks),
+    FLAG_PRS:         String(pennants.prs),
+  };
+}
+
+// The heroes embed their fonts: an SVG shown through <img> cannot load web fonts.
+async function fontFaces() {
+  const fonts = [["zw-pixel", "zw-pixel.woff2"], ["zw-body", "zw-body.woff2"], ["zw-body-medium", "zw-body-medium.woff2"]];
+  const faces = [];
+  for (const [family, file] of fonts) {
+    const data = (await readFile(resolve(templatesDir, "fonts", file))).toString("base64");
+    faces.push([family, `@font-face{font-family:'${family}';src:url(data:font/woff2;base64,${data}) format('woff2');}`]);
+  }
+  return faces;
+}
+
+// Only the families a template names: each embedded face costs its full size.
+function facesFor(template, faces) {
+  return faces
+    .filter(([family]) => new RegExp(`${family}(?![\\w-])`).test(template))
+    .map(([, rule]) => rule)
+    .join("");
+}
+
 // ── Snake fetch ──────────────────────────────────────────────────────────────
 
 async function fetchSnake() {
@@ -140,9 +221,9 @@ function snakeForDirection(snakeInner, direction) {
 
 // ── Render ───────────────────────────────────────────────────────────────────
 
-async function renderTemplate(templatePath, outPath, replacements, snakeInner, direction) {
+async function renderTemplate(templatePath, outPath, replacements, snakeInner, direction, faces) {
   const template = await readFile(templatePath, "utf8");
-  let rendered = template;
+  let rendered = template.replaceAll("{{FONT_FACES}}", facesFor(template, faces));
 
   for (const [key, value] of Object.entries(replacements)) {
     rendered = rendered.replaceAll(`{{${key}}}`, value);
@@ -163,30 +244,42 @@ async function renderTemplate(templatePath, outPath, replacements, snakeInner, d
 
 async function main() {
   console.log("Fetching live GitHub stats...");
-  const stats = await fetchStats();
+  const stats = { ...(await fetchStats()), ...fetchCalendar() };
+  const faces = await fontFaces();
   console.log("Stats fetched:", Object.keys(stats).length, "tokens");
 
   console.log("Fetching daily snake...");
   const snake = await fetchSnake();
   console.log(`Snake content: ${snake.length} chars`);
 
-  // Console is the active profile design — its render goes to root assets/profile.svg,
-  // which refresh-stats.yml publishes to the stats-output branch nightly (the README
-  // hero <img> points at that fresh copy). Constellation + Field Notes stay as
-  // design-gallery previews.
+  // Every design renders nightly into the gallery; refresh-stats.yml publishes each
+  // one to stats-output/studies/<name>.svg. ACTIVE_DESIGN is also copied to
+  // assets/profile.svg, which becomes stats-output/profile.svg: the README hero.
+  // Switching the live hero means changing ACTIVE_DESIGN and the README alt text that
+  // describes the picture.
   const directions = [
-    { name: "console",       templatePath: "console.svg.template",       outPath: "assets/profile.svg" },
+    { name: "dusk",          templatePath: "dusk.svg.template",          outPath: "previews/dusk/assets/01-profile.svg",
+      phone: { templatePath: "dusk-phone.svg.template", outPath: "previews/dusk/assets/01-profile-phone.svg" } },
+    { name: "console",       templatePath: "console.svg.template",       outPath: "previews/console/assets/01-profile.svg" },
+    { name: "sunset",        templatePath: "sunset.svg.template",        outPath: "previews/sunset/assets/01-profile.svg" },
     { name: "constellation", templatePath: "constellation.svg.template", outPath: "previews/constellation/assets/01-profile.svg" },
     { name: "field-notes",   templatePath: "field-notes.svg.template",   outPath: "previews/field-notes/assets/01-profile.svg" },
   ];
 
-  for (const { name, templatePath, outPath } of directions) {
-    const tplFull = resolve(templatesDir, templatePath);
-    const outFull = resolve(repoRoot, outPath);
-    await renderTemplate(tplFull, outFull, stats, snake, name);
+  for (const { name, templatePath, outPath, phone } of directions) {
+    for (const { templatePath: tpl, outPath: out } of [{ templatePath, outPath }, ...(phone ? [phone] : [])]) {
+      await renderTemplate(resolve(templatesDir, tpl), resolve(repoRoot, out), stats, snake, name, faces);
+    }
   }
 
-  console.log("All 3 mega-SVGs rendered.");
+  const active = directions.find((d) => d.name === ACTIVE_DESIGN);
+  if (!active) throw new Error(`ACTIVE_DESIGN "${ACTIVE_DESIGN}" is not a rendered design`);
+  await mkdir(resolve(repoRoot, "assets"), { recursive: true });
+  await copyFile(resolve(repoRoot, active.outPath), resolve(repoRoot, "assets/profile.svg"));
+  // The README's <picture> always has a phone source to serve, whichever design is live.
+  await copyFile(resolve(repoRoot, (active.phone || active).outPath), resolve(repoRoot, "assets/profile-phone.svg"));
+
+  console.log(`All ${directions.length} mega-SVGs rendered; live hero: ${ACTIVE_DESIGN}.`);
 }
 
 main().catch((err) => {
