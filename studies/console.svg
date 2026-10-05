@@ -44,7 +44,7 @@
       <text x="98" y="29" fill="#7d8a96">~/zelinewang &#8212; tmux: profile (1/6)</text>
       <!-- the date of the last nightly refresh, with a breathing dot -->
       <circle class="pulse" cx="983" cy="23" r="4" fill="#5fb88a"/>
-      <text x="1170" y="29" fill="#7d8a96" text-anchor="end">updated 2026-10-04</text>
+      <text x="1170" y="29" fill="#7d8a96" text-anchor="end">updated 2026-10-05</text>
     </g>
 
     <g font-family="zw-body, ui-monospace, 'SF Mono', Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="20">
@@ -133,7 +133,7 @@
       <text x="1154" y="1960" fill="#7d8a96" font-size="16" text-anchor="end">this week</text>
 
       <g class="m" fill="#5fb88a" font-size="24" text-anchor="end">
-        <text x="140" y="2010">11,154</text><text x="140" y="2046">298</text><text x="140" y="2082">84</text>
+        <text x="140" y="2010">11,144</text><text x="140" y="2046">298</text><text x="140" y="2082">84</text>
       </g>
       <g fill="#cdd5dd">
         <text x="158" y="2010">contributions in the last year</text><text x="158" y="2046">days with contributions</text><text x="158" y="2082">days in a row, the longest streak in the last year</text>
